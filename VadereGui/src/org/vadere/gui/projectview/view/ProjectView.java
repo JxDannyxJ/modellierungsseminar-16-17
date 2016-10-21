@@ -3,6 +3,7 @@ package org.vadere.gui.projectview.view;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.gui.components.utils.Messages;
+import org.vadere.gui.components.utils.Resources;
 import org.vadere.gui.postvisualization.control.Player;
 import org.vadere.gui.projectview.VadereApplication;
 import org.vadere.gui.projectview.control.ActionAddScenario;
@@ -51,10 +52,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.prefs.Preferences;
 
 import javax.swing.*;
@@ -225,6 +223,17 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 		// show GUI
 		ProjectViewModel model = new ProjectViewModel();
 		ProjectView frame = new ProjectView(model);
+
+		//TODO: ASK FOR PERMISSION
+		java.util.List<Image> images = new ArrayList<Image>();
+		Resources res = Resources.getInstance("global");
+
+		// add logo's with different sizes to provide one with a good quality
+		images.add(res.getImage("vadlo_16x16.png"));
+		images.add(res.getImage("vadlo_32x32.png"));
+		images.add(res.getImage("vadlo_64x64.png"));
+		frame.setIconImages(images);
+
 		frame.setProjectSpecificActionsEnabled(false);
 		frame.setVisible(true);
 		frame.setSize(1200, 800);

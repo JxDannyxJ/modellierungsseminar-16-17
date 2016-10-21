@@ -15,7 +15,7 @@ public enum ScenarioElementType {
 	STAIRS(Color.PINK, AttributesStairs.class),
 	TELEPORTER(Color.GRAY, AttributesTeleporter.class),
 	CAR(Color.black, AttributesCar.class),
-	HORSE(Color.CYAN, AttributesHorse.class);
+	HORSE(Color.CYAN, AttributesHorse.class); //DJ
 
 	private Color color;
 	private Class<? extends Attributes> clazz;

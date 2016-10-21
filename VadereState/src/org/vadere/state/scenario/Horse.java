@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 /**
- * Created by Ezekiel on 12.10.2016.
+ * Created by DJ on 12.10.2016.
  */
 public class Horse extends Agent implements Comparable<Horse>
 {

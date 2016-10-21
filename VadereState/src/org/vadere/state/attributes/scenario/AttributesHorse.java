@@ -3,7 +3,7 @@ package org.vadere.state.attributes.scenario;
 import org.vadere.util.geometry.Vector2D;
 
 /**
- * Created by JxDannyxJ on 12.10.2016.
+ * Created by DJ on 12.10.2016.
  * TODO: Define the appropriate attributes for the horse, e.g. shape
  */
 public class AttributesHorse extends AttributesAgent

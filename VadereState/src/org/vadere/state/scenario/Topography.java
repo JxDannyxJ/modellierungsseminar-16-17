@@ -44,6 +44,7 @@ public class Topography {
 
 	private transient final DynamicElementContainer<Pedestrian> pedestrians;
 	private transient final DynamicElementContainer<Car> cars;
+	private transient final DynamicElementContainer<Horse> horses;
 
 	private AttributesAgent attributesPedestrian;
 	private AttributesCar attributesCar;
@@ -75,6 +76,7 @@ public class Topography {
 
 		this.pedestrians = new DynamicElementContainer<>(bounds, CELL_SIZE);
 		this.cars = new DynamicElementContainer<>(bounds, CELL_SIZE);
+		this.horses = new DynamicElementContainer<>(bounds, CELL_SIZE);
 	}
 
 	/**
@@ -134,6 +136,10 @@ public class Topography {
 		if (Pedestrian.class.isAssignableFrom(elementType)) {
 			return (DynamicElementContainer<T>) pedestrians;
 		}
+		if (Horse.class.isAssignableFrom(elementType)) {
+			return (DynamicElementContainer<T>) horses;
+		}
+
 		// TODO [priority=medium] [task=refactoring] this is needed for the SimulationDataWriter. Refactor in the process of refactoring the Writer.
 		if (DynamicElement.class.isAssignableFrom(elementType)) {
 
@@ -197,6 +203,8 @@ public class Topography {
 	public DynamicElementContainer<Car> getCarDynamicElements() {
 		return cars;
 	}
+
+	public DynamicElementContainer<Horse> getHorseDynamicElemnets() { return horses; }
 
 	public void addSource(Source source) {
 		this.sources.add(source);

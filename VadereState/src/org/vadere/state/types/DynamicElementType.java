@@ -1,5 +1,5 @@
 package org.vadere.state.types;
 
 public enum DynamicElementType {
-	PEDESTRIAN, CAR
+	PEDESTRIAN, CAR, HORSE
 }

@@ -10,13 +10,20 @@ import java.util.LinkedList;
 import java.util.Random;
 
 /**
- * Created by DJ on 12.10.2016.
+ * Simulation Model of a Horse.
+ *
  */
 public class Horse extends Agent implements Comparable<Horse>
 {
     private AttributesHorse attributesHorse;
     private transient Random random;
 
+    /**
+     * Default constructor of the Horse class, which accepts attributes
+     * for the horse and a random free-flow-velocity
+     * @param attributesHorse object which determines the attributes of the horse
+     * @param random object which will set the free-flow-velocity, if it is not defined in the attributes
+     */
     public Horse(AttributesHorse attributesHorse, Random random)
     {
         super(attributesHorse, random);
@@ -27,9 +34,9 @@ public class Horse extends Agent implements Comparable<Horse>
     }
 
     /**
-     * Constructor for cloning
+     * Copy constructor
      *
-     * @param other: Car to clone
+     * @param other: Horse to clone
      */
     private Horse(Horse other) {
         this(other.attributesHorse, other.random);
@@ -38,6 +45,10 @@ public class Horse extends Agent implements Comparable<Horse>
         setTargets(new LinkedList<>(other.getTargets()));
     }
 
+    /**
+     * Setter for the horse attributes
+     * @param attributesHorse attributes object of the horse
+     */
     public void setAttributesHorse(AttributesHorse attributesHorse)
     {
         this.attributesHorse = attributesHorse;

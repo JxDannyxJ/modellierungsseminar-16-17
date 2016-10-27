@@ -35,5 +35,5 @@ bin/
 VadereGui/output/
 
 #linux
-tag
+tags
 *.swp

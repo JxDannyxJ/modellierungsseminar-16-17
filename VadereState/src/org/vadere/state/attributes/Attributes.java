@@ -9,18 +9,17 @@ import com.google.gson.JsonElement;
  * Abstract class for all static simulation attributes. Provides reflection
  * based methods to convert the fields and values of the Attributes classes from
  * and to key-value store.
- * 
- * 
  */
 public abstract class Attributes {
 
-	public Attributes() {}
+	public Attributes() {
+	}
 
 	/**
 	 * Retrieves the values from store and tries to set the fields of the given
 	 * Attributes object.
-	 * 
-	 * @param store
+	 *
+	 * @param store the Json file containing the attribute fields
 	 */
 	protected void fromKeyValueStore(JsonElement store) {
 		Attributes newAtt = new Gson().fromJson(store, this.getClass());

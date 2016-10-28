@@ -4,78 +4,83 @@ import org.jetbrains.annotations.NotNull;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.Vector2D;
+import org.vadere.util.geometry.shapes.VCircle;
+import org.vadere.util.geometry.shapes.VEllipse;
 import org.vadere.util.geometry.shapes.VPoint;
+import org.vadere.util.geometry.shapes.VShape;
 
 import java.util.LinkedList;
 import java.util.Random;
 
 /**
  * Simulation Model of a Horse.
- *
  */
-public class Horse extends Agent implements Comparable<Horse>
-{
-    private AttributesHorse attributesHorse;
-    private transient Random random;
+public class Horse extends Agent implements Comparable<Horse> {
 
-    /**
-     * Default constructor of the Horse class, which accepts attributes
-     * for the horse and a random free-flow-velocity
-     * @param attributesHorse object which determines the attributes of the horse
-     * @param random object which will set the free-flow-velocity, if it is not defined in the attributes
-     */
-    public Horse(AttributesHorse attributesHorse, Random random)
-    {
-        super(attributesHorse, random);
+	private AttributesHorse attributesHorse;
+	private transient Random random;
 
-        this.setAttributesHorse(attributesHorse);
-        setPosition(new VPoint(0, 0));
-        setVelocity(new Vector2D(0, 0));
-    }
+	/**
+	 * Default constructor of the Horse class, which accepts attributes
+	 * for the horse and a random free-flow-velocity
+	 *
+	 * @param attributesHorse object which determines the attributes of the horse
+	 * @param random          object which will set the free-flow-velocity, if it is not defined in
+	 *                        the attributes
+	 */
+	public Horse(AttributesHorse attributesHorse, Random random) {
+		super(attributesHorse, random);
 
-    /**
-     * Copy constructor
-     *
-     * @param other: Horse to clone
-     */
-    private Horse(Horse other) {
-        this(other.attributesHorse, other.random);
-        setPosition(other.getPosition());
-        setVelocity(other.getVelocity());
-        setTargets(new LinkedList<>(other.getTargets()));
-    }
+		this.setAttributesHorse(attributesHorse);
+		setPosition(new VPoint(0, 0));
+		setVelocity(new Vector2D(0, 0));
+	}
 
-    /**
-     * Setter for the horse attributes
-     * @param attributesHorse attributes object of the horse
-     */
-    public void setAttributesHorse(AttributesHorse attributesHorse)
-    {
-        this.attributesHorse = attributesHorse;
-    }
+	/**
+	 * Copy constructor
+	 *
+	 * @param other: Horse to clone
+	 */
+	private Horse(Horse other) {
+		this(other.attributesHorse, other.random);
+		setPosition(other.getPosition());
+		setVelocity(other.getVelocity());
+		setTargets(new LinkedList<>(other.getTargets()));
+	}
 
-    @Override
-    public int compareTo(@NotNull Horse o)
-    {
-        Double thisPos = new Double(this.getPosition().getX());
-        Double othPos = new Double(o.getPosition().getX());
+	/**
+	 * Setter for the horse attributes
+	 *
+	 * @param attributesHorse attributes object of the horse
+	 */
+	public void setAttributesHorse(AttributesHorse attributesHorse) {
+		this.attributesHorse = attributesHorse;
+	}
 
-        if (attributesHorse.getDirection().getX() >= 0) {
-            return -1 * thisPos.compareTo(othPos);
-        } else {
-            return thisPos.compareTo(othPos);
-        }
-    }
+	@Override
+	public int compareTo(@NotNull Horse o) {
+		Double thisPos = new Double(this.getPosition().getX());
+		Double othPos = new Double(o.getPosition().getX());
 
-    @Override
-    public ScenarioElementType getType()
-    {
-        return ScenarioElementType.HORSE;
-    }
+		if (attributesHorse.getDirection().getX() >= 0) {
+			return -1 * thisPos.compareTo(othPos);
+		} else {
+			return thisPos.compareTo(othPos);
+		}
+	}
 
-    @Override
-    public Agent clone()
-    {
-        return new Horse(this);
-    }
+	@Override
+	public VShape getShape() {
+		return new VEllipse(super.getPosition(), super.getAttributes().getRadius());
+	}
+
+	@Override
+	public ScenarioElementType getType() {
+		return ScenarioElementType.HORSE;
+	}
+
+	@Override
+	public Agent clone() {
+		return new Horse(this);
+	}
 }

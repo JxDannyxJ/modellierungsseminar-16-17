@@ -14,6 +14,10 @@ import org.vadere.util.geometry.LinkedCellsGrid;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
 
+/**
+ * This class holds the topography of the simulation map. This means it carries
+ * the attributes, obstacles, sources, targets and the dynamic elements
+ */
 public class Topography {
 
 	// TODO [priority=low] [task=feature] magic number, use attributes / parameter?

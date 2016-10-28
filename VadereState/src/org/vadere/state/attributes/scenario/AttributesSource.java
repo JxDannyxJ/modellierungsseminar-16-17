@@ -9,6 +9,11 @@ import org.vadere.state.scenario.ConstantDistribution;
 import org.vadere.state.types.DynamicElementType;
 import org.vadere.util.geometry.shapes.VShape;
 
+/**
+ * Simulation attributes for the source, where the scenario elements spawn. It contains
+ * information of the spawn time, the source shape, the spawn location, the spawn conditions
+ * and the type of the spawned elements.
+ */
 public class AttributesSource extends Attributes {
 
 	public static final String CONSTANT_DISTRIBUTION = ConstantDistribution.class.getName();

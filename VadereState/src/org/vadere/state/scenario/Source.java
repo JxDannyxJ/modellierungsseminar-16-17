@@ -4,6 +4,9 @@ import org.vadere.state.attributes.scenario.AttributesSource;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VShape;
 
+/**
+ * Class represents the source, where dynamic scenario elements spawn on.
+ */
 public class Source implements ScenarioElement {
 
 	private final AttributesSource attributes;

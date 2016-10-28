@@ -3,6 +3,9 @@ package org.vadere.state.attributes.models;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.types.GradientProviderType;
 
+/**
+ * Attributes for the Gradient Navigation Model
+ */
 public class AttributesGNM extends Attributes {
 	private AttributesODEIntegrator attributesODEIntegrator;
 	private GradientProviderType floorGradientProviderType = GradientProviderType.FLOOR_EIKONAL_DISCRETE;

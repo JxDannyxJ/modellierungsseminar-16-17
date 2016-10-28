@@ -8,6 +8,12 @@ import org.vadere.util.io.IOUtils;
 
 import com.google.gson.Gson;
 
+
+/**
+ * This class represents a way of importing json files into attribute objects by
+ * using the google json class
+ * @param <T> generic class derived from the abstract class Attributes
+ */
 public class AttributesBuilder<T extends Attributes> {
 
 	private static Logger logger = LogManager.getLogger(AttributesBuilder.class);
@@ -21,6 +27,11 @@ public class AttributesBuilder<T extends Attributes> {
 		this.attributes = (T) gson.fromJson(gson.toJson(attributes), attributes.getClass());
 	}
 
+	/**
+	 * Sets the field of an attribute on the specified value
+	 * @param name of the field (ID of the field)
+	 * @param value to set on the given field ID
+	 */
 	public void setField(String name, Object value) {
 		Field field;
 		try {
@@ -34,6 +45,11 @@ public class AttributesBuilder<T extends Attributes> {
 
 	}
 
+	/**
+	 * Extracts the attributes from a json by converting it first to a gson file and then
+	 * returning them as generic attribute object
+	 * @return generic attribute object
+	 */
 	@SuppressWarnings("unchecked")
 	public T build() {
 		return (T) gson.fromJson(gson.toJson(attributes), attributes.getClass());

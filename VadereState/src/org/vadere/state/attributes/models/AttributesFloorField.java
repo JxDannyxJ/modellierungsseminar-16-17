@@ -3,6 +3,10 @@ package org.vadere.state.attributes.models;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.types.EikonalSolverType;
 
+/**
+ * Attributes for the floor field, which is a utility function for the pedestrian in
+ * the Optimal Steps Model (OSM)
+ */
 public class AttributesFloorField extends Attributes {
 
 	private EikonalSolverType createMethod = EikonalSolverType.HIGH_ACCURACY_FAST_MARCHING;

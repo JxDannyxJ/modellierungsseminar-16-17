@@ -77,7 +77,7 @@ public class TargetController {
 		final Collection<DynamicElement> elementsInRange = new LinkedList<>();
 		elementsInRange.addAll(getObjectsInCircle(Pedestrian.class, center, radius));
 		elementsInRange.addAll(getObjectsInCircle(Car.class, center, radius));
-		
+
 		return elementsInRange;
 	}
 
@@ -179,11 +179,11 @@ public class TargetController {
 			}
 		}
 	}
-	
+
 	private void notifyListenersTargetReached(final Agent agent) {
 		for (TargetListener l : target.getTargetListeners()) {
 			l.reachedTarget(target, agent);
 		}
 	}
-	
+
 }

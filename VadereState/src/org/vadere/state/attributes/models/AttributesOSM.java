@@ -9,6 +9,9 @@ import org.vadere.state.types.MovementType;
 import org.vadere.state.types.OptimizationType;
 import org.vadere.state.types.UpdateType;
 
+/**
+ * Simulation attributes for the optimal steps model
+ */
 public class AttributesOSM extends Attributes {
 
 	private int stepCircleResolution = 18;

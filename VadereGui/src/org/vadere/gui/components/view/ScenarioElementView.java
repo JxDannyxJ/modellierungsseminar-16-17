@@ -154,6 +154,10 @@ public class ScenarioElementView extends JPanel implements ISelectScenarioElemen
 		}
 	}
 
+	/**
+	 * Sets the text area editable or disables it depending on the argument editable
+	 * @param editable enables/disables the editing of the text area
+	 */
 	public void setEditable(final boolean editable) {
 		txtrTextfiletextarea.setEditable(editable);
 		if (editable) {

@@ -5,6 +5,10 @@ import org.vadere.state.attributes.scenario.AttributesObstacle;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VShape;
 
+/**
+ * Class represents an obstacle in a simulation. The obstacle has a specific shape, id, type
+ * and other attributes.
+ */
 public class Obstacle implements ScenarioElement {
 
 	private final AttributesObstacle attributes;

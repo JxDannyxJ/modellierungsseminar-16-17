@@ -14,6 +14,10 @@ import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
 import org.vadere.util.math.TruncatedNormalDistribution;
 
+/**
+ * Agent is the abstract interface of all dynamic scenario elements. Thus a new scenario element
+ * has to derive from this class to be a dynamic element in a scenario.
+ */
 public abstract class Agent implements DynamicElement {
 	
 	/**

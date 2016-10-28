@@ -10,6 +10,9 @@ import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VPolygon;
 import org.vadere.util.geometry.shapes.VRectangle;
 
+/**
+ * Represents a dynamic car scenario element.
+ */
 public class Car extends Agent implements Comparable<Car> {
 
 	private AttributesCar attributesCar;

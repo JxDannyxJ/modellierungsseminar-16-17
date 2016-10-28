@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.vadere.state.attributes.Attributes;
 
-
+/**
+ * Attributes for the behaviour model
+ */
 public class AttributesBHM extends Attributes {
 
 	private double stepLengthIntercept = 0.4625;

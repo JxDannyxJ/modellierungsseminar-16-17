@@ -3,6 +3,9 @@ package org.vadere.state.attributes.scenario;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.util.geometry.shapes.VShape;
 
+/**
+ * Obstacle attributes for the simulation. The Shape and the ID
+ */
 public class AttributesObstacle extends Attributes {
 
 	private VShape shape;

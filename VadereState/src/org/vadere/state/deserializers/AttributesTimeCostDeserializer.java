@@ -14,12 +14,12 @@ public class AttributesTimeCostDeserializer implements JsonDeserializer<Attribut
 			throws JsonParseException {
 		JsonObject jsonObj = json.getAsJsonObject();
 
-		JsonElement element = jsonObj.get("laodingType");
+		JsonElement element = jsonObj.get("loadingType");
 		if (element != null) {
 			jsonObj.addProperty("loadingType", element.getAsString());
 		}
 
-		element = jsonObj.get("queueWidthLaoding");
+		element = jsonObj.get("queueWidthLoading");
 		if (element != null) {
 			jsonObj.addProperty("queueWidthLoading", element.getAsDouble());
 		}

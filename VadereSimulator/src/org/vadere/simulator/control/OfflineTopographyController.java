@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.vadere.state.attributes.scenario.AttributesObstacle;
 import org.vadere.state.scenario.Car;
+import org.vadere.state.scenario.Horse;
 import org.vadere.state.scenario.Obstacle;
 import org.vadere.state.scenario.Pedestrian;
 import org.vadere.state.scenario.Topography;
@@ -57,5 +58,11 @@ public class OfflineTopographyController {
 			this.topography.getSpatialMap(Car.class).addObject(car,
 					car.getPosition());
 		}
+		this.topography.getSpatialMap(Horse.class).clear();
+		for (Horse horse : this.topography.getElements(Horse.class)) {
+			this.topography.getSpatialMap(Horse.class).addObject(horse,
+					horse.getPosition());
+		}
+		
 	}
 }

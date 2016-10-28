@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.vadere.state.scenario.Agent;
 import org.vadere.state.scenario.Car;
+import org.vadere.state.scenario.Horse;
 import org.vadere.state.scenario.DynamicElement;
 import org.vadere.state.scenario.Pedestrian;
 import org.vadere.state.scenario.Target;
@@ -77,7 +78,8 @@ public class TargetController {
 		final Collection<DynamicElement> elementsInRange = new LinkedList<>();
 		elementsInRange.addAll(getObjectsInCircle(Pedestrian.class, center, radius));
 		elementsInRange.addAll(getObjectsInCircle(Car.class, center, radius));
-
+		elementsInRange.addAll(getObjectsInCircle(Horse.class, center, radius));
+		
 		return elementsInRange;
 	}
 

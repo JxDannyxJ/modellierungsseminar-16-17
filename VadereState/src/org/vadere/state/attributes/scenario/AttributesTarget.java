@@ -1,6 +1,7 @@
 package org.vadere.state.attributes.scenario;
 
 import org.vadere.state.attributes.Attributes;
+import org.vadere.state.scenario.Agent;
 import org.vadere.state.scenario.Pedestrian;
 import org.vadere.util.geometry.shapes.VShape;
 
@@ -85,7 +86,7 @@ public class AttributesTarget extends Attributes {
 		this.absorbing = absorbing;
 	}
 
-	public AttributesTarget(Pedestrian pedestrian) {
+	public AttributesTarget(Agent pedestrian) {
 		this.shape = pedestrian.getShape();
 		this.absorbing = true;
 		this.id = pedestrian.getIdAsTarget();

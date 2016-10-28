@@ -8,8 +8,6 @@ import org.vadere.util.geometry.shapes.VShape;
 
 public class Pedestrian extends Agent {
 
-	/** Target ID if the pedestrian represents a target, -1 otherwise. */
-	private int idAsTarget;
 	private Map<Class<? extends ModelPedestrian>, ModelPedestrian> modelPedestrianMap;
 
 	private boolean isChild;
@@ -36,7 +34,6 @@ public class Pedestrian extends Agent {
 
 		modelPedestrianMap = new HashMap<>();
 
-		idAsTarget = -1;
 		isChild = false;
 		isLikelyInjured = false;
 		groupIds = new LinkedList<>();
@@ -51,7 +48,7 @@ public class Pedestrian extends Agent {
 		isChild = other.isChild;
 		isLikelyInjured = other.isLikelyInjured;
 
-		idAsTarget = other.idAsTarget;
+		super.setIdAsTarget(other.getIdAsTarget());
 
 		if (other.groupIds != null) {
 			groupIds = new LinkedList<>(other.groupIds);
@@ -83,18 +80,6 @@ public class Pedestrian extends Agent {
 
 	public LinkedList<Integer> getGroupIds() {
 		return groupIds;
-	}
-
-	public boolean isTarget() {
-		return this.idAsTarget != -1;
-	}
-
-	public int getIdAsTarget() {
-		return this.idAsTarget;
-	}
-
-	public void setIdAsTarget(int id) {
-		this.idAsTarget = id;
 	}
 
 	@Override

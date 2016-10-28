@@ -37,6 +37,11 @@ public abstract class Agent implements DynamicElement {
 
 	private AttributesAgent attributes;
 
+	//TODO: ASK FOR PERMISSION
+	/** Target ID if the pedestrian represents a target, -1 otherwise. */
+	private int idAsTarget = -1;
+	//TODO: ASK FOR PERMISSION
+
 	public Agent(AttributesAgent attributesAgent) {
 		position = new VPoint(0, 0);
 		velocity = new Vector2D(0, 0);
@@ -65,6 +70,8 @@ public abstract class Agent implements DynamicElement {
 
 	public Agent(Agent other) {
 		this(other.attributes);
+
+		this.idAsTarget = other.idAsTarget;
 
 		this.setTargets(new LinkedList<>(other.targetIds));
 		this.setNextTargetListIndex(other.nextTargetListIndex);
@@ -115,6 +122,18 @@ public abstract class Agent implements DynamicElement {
 	@Override
 	public int getId() {
 		return attributes.getId();
+	}
+
+	public boolean isTarget() {
+		return this.idAsTarget != -1;
+	}
+
+	public int getIdAsTarget() {
+		return this.idAsTarget;
+	}
+
+	public void setIdAsTarget(int id) {
+		this.idAsTarget = id;
 	}
 
 	@Override

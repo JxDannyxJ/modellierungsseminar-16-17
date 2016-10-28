@@ -71,7 +71,7 @@ public class Horse extends Agent implements Comparable<Horse> {
 
 	@Override
 	public VShape getShape() {
-		return new VEllipse(super.getPosition(), super.getAttributes().getRadius());
+		return new VEllipse(this.getPosition(), attributesHorse.getHeight(), attributesHorse.getWidth());
 	}
 
 	@Override

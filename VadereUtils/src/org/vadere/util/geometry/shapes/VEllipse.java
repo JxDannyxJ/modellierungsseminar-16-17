@@ -14,22 +14,53 @@ import java.awt.geom.Rectangle2D;
 public class VEllipse implements VShape {
 
 	private final VPoint center;
-	private final double radius;
+	private final double width;
+	private final double height;
 
-	public VEllipse(double x, double y, double radius) {
-		this(new VPoint(x, y), radius);
+
+	/*
+	 * Constructor for an ellipse
+	 * 
+	 * @param x and y: Center point of ellipse
+	 * @param height: length of the vertical radius of the ellipse
+	 * @param width: length of the horizontal radius of an ellipse
+	 */
+	public VEllipse(double x, double y, double height, double width) {
+		this(new VPoint(x, y), height, width);
 	}
 
-	public VEllipse(VPoint center, double radius) {
+	/*
+	 * Constructor for an ellipse
+	 * 
+	 * @param VPoint: Center point of ellipse
+	 * @param height: length of the vertical radius of the ellipse
+	 * @param width: length of the horizontal radius of an ellipse
+	 */
+	public VEllipse(VPoint center, double height, double width) {
 
-		if (radius <= 0) {
-			throw new IllegalArgumentException("Radius must be positive.");
+		if (height <= 0 && width <= 0) {
+			throw new IllegalArgumentException("Height and width must be positive.");
 		}
 
 		this.center = center;
-		this.radius = radius;
+		this.width = width;
+		this.height = height;
 	}
 
+	/*
+	 * getter for width
+	 */
+	public double getWidth() {
+		return width;
+	}
+	
+	/*
+	 * getter for height
+	 */
+	public double getHeight() {
+		return height;
+	}
+	
 	@Override
 	public double distance(VPoint point) {
 		return 0;

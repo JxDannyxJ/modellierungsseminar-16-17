@@ -11,6 +11,9 @@ import org.vadere.state.scenario.Pedestrian;
 import org.vadere.state.scenario.TargetPedestrian;
 import org.vadere.state.scenario.Topography;
 
+/**
+ * This Class handles a {@link Topography} Object.
+ */
 public class TopographyController extends OfflineTopographyController {
 
 	private final Topography topography;
@@ -26,14 +29,21 @@ public class TopographyController extends OfflineTopographyController {
 		return this.topography;
 	}
 
+	/**
+	 * Prepares the {@link Topography} and its {@link Agent} Objects for
+	 * simulation.
+	 * @param simTimeInSec the simulation time.
+	 */
 	public void preLoop(double simTimeInSec) {
 		// add bounding box
 		prepareTopography();
 
+		// get initial elements for each implementation of Agent from topography
 		Collection<Pedestrian> pedestrians = topography.getInitialElements(Pedestrian.class);
 		Collection<Car> cars = topography.getInitialElements(Car.class);
 		Collection<Horse> horses = topography.getInitialElements(Horse.class);
 		
+		// do preLoop stuff for each collection
 		this.preLoopForAgentType(pedestrians);
 		this.preLoopForAgentType(cars);
 		this.preLoopForAgentType(horses);
@@ -79,7 +89,12 @@ public class TopographyController extends OfflineTopographyController {
 	}
 
 	
-	
+	/**
+	 * Called by {@link #preLoop(double)}.
+	 * For each element in argument a new instance of same type is created.
+	 * Then setting general and specific fields of that Object.
+	 * @param agents collection of agents.
+	 */
 	@SuppressWarnings("unchecked")
 	private <T extends Agent> void preLoopForAgentType(Collection<T> agents) {
 		for (T initialAgent : agents) {
@@ -113,6 +128,12 @@ public class TopographyController extends OfflineTopographyController {
 		}
 	}
 	
+	/**
+	 * Called by {@link #preLoopForAgentType(Collection)}.
+	 * Sets {@link Pedestrian} specific fields.
+	 * @param initialAgent the initial {@link Pedestrian}
+	 * @param realAgent the new generated {@link Pedestrian}
+	 */
 	private void preLoopPedestrian(Pedestrian initialAgent, Pedestrian realAgent) {
 		realAgent.setIdAsTarget(initialAgent.getIdAsTarget());
 		if (realAgent.getIdAsTarget() != -1) {
@@ -124,16 +145,30 @@ public class TopographyController extends OfflineTopographyController {
 		realAgent.setLikelyInjured(initialAgent.isLikelyInjured());
 	}
 	
+	/**
+	 * Called by {@link #preLoopForAgentType(Collection)}.
+	 * Sets {@link Car} specific fields.
+	 * @param initialAgent the initial {@link Car}
+	 * @param realAgent the new generated {@link Car}
+	 */
 	private void preLoopCar(Car initialAgent, Car realAgent) {
 		return;
 	}
 	
+	/**
+	 * Called by {@link #preLoopForAgentType(Collection)}.
+	 * Sets {@link Horse} specific fields.
+	 * @param initialAgent the initial {@link Horse}
+	 * @param realAgent the new generated {@link Horse}
+	 */
 	private void preLoopHorse(Horse initialAgent, Horse realAgent) {
 		return;
 	}
 	
 
-
+	/**
+	 * @see OfflineTopographyController#update(double) already exists. No override, same logic...
+	 */
 	public void update(double simTimeInSec) {
 		recomputeCells();
 	}

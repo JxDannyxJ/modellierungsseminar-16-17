@@ -19,6 +19,9 @@ import org.vadere.state.types.TrafficLightPhase;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
 
+/**
+ * This Class handles a {@link Target} Object. 
+ */
 public class TargetController {
 
 	private static final Logger log = Logger.getLogger(TargetController.class);
@@ -39,6 +42,11 @@ public class TargetController {
 		}
 	}
 
+	/**
+	 * Checks for each Agent which is near the {@link Target}, whether
+	 * it reached the {@link Target}. If an Agent reached the {@link Target} a {@link TargetListener} is notified.
+	 * @param simTimeInSec the simulation time.
+	 */
 	public void update(double simTimeInSec) {
 		if (target.isTargetPedestrian()) {
 			return;
@@ -68,6 +76,11 @@ public class TargetController {
 		}
 	}
 
+	/**
+	 * This method retrieves for each implementation of {@link Agent} the Objects,
+	 * which are already inside of the {@link Target} and returns them.
+	 * @return Collection containing all Agents inside the {@link Target}.
+	 */
 	private Collection<DynamicElement> getPrefilteredDynamicElements() {
 		final double reachedDistance = target.getAttributes().getDeletionDistance();
 
@@ -75,7 +88,10 @@ public class TargetController {
 		final VPoint center = new VPoint(bounds.getCenterX(), bounds.getCenterY());
 		final double radius = Math.max(bounds.getHeight(), bounds.getWidth()) + reachedDistance;
 
+		// container for all agents inside target
 		final Collection<DynamicElement> elementsInRange = new LinkedList<>();
+		
+		// add all Agents which are inside the target.
 		elementsInRange.addAll(getObjectsInCircle(Pedestrian.class, center, radius));
 		elementsInRange.addAll(getObjectsInCircle(Car.class, center, radius));
 		elementsInRange.addAll(getObjectsInCircle(Horse.class, center, radius));

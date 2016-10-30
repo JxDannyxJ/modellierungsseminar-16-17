@@ -24,6 +24,9 @@ import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.math.MathUtil;
 
+/**
+ * This Class is used to create new {@link DynamicElement}.
+ */
 public class SourceController {
 
 	protected final Source source;
@@ -196,9 +199,10 @@ public class SourceController {
 	}
 
 	/**
-	 * 
-	 * @param position at which new DynamicElement should be created.
-	 * @return new DynamicElement at given position.
+	 * Creates new {@link DynamicElement} at a Position given by {@linkplain VPoint}.
+	 * Agent type is retrieved from the source attributes given by {@link AttributesSource}.
+	 * @param position at which new {@link DynamicElement} should be created.
+	 * @return new {@link DynamicElement} at given position.
 	 */
 	private DynamicElement createDynamicElement(final VPoint position) {
 		Agent result;

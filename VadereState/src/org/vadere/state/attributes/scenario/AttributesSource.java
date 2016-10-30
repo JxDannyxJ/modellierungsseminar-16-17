@@ -21,20 +21,26 @@ public class AttributesSource extends Attributes {
 
 	private int id;
 
-	/** Shape and position. */
+	/**
+	 * Shape and position.
+	 */
 	private VShape shape = null;
 	private String interSpawnTimeDistribution = CONSTANT_DISTRIBUTION;
 	private List<Double> distributionParameters = Collections.singletonList(1.0);
 
 	private int spawnNumber = 1;
 
-	/** Maximum number of spawned elements. {@link #NO_MAX_SPAWN_NUMBER_TOTAL} -> no maximum number. */
+	/**
+	 * Maximum number of spawned elements. {@link #NO_MAX_SPAWN_NUMBER_TOTAL} -> no maximum number.
+	 */
 	private int maxSpawnNumberTotal = NO_MAX_SPAWN_NUMBER_TOTAL;
 
 	private double startTime = 0;
-	/** endTime == startTime means one single spawn event. */
+	/**
+	 * endTime == startTime means one single spawn event.
+	 */
 	private double endTime = 0;
-	
+
 	/**
 	 * The pedestrians are spawned at random positions rather than from the top
 	 * left corner downwards.
@@ -51,6 +57,7 @@ public class AttributesSource extends Attributes {
 	/**
 	 * The type of dynamic elements this source creates.
 	 */
+	//TODO: Make this type dynamic to be able to spawn different dynamic types
 	private DynamicElementType dynamicElementType = DynamicElementType.PEDESTRIAN;
 
 	/**
@@ -59,7 +66,8 @@ public class AttributesSource extends Attributes {
 	 * default constructor.
 	 */
 	@SuppressWarnings("unused")
-	private AttributesSource() {}
+	private AttributesSource() {
+	}
 
 	public AttributesSource(int id) {
 		this.id = id;
@@ -74,13 +82,13 @@ public class AttributesSource extends Attributes {
 
 	/**
 	 * Class name of distribution for inter-spawn times. The name must point to a subclass of
-	 * {@link org.apache.commons.math3.distribution.RealDistribution}. This subclass must have at
+	 * {@link org.apache.commons.math3.distribution.RealDistribution RealDistribution}. This subclass must have at
 	 * least one public constructor with the following arguments: 1.
-	 * {@link org.apache.commons.math3.random.RandomGenerator},
+	 * {@link org.apache.commons.math3.random.RandomGenerator RandomGenerator},
 	 * 2. one or more arguments of type <code>double</code> for distribution parameters.
-	 * 
+	 *
 	 * @see Class#getName()
-	 * @see https://commons.apache.org/proper/commons-math/apidocs/org/apache/commons/math3/distribution/package-summary.html
+	 * @see <a href="https://commons.apache.org/proper/commons-math/apidocs/org/apache/commons/math3/distribution/package-summary.html">Apache Math3</a>
 	 */
 	public String getInterSpawnTimeDistribution() {
 		return interSpawnTimeDistribution;
@@ -90,7 +98,9 @@ public class AttributesSource extends Attributes {
 		return distributionParameters;
 	}
 
-	/** Get number of pedestrians to be spawned at one point in time. */
+	/**
+	 * Get number of pedestrians to be spawned at one point in time.
+	 */
 	public int getSpawnNumber() {
 		return spawnNumber;
 	}
@@ -99,7 +109,9 @@ public class AttributesSource extends Attributes {
 		return startTime;
 	}
 
-	/** If end time equals start time, exactly one single spawn event will be triggered. */
+	/**
+	 * If end time equals start time, exactly one single spawn event will be triggered.
+	 */
 	public double getEndTime() {
 		return endTime;
 	}
@@ -107,7 +119,7 @@ public class AttributesSource extends Attributes {
 	/**
 	 * Maximum number of spawned elements. The number
 	 * {@link #NO_MAX_SPAWN_NUMBER_TOTAL} means there is no maximum.
-	 * 
+	 *
 	 * This attribute can be used together with non-constant distributions. For
 	 * example, consider an exponential distribution. The times of events are
 	 * random. How to ensure, that exactly 10 elements are spawned? Solution:
@@ -139,6 +151,10 @@ public class AttributesSource extends Attributes {
 
 	public DynamicElementType getDynamicElementType() {
 		return dynamicElementType;
+	}
+
+	public void setDynamicElementType(DynamicElementType dynamicElementType) {
+		this.dynamicElementType = dynamicElementType;
 	}
 
 }

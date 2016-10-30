@@ -6,6 +6,10 @@ import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.*;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 
+/**
+ * Enumeration which contains the different types of scenario elements.
+ * Each type holds a color and a reference to the corresponding attribute class
+ */
 public enum ScenarioElementType {
 
 	OBSTACLE(Color.BLACK, AttributesObstacle.class),

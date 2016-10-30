@@ -2,6 +2,9 @@ package org.vadere.state.attributes.scenario;
 
 import org.vadere.util.geometry.Vector2D;
 
+/**
+ * Class representing the attributes of a car scenario element
+ */
 public class AttributesCar extends AttributesAgent {
 
 	private double length = 4.5;
@@ -9,11 +12,16 @@ public class AttributesCar extends AttributesAgent {
 	private Vector2D direction = new Vector2D(1, 0);
 
 
-	public AttributesCar(final AttributesCar other, final int id) {
+	public AttributesCar(final AttributesAgent other, final int id) {
 		super(other, id);
-		this.length = other.length;
-		this.width = other.width;
-		this.direction = other.direction;
+
+		if (other instanceof AttributesCar) {
+			AttributesCar car = (AttributesCar) other;
+			this.length = car.length;
+			this.width = car.width;
+			this.direction = car.direction;
+		}
+
 	}
 
 	public AttributesCar() {

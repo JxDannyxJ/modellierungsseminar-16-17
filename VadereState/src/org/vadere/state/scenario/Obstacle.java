@@ -13,6 +13,10 @@ public class Obstacle implements ScenarioElement {
 
 	private final AttributesObstacle attributes;
 
+	/**
+	 * Constructor which initializes the obstacle with given attributes
+	 * @param attributes the shape and id of the obstacle bundled in an object
+	 */
 	public Obstacle(AttributesObstacle attributes) {
 		this.attributes = attributes;
 	}

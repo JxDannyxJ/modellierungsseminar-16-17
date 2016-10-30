@@ -1,0 +1,44 @@
+## Code optimization ##
+
+- Comments for all the methods and classes in the modul state
+
+*.state.scenario.Agent:
+- Handle constructor chaining correctly:
+	1. Copy constructor of agent has used constructor chaining to initialize other's attributes, though the
+	constructor which has been used just initializes a new Agent with initial properties. It now copies the properties.
+	2. Adjustments for using the setter and getter methods instead of the variables directly
+
+*.state.scenario.Car:
+- Use derived methods, instead of reinventing existing methods, by calling super methods if necessary.
+	1. Deleted unnecessary methods which are available through the super class already
+	2. Refactored constructor chaining to a correct behaviour as already done in the Agent class
+	3. Typeconversion is now used for the use of car only methods
+
+*.simulator.control.SourceController:
+- Modified createDynamicElement to be able to spawn Horses
+	1. Switch case now includes HORSE, which will call the DynamicElementFactory to create a new Element Horse
+	2. Modified ScenarioElement to offer setter for type, which is necessary for the source controller to create other scenario elements than pedestrian
+
+gui.topographycreator.model.TopographyElementFactory:
+- Method createScenarioShape modified to support creating a Horse
+
+simulator.projects.io.JsonConverter:
+- Modified deserializeScenarioRunManagerFromNode to check whether the SCENARIO_KEY is deprecated and then try to remigrate it
+
+simulator.models.ovm.OptimalVelocityModel:
+- Derived from OVM to offer other classes like the horse class the option to act like a car
+
+## Bug tracking and fixes ##
+
+- Pounced on the problem of null attribute for pedestrians. Hence the Topography Designer is not working and results in a NullPointerException
+	1. The NullPointerException occurs in scenario.Agent.getShape(Agent.java:170) because of null referenced attribute of pedestrian
+	2. Trying to find out where the pedestrian is initialized with his attributes to figure out why the optimization of the agent class failed
+	3. Probably the reason of the Exception is the bad adaption of the constructors or methods with type conversion
+	4. The Scenario elements can be created in the createScenarioShape method in the designer. The IDrawPanelModel is called hereby to get the selected scenario element type.
+	5. The Pedestrian class is created with the designer in the AgentWrapper which is called from TopographyElementFactory in the package gui.topographycreator.model
+	=> Fixed the null attribute somehow by deleting the pedestrian from the json topography and inserting him back again
+
+## Added Files ##
+
+New files:
+- Included the OptimalVelocityModel and OVMEquations file from Felix, which will be used for simulations for pedestrians and horses

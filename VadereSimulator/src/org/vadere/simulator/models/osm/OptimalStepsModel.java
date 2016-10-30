@@ -24,6 +24,7 @@ import org.vadere.simulator.models.potential.fields.PotentialFieldTarget;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.AttributesOSM;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.scenario.Agent;
 import org.vadere.state.scenario.DynamicElement;
 import org.vadere.state.scenario.Pedestrian;
 import org.vadere.state.scenario.Topography;
@@ -300,7 +301,7 @@ public class OptimalStepsModel implements MainModel {
 	}
 
 	/*
-	 * At the moment all pedestrians also the initalPedestrians get this.attributesPedestrain!!!
+	 * At the moment all pedestrians also the initalPedestrians get this.attributesPedestrian!!!
 	 */
 	@Override
 	public <T extends DynamicElement> PedestrianOSM createElement(VPoint position, int id, Class<T> type) {
@@ -324,6 +325,7 @@ public class OptimalStepsModel implements MainModel {
 
 		return pedestrian;
 	}
+
 
 	@Override
 	public List<ActiveCallback> getActiveCallbacks() {

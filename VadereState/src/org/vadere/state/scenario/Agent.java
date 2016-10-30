@@ -19,38 +19,61 @@ import org.vadere.util.math.TruncatedNormalDistribution;
  * has to derive from this class to be a dynamic element in a scenario.
  */
 public abstract class Agent implements DynamicElement {
-	
+
 	/**
-	 * Source where the agent was spawned. The {@link SourceController} should
-	 * set this field. It may be <code>null</code> when the agent is created
-	 * in different way.
+	 * Source where the agent was spawned. The {@link org.vadere.simulator.control.SourceController
+	 * SourceController} should set this field. It may be <code>null</code> when the agent is
+	 * created in different way.
 	 */
 	private Source source;
 
+	/**
+	 * List of target ids for this agent
+	 */
 	private LinkedList<Integer> targetIds;
-	private VPoint position;
-	private Vector2D velocity;
 
+	/**
+	 * Counter for the list of target ids
+	 */
 	private int nextTargetListIndex;
 
+	/**
+	 * The attributes, position, the velocity and the free flow velocity of an agent
+	 */
+	private AttributesAgent attributes;
+	private VPoint position;
+	private Vector2D velocity;
 	private double freeFlowSpeed;
 
-	private AttributesAgent attributes;
-
 	//TODO: ASK FOR PERMISSION
-	/** Target ID if the pedestrian represents a target, -1 otherwise. */
+	/**
+	 * Target ID if the pedestrian represents a target, -1 otherwise.
+	 */
 	private int idAsTarget = -1;
 	//TODO: ASK FOR PERMISSION
 
+	/**
+	 * Constructor for a new Agent, which sets the initial position, speed and target id's.
+	 *
+	 * @param attributesAgent the attributes of the Agent
+	 */
 	public Agent(AttributesAgent attributesAgent) {
-		position = new VPoint(0, 0);
-		velocity = new Vector2D(0, 0);
+		setPosition(new VPoint(0, 0));
+		setVelocity(new Vector2D(0, 0));
 		targetIds = new LinkedList<>();
 		nextTargetListIndex = 0;
 
 		attributes = attributesAgent;
 	}
 
+	/**
+	 * Constructor for a new Agent, which sets the initial position, speed and target id's.
+	 * Furthermore it sets the free flow speed by using a truncated normal distribution
+	 *
+	 * @param attributesAgent the attributes of the Agent
+	 * @param random          used for a truncated normal distribution to set the free flow velocity
+	 *                        speed
+	 */
 	public Agent(AttributesAgent attributesAgent, Random random) {
 		this(attributesAgent);
 
@@ -68,39 +91,71 @@ public abstract class Agent implements DynamicElement {
 		}
 	}
 
+	/**
+	 * Copy constructor of the Agent class
+	 *
+	 * @param other represents the other Agent to copy from
+	 */
 	public Agent(Agent other) {
-		this(other.attributes);
 
-		this.idAsTarget = other.idAsTarget;
-
+		setIdAsTarget(other.getIdAsTarget());
+		this.setAttributes(other.getAttributes());
 		this.setTargets(new LinkedList<>(other.targetIds));
 		this.setNextTargetListIndex(other.nextTargetListIndex);
 
-		this.setPosition(other.position);
-		this.setVelocity(other.velocity);
-		this.setFreeFlowSpeed(other.freeFlowSpeed);
+		this.setPosition(other.getPosition());
+		this.setVelocity(other.getVelocity());
+		this.setFreeFlowSpeed(other.getFreeFlowSpeed());
 	}
 
+	/**
+	 * Getter for the list of targets for this class
+	 *
+	 * @return LinkedList<Integer> which contains a list of the target id's
+	 */
 	public LinkedList<Integer> getTargets() {
 		return targetIds;
 	}
 
+	/**
+	 * Getter for the velocity
+	 *
+	 * @return velocity of the agent
+	 */
 	public Vector2D getVelocity() {
 		return velocity;
 	}
 
+	/**
+	 * Getter for the free flow velocity
+	 *
+	 * @return free flow velocity of the agent
+	 */
 	public double getFreeFlowSpeed() {
 		return freeFlowSpeed;
 	}
 
+	/**
+	 * Getter for the speed distribution
+	 */
 	public double getSpeedDistributionMean() {
 		return attributes.getSpeedDistributionMean();
 	}
 
+	/**
+	 * Getter for the acceleration of an agent
+	 *
+	 * @return acceleration attribute
+	 */
 	public double getAcceleration() {
 		return attributes.getAcceleration();
 	}
 
+	/**
+	 * Getter for the radius of an agent
+	 *
+	 * @return radius attribute
+	 */
 	public double getRadius() {
 		return attributes.getRadius();
 	}
@@ -124,14 +179,29 @@ public abstract class Agent implements DynamicElement {
 		return attributes.getId();
 	}
 
+	/**
+	 * If the idAsTarget is not -1, the agent is treated as a target.
+	 *
+	 * @return true if the agent is also a target, false otherwise
+	 */
 	public boolean isTarget() {
 		return this.idAsTarget != -1;
 	}
 
+	/**
+	 * Getter for the idAsTarget variable
+	 *
+	 * @return idAsTarget as the indicator, whether you deal with a target agent
+	 */
 	public int getIdAsTarget() {
 		return this.idAsTarget;
 	}
 
+	/**
+	 * Setter for the idAsTarget variable
+	 *
+	 * @param id which will treat the agent as a target, if it is unequals -1
+	 */
 	public void setIdAsTarget(int id) {
 		this.idAsTarget = id;
 	}
@@ -141,8 +211,7 @@ public abstract class Agent implements DynamicElement {
 
 	/**
 	 * Converts a Iterable of Agent to a List of VPoint positions.
-	 * 
-	 * @param agents
+	 *
 	 * @return a List of VPoint positions of the agents
 	 */
 	public static List<VPoint> getPositions(final Iterable<Agent> agents) {
@@ -160,13 +229,12 @@ public abstract class Agent implements DynamicElement {
 
 	/**
 	 * Get the index pointing to the next target in the target list.
-	 * 
+	 *
 	 * Usually this index is >= 0 and <= {@link #getTargets()}<code>.size()</code>. Targets are
 	 * never removed from the target list. This index is incremented instead.
-	 * 
+	 *
 	 * In deprecated usage this index is -1. This means, the next target is always the first target
 	 * in the list. Once a target is reached it is remove from the list.
-	 * 
 	 */
 	public int getNextTargetListIndex() {
 		return nextTargetListIndex;
@@ -175,7 +243,6 @@ public abstract class Agent implements DynamicElement {
 	/**
 	 * Get the id of the next target. Please call {@link #hasNextTarget()} first, to check if there
 	 * is a next target. If there is no next target, an exception is thrown.
-	 * 
 	 */
 	public int getNextTargetId() {
 		// Deprecated target list usage
@@ -187,13 +254,18 @@ public abstract class Agent implements DynamicElement {
 		return targetIds.get(nextTargetListIndex);
 	}
 
+	/**
+	 * Checks whether this agent has targets left in his list
+	 *
+	 * @return true if this agent has targets left, false otherwise
+	 */
 	public boolean hasNextTarget() {
 		// Deprecated target list usage
 		if (nextTargetListIndex == -1) {
 			return !targetIds.isEmpty();
 		}
 
-		// The right way:
+		// The correct way:
 		return nextTargetListIndex < targetIds.size();
 	}
 
@@ -202,27 +274,38 @@ public abstract class Agent implements DynamicElement {
 		return attributes;
 	}
 
+	public void setAttributes(AttributesAgent attributes) {
+		this.attributes = attributes;
+	}
+
 	// Setters...
 
 
 	/**
 	 * Set the index pointing to the next target in the target list.
-	 * 
+	 *
 	 * Set the index to 0 to set the first target in the target list as next target. Use
 	 * {@link #incrementNextTargetListIndex()} to proceed to the next target.
-	 * 
+	 *
 	 * Set the index to -1 if you really have to use the deprecated target list approach.
-	 * 
+	 *
 	 * @see #getNextTargetListIndex()
 	 */
 	public void setNextTargetListIndex(int nextTargetListIndex) {
 		this.nextTargetListIndex = nextTargetListIndex;
 	}
 
+	/**
+	 * Setter for the source of the agent, which is responsible for the spawn location
+	 * @param source object for spawning dynamic elements
+	 */
 	public void setSource(Source source) {
 		this.source = source;
 	}
 
+	/**
+	 * Increments the target list index counter
+	 */
 	public void incrementNextTargetListIndex() {
 		// Deprecated target list usage
 		if (nextTargetListIndex == -1) {
@@ -233,14 +316,26 @@ public abstract class Agent implements DynamicElement {
 		nextTargetListIndex++;
 	}
 
+	/**
+	 * Setter for the position of this object
+	 * @param position VPoint object which holds the (x, y) position of a point
+	 */
 	public void setPosition(VPoint position) {
 		this.position = position;
 	}
 
+	/**
+	 * Setter for the velocity of the agent
+	 * @param velocity Vector2D object which holds the (x, y) velocity as a vector
+	 */
 	public void setVelocity(final Vector2D velocity) {
 		this.velocity = velocity;
 	}
 
+	/**
+	 * Setter with the list of targets for the agent
+	 * @param targetIds LinkedList of Integer with the ids of the targets
+	 */
 	public void setTargets(LinkedList<Integer> targetIds) {
 		this.targetIds = targetIds;
 	}

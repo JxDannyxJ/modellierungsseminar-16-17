@@ -154,6 +154,9 @@ public class Topography {
 			for (Car car : cars.getElements()) {
 				result.addElement(car);
 			}
+			for (Horse horse : horses.getElements()) {
+				result.addElement(horse);
+			}
 			return result;
 		}
 

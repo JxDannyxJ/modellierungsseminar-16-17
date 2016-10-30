@@ -14,6 +14,7 @@ import java.util.Random;
 
 /**
  * Simulation Model of a Horse.
+ * @author Daniel Jadanec
  */
 public class Horse extends Agent implements Comparable<Horse> {
 
@@ -24,8 +25,8 @@ public class Horse extends Agent implements Comparable<Horse> {
 	 * Default constructor of the Horse class, which accepts attributes
 	 * for the horse and a random free-flow-velocity
 	 *
-	 * @param attributesHorse object which determines the attributes of the horse
-	 * @param random          object which will set the free-flow-velocity, if it is not defined in
+	 * @param attributesHorse Object which determines the attributes of the horse
+	 * @param random          Object which will set the free-flow-velocity, if it is not defined in
 	 *                        the attributes
 	 */
 	public Horse(AttributesHorse attributesHorse, Random random) {
@@ -42,10 +43,7 @@ public class Horse extends Agent implements Comparable<Horse> {
 	 * @param other: Horse to clone
 	 */
 	private Horse(Horse other) {
-		this(other.attributesHorse, other.random);
-		setPosition(other.getPosition());
-		setVelocity(other.getVelocity());
-		setTargets(new LinkedList<>(other.getTargets()));
+		super(other);
 	}
 
 	/**

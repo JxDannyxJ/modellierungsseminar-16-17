@@ -48,8 +48,6 @@ public class Pedestrian extends Agent {
 		isChild = other.isChild;
 		isLikelyInjured = other.isLikelyInjured;
 
-		super.setIdAsTarget(other.getIdAsTarget());
-
 		if (other.groupIds != null) {
 			groupIds = new LinkedList<>(other.groupIds);
 		} else {
@@ -84,7 +82,7 @@ public class Pedestrian extends Agent {
 
 	@Override
 	public ScenarioElementType getType() {
-		return ScenarioElementType.PEDESTRIAN;
+		return type;
 	}
 
 	public boolean isChild() {

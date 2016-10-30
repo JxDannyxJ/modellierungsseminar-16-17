@@ -14,6 +14,7 @@ import org.vadere.state.scenario.Agent;
 import org.vadere.state.scenario.Car;
 import org.vadere.state.scenario.DistributionFactory;
 import org.vadere.state.scenario.DynamicElement;
+import org.vadere.state.scenario.Horse;
 import org.vadere.state.scenario.Pedestrian;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.scenario.Source;
@@ -23,6 +24,9 @@ import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.math.MathUtil;
 
+/**
+ * This Class is used to create new {@link DynamicElement}.
+ */
 public class SourceController {
 
 	protected final Source source;
@@ -194,8 +198,15 @@ public class SourceController {
 		return newElement;
 	}
 
+	/**
+	 * Creates new {@link DynamicElement} at a Position given by {@linkplain VPoint}.
+	 * Agent type is retrieved from the source attributes given by {@link AttributesSource}.
+	 * @param position at which new {@link DynamicElement} should be created.
+	 * @return new {@link DynamicElement} at given position.
+	 */
 	private DynamicElement createDynamicElement(final VPoint position) {
 		Agent result;
+		// checking agent type in source attributes
 		switch (sourceAttributes.getDynamicElementType()) {
 			case PEDESTRIAN:
 				result = (Agent) dynamicElementFactory.createElement(position, 0, Pedestrian.class);
@@ -203,10 +214,14 @@ public class SourceController {
 			case CAR:
 				result = (Agent) dynamicElementFactory.createElement(position, 0, Car.class);
 				break;
+			case HORSE:
+				result = (Agent) dynamicElementFactory.createElement(position, 0, Horse.class);
+				break;
 			default:
 				throw new IllegalArgumentException("The controller's source has an unsupported element type: "
 						+ sourceAttributes.getDynamicElementType());
 		}
+		// setting source of result agent
 		result.setSource(source);
 		return result;
 	}

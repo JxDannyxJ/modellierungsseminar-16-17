@@ -3,13 +3,13 @@ package org.vadere.state.attributes.scenario;
 import org.vadere.util.geometry.Vector2D;
 
 /**
- * This class defines properties of a horse. These are the length,
+ * This class defines properties of a horse. These are the height,
  * width, direction, form and further shape properties.
  * TODO: Define the appropriate attributes for the horse, e.g. shape
  */
 public class AttributesHorse extends AttributesAgent {
 
-	private double length = 4.5;
+	private double height = 4.5;
 	private double width = 1.7;
 	private Vector2D direction = new Vector2D(1, 0);
 
@@ -22,7 +22,7 @@ public class AttributesHorse extends AttributesAgent {
 	 */
 	public AttributesHorse(final AttributesHorse other, final int id) {
 		super(other, id);
-		this.length = other.length;
+		this.height = other.height;
 		this.width = other.width;
 		this.direction = other.direction;
 	}
@@ -43,8 +43,8 @@ public class AttributesHorse extends AttributesAgent {
 
 	// Getters
 
-	public double getLength() {
-		return length;
+	public double getHeight() {
+		return height;
 	}
 
 	public double getWidth() {
@@ -60,10 +60,10 @@ public class AttributesHorse extends AttributesAgent {
 	}
 
 	public double getRadius() {
-		if (width >= length) {
+		if (width >= height) {
 			return width;
 		} else {
-			return length;
+			return height;
 		}
 	}
 }

@@ -31,9 +31,9 @@ public class PedestrianPositionProcessor extends DataProcessor<TimestepPedestria
 	@Override
 	protected void doUpdate(final SimulationState state) {
 		Integer timeStep = state.getStep();
-		Map<Integer, VPoint> pedPosMap = state.getPedestrianPositionMap();
+		Map<Integer, VPoint> agentPosMap = state.getAgentPositionMap();
 
-		for (Entry<Integer, VPoint> entry : pedPosMap.entrySet()) {
+		for (Entry<Integer, VPoint> entry : agentPosMap.entrySet()) {
 			Integer pedId = entry.getKey();
 			VPoint pos = entry.getValue();
 

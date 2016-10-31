@@ -25,8 +25,8 @@ public class PedestrianLastPositionProcessor extends DataProcessor<PedestrianIdK
 	public void doUpdate(final SimulationState state) {
 		this.pedPosProc.update(state);
 
-		Map<Integer, VPoint> pedPosMap = state.getPedestrianPositionMap();
-		pedPosMap.keySet().forEach(pedId -> this.setValue(new PedestrianIdKey(pedId),
+		Map<Integer, VPoint> agentPosMap = state.getAgentPositionMap();
+		agentPosMap.keySet().forEach(pedId -> this.setValue(new PedestrianIdKey(pedId),
 				this.pedPosProc.getValue(new TimestepPedestrianIdKey(state.getStep(), pedId))));
 	}
 

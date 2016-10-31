@@ -2,10 +2,12 @@
   "name" : "OSM",
   "description" : "",
   "release" : "0.1",
-  "topographyhash" : "c963def1f0d4d3384fc5aa0486bbc1e69ef2dd39",
-  "attributeshash" : "58bf2959425a3dbf54b9c531df95eedff3b02b8d",
-  "processWriters" : [ ],
-  "vadere" : {
+  "processWriters" : {
+    "files" : [ ],
+    "processors" : [ ],
+    "isTimestamped" : true
+  },
+  "scenario" : {
     "mainModel" : "org.vadere.simulator.models.osm.OptimalStepsModel",
     "attributesModel" : {
       "org.vadere.state.attributes.models.AttributesOSM" : {
@@ -244,10 +246,10 @@
           "height" : 1.0,
           "type" : "RECTANGLE"
         },
-        "spawnDelay" : -1.0,
         "interSpawnTimeDistribution" : "org.vadere.state.scenario.ConstantDistribution",
         "distributionParameters" : [ 1.0 ],
         "spawnNumber" : 5,
+        "maxSpawnNumberTotal" : -1,
         "startTime" : 0.0,
         "endTime" : 30.0,
         "spawnAtRandomPositions" : false,
@@ -256,6 +258,7 @@
         "dynamicElementType" : "PEDESTRIAN"
       } ],
       "dynamicElements" : [ {
+        "source" : null,
         "targetIds" : [ 2 ],
         "position" : {
           "x" : 23.0,
@@ -284,6 +287,7 @@
         "groupIds" : [ ],
         "type" : "PEDESTRIAN"
       }, {
+        "source" : null,
         "targetIds" : [ 2 ],
         "position" : {
           "x" : 12.7,
@@ -312,6 +316,7 @@
         "groupIds" : [ ],
         "type" : "PEDESTRIAN"
       }, {
+        "source" : null,
         "targetIds" : [ 2 ],
         "position" : {
           "x" : 27.3,
@@ -340,6 +345,7 @@
         "groupIds" : [ ],
         "type" : "PEDESTRIAN"
       }, {
+        "source" : null,
         "targetIds" : [ 2 ],
         "position" : {
           "x" : 16.3,

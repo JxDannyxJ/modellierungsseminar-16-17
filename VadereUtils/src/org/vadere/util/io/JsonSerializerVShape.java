@@ -6,6 +6,7 @@ import java.util.List;
 import org.vadere.util.geometry.GeometryUtils;
 import org.vadere.util.geometry.ShapeType;
 import org.vadere.util.geometry.shapes.VCircle;
+import org.vadere.util.geometry.shapes.VEllipse;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VPolygon;
 import org.vadere.util.geometry.shapes.VRectangle;
@@ -62,6 +63,19 @@ public class JsonSerializerVShape implements JsonSerializer<VShape>,
 		public VPoint center;
 		public ShapeType type = ShapeType.CIRCLE;
 	}
+	
+	private static class EllipseStore {
+		public EllipseStore(VEllipse shape) {
+			this.height = shape.getHeight();
+			this.width = shape.getWidth();
+			this.center = shape.getCenter();
+		}
+
+		public double height;
+		public double width;
+		public VPoint center;
+		public ShapeType type = ShapeType.ELLIPSE;
+	}
 
 	@Override
 	public VShape deserialize(JsonElement arg0, Type arg1,
@@ -84,6 +98,9 @@ public class JsonSerializerVShape implements JsonSerializer<VShape>,
 				VRectangleStore rectangleStore = g.fromJson(shapeObj,
 						VRectangleStore.class);
 				return new VRectangle(rectangleStore.x, rectangleStore.y, rectangleStore.width, rectangleStore.height);
+			case ELLIPSE:
+				EllipseStore ellipseStore = g.fromJson(shapeObj, EllipseStore.class);
+				return new VEllipse(ellipseStore.center, ellipseStore.height, ellipseStore.width);
 			default:
 				break;
 		}
@@ -107,6 +124,9 @@ public class JsonSerializerVShape implements JsonSerializer<VShape>,
 		if (shape instanceof VCircle) {
 			CircleStore cstore = new CircleStore((VCircle) shape);
 			return g.toJsonTree(cstore);
+		}
+		if (shape instanceof VEllipse) {
+			EllipseStore estore = new EllipseStore((VEllipse) shape);
 		}
 
 		return null;

@@ -61,6 +61,10 @@ public class VEllipse implements VShape {
 		return height;
 	}
 	
+	public VPoint getCenter() {
+		return this.center;
+	}
+	
 	@Override
 	public double distance(VPoint point) {
 		return 0;

@@ -2,6 +2,7 @@ package org.vadere.simulator.control;
 
 import org.vadere.simulator.projects.ScenarioStore;
 import org.vadere.state.scenario.Car;
+import org.vadere.state.scenario.Horse;
 import org.vadere.state.scenario.Pedestrian;
 import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -11,7 +12,7 @@ import java.util.Map;
 
 public class SimulationState {
 	private final Topography topography;
-	private final Map<Integer, VPoint> pedestrianPositionMap;
+	private final Map<Integer, VPoint> agentPositionMap;
 	private final double simTimeInSec;
 	private final ScenarioStore scenarioStore;
 	private final int step;
@@ -26,25 +27,29 @@ public class SimulationState {
 		this.topography = topography;
 		this.simTimeInSec = simTimeInSec;
 		this.step = step;
-		this.pedestrianPositionMap = new HashMap<>();
+		this.agentPositionMap = new HashMap<>();
 		this.scenarioStore = scenarioStore;
 
+		// this is not good style. It should be possible to get every agent of topography...
 		for (Pedestrian pedestrian : topography.getElements(Pedestrian.class)) {
-			pedestrianPositionMap.put(pedestrian.getId(), pedestrian.getPosition());
+			agentPositionMap.put(pedestrian.getId(), pedestrian.getPosition());
 		}
 		for (Car car : topography.getElements(Car.class)) {
-			pedestrianPositionMap.put(car.getId(), car.getPosition());
+			agentPositionMap.put(car.getId(), car.getPosition());
+		}
+		for (Horse horse : topography.getElements(Horse.class)) {
+			agentPositionMap.put(horse.getId(), horse.getPosition());
 		}
 	}
 
 	@Deprecated
-	public SimulationState(final Map<Integer, VPoint> pedestrianPositionMap, final Topography topography,
+	public SimulationState(final Map<Integer, VPoint> agentPositionMap, final Topography topography,
 			final double simTimeInSec, final int step) {
 		this.name = "";
 		this.topography = topography;
 		this.simTimeInSec = simTimeInSec;
 		this.step = step;
-		this.pedestrianPositionMap = pedestrianPositionMap;
+		this.agentPositionMap = agentPositionMap;
 		this.scenarioStore = null;
 	}
 
@@ -62,8 +67,8 @@ public class SimulationState {
 		return step;
 	}
 
-	public Map<Integer, VPoint> getPedestrianPositionMap() {
-		return pedestrianPositionMap;
+	public Map<Integer, VPoint> getAgentPositionMap() {
+		return agentPositionMap;
 	}
 
 	public ScenarioStore getScenarioStore() {

@@ -197,7 +197,7 @@ public class ScenarioRunManager implements Runnable {
 		return new ArrayList<>(scenarioStore.attributesList);
 	}
 
-	public AttributesAgent getAttributesPedestrian() {
+	public AttributesAgent getAttributesAgent() {
 		return scenarioStore.topography.getAttributesPedestrian();
 	}
 

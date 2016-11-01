@@ -19,6 +19,13 @@
 	1. Switch case now includes HORSE, which will call the DynamicElementFactory to create a new Element Horse
 	2. Modified ScenarioElement to offer setter for type, which is necessary for the source controller to create other scenario elements than pedestrian
 
+*.state.scenario.Topography:
+- Modified constructor to support instantiation of horse attributes
+- Adapt method clone to add initialelements/elements of type horse to the topography
+
+*.simulator.projects.ScenarioStore:
+- Removed unused getter for attributesCar
+
 gui.topographycreator.model.TopographyElementFactory:
 - Method createScenarioShape modified to support creating a Horse
 

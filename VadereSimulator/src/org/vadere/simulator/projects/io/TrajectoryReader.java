@@ -34,16 +34,16 @@ public class TrajectoryReader {
 
 	private Path trajectoryFilePath;
 
-	private AttributesAgent attributesPedestrian;
+	private AttributesAgent attributesAgent;
 
 	public TrajectoryReader(final Path trajectoryFilePath, final ScenarioRunManager scenario) throws IOException {
 		this.trajectoryFilePath = trajectoryFilePath;
-		this.attributesPedestrian = scenario.getAttributesPedestrian();
+		this.attributesAgent = scenario.getAttributesAgent();
 	}
 
 	public TrajectoryReader(final Path trajectoryFilePath) {
 		this.trajectoryFilePath = trajectoryFilePath;
-		this.attributesPedestrian = new AttributesAgent();
+		this.attributesAgent = new AttributesAgent();
 	}
 
 	public Map<Step, List<Agent>> readFile() throws IOException {
@@ -55,8 +55,10 @@ public class TrajectoryReader {
 						int pedestrianId = Integer.parseInt(cells[1]);
 						VPoint pos = new VPoint(Double.parseDouble(cells[2]), Double.parseDouble(cells[3]));
 						int targetId = Integer.parseInt(cells[4]);
+						
+						// also should read type and then call dynamic instantiation for type.
 
-						Pedestrian ped = new Pedestrian(new AttributesAgent(this.attributesPedestrian, pedestrianId), new Random());
+						Pedestrian ped = new Pedestrian(new AttributesAgent(this.attributesAgent, pedestrianId), new Random());
 						ped.setPosition(pos);
 						LinkedList<Integer> targets = new LinkedList<Integer>();
 						targets.addFirst(targetId);

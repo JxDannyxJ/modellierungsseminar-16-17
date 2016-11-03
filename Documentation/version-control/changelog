@@ -21,16 +21,27 @@
 
 *.state.scenario.Topography:
 - Modified constructor to support instantiation of horse attributes
-- Adapt method clone to add initialelements/elements of type horse to the topography
+- Adapt method clone to add initialelements/elements of type horse to the topography and added removeListener and addListener of horse to the topography
 
 *.simulator.projects.ScenarioStore:
 - Removed unused getter for attributesCar
 
-gui.topographycreator.model.TopographyElementFactory:
+*.gui.topographycreator.model.TopographyElementFactory:
 - Method createScenarioShape modified to support creating a Horse
+
+*.gui.topographycreator.model.TopographyBuilder:
+- Added a new private LinkedList horses, which is initialized in both constructors as well
+- Constructor two fills the LinkedList's with initial elements and they get added to the topographyElements list which holds all scenario elements of the topography
+- In build() method added the for loop to add initial car elements
+- In removeElement method added two cases CAR and HORSE
+- In removeLastScenarioElement created switch case to remove the last element of the corresponding type list
+
+*.gui.topographycreator.model.TopographyCreatorModel:
+- Refactored deleteLastShape
 
 simulator.projects.io.JsonConverter:
 - Modified deserializeScenarioRunManagerFromNode to check whether the SCENARIO_KEY is deprecated and then try to remigrate it
+- Added method deserializeHorse
 
 simulator.models.ovm.OptimalVelocityModel:
 - Derived from OVM to offer other classes like the horse class the option to act like a car

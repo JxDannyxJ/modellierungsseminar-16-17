@@ -57,7 +57,10 @@ public class ScenarioRunManager implements Runnable {
 	private String savedStateSerialized;
 	private String currentStateSerialized;
 
-
+	/**
+	 * Create a new scenario run manager with the given name
+	 * @param name the name of the new scenario
+	 */
 	public ScenarioRunManager(final String name) {
 		this(name, new ScenarioStore(name));
 	}

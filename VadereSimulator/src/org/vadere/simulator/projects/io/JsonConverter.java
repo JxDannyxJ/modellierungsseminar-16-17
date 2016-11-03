@@ -31,6 +31,7 @@ import org.vadere.state.attributes.AttributesSimulation;
 import org.vadere.state.attributes.ModelDefinition;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
+import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
 import org.vadere.state.attributes.scenario.AttributesSource;
 import org.vadere.state.attributes.scenario.AttributesStairs;
@@ -39,6 +40,7 @@ import org.vadere.state.attributes.scenario.AttributesTeleporter;
 import org.vadere.state.attributes.scenario.AttributesTopography;
 import org.vadere.state.scenario.Car;
 import org.vadere.state.scenario.DynamicElement;
+import org.vadere.state.scenario.Horse;
 import org.vadere.state.scenario.Obstacle;
 import org.vadere.state.scenario.Pedestrian;
 import org.vadere.state.scenario.Source;
@@ -191,7 +193,8 @@ public abstract class JsonConverter {
 	private static class TopographyStore {
 		AttributesTopography attributes = new AttributesTopography();
 		AttributesAgent attributesPedestrian = new AttributesAgent();
-		AttributesCar attributesCar;
+		AttributesCar attributesCar = new AttributesCar();
+		AttributesHorse attributesHorse = new AttributesHorse();
 		Collection<AttributesObstacle> obstacles = new LinkedList<>();
 		Collection<AttributesStairs> stairs = new LinkedList<>();
 		Collection<AttributesTarget> targets = new LinkedList<>();
@@ -322,7 +325,7 @@ public abstract class JsonConverter {
 
 	private static Topography deserializeTopographyFromNode(JsonNode node) {
 		TopographyStore store = mapper.convertValue(node, TopographyStore.class);
-		Topography topography = new Topography(store.attributes, store.attributesPedestrian, store.attributesCar);
+		Topography topography = new Topography(store.attributes, store.attributesPedestrian, store.attributesCar, store.attributesHorse);
 		store.obstacles.forEach(obstacle -> topography.addObstacle(new Obstacle(obstacle)));
 		store.stairs.forEach(stairs -> topography.addStairs(new Stairs(stairs)));
 		store.targets.forEach(target -> topography.addTarget(new Target(target)));
@@ -354,6 +357,10 @@ public abstract class JsonConverter {
 		return mapper.readValue(json, Car.class);
 	}
 
+	public static Horse deserializeHorse(String json) throws IOException {
+		return mapper.readValue(json, Horse.class);
+	}
+
 	public static Attributes deserializeScenarioElementType(String json, ScenarioElementType type) throws IOException {
 		// TODO [priority=low] [task=refactoring] find a better way!
 		switch (type) {
@@ -371,6 +378,8 @@ public abstract class JsonConverter {
 				return mapper.readValue(json, AttributesTeleporter.class);
 			case CAR:
 				return mapper.readValue(json, AttributesCar.class);
+			case HORSE:
+				return mapper.readValue(json, AttributesHorse.class);
 			default:
 				return null;
 		}
@@ -503,6 +512,9 @@ public abstract class JsonConverter {
 
 		JsonNode attributesCarNode = mapper.convertValue(topography.getAttributesCar(), JsonNode.class);
 		topographyNode.set("attributesCar", attributesCarNode);
+
+		JsonNode attributesHorseNode = mapper.convertValue(topography.getAttributesHorse(), JsonNode.class);
+		topographyNode.set("attributesHorse", attributesHorseNode);
 
 		return topographyNode;
 	}

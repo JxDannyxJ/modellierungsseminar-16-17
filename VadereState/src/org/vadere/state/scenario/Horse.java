@@ -42,7 +42,7 @@ public class Horse extends Agent implements Comparable<Horse> {
 	 *
 	 * @param other: Horse to clone
 	 */
-	private Horse(Horse other) {
+	public Horse(Horse other) {
 		super(other);
 	}
 

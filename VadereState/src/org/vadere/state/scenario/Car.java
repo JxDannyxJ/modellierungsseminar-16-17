@@ -33,7 +33,7 @@ public class Car extends Agent implements Comparable<Car> {
 	 *
 	 * @param other: Car to clone
 	 */
-	private Car(Car other) {
+	public Car(Car other) {
 		super(other);
 	}
 

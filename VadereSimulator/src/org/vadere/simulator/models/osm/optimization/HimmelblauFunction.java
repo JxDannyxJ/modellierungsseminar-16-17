@@ -32,9 +32,9 @@ public class HimmelblauFunction extends PotentialEvaluationFunction {
 
 	@Override
 	public double value(double arg) throws FunctionEvaluationException {
-		VPoint newPos = new VPoint(this.getPedestrian().getPosition().x
+		VPoint newPos = new VPoint(this.getAgentOSM().getPosition().x
 				+ stepsize * Math.cos(arg),
-				this.getPedestrian().getPosition().y + stepsize * Math.sin(arg));
+				this.getAgentOSM().getPosition().y + stepsize * Math.sin(arg));
 
 		return getValue(newPos);
 	}

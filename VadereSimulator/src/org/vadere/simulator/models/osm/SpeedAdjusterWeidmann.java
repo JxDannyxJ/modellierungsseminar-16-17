@@ -1,6 +1,7 @@
 package org.vadere.simulator.models.osm;
 
 import org.vadere.simulator.models.SpeedAdjuster;
+import org.vadere.state.scenario.Horse;
 import org.vadere.state.scenario.Pedestrian;
 
 /**
@@ -26,10 +27,26 @@ public class SpeedAdjusterWeidmann implements SpeedAdjuster {
 		throw new UnsupportedOperationException("method is not implemented jet.");
 		// return originalSpeed * result;
 	}
+	
+//	@Override
+//	public double getAdjustedSpeed(Horse horse, double originalSpeed) {
+//		double result = 1.0;
+//
+//		double diff = 0; // ped.getSpeedByTargetPotential() -
+//		// getWeidmannSpeed(getCurrentDensity(ped));
+//
+//		if (diff > 0) {
+//			result = 0.0;
+//		}
+//
+//		throw new UnsupportedOperationException("method is not implemented jet.");
+//		// return originalSpeed * result;
+//	}
 
 	private double getWeidmannSpeed(double density) {
 		return 1.34 * (1 - Math.exp(-1.913 * (1 / density - 1 / 5.4)));
 	}
+
 
 	/**
 	 * Density = number of visible pedestrians / half circle around pedestrian.

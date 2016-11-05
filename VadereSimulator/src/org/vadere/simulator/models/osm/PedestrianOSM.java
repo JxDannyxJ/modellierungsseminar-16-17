@@ -11,9 +11,8 @@ import org.vadere.simulator.models.osm.optimization.StepCircleOptimizer;
 import org.vadere.simulator.models.osm.stairOptimization.StairStepOptimizer;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeEventDriven;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM;
-import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeParallel;
-import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeSequential;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM.CallMethod;
+import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeSequential;
 import org.vadere.simulator.models.potential.fields.PotentialFieldAgent;
 import org.vadere.simulator.models.potential.fields.PotentialFieldObstacle;
 import org.vadere.simulator.models.potential.fields.PotentialFieldTarget;
@@ -29,7 +28,7 @@ import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
 
-public class PedestrianOSM extends Pedestrian {
+public class PedestrianOSM extends Pedestrian implements AgentOSM {
 
 	/**
 	 * transient fields will not be serialized by Gson.
@@ -59,7 +58,7 @@ public class PedestrianOSM extends Pedestrian {
 	// for event driven update...
 	private double timeOfNextStep;
 
-	private transient Collection<? extends Agent> relevantPedestrians;
+	private transient Collection<? extends Agent> relevantAgents;
 
 	// calculated by (current position - last position)/(period of time).
 	private double speedByAbsoluteDistance;
@@ -87,7 +86,7 @@ public class PedestrianOSM extends Pedestrian {
 		this.updateScheme = createUpdateScheme(attributesOSM.getUpdateType(), this);
 
 		this.speedAdjusters = speedAdjusters;
-		this.relevantPedestrians = new HashSet<>();
+		this.relevantAgents = new HashSet<>();
 		this.timeCredit = 0;
 
 		this.setVelocity(new Vector2D(0, 0));
@@ -107,22 +106,22 @@ public class PedestrianOSM extends Pedestrian {
 		this.strides[1] = new ArrayList<>();
 	}
 
-	private static UpdateSchemeOSM createUpdateScheme(UpdateType updateType, PedestrianOSM pedestrian) {
+	private static UpdateSchemeOSM createUpdateScheme(UpdateType updateType, AgentOSM agentOSM) {
 
 		UpdateSchemeOSM result;
 
 		switch (updateType) {
 			case EVENT_DRIVEN:
-				result = new UpdateSchemeEventDriven(pedestrian);
+				result = new UpdateSchemeEventDriven(agentOSM);
 				break;
-			case PARALLEL:
-				result = new UpdateSchemeParallel(pedestrian);
-				break;
+//			case PARALLEL:
+//				result = new UpdateSchemeParallel(pedestrian);
+//				break;
 			case SEQUENTIAL:
-				result = new UpdateSchemeSequential(pedestrian);
+				result = new UpdateSchemeSequential(agentOSM);
 				break;
 			default:
-				result = new UpdateSchemeSequential(pedestrian);
+				result = new UpdateSchemeSequential(agentOSM);
 		}
 
 		return result;
@@ -138,7 +137,7 @@ public class PedestrianOSM extends Pedestrian {
 
 		if (PotentialFieldTargetRingExperiment.class.equals(potentialFieldTarget.getClass())) {
 			VCircle reachableArea = new VCircle(getPosition(), getStepSize());
-			this.relevantPedestrians = potentialFieldPedestrian
+			this.relevantAgents = potentialFieldPedestrian
 					.getRelevantAgents(reachableArea, this, topography);
 
 			nextPosition = stepCircleOptimizer.getNextPosition(this, reachableArea);
@@ -152,7 +151,7 @@ public class PedestrianOSM extends Pedestrian {
 		} else {
 			VCircle reachableArea = new VCircle(getPosition(), getStepSize());
 
-			this.relevantPedestrians = potentialFieldPedestrian
+			this.relevantAgents = potentialFieldPedestrian
 					.getRelevantAgents(reachableArea, this, topography);
 
 
@@ -224,7 +223,7 @@ public class PedestrianOSM extends Pedestrian {
 		double targetPotential = potentialFieldTarget.getTargetPotential(newPos, this);
 
 		double pedestrianPotential = potentialFieldPedestrian
-				.getAgentPotential(newPos, this, relevantPedestrians);
+				.getAgentPotential(newPos, this, relevantAgents);
 		double obstacleRepulsionPotential = potentialFieldObstacle
 				.getObstaclePotential(newPos, this);
 		return targetPotential + pedestrianPotential
@@ -256,7 +255,7 @@ public class PedestrianOSM extends Pedestrian {
 
 	public Vector2D getPedestrianGradient(VPoint pos) {
 		return potentialFieldPedestrian.getAgentPotentialGradient(pos,
-				new Vector2D(0, 0), this, relevantPedestrians);
+				new Vector2D(0, 0), this, relevantAgents);
 	}
 
 	public double getTimeOfNextStep() {
@@ -276,7 +275,7 @@ public class PedestrianOSM extends Pedestrian {
 	}
 
 	public Collection<? extends Agent> getRelevantPedestrians() {
-		return relevantPedestrians;
+		return relevantAgents;
 	}
 
 	public double getDurationNextStep() {
@@ -321,5 +320,9 @@ public class PedestrianOSM extends Pedestrian {
 	public double getMinStepLength() {
 		return minStepLength;
 	}
-
+	
+	@Override
+	public VPoint getPosition() {
+		return super.getPosition();
+	}
 }

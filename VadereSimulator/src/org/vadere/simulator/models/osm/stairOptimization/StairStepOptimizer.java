@@ -5,6 +5,7 @@
 package org.vadere.simulator.models.osm.stairOptimization;
 
 import org.apache.log4j.Logger;
+import org.vadere.simulator.models.osm.AgentOSM;
 import org.vadere.simulator.models.osm.PedestrianOSM;
 import org.vadere.simulator.models.osm.optimization.StepCircleOptimizer;
 import org.vadere.state.scenario.Stairs;
@@ -34,19 +35,19 @@ public class StairStepOptimizer implements StepCircleOptimizer {
 	}
 
 	@Override
-	public VPoint getNextPosition(PedestrianOSM pedestrian, Shape reachableArea) {
+	public VPoint getNextPosition(AgentOSM agentOSM, Shape reachableArea) {
 
-		if (!isOnActualStairs(pedestrian)) {
+		if (!isOnActualStairs(agentOSM)) {
 			Logger.getLogger(this.getClass())
 					.error("Only pedestrians should get in here that are on actual Stairs -> Bug in code.");
 		}
 
-		VPoint currentPosition = pedestrian.getPosition();
-		LinkedList<VPoint> reachablePositions = getReachablePositions(pedestrian, reachableArea);
+		VPoint currentPosition = agentOSM.getPosition();
+		LinkedList<VPoint> reachablePositions = getReachablePositions(agentOSM, reachableArea);
 
 		// Logger.getLogger(this.getClass()).info(reachablePositions.size());
 
-		double curPosPotential = pedestrian.getPotential(currentPosition);
+		double curPosPotential = agentOSM.getPotential(currentPosition);
 		VPoint nextPosition = currentPosition.clone();
 
 		double bestPotential = curPosPotential;
@@ -55,7 +56,7 @@ public class StairStepOptimizer implements StepCircleOptimizer {
 		// brute force optimization of points:
 		// find minimum, if there
 		for (VPoint reachPoint : reachablePositions) {
-			reachPointPotential = pedestrian.getPotential(reachPoint);
+			reachPointPotential = agentOSM.getPotential(reachPoint);
 			// System.out.println("INFO: potential of a points that is reachable: " +
 			// reachPointPotential);
 			if (Math.abs(reachPointPotential - bestPotential) < tol_equal_values) {
@@ -75,11 +76,11 @@ public class StairStepOptimizer implements StepCircleOptimizer {
 		return nextPosition;
 	}
 
-	private LinkedList<VPoint> getReachablePositions(PedestrianOSM pedestrian, Shape reachableArea) {
+	private LinkedList<VPoint> getReachablePositions(AgentOSM agentOSM, Shape reachableArea) {
 
 		VCircle stepsize = (VCircle) reachableArea;
 
-		VPoint curPosition = pedestrian.getPosition();
+		VPoint curPosition = agentOSM.getPosition();
 		Tread[] singleTreads = stairs.getTreads();
 		ArrayList<VLine> reachableTreads = new ArrayList<>();
 
@@ -116,7 +117,7 @@ public class StairStepOptimizer implements StepCircleOptimizer {
 		return this;
 	}
 
-	private boolean isOnActualStairs(PedestrianOSM pedestrian) {
-		return stairs.getShape().contains(pedestrian.getPosition());
+	private boolean isOnActualStairs(AgentOSM agentOSM) {
+		return stairs.getShape().contains(agentOSM.getPosition());
 	}
 }

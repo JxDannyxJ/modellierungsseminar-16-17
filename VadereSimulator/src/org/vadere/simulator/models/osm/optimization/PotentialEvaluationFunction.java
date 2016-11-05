@@ -4,6 +4,7 @@ import org.apache.commons.math.FunctionEvaluationException;
 import org.apache.commons.math.analysis.MultivariateRealFunction;
 import org.apache.commons.math.analysis.UnivariateRealFunction;
 import org.apache.commons.math3.analysis.MultivariateFunction;
+import org.vadere.simulator.models.osm.AgentOSM;
 import org.vadere.simulator.models.osm.PedestrianOSM;
 import org.vadere.state.scenario.Obstacle;
 import org.vadere.state.scenario.Pedestrian;
@@ -20,8 +21,9 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 		MultivariateRealFunction, MultivariateFunction {
 
 	/** The pedestrian. */
-	private final PedestrianOSM pedestrian;
-
+//	private final PedestrianOSM pedestrian;
+	private final AgentOSM agentOSM;
+	
 	/** The step size. */
 	private double stepSize;
 	private double minStepSize;
@@ -34,9 +36,15 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	 * @param pedestrian
 	 *        the considered pedestrian
 	 */
-	PotentialEvaluationFunction(final PedestrianOSM pedestrian) {
-		this.pedestrian = pedestrian;
-		this.minStepSize = pedestrian.getMinStepLength();
+//	PotentialEvaluationFunction(final PedestrianOSM pedestrian) {
+//		this.pedestrian = pedestrian;
+//		this.minStepSize = pedestrian.getMinStepLength();
+//		this.stepSize = 0;
+//		this.counter = 0;
+//	}
+	public PotentialEvaluationFunction(final AgentOSM agentOSM) {
+		this.agentOSM = agentOSM;
+		this.minStepSize = agentOSM.getMinStepLength();
 		this.stepSize = 0;
 		this.counter = 0;
 	}
@@ -54,8 +62,11 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	/**
 	 * Returns the considered pedestrian.
 	 */
-	public Pedestrian getPedestrian() {
-		return pedestrian;
+//	public Pedestrian getPedestrian() {
+//		return agentOSM;
+//	}
+	public AgentOSM getAgentOSM() {
+		return agentOSM;
 	}
 
 	/**
@@ -70,10 +81,10 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	 */
 	@Override
 	public double value(double angle) throws FunctionEvaluationException {
-		VPoint pedPos = pedestrian.getPosition();
+		VPoint pedPos = agentOSM.getPosition();
 		VPoint newPos = new VPoint(stepSize * Math.cos(angle) + pedPos.x,
 				stepSize * Math.sin(angle) + pedPos.y);
-		return pedestrian.getPotential(newPos);
+		return agentOSM.getPotential(newPos);
 	}
 
 	/**
@@ -83,11 +94,11 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	 *        the angle of the direction to new position
 	 */
 	public double getTargetPotential(double angle) {
-		VPoint pedPos = pedestrian.getPosition();
+		VPoint pedPos = agentOSM.getPosition();
 		VPoint newPos = new VPoint(stepSize * Math.cos(angle) + pedPos.x,
 				stepSize * Math.sin(angle) + pedPos.y);
 
-		return pedestrian.getTargetPotential(newPos);
+		return agentOSM.getTargetPotential(newPos);
 	}
 
 	/**
@@ -122,11 +133,11 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	 */
 	@Override
 	public double value(double[] pos) {
-		VPoint pedPos = pedestrian.getPosition();
+		VPoint pedPos = agentOSM.getPosition();
 		VPoint newPos = new VPoint(pos[0], pos[1]);
 		double result = 100000;
-		if (pedestrian.getAttributesOSM().isSeeSmallWalls()) {
-			List<Obstacle> obstacles = pedestrian.getTopography().getObstacles();
+		if (agentOSM.getAttributesOSM().isSeeSmallWalls()) {
+			List<Obstacle> obstacles = agentOSM.getTopography().getObstacles();
 			for (Obstacle obstacle : obstacles) {
 				if (obstacle.getShape().intersects(new VLine(pedPos, newPos)))
 					return result;
@@ -136,7 +147,7 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 		if (Math.pow(newPos.x - pedPos.x, 2) + Math.pow(newPos.y - pedPos.y, 2) <= Math.pow(stepSize, 2) + 0.00001
 				&& Math.pow(newPos.x - pedPos.x, 2) + Math.pow(newPos.y - pedPos.y, 2) >= Math.pow(this.minStepSize, 2)
 						- 0.00001) {
-			result = pedestrian.getPotential(newPos);
+			result = agentOSM.getPotential(newPos);
 		}
 		counter++;
 		return result;

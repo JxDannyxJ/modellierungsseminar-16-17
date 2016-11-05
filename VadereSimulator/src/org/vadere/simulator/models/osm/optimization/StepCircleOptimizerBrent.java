@@ -11,6 +11,7 @@ import org.apache.commons.math.optimization.univariate.BrentOptimizer;
 import org.apache.commons.math.util.MathUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.vadere.simulator.models.osm.AgentOSM;
 import org.vadere.simulator.models.osm.PedestrianOSM;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -43,20 +44,20 @@ public class StepCircleOptimizerBrent implements StepCircleOptimizer {
 	}
 
 	@Override
-	public VPoint getNextPosition(PedestrianOSM ped, Shape reachableArea) {
+	public VPoint getNextPosition(AgentOSM agentOSM, Shape reachableArea) {
 
 		if (reachableArea instanceof VCircle) {
 			this.stepSize = ((VCircle) reachableArea).getRadius();
 		}
 
-		PotentialEvaluationFunction potentialEvaluationFunction = new PotentialEvaluationFunction(ped);
+		PotentialEvaluationFunction potentialEvaluationFunction = new PotentialEvaluationFunction(agentOSM);
 		potentialEvaluationFunction.setStepSize(stepSize);
 
 		double minimum = 0;
 		double newMinimum = 0;
 		double minimumValue = 0;
 		double newMinimumValue = 0;
-		VPoint curPos = ped.getPosition();
+		VPoint curPos = agentOSM.getPosition();
 		double randOffset = random.nextDouble();
 
 		try {

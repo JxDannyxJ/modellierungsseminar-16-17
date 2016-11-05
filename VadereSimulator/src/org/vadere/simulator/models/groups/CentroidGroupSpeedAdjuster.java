@@ -1,6 +1,7 @@
 package org.vadere.simulator.models.groups;
 
 import org.vadere.simulator.models.SpeedAdjuster;
+import org.vadere.state.scenario.Horse;
 import org.vadere.state.scenario.Pedestrian;
 
 public class CentroidGroupSpeedAdjuster implements SpeedAdjuster {
@@ -39,4 +40,33 @@ public class CentroidGroupSpeedAdjuster implements SpeedAdjuster {
 
 		return originalSpeed * result;
 	}
+
+//	@Override
+//	public double getAdjustedSpeed(Horse horse, double originalSpeed) {
+//		double result = 1.0;
+//		double aheadDistance = 0;
+//
+//		CentroidGroup group = groupCollection.getGroup(horse);
+//
+//		if (group != null) {
+//			aheadDistance = group.getRelativeDistanceCentroid(horse);
+//
+//			// TODO [priority=low] [task=refactoring] move Parameters to AttributesCGM
+//			if (!group.isLostMember(ped)) {
+//				if (aheadDistance > 8) {
+//					result = Double.MIN_VALUE;
+//				} else if (aheadDistance >= 1) {
+//					result /= 1.0 + aheadDistance / 8 - 1 / 8 + 1;
+//				} else if (aheadDistance >= 0) {
+//					result /= 1.0 + Math.pow(aheadDistance, 2);
+//				} else if (aheadDistance >= -1) {
+//					result /= 0.75;
+//				} else {
+//					result /= 0.65;
+//				}
+//			}
+//		}
+//
+//		return originalSpeed * result;
+//	}
 }

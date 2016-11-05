@@ -4,6 +4,7 @@ import java.awt.Shape;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.vadere.simulator.models.osm.AgentOSM;
 import org.vadere.simulator.models.osm.PedestrianOSM;
 import org.vadere.simulator.models.potential.fields.IPotentialTargetGrid;
 import org.vadere.simulator.models.potential.fields.PotentialFieldTarget;
@@ -40,7 +41,7 @@ public class StepCircleOptimizerGradient implements StepCircleOptimizer {
 	}
 
 	@Override
-	public VPoint getNextPosition(PedestrianOSM ped, Shape reachableArea) {
+	public VPoint getNextPosition(AgentOSM agentOSM, Shape reachableArea) {
 
 		double stepSize = ((VCircle) reachableArea).getRadius();
 
@@ -48,25 +49,25 @@ public class StepCircleOptimizerGradient implements StepCircleOptimizer {
 				potentialFieldTarget.getCellGrids(),
 				topography.getBounds(), targetIds);
 
-		VPoint position = ped.getPosition();
+		VPoint position = agentOSM.getPosition();
 
 		// TODO [priority=low] [task=refactoring] should be provided by PotentialFieldTarget
 		double[] targetGrad = new double[2];
 		double[] arrayPos = {position.x, position.y};
 
-		int targetId = ped.getNextTargetId();
+		int targetId = agentOSM.getNextTargetId();
 		floorGradient.gradient(0, targetId, arrayPos, targetGrad);
 		Vector2D directionTarget = new Vector2D(targetGrad[0], targetGrad[1]);
 
-		Vector2D gradientObstacle = ped.getObstacleGradient(position);
-		Vector2D gradientPedestrians = ped.getPedestrianGradient(position);
+		Vector2D gradientObstacle = agentOSM.getObstacleGradient(position);
+		Vector2D gradientPedestrians = agentOSM.getPedestrianGradient(position);
 		Vector2D directionDynamic = gradientObstacle.add(gradientPedestrians);
 		Vector2D direction = directionTarget.add(directionDynamic).normalize(1.0);
 
 		double resolution = stepSize / attributesOSM.getStepCircleResolution();
 
 		VPoint result = position;
-		double resultPot = ped.getPotential(position);
+		double resultPot = agentOSM.getPotential(position);
 		VPoint nextPos;
 		double nextPot;
 
@@ -76,7 +77,7 @@ public class StepCircleOptimizerGradient implements StepCircleOptimizer {
 			nextPos = new VPoint(position.x - nextMove.x, position.y
 					- nextMove.y);
 
-			nextPot = ped.getPotential(nextPos);
+			nextPot = agentOSM.getPotential(nextPos);
 
 			if (resultPot > nextPot) {
 				result = nextPos;

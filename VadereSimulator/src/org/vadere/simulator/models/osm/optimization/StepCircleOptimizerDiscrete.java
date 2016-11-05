@@ -1,6 +1,7 @@
 package org.vadere.simulator.models.osm.optimization;
 
 import org.apache.log4j.Logger;
+import org.vadere.simulator.models.osm.AgentOSM;
 import org.vadere.simulator.models.osm.PedestrianOSM;
 import org.vadere.state.attributes.models.AttributesOSM;
 import org.vadere.state.types.MovementType;
@@ -27,19 +28,60 @@ public class StepCircleOptimizerDiscrete implements StepCircleOptimizer {
 		this.random = random;
 	}
 
+//	@Override
+//	public VPoint getNextPosition(PedestrianOSM pedestrian, Shape reachableArea) {
+//
+//		double stepSize = ((VCircle) reachableArea).getRadius();
+//		LinkedList<VPoint> positions = getReachablePositions(pedestrian, random);
+//
+//		PotentialEvaluationFunction potentialEvaluationFunction = new PotentialEvaluationFunction(
+//				pedestrian);
+//		potentialEvaluationFunction.setStepSize(stepSize);
+//
+//		VPoint curPos = pedestrian.getPosition();
+//		VPoint nextPos = curPos.clone();
+//		double curPosPotential = pedestrian.getPotential(curPos);
+//		double potential = curPosPotential;
+//		double tmpPotential = 0;
+//
+//
+//
+//		for (VPoint tmpPos : positions) {
+//			try {
+//				tmpPotential = potentialEvaluationFunction.getValue(tmpPos);
+//
+//				if (tmpPotential < potential
+//						|| (Math.abs(tmpPotential - potential) <= 0.0001 && random
+//								.nextBoolean())) {
+//					potential = tmpPotential;
+//					nextPos = tmpPos.clone();
+//				}
+//			} catch (Exception e) {
+//				Logger.getLogger(StepCircleOptimizerDiscrete.class).error("Potential evaluation threw an error.");
+//			}
+//
+//		}
+//
+//		if (curPosPotential - potential < movementThreshold) {
+//			nextPos = curPos;
+//			potential = curPosPotential;
+//		}
+//		return nextPos;
+//	}
+	
 	@Override
-	public VPoint getNextPosition(PedestrianOSM pedestrian, Shape reachableArea) {
+	public VPoint getNextPosition(AgentOSM agentOSM, Shape reachableArea) {
 
 		double stepSize = ((VCircle) reachableArea).getRadius();
-		LinkedList<VPoint> positions = getReachablePositions(pedestrian, random);
+		LinkedList<VPoint> positions = getReachablePositions(agentOSM, random);
 
 		PotentialEvaluationFunction potentialEvaluationFunction = new PotentialEvaluationFunction(
-				pedestrian);
+				agentOSM);
 		potentialEvaluationFunction.setStepSize(stepSize);
 
-		VPoint curPos = pedestrian.getPosition();
+		VPoint curPos = agentOSM.getPosition();
 		VPoint nextPos = curPos.clone();
-		double curPosPotential = pedestrian.getPotential(curPos);
+		double curPosPotential = agentOSM.getPotential(curPos);
 		double potential = curPosPotential;
 		double tmpPotential = 0;
 
@@ -72,12 +114,75 @@ public class StepCircleOptimizerDiscrete implements StepCircleOptimizer {
 		return new StepCircleOptimizerDiscrete(movementThreshold, random);
 	}
 
-	public static LinkedList<VPoint> getReachablePositions(final PedestrianOSM pedestrian, final Random random) {
+//	public static LinkedList<VPoint> getReachablePositions(final PedestrianOSM pedestrian, final Random random) {
+//
+//		final AttributesOSM attributesOSM = pedestrian.getAttributesOSM();
+//		double randOffset = attributesOSM.isVaryStepDirection() ? random.nextDouble() : 0;
+//
+//		VPoint currentPosition = pedestrian.getPosition();
+//		LinkedList<VPoint> reachablePositions = new LinkedList<VPoint>();
+//		int numberOfCircles = attributesOSM.getNumberOfCircles();
+//		double circleOfGrid = 0;
+//		int numberOfGridPoints;
+//
+//		// if number of circle is negative, choose number of circles according to
+//		// StepCircleResolution
+//		if (attributesOSM.getNumberOfCircles() < 0) {
+//			numberOfCircles = (int) Math.ceil(attributesOSM
+//					.getStepCircleResolution() / (2 * Math.PI));
+//		}
+//
+//		// maximum possible angle of movement relative to ankerAngle
+//		double angle;
+//
+//		// smallest possible angle of movement
+//		double anchorAngle;
+//
+//		// compute maximum angle and corresponding anchor if appropriate
+//		if (attributesOSM.getMovementType() == MovementType.DIRECTIONAL) {
+//			angle = getMovementAngle(pedestrian);
+//			Vector2D velocity = pedestrian.getVelocity();
+//			anchorAngle = velocity.angleToZero() - angle;
+//			angle = 2 * angle;
+//		} else {
+//			angle = 2 * Math.PI;
+//			anchorAngle = 0;
+//		}
+//
+//		// iterate through all circles
+//		for (int j = 1; j <= numberOfCircles; j++) {
+//
+//			circleOfGrid = pedestrian.getStepSize() * j / numberOfCircles;
+//
+//			numberOfGridPoints = (int) Math.ceil(circleOfGrid / pedestrian.getStepSize()
+//					* attributesOSM.getStepCircleResolution());
+//
+//			// reduce number of grid points proportional to the constraint of direction
+//			if (attributesOSM.getMovementType() == MovementType.DIRECTIONAL) {
+//				numberOfGridPoints = (int) Math.ceil(numberOfGridPoints * angle / (2 * Math.PI));
+//			}
+//
+//			double angleDelta = angle / numberOfGridPoints;
+//
+//			// iterate through all angles and compute absolute positions of grid points
+//			for (int i = 0; i < numberOfGridPoints; i++) {
+//
+//				double x = circleOfGrid * Math.cos(anchorAngle + angleDelta * (randOffset + i)) + currentPosition.x;
+//				double y = circleOfGrid * Math.sin(anchorAngle + angleDelta * (randOffset + i)) + currentPosition.y;
+//				VPoint tmpPos = new VPoint(x, y);
+//
+//				reachablePositions.add(tmpPos);
+//			}
+//		}
+//		return reachablePositions;
+//	}
+	
+	public static LinkedList<VPoint> getReachablePositions(final AgentOSM agentOSM, final Random random) {
 
-		final AttributesOSM attributesOSM = pedestrian.getAttributesOSM();
+		final AttributesOSM attributesOSM = agentOSM.getAttributesOSM();
 		double randOffset = attributesOSM.isVaryStepDirection() ? random.nextDouble() : 0;
 
-		VPoint currentPosition = pedestrian.getPosition();
+		VPoint currentPosition = agentOSM.getPosition();
 		LinkedList<VPoint> reachablePositions = new LinkedList<VPoint>();
 		int numberOfCircles = attributesOSM.getNumberOfCircles();
 		double circleOfGrid = 0;
@@ -98,8 +203,8 @@ public class StepCircleOptimizerDiscrete implements StepCircleOptimizer {
 
 		// compute maximum angle and corresponding anchor if appropriate
 		if (attributesOSM.getMovementType() == MovementType.DIRECTIONAL) {
-			angle = getMovementAngle(pedestrian);
-			Vector2D velocity = pedestrian.getVelocity();
+			angle = getMovementAngle(agentOSM);
+			Vector2D velocity = agentOSM.getVelocity();
 			anchorAngle = velocity.angleToZero() - angle;
 			angle = 2 * angle;
 		} else {
@@ -110,9 +215,9 @@ public class StepCircleOptimizerDiscrete implements StepCircleOptimizer {
 		// iterate through all circles
 		for (int j = 1; j <= numberOfCircles; j++) {
 
-			circleOfGrid = pedestrian.getStepSize() * j / numberOfCircles;
+			circleOfGrid = agentOSM.getStepSize() * j / numberOfCircles;
 
-			numberOfGridPoints = (int) Math.ceil(circleOfGrid / pedestrian.getStepSize()
+			numberOfGridPoints = (int) Math.ceil(circleOfGrid / agentOSM.getStepSize()
 					* attributesOSM.getStepCircleResolution());
 
 			// reduce number of grid points proportional to the constraint of direction
@@ -138,9 +243,9 @@ public class StepCircleOptimizerDiscrete implements StepCircleOptimizer {
 	/**
 	 * The maximum deviation from the last movement direction given the current speed.
 	 */
-	private static double getMovementAngle(PedestrianOSM pedestrian) {
+	private static double getMovementAngle(AgentOSM agentOSM) {
 
-		final double speed = pedestrian.getVelocity().getLength();
+		final double speed = agentOSM.getVelocity().getLength();
 		double result = Math.PI - speed;
 
 		if (result < 0.1) {

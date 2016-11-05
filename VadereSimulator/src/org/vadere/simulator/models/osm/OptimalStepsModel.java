@@ -62,6 +62,18 @@ public class OptimalStepsModel implements MainModel {
 			}
 		}
 	}
+	
+	private class ComparatorHorseOSM implements Comparator<HorseOSM> {
+		
+		@Override
+		public int compare(HorseOSM h1, HorseOSM h2) {
+			if(h1.getTimeOfNextStep() < h2.getTimeOfNextStep()) {
+				return -1;
+			} else {
+				return 1;
+			}
+		}
+	}
 
 	private AttributesOSM attributesOSM;
 	private AttributesAgent attributesPedestrian;

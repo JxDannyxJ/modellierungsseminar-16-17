@@ -11,7 +11,6 @@ import org.vadere.simulator.models.osm.optimization.StepCircleOptimizer;
 import org.vadere.simulator.models.osm.stairOptimization.StairStepOptimizer;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeEventDriven;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM;
-import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeParallel;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeSequential;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM.CallMethod;
 import org.vadere.simulator.models.potential.fields.PotentialFieldAgent;
@@ -31,8 +30,12 @@ import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
 
-public class HorseOSM extends Horse {
-	
+public class HorseOSM extends Horse implements AgentOSM {
+
+	/**
+	 * transient fields will not be serialized by Gson.
+	 */
+
 	private final AttributesOSM attributesOSM;
 	private final transient StepCircleOptimizer stepCircleOptimizer;
 	private final transient UpdateSchemeOSM updateScheme;
@@ -45,7 +48,7 @@ public class HorseOSM extends Horse {
 
 	private final double stepLength;
 	private final double stepDeviation;
-	private List<SpeedAdjuster> speedAdjusters;
+//	private List<SpeedAdjuster> speedAdjusters;
 	private final double minStepLength;
 
 	private double durationNextStep;
@@ -67,14 +70,14 @@ public class HorseOSM extends Horse {
 
 	@SuppressWarnings("unchecked")
 	HorseOSM(AttributesOSM attributesOSM,
-			AttributesHorse attributesHorse, Topography topography,
+			AttributesHorse attributesPedestrian, Topography topography,
 			Random random, PotentialFieldTarget potentialFieldTarget,
 			PotentialFieldObstacle potentialFieldObstacle,
 			PotentialFieldAgent potentialFieldPedestrian,
 			List<SpeedAdjuster> speedAdjusters,
 			StepCircleOptimizer stepCircleOptimizer) {
 
-		super(attributesHorse, random);
+		super(attributesPedestrian, random);
 
 		this.attributesOSM = attributesOSM;
 		this.topography = topography;
@@ -84,7 +87,7 @@ public class HorseOSM extends Horse {
 		this.stepCircleOptimizer = stepCircleOptimizer;
 		this.updateScheme = createUpdateScheme(attributesOSM.getUpdateType(), this);
 
-		this.speedAdjusters = speedAdjusters;
+//		this.speedAdjusters = speedAdjusters;
 		this.relevantPedestrians = new HashSet<>();
 		this.timeCredit = 0;
 
@@ -105,27 +108,27 @@ public class HorseOSM extends Horse {
 		this.strides[1] = new ArrayList<>();
 	}
 
-	private static UpdateSchemeOSM createUpdateScheme(UpdateType updateType, HorseOSM horseOSM) {
+	private static UpdateSchemeOSM createUpdateScheme(UpdateType updateType, AgentOSM agentOSM) {
 
 		UpdateSchemeOSM result;
 
 		switch (updateType) {
 			case EVENT_DRIVEN:
-				result = new UpdateSchemeEventDriven(horseOSM);
+				result = new UpdateSchemeEventDriven(agentOSM);
 				break;
-			case PARALLEL:
-				result = new UpdateSchemeParallel(horseOSM);
-				break;
+//			case PARALLEL:
+//				result = new UpdateSchemeParallel(agentOSM);
+//				break;
 			case SEQUENTIAL:
-				result = new UpdateSchemeSequential(horseOSM);
+				result = new UpdateSchemeSequential(agentOSM);
 				break;
 			default:
-				result = new UpdateSchemeSequential(horseOSM);
+				result = new UpdateSchemeSequential(agentOSM);
 		}
 
 		return result;
 	}
-	
+
 	public void update(double timeStepInSec, double currentTimeInSec, CallMethod callMethod) {
 
 		this.updateScheme.update(timeStepInSec, currentTimeInSec, callMethod);
@@ -207,15 +210,15 @@ public class HorseOSM extends Horse {
 		}
 	}
 
-	public double getDesiredSpeed() {
-		double desiredSpeed = getFreeFlowSpeed();
-
-		for (SpeedAdjuster adjuster : speedAdjusters) {
-			desiredSpeed = adjuster.getAdjustedSpeed(this, desiredSpeed);
-		}
-
-		return desiredSpeed;
-	}
+//	public double getDesiredSpeed() {
+//		double desiredSpeed = getFreeFlowSpeed();
+//
+//		for (SpeedAdjuster adjuster : speedAdjusters) {
+//			desiredSpeed = adjuster.getAdjustedSpeed(this, desiredSpeed);
+//		}
+//
+//		return desiredSpeed;
+//	}
 
 	public double getPotential(VPoint newPos) {
 
@@ -317,7 +320,17 @@ public class HorseOSM extends Horse {
 	}
 
 	public double getMinStepLength() {
-		return super.getM
+		return minStepLength;
+	}
+	
+	@Override
+	public VPoint getPosition() {
+		return super.getPosition();
+	}
+
+	@Override
+	public double getDesiredSpeed() {
+		return super.getFreeFlowSpeed();
 	}
 
 }

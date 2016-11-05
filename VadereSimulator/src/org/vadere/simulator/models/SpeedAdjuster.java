@@ -1,5 +1,6 @@
 package org.vadere.simulator.models;
 
+import org.vadere.state.scenario.Horse;
 import org.vadere.state.scenario.Pedestrian;
 
 /**
@@ -9,4 +10,5 @@ import org.vadere.state.scenario.Pedestrian;
  */
 public interface SpeedAdjuster {
 	public double getAdjustedSpeed(Pedestrian ped, double originalSpeed);
+//	public double getAdjustedSpeed(Horse horse, double originalSpeed);
 }

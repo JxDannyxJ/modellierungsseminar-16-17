@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.math.util.MathUtils;
+import org.vadere.simulator.models.osm.AgentOSM;
 import org.vadere.simulator.models.osm.PedestrianOSM;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -35,15 +36,15 @@ public class StepCircleOptimizerEvolStrat implements StepCircleOptimizer {
 	}
 
 	@Override
-	public VPoint getNextPosition(PedestrianOSM ped, Shape reachableArea) {
+	public VPoint getNextPosition(AgentOSM agentOSM, Shape reachableArea) {
 
 		double stepSize = ((VCircle) reachableArea).getRadius();
-		LinkedList<VPoint> positions = StepCircleOptimizerDiscrete.getReachablePositions(ped, random);
+		LinkedList<VPoint> positions = StepCircleOptimizerDiscrete.getReachablePositions(agentOSM, random);
 		int numberOfParents = positions.size();
 		int numberOfChildren = numberOfParents * 7;
 
 		PotentialEvaluationFunction potentialEvaluationFunction = new PotentialEvaluationFunction(
-				ped);
+				agentOSM);
 		potentialEvaluationFunction.setStepSize(stepSize);
 
 		List<EvolStratIndividual> parents = new ArrayList<EvolStratIndividual>();

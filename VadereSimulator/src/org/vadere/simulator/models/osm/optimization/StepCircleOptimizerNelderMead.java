@@ -12,6 +12,7 @@ import org.apache.commons.math.optimization.direct.DirectSearchOptimizer;
 import org.apache.commons.math.optimization.direct.NelderMead;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.vadere.simulator.models.osm.AgentOSM;
 import org.vadere.simulator.models.osm.PedestrianOSM;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -32,19 +33,19 @@ public class StepCircleOptimizerNelderMead implements StepCircleOptimizer {
 	}
 
 	@Override
-	public VPoint getNextPosition(PedestrianOSM pedestrian, Shape reachableArea) {
+	public VPoint getNextPosition(AgentOSM agentOSM, Shape reachableArea) {
 
 		double stepSize = ((VCircle) reachableArea).getRadius();
-		LinkedList<VPoint> positions = StepCircleOptimizerDiscrete.getReachablePositions(pedestrian, random);
+		LinkedList<VPoint> positions = StepCircleOptimizerDiscrete.getReachablePositions(agentOSM, random);
 
-		PotentialEvaluationFunction potentialEvaluationFunction = new PotentialEvaluationFunction(pedestrian);
+		PotentialEvaluationFunction potentialEvaluationFunction = new PotentialEvaluationFunction(agentOSM);
 		potentialEvaluationFunction.setStepSize(stepSize);
 
-		double[] position = potentialEvaluationFunction.pointToArray(pedestrian.getPosition());
+		double[] position = potentialEvaluationFunction.pointToArray(agentOSM.getPosition());
 		double[] newPosition = new double[2];
 		double[] minimum = position;
 		double[] newMinimum = {0, 0};
-		double minimumValue = pedestrian.getPotential(pedestrian.getPosition());
+		double minimumValue = agentOSM.getPotential(agentOSM.getPosition());
 		double newMinimumValue = 0;
 		double step = stepSize / 2;
 		double threshold = 0.0001;
@@ -78,9 +79,9 @@ public class StepCircleOptimizerNelderMead implements StepCircleOptimizer {
 					anotherPoint = counter + 1;
 				}
 
-				double innerDistance = pedestrian.getPosition().distance(
+				double innerDistance = agentOSM.getPosition().distance(
 						(positions.get(counter)));
-				VPoint innerDirection = pedestrian.getPosition()
+				VPoint innerDirection = agentOSM.getPosition()
 						.subtract((positions.get(counter)))
 						.scalarMultiply(1.0 / innerDistance);
 				double outerDistance = positions.get(anotherPoint).distance(

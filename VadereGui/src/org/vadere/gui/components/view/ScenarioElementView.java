@@ -115,7 +115,6 @@ public class ScenarioElementView extends JPanel implements ISelectScenarioElemen
 		txtrTextfiletextarea.getDocument().addDocumentListener(documentListener);
 	}
 
-	//TODO: Change Pedestrian usage to Agent
 	private void updateModel() {
 		// set the content for the view
 		// defaultModel.setJSONContent(event.getDocument().getText(0,

@@ -71,6 +71,7 @@ public class TopographyCreatorModel extends DefaultModel implements IDrawPanelMo
 
 	public TopographyCreatorModel(final ScenarioRunManager scenario) {
 		this(scenario.getTopography(), scenario);
+		setVadereScenario(scenario);
 	}
 
 	public TopographyCreatorModel(final Topography topography, final ScenarioRunManager scenario) {
@@ -169,7 +170,29 @@ public class TopographyCreatorModel extends DefaultModel implements IDrawPanelMo
 	@Override
 	public ScenarioElement deleteLastShape(final ScenarioElementType type) {
 
-		ScenarioElement element = topographyBuilder.removeLastScenarioElement(type);
+		ScenarioElement element;
+		switch (type) {
+			case OBSTACLE:
+				element = topographyBuilder.removeLastObstacle();
+				break;
+			case PEDESTRIAN:
+				element = topographyBuilder.removeLastPedestrian();
+				break;
+			case SOURCE:
+				element = topographyBuilder.removeLastSource();
+				break;
+			case TARGET:
+				element = topographyBuilder.removeLastTarget();
+				break;
+			case TELEPORTER:
+				element = topographyBuilder.removeTeleporter();
+				break;
+			case STAIRS:
+				element = topographyBuilder.removeLastStairs();
+				break;
+			default:
+				throw new IllegalArgumentException("wrong ScenarioElementType.");
+		}
 
 		setChanged();
 		if (element.equals(getSelectedElement())) {

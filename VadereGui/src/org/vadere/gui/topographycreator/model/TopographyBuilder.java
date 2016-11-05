@@ -6,11 +6,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.attributes.scenario.AttributesCar;
-import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesTopography;
 import org.vadere.state.scenario.*;
-import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VPoint;
 
 /**
@@ -22,12 +19,12 @@ import org.vadere.util.geometry.shapes.VPoint;
  * build Topography
  * is a new Object. The references of the members of two Topography-Object can be the same because
  * they wont be cloned.
+ * 
+ *
  */
 public class TopographyBuilder implements Iterable<ScenarioElement> {
 	// TopographyElements
 	private LinkedList<AgentWrapper> pedestrians;
-	private LinkedList<Horse> horses;
-	private LinkedList<Car> cars;
 	private LinkedList<Obstacle> obstacles;
 	private LinkedList<Stairs> stairs;
 	private LinkedList<Source> sources;
@@ -36,16 +33,12 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 	private LinkedList<ScenarioElement> topographyElements;
 	private AttributesTopography attributes;
 	private AttributesAgent attributesPedestrian;
-	private AttributesHorse attributesHorse;
-	private AttributesCar attributesCar;
 
 	/**
 	 * Default-Constructor that initialize an empty TopographyBuilder.
 	 */
 	public TopographyBuilder() {
 		pedestrians = new LinkedList<>();
-		horses = new LinkedList<>();
-		cars = new LinkedList<>();
 		obstacles = new LinkedList<>();
 		stairs = new LinkedList<>();
 		sources = new LinkedList<>();
@@ -56,59 +49,37 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 
 	/**
 	 * Initial a new TopgraphyBuilder with members of a Topography by using reflection.
-	 *
+	 * 
 	 * @param topography the topography that member-references will be copied.
 	 */
 	public TopographyBuilder(final Topography topography) {
 		try {
-			LinkedList<Pedestrian> pedStores = new LinkedList<>(topography.getInitialElements(Pedestrian.class));
-			LinkedList<Horse> horseStores = new LinkedList<>(topography.getInitialElements(Horse.class));
-			LinkedList<Car> carStores = new LinkedList<>(topography.getInitialElements(Car.class));
-
-			// Static scenario elements
 			obstacles = new LinkedList<>(topography.getObstacles());
 			stairs = new LinkedList<>(topography.getStairs());
-			sources = new LinkedList<>(topography.getSources());
-			targets = new LinkedList<>(topography.getTargets());
-			teleporter = topography.getTeleporter();
-
-			// Dynamic scenario elements
+			LinkedList<Pedestrian> pedStores = new LinkedList<>(topography.getInitialElements(Pedestrian.class));
 			pedestrians = new LinkedList<>();
-			horses = new LinkedList<>();
-			cars = new LinkedList<>();
-
 			for (Pedestrian pedStore : pedStores) {
 				pedestrians.add(new AgentWrapper(pedStore));
 			}
-
-			for (Horse horse : horseStores) {
-				horses.add(new Horse(horse));
-			}
-
-			for (Car car : carStores) {
-				cars.add(new Car(car));
-			}
-
+			sources = new LinkedList<>(topography.getSources());
+			targets = new LinkedList<>(topography.getTargets());
+			teleporter = topography.getTeleporter();
 		} catch (SecurityException | IllegalArgumentException e) {
 			e.printStackTrace();
 		}
 		attributes = topography.getAttributes();
 		attributesPedestrian = topography.getAttributesPedestrian();
-		attributesHorse = topography.getAttributesHorse();
-		attributesCar = topography.getAttributesCar();
 		topographyElements = new LinkedList<>();
 		topographyElements.addAll(obstacles);
 		topographyElements.addAll(stairs);
 		topographyElements.addAll(pedestrians);
-		topographyElements.addAll(horses);
-		topographyElements.addAll(cars);
 		topographyElements.addAll(sources);
 		topographyElements.addAll(targets);
 	}
 
 	/**
 	 * Copy-Constructor (all objects will be copied, not only the references!).
-	 *
+	 * 
 	 * @param builder the orign
 	 */
 	public TopographyBuilder(final TopographyBuilder builder) {
@@ -133,7 +104,7 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 	}
 
 	public Topography build() {
-		Topography topography = new Topography(attributes, attributesPedestrian, null, attributesHorse);
+		Topography topography = new Topography(attributes, attributesPedestrian);
 
 		for (Obstacle obstacle : obstacles)
 			topography.addObstacle(obstacle);
@@ -149,14 +120,6 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 
 		for (AgentWrapper pedestrian : pedestrians)
 			topography.addInitialElement(pedestrian.getAgentInitialStore());
-
-		for (Horse horse : horses) {
-			topography.addInitialElement(horse);
-		}
-
-		for (Car car : cars) {
-			topography.addInitialElement(car);
-		}
 
 		topography.setTeleporter(teleporter);
 
@@ -180,10 +143,6 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 				return stairs.remove(element);
 			case PEDESTRIAN:
 				return pedestrians.remove(element);
-			case CAR:
-				return cars.remove(element);
-			case HORSE:
-				return horses.remove(element);
 			case TARGET:
 				return targets.remove(element);
 			case SOURCE:
@@ -231,35 +190,40 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 		this.targets.add(target);
 	}
 
-	public ScenarioElement removeLastScenarioElement(ScenarioElementType type) throws IllegalArgumentException {
-		ScenarioElement element;
-		switch (type) {
-			case OBSTACLE:
-				element = obstacles.removeLast();
-				break;
-			case PEDESTRIAN:
-				element = pedestrians.removeLast();
-				break;
-			case CAR:
-				element = cars.removeLast();
-				break;
-			case SOURCE:
-				element = sources.removeLast();
-				break;
-			case TARGET:
-				element = targets.removeLast();
-				break;
-			case TELEPORTER:
-				element = this.teleporter;
-				setTeleporter(null);
-				break;
-			case STAIRS:
-				element = stairs.removeLast();
-				break;
-			default:
-				throw new IllegalArgumentException("wrong ScenarioElementType.");
-		}
-		return element;
+	public Target removeLastTarget() {
+		Target target = targets.removeLast();
+		topographyElements.remove(target);
+		return target;
+	}
+
+	public Source removeLastSource() {
+		Source source = sources.removeLast();
+		topographyElements.remove(source);
+		return source;
+	}
+
+	public Obstacle removeLastObstacle() {
+		Obstacle obstacle = obstacles.removeLast();
+		topographyElements.remove(obstacle);
+		return obstacle;
+	}
+
+	public Stairs removeLastStairs() {
+		Stairs stairs = this.stairs.removeLast();
+		topographyElements.remove(stairs);
+		return stairs;
+	}
+
+	public AgentWrapper removeLastPedestrian() {
+		AgentWrapper pedestrian = pedestrians.removeLast();
+		topographyElements.remove(pedestrian);
+		return pedestrian;
+	}
+
+	public Teleporter removeTeleporter() {
+		Teleporter teleporter = this.teleporter;
+		setTeleporter(null);
+		return teleporter;
 	}
 
 	public Iterator<Obstacle> getObstacleIterator() {
@@ -280,14 +244,6 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 
 	public Iterator<AgentWrapper> getPedestrianIterator() {
 		return pedestrians.iterator();
-	}
-
-	public Iterator<Horse> getHorseIterator() {
-		return horses.iterator();
-	}
-
-	public Iterator<Car> getCarIterator() {
-		return cars.iterator();
 	}
 
 	@Override

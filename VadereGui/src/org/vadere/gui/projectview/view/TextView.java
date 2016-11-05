@@ -195,6 +195,7 @@ public class TextView extends JPanel {
 			}
 		};
 
+		this.attributeType = attributeType;
 		jsonValidIndicator.setValid();
 	}
 

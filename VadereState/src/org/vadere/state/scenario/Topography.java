@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesDynamicElement;
-import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesTopography;
 import org.vadere.util.geometry.LinkedCellsGrid;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -53,7 +52,7 @@ public class Topography {
 
 	private AttributesAgent attributesPedestrian;
 	private AttributesCar attributesCar;
-	private AttributesHorse attributesHorse;
+
 
 	/**
 	 * List of obstacles used as a boundary for the whole topography.
@@ -63,10 +62,9 @@ public class Topography {
 	private final List<Stairs> stairs;
 
 	public Topography(AttributesTopography attributes, AttributesAgent attributesPedestrian,
-					  AttributesCar attributesCar, AttributesHorse attributesHorse) {
+			AttributesCar attributesCar) {
 		this(attributes, attributesPedestrian);
-		this.setAttributesCar(attributesCar);
-		this.setAttributesHorse(attributesHorse);
+		this.attributesCar = attributesCar;
 	}
 
 	public Topography(AttributesTopography attributes, AttributesAgent attributesPedestrian) {
@@ -89,7 +87,7 @@ public class Topography {
 	 * Creates an empty scenario where bounds and finishTime are empty / zero.
 	 */
 	public Topography() {
-		this(new AttributesTopography(), new AttributesAgent(), new AttributesCar(), new AttributesHorse());
+		this(new AttributesTopography(), new AttributesAgent());
 	}
 
 	public Rectangle2D.Double getBounds() {
@@ -213,9 +211,7 @@ public class Topography {
 		return cars;
 	}
 
-	public DynamicElementContainer<Horse> getHorseDynamicElemnets() {
-		return horses;
-	}
+	public DynamicElementContainer<Horse> getHorseDynamicElemnets() { return horses; }
 
 	public void addSource(Source source) {
 		this.sources.add(source);
@@ -269,16 +265,8 @@ public class Topography {
 		this.attributesCar = attributesCar;
 	}
 
-	public AttributesHorse getAttributesHorse() {
-		return attributesHorse;
-	}
-
-	public void setAttributesHorse(AttributesHorse attributesHorse) {
-		this.attributesHorse = attributesHorse;
-	}
-
 	public <T extends DynamicElement> void addElementRemovedListener(Class<T> elementType,
-																	 DynamicElementRemoveListener<T> listener) {
+			DynamicElementRemoveListener<T> listener) {
 		getContainer(elementType).addElementRemovedListener(listener);
 	}
 
@@ -287,7 +275,7 @@ public class Topography {
 	}
 
 	public <T extends DynamicElement> void addElementAddedListener(Class<T> elementType,
-																   DynamicElementAddListener<T> addListener) {
+			DynamicElementAddListener<T> addListener) {
 		getContainer(elementType).addElementAddedListener(addListener);
 	}
 
@@ -317,7 +305,6 @@ public class Topography {
 		removeBoundary();
 		pedestrians.clear();
 		cars.clear();
-		horses.clear();
 		clearListeners(Pedestrian.class);
 		clearListeners(Car.class);
 	}
@@ -331,7 +318,8 @@ public class Topography {
 	 */
 	@Override
 	public Topography clone() {
-		Topography s = new Topography(this.attributes, this.attributesPedestrian, attributesCar, attributesHorse);
+		Topography s = new Topography(this.attributes, this.attributesPedestrian);
+		s.attributesCar = this.attributesCar;
 
 		for (Obstacle obstacle : this.getObstacles()) {
 			if (this.boundaryObstacles.contains(obstacle))
@@ -360,12 +348,6 @@ public class Topography {
 		for (Car car : getInitialElements(Car.class)) {
 			s.addInitialElement(car);
 		}
-		for (Horse horse : this.getElements(Horse.class)) {
-			s.addElement(horse);
-		}
-		for (Horse horse : this.getInitialElements(Horse.class)) {
-			s.addInitialElement(horse);
-		}
 
 		if (this.hasTeleporter()) {
 			s.setTeleporter(this.getTeleporter().clone());
@@ -383,12 +365,6 @@ public class Topography {
 		}
 		for (DynamicElementRemoveListener<Car> carRemoveListener : this.cars.getElementRemovedListener()) {
 			s.addElementRemovedListener(Car.class, carRemoveListener);
-		}
-		for (DynamicElementAddListener<Horse> horseAddListener : this.horses.getElementAddedListener()) {
-			s.addElementAddedListener(Horse.class, horseAddListener);
-		}
-		for (DynamicElementRemoveListener<Horse> horseRemoveListener : this.horses.getElementRemovedListener()) {
-			s.addElementRemovedListener(Horse.class, horseRemoveListener);
 		}
 
 		return s;

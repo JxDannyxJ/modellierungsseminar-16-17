@@ -38,20 +38,12 @@ import org.vadere.state.attributes.scenario.AttributesStairs;
 import org.vadere.state.attributes.scenario.AttributesTarget;
 import org.vadere.state.attributes.scenario.AttributesTeleporter;
 import org.vadere.state.attributes.scenario.AttributesTopography;
-import org.vadere.state.scenario.Car;
-import org.vadere.state.scenario.DynamicElement;
-import org.vadere.state.scenario.Horse;
-import org.vadere.state.scenario.Obstacle;
-import org.vadere.state.scenario.Pedestrian;
-import org.vadere.state.scenario.Source;
-import org.vadere.state.scenario.Stairs;
-import org.vadere.state.scenario.Target;
-import org.vadere.state.scenario.Teleporter;
-import org.vadere.state.scenario.Topography;
+import org.vadere.state.scenario.*;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.GeometryUtils;
 import org.vadere.util.geometry.ShapeType;
 import org.vadere.util.geometry.shapes.VCircle;
+import org.vadere.util.geometry.shapes.VEllipse;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VPolygon;
 import org.vadere.util.geometry.shapes.VRectangle;
@@ -128,6 +120,8 @@ public abstract class JsonConverter {
 						return mapper.convertValue(node, Polygon2DStore.class).newVPolygon();
 					case RECTANGLE:
 						return deserializeVRectangle(node);
+					case ELLIPSE:
+						return mapper.convertValue(node, EllipseStore.class).newVEllipse();
 				}
 				return null;
 			}
@@ -145,6 +139,9 @@ public abstract class JsonConverter {
 						jsonGenerator
 								.writeTree(mapper.convertValue(new Polygon2DStore((VPolygon) vShape), JsonNode.class));
 						break;
+					case ELLIPSE:
+						jsonGenerator
+							.writeTree(mapper.convertValue(new EllipseStore((VEllipse) vShape), JsonNode.class));
 					case RECTANGLE:
 						jsonGenerator.writeTree(serializeVRectangle((VRectangle) vShape)); // this doesn't seem to get called ever, the VRectangle serializer always seem to get called
 						break;
@@ -161,6 +158,8 @@ public abstract class JsonConverter {
 				switch (type) {
 					case PEDESTRIAN:
 						return mapper.convertValue(node, Pedestrian.class);
+					case HORSE:
+						return mapper.convertValue(node, Horse.class);
 					// ... ?
 				}
 				return null;
@@ -193,8 +192,8 @@ public abstract class JsonConverter {
 	private static class TopographyStore {
 		AttributesTopography attributes = new AttributesTopography();
 		AttributesAgent attributesPedestrian = new AttributesAgent();
-		AttributesCar attributesCar = new AttributesCar();
-		AttributesHorse attributesHorse = new AttributesHorse();
+		AttributesCar attributesCar;
+		AttributesHorse attributesHorse;
 		Collection<AttributesObstacle> obstacles = new LinkedList<>();
 		Collection<AttributesStairs> stairs = new LinkedList<>();
 		Collection<AttributesTarget> targets = new LinkedList<>();
@@ -253,6 +252,29 @@ public abstract class JsonConverter {
 
 		public VCircle newVCircle() {
 			return new VCircle(center, radius);
+		}
+	}
+	
+	/**
+	 *Class to store informations of Ellipse and
+	 *create new Instances of VEllipse.
+	 */
+	private static class EllipseStore {
+		public double height;
+		public double width;
+		public VPoint center;
+		public ShapeType type = ShapeType.ELLIPSE;
+		
+		public EllipseStore() {}
+		
+		public EllipseStore(VEllipse vEllipse) {
+			height = vEllipse.getHeight();
+			width = vEllipse.getWidth();
+			center = vEllipse.getCenter();
+		}
+		
+		public VEllipse newVEllipse() {
+			return new VEllipse(center, height, width);
 		}
 	}
 
@@ -349,18 +371,47 @@ public abstract class JsonConverter {
 		}
 	}
 
+	public static Agent deserializeAgent(String json) throws IOException {
+		return mapper.readValue(json, Agent.class);
+	}
+
+	/**
+	 * Deserialize Object from Json.
+	 * @param json description of {@link Pedestrian}.
+	 * @return instance of {@link Pedestrian}.
+	 * @throws IOException
+	 */
 	public static Pedestrian deserializePedestrian(String json) throws IOException {
 		return mapper.readValue(json, Pedestrian.class);
 	}
 
+	/**
+	 * Deserialize Object from Json.
+	 * @param json description of {@link Car}.
+	 * @return instance of {@link Car}.
+	 * @throws IOException
+	 */
 	public static Car deserializeCar(String json) throws IOException {
 		return mapper.readValue(json, Car.class);
 	}
-
+	
+	/**
+	 * Deserialize Object from Json.
+	 * @param json description of {@link Horse}.
+	 * @return instance of {@link Horse}.
+	 * @throws IOException
+	 */
 	public static Horse deserializeHorse(String json) throws IOException {
 		return mapper.readValue(json, Horse.class);
 	}
 
+	/**
+	 * Deserialize Json input and create the right {@link Attributes} Object. 
+	 * @param json representation of {@link Attributes} for {@link ScenarioElementType}.
+	 * @param type which is described by Json input-
+	 * @return instance of {@link Attributes}.
+	 * @throws IOException
+	 */
 	public static Attributes deserializeScenarioElementType(String json, ScenarioElementType type) throws IOException {
 		// TODO [priority=low] [task=refactoring] find a better way!
 		switch (type) {
@@ -503,6 +554,8 @@ public abstract class JsonConverter {
 				.forEach(ped -> dynamicElementNodes.add(mapper.convertValue(ped, JsonNode.class))); // TODO [priority=medium] [task=check] initial elements is the right list, isn't it?
 		topography.getCarDynamicElements().getInitialElements()
 				.forEach(car -> dynamicElementNodes.add(mapper.convertValue(car, JsonNode.class))); // TODO [priority=medium] [task=test] verify that this works
+		topography.getHorseDynamicElemnets().getInitialElements()
+				.forEach(horse -> dynamicElementNodes.add(mapper.convertValue(horse, JsonNode.class)));
 		topographyNode.set("dynamicElements", dynamicElementNodes);
 
 		JsonNode attributesPedestrianNode = mapper.convertValue(topography.getAttributesPedestrian(), JsonNode.class);
@@ -512,9 +565,12 @@ public abstract class JsonConverter {
 
 		JsonNode attributesCarNode = mapper.convertValue(topography.getAttributesCar(), JsonNode.class);
 		topographyNode.set("attributesCar", attributesCarNode);
+		if (attributesPedestrianNode != null)
+			((ObjectNode) attributesCarNode).remove("id");
 
 		JsonNode attributesHorseNode = mapper.convertValue(topography.getAttributesHorse(), JsonNode.class);
 		topographyNode.set("attributesHorse", attributesHorseNode);
+		
 
 		return topographyNode;
 	}

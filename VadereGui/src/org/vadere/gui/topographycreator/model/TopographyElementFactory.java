@@ -1,13 +1,11 @@
 package org.vadere.gui.topographycreator.model;
 
 import org.vadere.state.attributes.Attributes;
-import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
 import org.vadere.state.attributes.scenario.AttributesSource;
 import org.vadere.state.attributes.scenario.AttributesStairs;
 import org.vadere.state.attributes.scenario.AttributesTarget;
-import org.vadere.state.scenario.Car;
 import org.vadere.state.scenario.Horse;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
@@ -19,12 +17,13 @@ import java.util.Random;
 
 /**
  * A Factory to create new ScenarioElements.
+ * 
+ *
  */
 public class TopographyElementFactory {
 	private static TopographyElementFactory instance = new TopographyElementFactory();
 
-	private TopographyElementFactory() {
-	}
+	private TopographyElementFactory() {}
 
 	public static TopographyElementFactory getInstance() {
 		return instance;
@@ -44,8 +43,6 @@ public class TopographyElementFactory {
 				return new AgentWrapper(((VCircle) shape).getCenter());
 			case HORSE:
 				return new Horse(new AttributesHorse(-1), new Random());
-			case CAR:
-				return new Car(new AttributesCar(-1), new Random());
 			default:
 				throw new IllegalArgumentException("unsupported ScenarioElementType.");
 		}

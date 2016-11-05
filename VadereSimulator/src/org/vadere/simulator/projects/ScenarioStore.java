@@ -42,6 +42,10 @@ public class ScenarioStore {
 		this(name, "", null, new ArrayList<>(), new AttributesSimulation(), new Topography());
 	}
 
+	public AttributesCar getAttributesCar() {
+		return topography.getAttributesCar();
+	}
+
 	@Override
 	public ScenarioStore clone() {
 		try {

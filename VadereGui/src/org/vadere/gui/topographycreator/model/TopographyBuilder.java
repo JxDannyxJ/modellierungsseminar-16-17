@@ -191,6 +191,11 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 		this.pedestrians.add(pedWrappper);
 	}
 
+	public void addHorse(final HorseWrapper horse) {
+		this.topographyElements.add(horse);
+		this.horses.add((Horse) horse.getAgentInitialStore());
+	}
+
 	public void addObstacle(final Obstacle obstacle) {
 		this.topographyElements.add(obstacle);
 		this.obstacles.add(obstacle);
@@ -245,6 +250,12 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 		Teleporter teleporter = this.teleporter;
 		setTeleporter(null);
 		return teleporter;
+	}
+
+	public Horse removeLastHorse() {
+		Horse horse = horses.removeLast();
+		topographyElements.remove(horse);
+		return horse;
 	}
 
 	public Iterator<Obstacle> getObstacleIterator() {

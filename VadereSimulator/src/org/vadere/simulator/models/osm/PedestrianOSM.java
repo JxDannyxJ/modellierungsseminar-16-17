@@ -126,7 +126,8 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 
 		return result;
 	}
-
+	
+	@Override
 	public void update(double timeStepInSec, double currentTimeInSec, CallMethod callMethod) {
 
 		this.updateScheme.update(timeStepInSec, currentTimeInSec, callMethod);

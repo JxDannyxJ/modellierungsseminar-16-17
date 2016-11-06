@@ -74,6 +74,18 @@ public class OptimalStepsModel implements MainModel {
 			}
 		}
 	}
+	
+	private class ComparatorAgentOSM implements Comparator<AgentOSM> {
+		
+		@Override
+		public int compare(AgentOSM a1, AgentOSM a2) {
+			if (a1.getTimeOfNextStep() < a2.getTimeOfNextStep()) {
+				return -1;
+			} else {
+				return 1;
+			}
+		}
+	}
 
 	private AttributesOSM attributesOSM;
 	private AttributesAgent attributesPedestrian;
@@ -86,7 +98,8 @@ public class OptimalStepsModel implements MainModel {
 	private Topography topography;
 	private double lastSimTimeInSec;
 	private int pedestrianIdCounter;
-	private PriorityQueue<PedestrianOSM> pedestrianEventsQueue;
+//	private PriorityQueue<PedestrianOSM> pedestrianEventsQueue;
+	private PriorityQueue<AgentOSM> agentEventsQueue;
 
 	private ExecutorService executorService;
 	private List<ActiveCallback> activeCallbacks = new LinkedList<>();
@@ -111,11 +124,11 @@ public class OptimalStepsModel implements MainModel {
 		this.speedAdjusters = speedAdjusters;
 
 		if (attributesOSM.getUpdateType() == UpdateType.EVENT_DRIVEN) {
-			this.pedestrianEventsQueue = new PriorityQueue<>(100,
-					new ComparatorPedestrianOSM());
+			this.agentEventsQueue = new PriorityQueue<>(100,
+					new ComparatorAgentOSM());
 		} else {
 			// not needed and should not be used in this case
-			this.pedestrianEventsQueue = null;
+			this.agentEventsQueue = null;
 		}
 
 		if (attributesOSM.getUpdateType() == UpdateType.PARALLEL) {
@@ -180,11 +193,11 @@ public class OptimalStepsModel implements MainModel {
 		}
 
 		if (attributesOSM.getUpdateType() == UpdateType.EVENT_DRIVEN) {
-			this.pedestrianEventsQueue = new PriorityQueue<>(100,
-					new ComparatorPedestrianOSM());
+			this.agentEventsQueue = new PriorityQueue<>(100,
+					new ComparatorAgentOSM());
 		} else {
 			// not needed and should not be used in this case
-			this.pedestrianEventsQueue = null;
+			this.agentEventsQueue = null;
 		}
 
 		if (attributesOSM.getUpdateType() == UpdateType.PARALLEL) {
@@ -248,11 +261,11 @@ public class OptimalStepsModel implements MainModel {
 
 		// event driven update
 		if (attributesOSM.getUpdateType() == UpdateType.EVENT_DRIVEN
-				&& !pedestrianEventsQueue.isEmpty()) {
-			while (pedestrianEventsQueue.peek().getTimeOfNextStep() < simTimeInSec) {
-				PedestrianOSM ped = pedestrianEventsQueue.poll();
-				ped.update(-1, simTimeInSec, CallMethod.EVENT_DRIVEN);
-				pedestrianEventsQueue.add(ped);
+				&& !agentEventsQueue.isEmpty()) {
+			while (agentEventsQueue.peek().getTimeOfNextStep() < simTimeInSec) {
+				AgentOSM agent = agentEventsQueue.poll();
+				agent.update(-1, simTimeInSec, CallMethod.EVENT_DRIVEN);
+				agentEventsQueue.add(agent);
 			}
 
 		} else {
@@ -332,7 +345,7 @@ public class OptimalStepsModel implements MainModel {
 		pedestrian.setPosition(position);
 
 		if (attributesOSM.getUpdateType() == UpdateType.EVENT_DRIVEN) {
-			this.pedestrianEventsQueue.add(pedestrian);
+			this.agentEventsQueue.add(pedestrian);
 		}
 
 		return pedestrian;

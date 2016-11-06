@@ -1,5 +1,6 @@
 package org.vadere.simulator.models.osm;
 
+import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM.CallMethod;
 import org.vadere.state.attributes.models.AttributesOSM;
 import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.Vector2D;
@@ -36,5 +37,6 @@ public interface AgentOSM {
 	public int getNextTargetId();
 	public Vector2D getObstacleGradient(VPoint position);
 	public Vector2D getPedestrianGradient(VPoint position);
+	public void update(double i, double simTimeInSec, CallMethod eventDriven);
 
 }

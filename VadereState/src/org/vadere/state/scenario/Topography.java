@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesDynamicElement;
+import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesTopography;
 import org.vadere.util.geometry.LinkedCellsGrid;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -52,7 +53,7 @@ public class Topography {
 
 	private AttributesAgent attributesPedestrian;
 	private AttributesCar attributesCar;
-
+	private AttributesHorse attributesHorse;
 
 	/**
 	 * List of obstacles used as a boundary for the whole topography.
@@ -62,9 +63,10 @@ public class Topography {
 	private final List<Stairs> stairs;
 
 	public Topography(AttributesTopography attributes, AttributesAgent attributesPedestrian,
-			AttributesCar attributesCar) {
+			AttributesCar attributesCar, AttributesHorse attributesHorse) {
 		this(attributes, attributesPedestrian);
 		this.attributesCar = attributesCar;
+		this.attributesHorse = attributesHorse;
 	}
 
 	public Topography(AttributesTopography attributes, AttributesAgent attributesPedestrian) {
@@ -397,4 +399,7 @@ public class Topography {
 		return this.boundaryObstacles.size() > 0;
 	}
 
+	public AttributesHorse getAttributesHorse () {
+		return this.attributesHorse;
+	}
 }

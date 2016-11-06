@@ -6,14 +6,14 @@ package org.vadere.state.attributes.processor;
  */
 
 public class AttributesAreaSpeedProcessor extends AttributesAreaProcessor {
-    private int pedestrianPositionProcessorId;
-    private int pedestrianVelocityProcessorId;
+    private int positionProcessorId;
+    private int velocityProcessorId;
 
-    public int getPedestrianPositionProcessorId() {
-        return this.pedestrianPositionProcessorId;
+    public int getPositionProcessorId() {
+        return this.positionProcessorId;
     }
 
-    public int getPedestrianVelocityProcessorId() {
-        return this.pedestrianVelocityProcessorId;
+    public int getVelocityProcessorId() {
+        return this.velocityProcessorId;
     }
 }

@@ -3,7 +3,7 @@ package org.vadere.simulator.projects.dataprocessing.processor;
 import org.vadere.simulator.control.SimulationState;
 import org.vadere.simulator.projects.dataprocessing.ProcessorManager;
 import org.vadere.simulator.projects.dataprocessing.datakey.PedestrianIdKey;
-import org.vadere.state.attributes.processor.AttributesPedestrianEvacuationTimeProcessor;
+import org.vadere.state.attributes.processor.AttributesStartEvacuationTimeProcessor;
 import org.vadere.state.scenario.Pedestrian;
 
 /**
@@ -36,7 +36,7 @@ public class PedestrianEvacuationTimeProcessor extends DataProcessor<PedestrianI
 
 	@Override
 	public void init(final ProcessorManager manager) {
-		AttributesPedestrianEvacuationTimeProcessor att = (AttributesPedestrianEvacuationTimeProcessor) this.getAttributes();
-		this.pedStTimeProc = (PedestrianStartTimeProcessor) manager.getProcessor(att.getPedestrianStartTimeProcessorId());
+		AttributesStartEvacuationTimeProcessor att = (AttributesStartEvacuationTimeProcessor) this.getAttributes();
+		this.pedStTimeProc = (PedestrianStartTimeProcessor) manager.getProcessor(att.getStartTimeProcessorId());
 	}
 }

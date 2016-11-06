@@ -5,10 +5,10 @@ package org.vadere.state.attributes.processor;
  *
  */
 
-public class AttributesPedestrianEvacuationTimeProcessor extends AttributesProcessor {
-    private int pedestrianStartTimeProcessorId;
+public class AttributesStartEvacuationTimeProcessor extends AttributesProcessor {
+    private int startTimeProcessorId;
 
-    public int getPedestrianStartTimeProcessorId() {
-        return this.pedestrianStartTimeProcessorId;
+    public int getStartTimeProcessorId() {
+        return this.startTimeProcessorId;
     }
 }

@@ -3,7 +3,7 @@ package org.vadere.simulator.projects.dataprocessing.processor;
 import org.vadere.simulator.control.SimulationState;
 import org.vadere.simulator.projects.dataprocessing.ProcessorManager;
 import org.vadere.simulator.projects.dataprocessing.datakey.TimestepPedestrianIdKey;
-import org.vadere.state.attributes.processor.AttributesPedestrianVelocityProcessor;
+import org.vadere.state.attributes.processor.AttributesVelocityProcessor;
 import org.vadere.state.scenario.Pedestrian;
 import org.vadere.util.geometry.shapes.VPoint;
 
@@ -45,10 +45,10 @@ public class PedestrianVelocityProcessor extends DataProcessor<TimestepPedestria
 
 	@Override
 	public void init(final ProcessorManager manager) {
-		AttributesPedestrianVelocityProcessor attVelProc = (AttributesPedestrianVelocityProcessor) getAttributes();
+		AttributesVelocityProcessor attVelProc = (AttributesVelocityProcessor) getAttributes();
 
 		this.pedPosProc =
-				(PedestrianPositionProcessor) manager.getProcessor(attVelProc.getPedestrianPositionProcessorId());
+				(PedestrianPositionProcessor) manager.getProcessor(attVelProc.getPositionProcessorId());
 		this.backSteps = attVelProc.getBackSteps();
 	}
 

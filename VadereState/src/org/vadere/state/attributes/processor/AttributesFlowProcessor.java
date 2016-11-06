@@ -5,15 +5,15 @@ package org.vadere.state.attributes.processor;
  *
  */
 
-public class AttributesPedestrianFlowProcessor extends AttributesProcessor {
-    private int pedestrianVelocityProcessorId;
-    private int pedestrianDensityProcessorId;
+public class AttributesFlowProcessor extends AttributesProcessor {
+    private int velocityProcessorId;
+    private int densityProcessorId;
 
-    public int getPedestrianVelocityProcessorId() {
-        return this.pedestrianVelocityProcessorId;
+    public int getVelocityProcessorId() {
+        return this.velocityProcessorId;
     }
 
-    public int getPedestrianDensityProcessorId() {
-        return this.pedestrianDensityProcessorId;
+    public int getDensityProcessorId() {
+        return this.densityProcessorId;
     }
 }

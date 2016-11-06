@@ -3,7 +3,7 @@ package org.vadere.simulator.projects.dataprocessing.processor;
 import org.vadere.simulator.control.SimulationState;
 import org.vadere.simulator.projects.dataprocessing.ProcessorManager;
 import org.vadere.simulator.projects.dataprocessing.datakey.NoDataKey;
-import org.vadere.state.attributes.processor.AttributesMeanPedestrianEvacuationTimeProcessor;
+import org.vadere.state.attributes.processor.AttributesMeanEvacuationTimeProcessor;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,8 +27,8 @@ public class MeanPedestrianEvacuationTimeProcessor extends DataProcessor<NoDataK
 
     @Override
     public void init(final ProcessorManager manager) {
-        AttributesMeanPedestrianEvacuationTimeProcessor att = (AttributesMeanPedestrianEvacuationTimeProcessor) this.getAttributes();
-        this.pedEvacTimeProc = (PedestrianEvacuationTimeProcessor) manager.getProcessor(att.getPedestrianEvacuationTimeProcessorId());
+        AttributesMeanEvacuationTimeProcessor att = (AttributesMeanEvacuationTimeProcessor) this.getAttributes();
+        this.pedEvacTimeProc = (PedestrianEvacuationTimeProcessor) manager.getProcessor(att.getEvacuationTimeProcessorId());
     }
 
     @Override

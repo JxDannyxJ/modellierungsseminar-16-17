@@ -42,6 +42,6 @@ public class EvacuationTimeProcessor extends DataProcessor<NoDataKey, Double> {
     @Override
     public void init(final ProcessorManager manager) {
         AttributesEvacuationTimeProcessor att = (AttributesEvacuationTimeProcessor) this.getAttributes();
-        this.pedEvacTimeProc = (PedestrianEvacuationTimeProcessor) manager.getProcessor(att.getPedestrianEvacuationTimeProcessorId());
+        this.pedEvacTimeProc = (PedestrianEvacuationTimeProcessor) manager.getProcessor(att.getEvacuationTimeProcessorId());
     }
 }

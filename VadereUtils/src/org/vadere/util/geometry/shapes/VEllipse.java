@@ -34,7 +34,7 @@ public class VEllipse implements VShape {
 	}
 	
 	/**
-	 * Ellpipse at 0|0
+	 * Ellipse at 0|0
 	 * @param height: length of the vertical radius of the ellipse
 	 * @param width: length of the horizontal radius of an ellipse
 	 */
@@ -45,7 +45,7 @@ public class VEllipse implements VShape {
 	/**
 	 * Constructor for an ellipse
 	 * 
-	 * @param VPoint: Center point of ellipse
+	 * @param center: Center point of ellipse
 	 * @param height: length of the vertical radius of the ellipse
 	 * @param width: length of the horizontal radius of an ellipse
 	 */

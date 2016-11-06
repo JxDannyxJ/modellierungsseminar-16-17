@@ -5,7 +5,7 @@ package org.vadere.state.attributes.processor;
  *
  */
 
-public class AttributesPedestrianDensityCountingProcessor extends AttributesPedestrianDensityProcessor {
+public class AttributesDensityCountingProcessor extends AttributesDensityProcessor {
 	private double radius;
 
 	public double getRadius() {

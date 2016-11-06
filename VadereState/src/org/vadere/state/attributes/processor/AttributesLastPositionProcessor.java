@@ -5,10 +5,10 @@ package org.vadere.state.attributes.processor;
  *
  */
 
-public class AttributesPedestrianLastPositionProcessor extends AttributesProcessor {
-	private int pedestrianPositionProcessorId;
+public class AttributesLastPositionProcessor extends AttributesProcessor {
+	private int positionProcessorId;
 
-	public int getPedestrianPositionProcessorId() {
-		return this.pedestrianPositionProcessorId;
+	public int getPositionProcessorId() {
+		return this.positionProcessorId;
 	}
 }

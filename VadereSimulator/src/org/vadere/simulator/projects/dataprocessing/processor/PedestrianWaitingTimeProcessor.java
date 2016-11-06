@@ -3,7 +3,7 @@ package org.vadere.simulator.projects.dataprocessing.processor;
 import org.vadere.simulator.control.SimulationState;
 import org.vadere.simulator.projects.dataprocessing.ProcessorManager;
 import org.vadere.simulator.projects.dataprocessing.datakey.PedestrianIdKey;
-import org.vadere.state.attributes.processor.AttributesPedestrianWaitingTimeProcessor;
+import org.vadere.state.attributes.processor.AttributesWaitingTimeProcessor;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VRectangle;
 
@@ -45,7 +45,7 @@ public class PedestrianWaitingTimeProcessor extends DataProcessor<PedestrianIdKe
 
     @Override
     public void init(final ProcessorManager manager) {
-        AttributesPedestrianWaitingTimeProcessor att = (AttributesPedestrianWaitingTimeProcessor) this.getAttributes();
+        AttributesWaitingTimeProcessor att = (AttributesWaitingTimeProcessor) this.getAttributes();
         this.waitingArea = att.getWaitingArea();
     }
 }

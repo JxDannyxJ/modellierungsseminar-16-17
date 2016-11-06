@@ -5,7 +5,7 @@ package org.vadere.state.attributes.processor;
  *
  */
 
-public class AttributesPedestrianDensityGaussianProcessor extends AttributesPedestrianDensityProcessor {
+public class AttributesDensityGaussianProcessor extends AttributesDensityProcessor {
 	private double scale = 10;
 	private double standardDerivation = 0.7;
 	private boolean obstacleDensity = true;

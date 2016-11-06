@@ -5,14 +5,14 @@ package org.vadere.state.attributes.processor;
  *
  */
 
-public class AttributesPedestrianDensityProcessor extends AttributesProcessor {
-	private int pedestrianPositionProcessorId;
+public class AttributesDensityProcessor extends AttributesProcessor {
+	private int positionProcessorId;
 
 	public int getPedestrianPositionProcessorId() {
-		return this.pedestrianPositionProcessorId;
+		return this.positionProcessorId;
 	}
 
-	public void setPedestrianPositionProcessorId(int pedestrianPositionProcessorId) {
-		this.pedestrianPositionProcessorId = pedestrianPositionProcessorId;
+	public void setPedestrianPositionProcessorId(int positionProcessorId) {
+		this.positionProcessorId = positionProcessorId;
 	}
 }

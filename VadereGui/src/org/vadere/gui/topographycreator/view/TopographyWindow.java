@@ -298,6 +298,12 @@ public class TopographyWindow extends JPanel {
 				TopographyAction closeDialogAction = new ActionCloseDrawOptionPanel("Pedestrain", new ImageIcon(
 						Resources.class.getResource("/icons/pedestrians_icon.png")), panelModel,
 						switchToPedestrianAction);
+				
+				TopographyAction switchToHorseAction = new ActionSwitchCategory("switch to horse", panelModel,  //CHANGED AG NOT WORKING
+						ScenarioElementType.HORSE, selectDotModeAction);
+				TopographyAction closeDialogAction2 = new ActionCloseDrawOptionPanel("Horse", new ImageIcon(
+						Resources.class.getResource("/icons/horse.png")), panelModel,switchToHorseAction);
+				
 
 				/* switch category to source action */
 				TopographyAction switchToSourceAction = new ActionSwitchCategory("switch to source", panelModel,
@@ -328,8 +334,9 @@ public class TopographyWindow extends JPanel {
 				addActionToToolbar(toolbar, openObstacleDialog, "TopographyCreator.btnInsertObstacle.tooltip",
 						obsButton);
 				addActionToToolbar(toolbar, closeDialogAction, "TopographyCreator.btnInsertPedestrian.tooltip");
-				addActionToToolbar(toolbar, openStairsDialog, "TopographyCreator.btnInsertStairs.tooltip",
-						stairsButton);
+				addActionToToolbar(toolbar, closeDialogAction2, "TopographyCreator.btnInsertHorse.tooltip");
+				/*addActionToToolbar(toolbar, openStairsDialog, "TopographyCreator.btnInsertStairs.tooltip",
+						stairsButton);*/
 				toolbar.addSeparator(new Dimension(5, 50));
 				// addActionToToolbar(toolbar, scrollAction, "TopographyCreator.btnScroll.tooltip");
 				addActionToToolbar(toolbar, zoomInAction, "TopographyCreator.btnZoomIn.tooltip");

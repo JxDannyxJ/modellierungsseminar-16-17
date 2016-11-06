@@ -9,6 +9,7 @@ public class DefaultConfig {
 	private Color densityColor = Color.RED;
 	private Color stairColor = Color.PINK;
 	private Color pedestrianColor = Color.BLUE;
+	private Color horseColor = Color.CYAN;
 	private boolean changed = false;
 
 	public DefaultConfig() {}
@@ -73,6 +74,14 @@ public class DefaultConfig {
 
 	public void setPedestrianColor(Color pedestrianColor) {
 		this.pedestrianColor = pedestrianColor;
+	}
+	
+	public Color getHorseColor() { //CHANGED AG
+		return horseColor;
+	}
+
+	public void setHorseColor(Color horseColor) { //CHANGED AG
+		this.horseColor = horseColor;
 	}
 
 	public Color getDensityColor() {

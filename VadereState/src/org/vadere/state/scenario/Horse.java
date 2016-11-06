@@ -78,7 +78,14 @@ public class Horse extends Agent implements Comparable<Horse> {
 	}
 
 	@Override
-	public Agent clone() {
+	public Horse clone() {
 		return new Horse(this);
 	}
+	
+	@Override 
+	public AttributesHorse getAttributes()
+	{
+		return attributesHorse;
+	}
+	
 }

@@ -92,6 +92,9 @@ public abstract class DefaultModel<T extends DefaultConfig> extends Observable i
 			case TARGET:
 				c = getConfig().getTargetColor();
 				break;
+			case HORSE: //CHANGED AG
+				c = getConfig().getHorseColor();
+				break;
 			default:
 				c = Color.RED;
 		}

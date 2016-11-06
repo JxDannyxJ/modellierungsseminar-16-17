@@ -8,6 +8,7 @@ import javax.swing.undo.UndoableEdit;
 import javax.swing.undo.UndoableEditSupport;
 
 import org.vadere.gui.topographycreator.model.AgentWrapper;
+import org.vadere.gui.topographycreator.model.HorseWrapper;
 import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.AttributesBuilder;
@@ -53,7 +54,7 @@ public class ActionInsertCopiedElement extends TopographyAction {
 			VShape newShape = model.translate(diff);
 			ScenarioElement newElement = null;
 
-			if (element instanceof AgentWrapper) {
+			if (element instanceof AgentWrapper || element instanceof HorseWrapper) {
 				VPoint position = new VPoint(newShape.getBounds2D().getCenterX(), newShape.getBounds2D().getCenterY());
 				newElement = element.clone();
 				((AgentWrapper) newElement).getAgentInitialStore().setPosition(position);

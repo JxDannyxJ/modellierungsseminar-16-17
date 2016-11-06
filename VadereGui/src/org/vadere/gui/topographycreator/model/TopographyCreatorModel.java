@@ -190,6 +190,9 @@ public class TopographyCreatorModel extends DefaultModel implements IDrawPanelMo
 			case STAIRS:
 				element = topographyBuilder.removeLastStairs();
 				break;
+			case HORSE:
+				element = topographyBuilder.removeLastHorse();    //CHANGED AG
+				break;
 			default:
 				throw new IllegalArgumentException("wrong ScenarioElementType.");
 		}
@@ -291,6 +294,9 @@ public class TopographyCreatorModel extends DefaultModel implements IDrawPanelMo
 				break;
 			case TELEPORTER:
 				topographyBuilder.setTeleporter((org.vadere.state.scenario.Teleporter) shape);
+				break;
+			case HORSE :  //CHANGED AG
+				topographyBuilder.addHorse((HorseWrapper) shape);
 				break;
 			default:
 				throw new IllegalArgumentException("unsupported TopograpyhElementType.");

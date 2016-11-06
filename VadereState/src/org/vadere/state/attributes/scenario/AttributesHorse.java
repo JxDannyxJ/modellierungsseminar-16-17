@@ -9,8 +9,8 @@ import org.vadere.util.geometry.Vector2D;
  */
 public class AttributesHorse extends AttributesAgent {
 
-	private double height = 4.5;
-	private double width = 1.7;
+	private double height = 0.7;
+	private double width = 1.2;
 	private Vector2D direction = new Vector2D(1, 0);
 
 	/**

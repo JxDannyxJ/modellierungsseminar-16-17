@@ -11,18 +11,21 @@ public class DefaultSimulationConfig extends DefaultConfig {
 	private double densityMeasurementRadius = Double.valueOf(resources.getProperty("Density.measurementradius"));
 	private double densityStandardDerivation = Double.valueOf(resources.getProperty("Density.standardderivation"));
 	private double pedestrianTorso = Double.valueOf(resources.getProperty("Pedestrian.Radius")) * 2;
-
+	//private double horseTorso = Double.valueOf(resources.getProperty("Horse.Radius")) * 2.5; //CHANGED AG
+	
 	private boolean showTargets = true;
 	private boolean showSources = true;
 	private boolean showObstacles = true;
 	private boolean showStairs = true;
 	private boolean showPedestrians = true;
+	private boolean showHorses = true; //CHANGED AG
 	private boolean showWalkdirection = false;
 	private boolean showPotentialField = false;
 	private boolean showTrajectories = false;
 	private boolean showGrid = false;
 	private boolean showDensity = false;
 	protected final Color pedestrianDefaultColor = Color.BLUE;
+	protected final Color horseDefaultColor = Color.CYAN; //CHANGED AG
 
 	public DefaultSimulationConfig() {
 		super();
@@ -35,6 +38,7 @@ public class DefaultSimulationConfig extends DefaultConfig {
 		this.showWalkdirection = config.showWalkdirection;
 		this.showGrid = config.showGrid;
 		this.showPedestrians = config.showPedestrians;
+		this.showHorses = config.showHorses; //CHANGED AG
 		this.showLogo = config.showLogo;
 		this.showStairs = config.showStairs;
 	}
@@ -50,6 +54,10 @@ public class DefaultSimulationConfig extends DefaultConfig {
 
 	public boolean isShowPedestrians() {
 		return showPedestrians;
+	}
+	
+	public boolean isShowHorses() {  //CHANGED AG
+		return showHorses;
 	}
 
 	public boolean isShowWalkdirection() {
@@ -69,6 +77,16 @@ public class DefaultSimulationConfig extends DefaultConfig {
 		this.showPedestrians = showPedestrians;
 		setChanged();
 	}
+	
+	public Color getHorseDefaultColor() {  //CHANGED AG
+		return horseDefaultColor;
+	}
+	
+	public void setShowHorses(boolean showHorses) { //CHANGED AG
+		this.showHorses = showHorses;
+		setChanged();
+	}
+	
 
 	public boolean isShowTargets() {
 		return showTargets;

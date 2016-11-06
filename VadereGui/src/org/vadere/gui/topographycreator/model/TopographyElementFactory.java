@@ -1,19 +1,15 @@
 package org.vadere.gui.topographycreator.model;
 
 import org.vadere.state.attributes.Attributes;
-import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
 import org.vadere.state.attributes.scenario.AttributesSource;
 import org.vadere.state.attributes.scenario.AttributesStairs;
 import org.vadere.state.attributes.scenario.AttributesTarget;
-import org.vadere.state.scenario.Horse;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VShape;
-
-import java.util.Random;
 
 /**
  * A Factory to create new ScenarioElements.
@@ -42,7 +38,7 @@ public class TopographyElementFactory {
 			case PEDESTRIAN:
 				return new AgentWrapper(((VCircle) shape).getCenter());
 			case HORSE:
-				return new Horse(new AttributesHorse(-1), new Random());
+				return new HorseWrapper(((VCircle) shape).getCenter()); //CHANGED AG
 			default:
 				throw new IllegalArgumentException("unsupported ScenarioElementType.");
 		}

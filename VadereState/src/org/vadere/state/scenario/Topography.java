@@ -63,7 +63,7 @@ public class Topography {
 	private final List<Stairs> stairs;
 
 	public Topography(AttributesTopography attributes, AttributesAgent attributesPedestrian,
-			AttributesCar attributesCar, AttributesHorse attributesHorse) {
+					  AttributesCar attributesCar, AttributesHorse attributesHorse) {
 		this(attributes, attributesPedestrian);
 		this.attributesCar = attributesCar;
 		this.attributesHorse = attributesHorse;
@@ -221,7 +221,9 @@ public class Topography {
 		return cars;
 	}
 
-	public DynamicElementContainer<Horse> getHorseDynamicElemnets() { return horses; }
+	public DynamicElementContainer<Horse> getHorseDynamicElemnets() {
+		return horses;
+	}
 
 	public void addSource(Source source) {
 		this.sources.add(source);
@@ -275,8 +277,16 @@ public class Topography {
 		this.attributesCar = attributesCar;
 	}
 
+	public AttributesHorse getAttributesHorse() {
+		return attributesHorse;
+	}
+
+	public void setAttributesHorse(AttributesHorse attributesHorse) {
+		this.attributesHorse = attributesHorse;
+	}
+
 	public <T extends DynamicElement> void addElementRemovedListener(Class<T> elementType,
-			DynamicElementRemoveListener<T> listener) {
+																	 DynamicElementRemoveListener<T> listener) {
 		getContainer(elementType).addElementRemovedListener(listener);
 	}
 
@@ -285,7 +295,7 @@ public class Topography {
 	}
 
 	public <T extends DynamicElement> void addElementAddedListener(Class<T> elementType,
-			DynamicElementAddListener<T> addListener) {
+																   DynamicElementAddListener<T> addListener) {
 		getContainer(elementType).addElementAddedListener(addListener);
 	}
 
@@ -328,7 +338,7 @@ public class Topography {
 	 */
 	@Override
 	public Topography clone() {
-		Topography s = new Topography(this.attributes, this.attributesPedestrian);
+		Topography s = new Topography(this.attributes, this.attributesPedestrian, this.attributesCar, this.attributesHorse);
 		s.attributesCar = this.attributesCar;
 
 		for (Obstacle obstacle : this.getObstacles()) {
@@ -358,6 +368,12 @@ public class Topography {
 		for (Car car : getInitialElements(Car.class)) {
 			s.addInitialElement(car);
 		}
+		for (Horse horse : this.getElements(Horse.class)) {
+			s.addElement(horse);
+		}
+		for (Horse horse : getInitialElements(Horse.class)) {
+			s.addInitialElement(horse);
+		}
 
 		if (this.hasTeleporter()) {
 			s.setTeleporter(this.getTeleporter().clone());
@@ -375,6 +391,12 @@ public class Topography {
 		}
 		for (DynamicElementRemoveListener<Car> carRemoveListener : this.cars.getElementRemovedListener()) {
 			s.addElementRemovedListener(Car.class, carRemoveListener);
+		}
+		for (DynamicElementAddListener<Horse> horseAddListener : this.horses.getElementAddedListener()) {
+			s.addElementAddedListener(Horse.class, horseAddListener);
+		}
+		for (DynamicElementRemoveListener<Horse> horseRemoveListener : this.horses.getElementRemovedListener()) {
+			s.addElementRemovedListener(Horse.class, horseRemoveListener);
 		}
 
 		return s;
@@ -405,9 +427,5 @@ public class Topography {
 
 	public boolean hasBoundary() {
 		return this.boundaryObstacles.size() > 0;
-	}
-
-	public AttributesHorse getAttributesHorse () {
-		return this.attributesHorse;
 	}
 }

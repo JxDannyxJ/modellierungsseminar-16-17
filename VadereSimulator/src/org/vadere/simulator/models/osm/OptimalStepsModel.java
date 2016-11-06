@@ -26,6 +26,7 @@ import org.vadere.state.attributes.models.AttributesOSM;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.scenario.Agent;
 import org.vadere.state.scenario.DynamicElement;
+import org.vadere.state.scenario.Horse;
 import org.vadere.state.scenario.Pedestrian;
 import org.vadere.state.scenario.Topography;
 import org.vadere.state.types.OptimizationType;
@@ -329,26 +330,35 @@ public class OptimalStepsModel implements MainModel {
 	 * At the moment all pedestrians also the initalPedestrians get this.attributesPedestrian!!!
 	 */
 	@Override
-	public <T extends DynamicElement> PedestrianOSM createElement(VPoint position, int id, Class<T> type) {
-		if (!Pedestrian.class.isAssignableFrom(type))
-			throw new IllegalArgumentException("OSM cannot initialize " + type.getCanonicalName());
+	public <T extends DynamicElement> AgentOSM createElement(VPoint position, int id, Class<T> type) {
+//		if (!Pedestrian.class.isAssignableFrom(type))
+//			throw new IllegalArgumentException("OSM cannot initialize " + type.getCanonicalName());
 
 		pedestrianIdCounter++;
 		AttributesAgent pedAttributes = new AttributesAgent(
 				this.attributesPedestrian, id > 0 ? id : pedestrianIdCounter);
 
-		PedestrianOSM pedestrian = new PedestrianOSM(attributesOSM,
-				pedAttributes, topography, random, potentialFieldTarget,
-				potentialFieldObstacle.copy(), potentialFieldPedestrian,
-				speedAdjusters, stepCircleOptimizer.clone());
+		AgentOSM agentOSM = null;
+		if (type == Horse.class) {
+			agentOSM = new HorseOSM(attributesOSM,
+					topography.getAttributesHorse(), topography, random, potentialFieldTarget,
+					potentialFieldObstacle.copy(), potentialFieldPedestrian,
+					speedAdjusters, stepCircleOptimizer.clone());
+		} else if (type == Pedestrian.class) {
+			agentOSM = new PedestrianOSM(attributesOSM,
+					pedAttributes, topography, random, potentialFieldTarget,
+					potentialFieldObstacle.copy(), potentialFieldPedestrian,
+					speedAdjusters, stepCircleOptimizer.clone());
+		}
+		
 
-		pedestrian.setPosition(position);
+		agentOSM.setPosition(position);
 
 		if (attributesOSM.getUpdateType() == UpdateType.EVENT_DRIVEN) {
-			this.agentEventsQueue.add(pedestrian);
+			this.agentEventsQueue.add(agentOSM);
 		}
 
-		return pedestrian;
+		return agentOSM;
 	}
 
 

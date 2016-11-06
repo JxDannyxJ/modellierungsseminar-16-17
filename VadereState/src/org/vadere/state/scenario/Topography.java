@@ -132,6 +132,14 @@ public class Topography {
 								.mapping(t -> t.getShape(), Collectors
 										.toList())));
 	}
+	
+	public Collection<Agent> getAllAgents() {
+		List<Agent> allAgents = new LinkedList<Agent>();
+		allAgents.addAll(pedestrians.getElements());
+		allAgents.addAll(horses.getElements());
+		
+		return allAgents;
+	}
 
 	@SuppressWarnings("unchecked")
 	private <T extends DynamicElement, TAttributes extends AttributesDynamicElement> DynamicElementContainer<T> getContainer(

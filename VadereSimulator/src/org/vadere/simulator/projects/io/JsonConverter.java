@@ -563,10 +563,12 @@ public abstract class JsonConverter {
 		if (attributesPedestrianNode != null)
 			((ObjectNode) attributesPedestrianNode).remove("id");
 
+		/*
 		JsonNode attributesCarNode = mapper.convertValue(topography.getAttributesCar(), JsonNode.class);
 		topographyNode.set("attributesCar", attributesCarNode);
 		if (attributesPedestrianNode != null)
 			((ObjectNode) attributesCarNode).remove("id");
+		*/
 
 		JsonNode attributesHorseNode = mapper.convertValue(topography.getAttributesHorse(), JsonNode.class);
 		topographyNode.set("attributesHorse", attributesHorseNode);

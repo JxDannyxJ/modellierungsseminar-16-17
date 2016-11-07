@@ -1,6 +1,7 @@
 package org.vadere.state.scenario;
 
 import org.jetbrains.annotations.NotNull;
+import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.Vector2D;
@@ -20,6 +21,7 @@ public class Horse extends Agent implements Comparable<Horse> {
 
 	private AttributesHorse attributesHorse;
 	private transient Random random;
+	private ScenarioElementType type = ScenarioElementType.HORSE;
 
 	/**
 	 * Default constructor of the Horse class, which accepts attributes
@@ -35,6 +37,14 @@ public class Horse extends Agent implements Comparable<Horse> {
 		this.setAttributesHorse(attributesHorse);
 		setPosition(new VPoint(0, 0));
 		setVelocity(new Vector2D(0, 0));
+	}
+	
+	private Horse() {
+		this(new AttributesHorse());
+	}
+	
+	private Horse(AttributesHorse attributesHorse) {
+		this(attributesHorse, new Random());
 	}
 
 	/**
@@ -83,8 +93,7 @@ public class Horse extends Agent implements Comparable<Horse> {
 	}
 	
 	@Override 
-	public AttributesHorse getAttributes()
-	{
+	public AttributesHorse getAttributes() {
 		return attributesHorse;
 	}
 	

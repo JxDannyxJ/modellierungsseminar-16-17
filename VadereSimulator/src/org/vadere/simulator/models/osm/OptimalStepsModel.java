@@ -24,6 +24,7 @@ import org.vadere.simulator.models.potential.fields.PotentialFieldTarget;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.AttributesOSM;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.scenario.Agent;
 import org.vadere.state.scenario.DynamicElement;
 import org.vadere.state.scenario.Horse;
@@ -340,8 +341,8 @@ public class OptimalStepsModel implements MainModel {
 
 		AgentOSM agentOSM = null;
 		if (type == Horse.class) {
-			agentOSM = new HorseOSM(attributesOSM,
-					topography.getAttributesHorse(), topography, random, potentialFieldTarget,
+			agentOSM = new HorseOSM(attributesOSM,new AttributesHorse(topography.getAttributesHorse(), 
+					id > 0 ? id : pedestrianIdCounter), topography, random, potentialFieldTarget,
 					potentialFieldObstacle.copy(), potentialFieldPedestrian,
 					speedAdjusters, stepCircleOptimizer.clone());
 		} else if (type == Pedestrian.class) {
@@ -350,7 +351,6 @@ public class OptimalStepsModel implements MainModel {
 					potentialFieldObstacle.copy(), potentialFieldPedestrian,
 					speedAdjusters, stepCircleOptimizer.clone());
 		}
-		
 
 		agentOSM.setPosition(position);
 

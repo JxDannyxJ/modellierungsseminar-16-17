@@ -60,7 +60,7 @@ public class SourceController {
 
 
 		dynamicElementsToCreate = 0;
-		dynamicElementsCreatedTotal = 0;
+		dynamicElementsCreatedTotal = 10;
 
 		timeOfNextEvent = sourceAttributes.getStartTime();
 		try {

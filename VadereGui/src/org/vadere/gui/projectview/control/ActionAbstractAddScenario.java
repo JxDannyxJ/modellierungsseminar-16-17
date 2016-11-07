@@ -4,14 +4,14 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.gui.components.utils.Messages;
 import org.vadere.gui.projectview.model.ProjectViewModel;
-import org.vadere.simulator.projects.ScenarioRunManager;
 import org.vadere.simulator.projects.ProjectWriter;
+import org.vadere.simulator.projects.ScenarioRunManager;
 import org.vadere.util.io.IOUtils;
-
-import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+
+import javax.swing.*;
 
 public abstract class ActionAbstractAddScenario extends AbstractAction {
 
@@ -61,6 +61,11 @@ public abstract class ActionAbstractAddScenario extends AbstractAction {
 
 	protected abstract ScenarioRunManager generateVadere(final String name) throws IOException;
 
+	/**
+	 * Adds a scenario to the scenario view and writes it to a file in the scenario directory
+	 * @param scenarioRM
+	 * @throws IOException
+	 */
 	protected void addScenario(final ScenarioRunManager scenarioRM) throws IOException {
 		ProjectWriter.writeScenarioFileJson(model.getCurrentProjectPath(), scenarioRM);
 		model.addScenario(scenarioRM);

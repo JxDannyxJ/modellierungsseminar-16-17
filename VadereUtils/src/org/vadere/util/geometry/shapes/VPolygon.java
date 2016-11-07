@@ -1,14 +1,14 @@
 package org.vadere.util.geometry.shapes;
 
-import java.awt.Shape;
+import org.vadere.util.geometry.GeometryUtils;
+import org.vadere.util.geometry.ShapeType;
+
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.geom.PathIterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.vadere.util.geometry.GeometryUtils;
-import org.vadere.util.geometry.ShapeType;
 
 public class VPolygon extends Path2D.Double implements VShape {
 	private static final long serialVersionUID = 6534837112398242609L;
@@ -328,6 +328,11 @@ public class VPolygon extends Path2D.Double implements VShape {
 		} else {
 			return closestPoint(target).distance(target);
 		}
+	}
+
+	@Override
+	public double getRadius() {
+		return getArea();
 	}
 
 	@Override

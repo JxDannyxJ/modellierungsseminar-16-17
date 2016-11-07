@@ -1,17 +1,13 @@
 package org.vadere.gui.topographycreator.view;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.geom.Line2D;
-
 import org.vadere.gui.components.model.DefaultConfig;
 import org.vadere.gui.components.view.DefaultRenderer;
 import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.util.geometry.shapes.VPoint;
+
+import java.awt.*;
+import java.awt.geom.Line2D;
 
 public class TopographyCreatorRenderer extends DefaultRenderer {
 
@@ -27,7 +23,7 @@ public class TopographyCreatorRenderer extends DefaultRenderer {
 	private int boundId = -1;
 
 	/**
-	 * Creates a new DrawPanel and start the repaint thead.
+	 * Creates a new DrawPanel and start the repaint thread.
 	 * 
 	 * @param panelModel the panelModel of the panel
 	 */

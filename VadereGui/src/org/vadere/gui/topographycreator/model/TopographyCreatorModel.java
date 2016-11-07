@@ -1,13 +1,5 @@
 package org.vadere.gui.topographycreator.model;
 
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
-import java.lang.reflect.Field;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Observer;
-
 import org.vadere.gui.components.control.IMode;
 import org.vadere.gui.components.model.DefaultConfig;
 import org.vadere.gui.components.model.DefaultModel;
@@ -20,6 +12,14 @@ import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VRectangle;
 import org.vadere.util.geometry.shapes.VShape;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
+import java.lang.reflect.Field;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Observer;
 
 
 /**
@@ -170,32 +170,7 @@ public class TopographyCreatorModel extends DefaultModel implements IDrawPanelMo
 	@Override
 	public ScenarioElement deleteLastShape(final ScenarioElementType type) {
 
-		ScenarioElement element;
-		switch (type) {
-			case OBSTACLE:
-				element = topographyBuilder.removeLastObstacle();
-				break;
-			case PEDESTRIAN:
-				element = topographyBuilder.removeLastPedestrian();
-				break;
-			case SOURCE:
-				element = topographyBuilder.removeLastSource();
-				break;
-			case TARGET:
-				element = topographyBuilder.removeLastTarget();
-				break;
-			case TELEPORTER:
-				element = topographyBuilder.removeTeleporter();
-				break;
-			case STAIRS:
-				element = topographyBuilder.removeLastStairs();
-				break;
-			case HORSE:
-				element = topographyBuilder.removeLastHorse();    //CHANGED AG
-				break;
-			default:
-				throw new IllegalArgumentException("wrong ScenarioElementType.");
-		}
+		ScenarioElement element = topographyBuilder.removeLastScenarioElement(type);
 
 		setChanged();
 		if (element.equals(getSelectedElement())) {

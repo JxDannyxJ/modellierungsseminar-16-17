@@ -4,15 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
-import java.awt.*;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.BadLocationException;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -31,6 +22,14 @@ import org.vadere.state.attributes.Attributes;
 import org.vadere.state.scenario.Horse;
 import org.vadere.state.scenario.Pedestrian;
 import org.vadere.state.scenario.ScenarioElement;
+
+import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  * The ScenarioElementView display's a ScenarioElement in JSON-Format.
@@ -134,24 +133,20 @@ public class ScenarioElementView extends JPanel implements ISelectScenarioElemen
 				Horse hor = null;
 				Pedestrian ped = null;
 				try {
-					if(element instanceof HorseWrapper)
-					{
+					if (element instanceof HorseWrapper) {
 						hor = JsonConverter.deserializeHorse(json);
-					}
-					else {
+					} else {
 						ped = JsonConverter.deserializePedestrian(json);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				if (element instanceof HorseWrapper)
-				{
+				if (element instanceof HorseWrapper) {
 					((AgentWrapper) element).setAgentInitialStore(hor);
-				}else
-				{
+				} else {
 					((AgentWrapper) element).setAgentInitialStore(ped);
 				}
-				
+
 			} else {
 				try {
 					Attributes attributes = JsonConverter.deserializeScenarioElementType(json, element.getType());
@@ -186,7 +181,7 @@ public class ScenarioElementView extends JPanel implements ISelectScenarioElemen
 		synchronized (txtrTextfiletextarea) {
 			if (scenarioElement == null) {
 				this.txtrTextfiletextarea.setText("");
-				if(jsonValidIndicator != null) {
+				if (jsonValidIndicator != null) {
 					jsonValidIndicator.hide();
 				}
 			} else {
@@ -196,12 +191,17 @@ public class ScenarioElementView extends JPanel implements ISelectScenarioElemen
 								JsonConverter.serializeObject(((AgentWrapper) scenarioElement).getAgentInitialStore()));
 					} else if (scenarioElement instanceof Pedestrian) {
 						this.txtrTextfiletextarea.setText(JsonConverter.serializeObject(scenarioElement));
+					} else if (scenarioElement instanceof HorseWrapper) {
+						this.txtrTextfiletextarea.setText(
+								JsonConverter.serializeObject(((HorseWrapper) scenarioElement).getAgentInitialStore()));
+					} else if (scenarioElement instanceof Horse) {
+						this.txtrTextfiletextarea.setText(JsonConverter.serializeObject(scenarioElement));
 					} else {
 						this.txtrTextfiletextarea.setText(JsonConverter
 								.serializeObject(ReflectionAttributeModifier.getAttributes(scenarioElement)));
 					}
 				} catch (JsonProcessingException e) {
-					// ?
+					e.printStackTrace();
 				}
 			}
 		}

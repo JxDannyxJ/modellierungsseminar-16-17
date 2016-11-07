@@ -1,7 +1,6 @@
 package org.vadere.util.geometry.shapes;
 
 import org.vadere.util.geometry.ShapeType;
-import org.vadere.util.geometry.Vector2D;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -118,6 +117,11 @@ public class VEllipse implements VShape {
 	 */
 	public double distance(VPoint point) {
 		return closestPoint(point).distance(point);
+	}
+
+	@Override
+	public double getRadius() {
+		return Math.max(width, height);
 	}
 
 	@Override

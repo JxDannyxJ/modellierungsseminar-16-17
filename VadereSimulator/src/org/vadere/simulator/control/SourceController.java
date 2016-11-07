@@ -1,14 +1,10 @@
 package org.vadere.simulator.control;
 
-import java.awt.geom.Rectangle2D;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-
 import org.apache.commons.math3.distribution.RealDistribution;
 import org.vadere.simulator.models.DynamicElementFactory;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesDynamicElement;
+import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesSource;
 import org.vadere.state.scenario.Agent;
 import org.vadere.state.scenario.Car;
@@ -21,8 +17,15 @@ import org.vadere.state.scenario.Source;
 import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.LinkedCellsGrid;
 import org.vadere.util.geometry.shapes.VCircle;
+import org.vadere.util.geometry.shapes.VEllipse;
 import org.vadere.util.geometry.shapes.VPoint;
+import org.vadere.util.geometry.shapes.VShape;
 import org.vadere.util.math.MathUtil;
+
+import java.awt.geom.Rectangle2D;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * This Class is used to create new {@link DynamicElement}.
@@ -38,7 +41,7 @@ public class SourceController {
 
 	// TODO [priority=high] [task=refactoring] remove this from the SourceController and add a new attribute.
 	// This is ONLY used for "useFreeSpaceOnly".
-	private VCircle dynamicElementShape;
+	private VShape dynamicElementShape;
 
 	private int dynamicElementsToCreate;
 	private int dynamicElementsCreatedTotal;
@@ -90,7 +93,11 @@ public class SourceController {
 		return true;
 	}
 
-	private VCircle getDynamicElementShape() {
+	private VShape getDynamicElementShape() {
+		if (attributesDynamicElement instanceof AttributesHorse) {
+			AttributesHorse attrHorse = ((AttributesHorse) attributesDynamicElement);
+			return new VEllipse(attrHorse.getHeight(), attrHorse.getWidth());
+		}
 		if (attributesDynamicElement instanceof AttributesAgent) {
 			return new VCircle(((AttributesAgent) attributesDynamicElement).getRadius());
 		}
@@ -98,7 +105,7 @@ public class SourceController {
 		return new VCircle(0.2);
 	}
 
-	private List<DynamicElement> getDynElementsAtPosition(VPoint sourcePosition, VCircle dynElementShape) {
+	private List<DynamicElement> getDynElementsAtPosition(VPoint sourcePosition, VShape dynElementShape) {
 		LinkedCellsGrid<DynamicElement> dynElements = topography.getSpatialMap(DynamicElement.class);
 		return dynElements.getObjects(sourcePosition, dynElementShape.getRadius() * 3);
 	}

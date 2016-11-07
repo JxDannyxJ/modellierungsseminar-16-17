@@ -1,13 +1,12 @@
 package org.vadere.gui.onlinevisualization;
 
-import javax.swing.JPanel;
-
 import org.vadere.gui.onlinevisualization.model.OnlineVisualizationModel;
 import org.vadere.gui.onlinevisualization.view.MainPanel;
 import org.vadere.gui.onlinevisualization.view.OnlineVisualisationWindow;
-import org.vadere.gui.onlinevisualization.view.OnlinevisualizationRenderer;
 import org.vadere.simulator.control.PassiveCallback;
 import org.vadere.state.scenario.Topography;
+
+import javax.swing.*;
 
 public class OnlineVisualization implements PassiveCallback {
 
@@ -79,7 +78,7 @@ public class OnlineVisualization implements PassiveCallback {
 
 		synchronized (model.getDataSynchronizer()) {
 			/* Push new snapshot of the observation area to the draw thread. */
-			model.pushObersavtionAreaSnapshot(
+			model.pushObservationAreaSnapshot(
 					new ObservationAreaSnapshotData(simTimeInSec, scenario.clone()));
 		}
 	}

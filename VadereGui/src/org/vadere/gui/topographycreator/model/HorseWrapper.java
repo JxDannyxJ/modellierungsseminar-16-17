@@ -1,18 +1,15 @@
 package org.vadere.gui.topographycreator.model;
 
-import java.util.LinkedList;
-import java.util.Random;
-
-import org.vadere.state.attributes.Attributes;
-import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.scenario.Agent;
 import org.vadere.state.scenario.Horse;
-import org.vadere.state.scenario.Pedestrian;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
+
+import java.util.LinkedList;
+import java.util.Random;
 
 /**
  * 
@@ -32,14 +29,14 @@ public class HorseWrapper implements ScenarioElement{
 	 * the shape of this Horse(VCircle). For refection, this attribute has to be changeable
 	 * (not final)
 	 */
-	// private VShape shape;
+//	 private VShape shape;
 
 	HorseWrapper(final VPoint position) {
 		this.attributes = new AttributesHorse();
 		this.store = new Horse(this.attributes, new Random()); // use a Horse as default
 		this.store.setPosition(position);
 		this.store.setTargets(new LinkedList<Integer>());
-		// this.shape = new VCircle(store.position, attributes.getRadius());
+//		this.shape = new VEllipse(store.getPosition(), attributes.getHeight(), attributes.getWidth());
 	}
 
 	public HorseWrapper(final Horse store) {

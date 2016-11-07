@@ -1,12 +1,12 @@
 package org.vadere.util.geometry;
 
+import org.vadere.util.geometry.shapes.VPoint;
+import org.vadere.util.geometry.shapes.VTriangle;
+
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
-
-import org.vadere.util.geometry.shapes.VPoint;
-import org.vadere.util.geometry.shapes.VTriangle;
 
 /**
  * A triangle with additional double data at each point.
@@ -41,7 +41,6 @@ public class DataTriangle extends VTriangle {
 	 * @param p1
 	 * @param p2
 	 * @param p3
-	 * @param mp
 	 */
 	public DataTriangle(DataPoint p1, DataPoint p2, DataPoint p3) {
 		super(p1, p2, p3);

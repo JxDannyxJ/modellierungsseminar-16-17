@@ -1,23 +1,24 @@
 package org.vadere.gui.onlinevisualization.model;
 
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Optional;
-
 import org.vadere.gui.components.model.DefaultSimulationConfig;
 import org.vadere.gui.components.model.SimulationModel;
 import org.vadere.gui.onlinevisualization.OnlineVisualization;
 import org.vadere.state.scenario.Agent;
 import org.vadere.state.scenario.Car;
+import org.vadere.state.scenario.Horse;
 import org.vadere.state.scenario.Pedestrian;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.TopographyIterator;
 import org.vadere.util.potential.CellGrid;
 import org.vadere.util.voronoi.VoronoiDiagram;
+
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Optional;
 
 public class OnlineVisualizationModel extends SimulationModel<DefaultSimulationConfig> {
 
@@ -132,6 +133,10 @@ public class OnlineVisualizationModel extends SimulationModel<DefaultSimulationC
 				int pedId = getSelectedElement().getId();
 				Pedestrian ped = topography.getElement(Pedestrian.class, pedId);
 				setSelectedElement(ped);
+			} else if (getSelectedElement() instanceof Horse) {
+				int horseId = getSelectedElement().getId();
+				Horse horse = topography.getElement(Horse.class, horseId);
+				setSelectedElement(horse);
 			}
 
 
@@ -146,7 +151,7 @@ public class OnlineVisualizationModel extends SimulationModel<DefaultSimulationC
 		}
 	}
 
-	public void pushObersavtionAreaSnapshot(
+	public void pushObservationAreaSnapshot(
 			final OnlineVisualization.ObservationAreaSnapshotData observationAreaSnapshotData) {
 		if (observationAreaSnapshots.size() > 0) {
 			observationAreaSnapshots.pop();

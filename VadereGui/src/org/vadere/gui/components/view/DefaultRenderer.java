@@ -1,22 +1,7 @@
 package org.vadere.gui.components.view;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.RenderingHints;
-import java.awt.Stroke;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.util.Collection;
-
 import org.vadere.gui.components.model.IDefaultModel;
 import org.vadere.state.scenario.Agent;
-import org.vadere.state.scenario.Pedestrian;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.util.geometry.shapes.VRectangle;
 import org.vadere.util.math.MathUtil;
@@ -25,6 +10,14 @@ import org.vadere.util.voronoi.Face;
 import org.vadere.util.voronoi.HalfEdge;
 import org.vadere.util.voronoi.RectangleLimits;
 import org.vadere.util.voronoi.VoronoiDiagram;
+
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.Collection;
 
 public abstract class DefaultRenderer {
 
@@ -118,6 +111,12 @@ public abstract class DefaultRenderer {
 
 	}
 
+	/**
+	 * Render a list of equal scenario element by filling it with the given color and set the given shape
+	 * @param elements the scenario elements which shall be painted on the screen
+	 * @param g the graphics object representing the screen
+	 * @param color of the scenario element list
+	 */
 	protected void renderScenarioElement(final Iterable<? extends ScenarioElement> elements, final Graphics2D g,
 			final Color color) {
 		final Color tmpColor = g.getColor();

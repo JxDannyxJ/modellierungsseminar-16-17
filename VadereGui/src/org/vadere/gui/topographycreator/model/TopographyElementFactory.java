@@ -9,6 +9,7 @@ import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VCircle;
+import org.vadere.util.geometry.shapes.VEllipse;
 import org.vadere.util.geometry.shapes.VShape;
 
 /**
@@ -38,7 +39,7 @@ public class TopographyElementFactory {
 			case PEDESTRIAN:
 				return new AgentWrapper(((VCircle) shape).getCenter());
 			case HORSE:
-				return new HorseWrapper(((VCircle) shape).getCenter()); //CHANGED AG
+				return new HorseWrapper(((VEllipse) shape).getCenter()); //CHANGED AG
 			default:
 				throw new IllegalArgumentException("unsupported ScenarioElementType.");
 		}

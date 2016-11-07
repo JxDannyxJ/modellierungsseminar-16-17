@@ -1,11 +1,5 @@
 package org.vadere.state.scenario;
 
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.RectangularShape;
-import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesDynamicElement;
@@ -14,6 +8,16 @@ import org.vadere.state.attributes.scenario.AttributesTopography;
 import org.vadere.util.geometry.LinkedCellsGrid;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
+
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RectangularShape;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * This class holds the topography of the simulation map. This means it carries
@@ -65,8 +69,8 @@ public class Topography {
 	public Topography(AttributesTopography attributes, AttributesAgent attributesPedestrian,
 					  AttributesCar attributesCar, AttributesHorse attributesHorse) {
 		this(attributes, attributesPedestrian);
-		this.attributesCar = attributesCar;
-		this.attributesHorse = attributesHorse;
+		this.setAttributesCar(attributesCar);
+		this.setAttributesHorse(attributesHorse);
 	}
 
 	public Topography(AttributesTopography attributes, AttributesAgent attributesPedestrian) {
@@ -89,7 +93,7 @@ public class Topography {
 	 * Creates an empty scenario where bounds and finishTime are empty / zero.
 	 */
 	public Topography() {
-		this(new AttributesTopography(), new AttributesAgent());
+		this(new AttributesTopography(), new AttributesAgent(), new AttributesCar(), new AttributesHorse());
 	}
 
 	public Rectangle2D.Double getBounds() {
@@ -339,7 +343,6 @@ public class Topography {
 	@Override
 	public Topography clone() {
 		Topography s = new Topography(this.attributes, this.attributesPedestrian, this.attributesCar, this.attributesHorse);
-		s.attributesCar = this.attributesCar;
 
 		for (Obstacle obstacle : this.getObstacles()) {
 			if (this.boundaryObstacles.contains(obstacle))

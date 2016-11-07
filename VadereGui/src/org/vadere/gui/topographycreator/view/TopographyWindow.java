@@ -1,29 +1,7 @@
 package org.vadere.gui.topographycreator.view;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.beans.IntrospectionException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.Action;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
-import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
-import javax.swing.undo.UndoManager;
-import javax.swing.undo.UndoableEditSupport;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
 
 import org.vadere.gui.components.control.IViewportChangeListener;
 import org.vadere.gui.components.control.JViewportChangeListener;
@@ -53,6 +31,7 @@ import org.vadere.gui.topographycreator.control.ActionUndo;
 import org.vadere.gui.topographycreator.control.ActionZoomIn;
 import org.vadere.gui.topographycreator.control.ActionZoomOut;
 import org.vadere.gui.topographycreator.control.DrawDotMode;
+import org.vadere.gui.topographycreator.control.DrawEllipseMode;
 import org.vadere.gui.topographycreator.control.DrawPolygonMode;
 import org.vadere.gui.topographycreator.control.DrawRectangleMode;
 import org.vadere.gui.topographycreator.control.EraserMode;
@@ -64,8 +43,16 @@ import org.vadere.gui.topographycreator.model.TopographyCreatorModel;
 import org.vadere.simulator.projects.ScenarioRunManager;
 import org.vadere.state.types.ScenarioElementType;
 
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.beans.IntrospectionException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.*;
+import javax.swing.undo.UndoManager;
+import javax.swing.undo.UndoableEditSupport;
 
 public class TopographyWindow extends JPanel {
 	private static Resources resources = Resources.getInstance("topologycreator");
@@ -233,6 +220,9 @@ public class TopographyWindow extends JPanel {
 				TopographyAction selectDotModeAction = new ActionSwitchSelectionMode("dot selection mode", panelModel,
 						new DrawDotMode(panelModel, undoSupport), basicAction);
 
+				/* select ellipse action DJ*/
+				TopographyAction selectEllipseAction = new ActionSwitchSelectionMode("ellipse selection mode", panelModel, new DrawEllipseMode(panelModel, undoSupport), basicAction);
+
 				/* select rect action */
 				TopographyAction selectRectangleAction =
 						new ActionSwitchSelectionMode("rect selection mode", panelModel,
@@ -298,9 +288,10 @@ public class TopographyWindow extends JPanel {
 				TopographyAction closeDialogAction = new ActionCloseDrawOptionPanel("Pedestrain", new ImageIcon(
 						Resources.class.getResource("/icons/pedestrians_icon.png")), panelModel,
 						switchToPedestrianAction);
-				
+
+				/* horses */
 				TopographyAction switchToHorseAction = new ActionSwitchCategory("switch to horse", panelModel,  //CHANGED AG NOT WORKING
-						ScenarioElementType.HORSE, selectDotModeAction);
+						ScenarioElementType.HORSE, selectEllipseAction);
 				TopographyAction closeDialogAction2 = new ActionCloseDrawOptionPanel("Horse", new ImageIcon(
 						Resources.class.getResource("/icons/horse.png")), panelModel,switchToHorseAction);
 				

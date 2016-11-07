@@ -1,14 +1,5 @@
 package org.vadere.gui.components.view;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Stroke;
-import java.awt.geom.Path2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.util.stream.Stream;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.gui.components.model.SimulationModel;
@@ -17,6 +8,12 @@ import org.vadere.gui.components.utils.ColorHelper;
 import org.vadere.gui.components.utils.Resources;
 import org.vadere.state.scenario.Agent;
 import org.vadere.util.geometry.shapes.VPoint;
+
+import java.awt.*;
+import java.awt.geom.Path2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.stream.Stream;
 
 public abstract class SimulationRenderer extends DefaultRenderer {
 
@@ -84,6 +81,10 @@ public abstract class SimulationRenderer extends DefaultRenderer {
 		if (model.config.isShowSources()) {
 			renderScenarioElement(model.getTopography().getSources(), graphics, model.config.getSourceColor());
 		}
+
+//		if (model.config.isShowHorses()) {
+//			renderScenarioElement(model.getTopography().getHorses(), graphics, model.config.getHorseColor());
+//		}
 
 		if (model.isVoronoiDiagramAvailable() && model.isVoronoiDiagramVisible()) {
 			renderVoronoiDiagram(graphics, model.getVoronoiDiagram());

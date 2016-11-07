@@ -1,17 +1,14 @@
 package org.vadere.util.geometry.shapes;
 
-import java.awt.Rectangle;
+import org.vadere.util.geometry.ShapeType;
+
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.vadere.util.geometry.ShapeType;
-
-import com.vividsolutions.jts.geomgraph.Edge;
-import com.vividsolutions.jts.geomgraph.index.EdgeSetIntersector;
 
 /**
  * A ring consists of two circles of different size.
@@ -159,6 +156,11 @@ public class VRing implements VShape {
 	@Override
 	public double distance(VPoint point) {
 		throw new UnsupportedOperationException("method is not implemented jet.");
+	}
+
+	@Override
+	public double getRadius() {
+		return radiusOuterCircle;
 	}
 
 	@Override

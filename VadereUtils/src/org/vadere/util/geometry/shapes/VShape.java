@@ -1,8 +1,8 @@
 package org.vadere.util.geometry.shapes;
 
-import java.awt.Shape;
-
 import org.vadere.util.geometry.ShapeType;
+
+import java.awt.*;
 
 /**
  * Geometric shape and position.
@@ -11,6 +11,8 @@ import org.vadere.util.geometry.ShapeType;
  */
 public interface VShape extends Shape {
 	double distance(VPoint point);
+
+	double getRadius();
 
 	VPoint closestPoint(VPoint point);
 

@@ -1,9 +1,9 @@
 package org.vadere.util.geometry.shapes;
 
-import java.awt.geom.Rectangle2D;
-
 import org.vadere.util.geometry.GeometryUtils;
 import org.vadere.util.geometry.ShapeType;
+
+import java.awt.geom.Rectangle2D;
 
 @SuppressWarnings("serial")
 public class VRectangle extends Rectangle2D.Double implements VShape {
@@ -33,6 +33,11 @@ public class VRectangle extends Rectangle2D.Double implements VShape {
 		} else {
 			return closestPoint.distance(point);
 		}
+	}
+
+	@Override
+	public double getRadius() {
+		return Math.max(getWidth(), getHeight());
 	}
 
 	@Override

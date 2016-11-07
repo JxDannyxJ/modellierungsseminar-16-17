@@ -215,8 +215,8 @@
   },
   "attributesCar" : null,
   "attributesHorse" : {
-    "height" : 4.5,
-    "width" : 1.7,
+    "height" : 0.7,
+    "width" : 1.2,
     "densityDependentSpeed" : false,
     "speedDistributionMean" : 1.34,
     "speedDistributionStandardDeviation" : 0.0,

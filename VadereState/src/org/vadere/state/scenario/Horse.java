@@ -5,12 +5,10 @@ import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.Vector2D;
-import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VEllipse;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
 
-import java.util.LinkedList;
 import java.util.Random;
 
 /**

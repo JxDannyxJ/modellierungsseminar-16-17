@@ -1,0 +1,197 @@
+\newChapterSlide{Andreas Gerum}{Kamerafahrt und 360\degree Video}{}{0}{20}
+\setbeamercovered{invisible}
+
+% ----- FRAME 1 -----
+
+\begin{frame}{Kamerafahrt - Grundidee}
+	\textbf{Idee}\\
+	\vspace{0.1cm}
+	\pause Alternative zur \textit{AgentView}: Kamera fliegt an einer festgelegten ,,sehenswürdigkeitsoptimierten'' Bahn entlang\\
+	\vspace{0.3cm}
+	\pause\textbf{Umsetzung?}\\
+	\begin{itemize}
+		\pause\item Wegpunkte (in 3D) definieren
+		\pause\item Reihenfolge festlegen
+		\pause\item $Geschwindigkeit = \frac{Gesamtstrecke}{Gesamtzeit}$ {\color{gray}($v = \frac{s_{ges}}{t_{ges}}$)}
+		\pause\item dazwischen linear interpolieren
+	\end{itemize}
+	\pause\textbf{pain points}\\
+	\begin{itemize}
+		\pause\item ruckiges Gefühl beim Abbiegen an Wegpunkten
+		\pause\item keine ,,Umschau-Pausen'' an Wegpunkten vorgesehen
+	\end{itemize}
+\end{frame}
+
+% ----- FRAME 2 -----
+
+\begin{frame}{Kamerafahrt - Geschwindigkeitsprofil}
+	\textbf{Verbesserte Idee}\\
+	\vspace{0.1cm}
+	\pause $\rightarrow$ Anlegen eines Geschwindigkeitsprofils.\\
+	\pause\textit{Minibeispiel mit 3 Wegpunkten:}\\
+	\pause\includegraphics[scale=0.26]{geschwindigkeitsprofil.png}\\
+	\pause 3 Sektionen innerhalb eines Wegabschnittes:\\
+	\pause Beschleunigung, konstante Geschw. und Abbremsung\\
+	\pause \textit{hier bei $\frac{1}{5}$ und $\frac{4}{5}$ eines Wegabschnittes\pause, $r_{P0} = 0$, $r_{P1} = 0.6$, $r_{P2} = 0$}
+\end{frame}
+
+% ----- FRAME 3 -----
+
+\begin{frame}{Geschwindigkeitsprofil - Mathematik I}
+	\textbf{Herausforderung}\\
+	\begin{itemize}
+		\pause\item Was sind die jeweiligen Werte für $a$ und $v_{max}$?
+		\pause\item Wie sicherstellen: Kamerafahrt muss genau $t_{ges}$ dauern??
+	\end{itemize}
+	\pause\textbf{Lösung}\\
+	\vspace{0.1cm}
+	$\rightarrow$ Mathematik \pause der Kinematik: \pause Gleichmäßig beschleunigte Bewegung {\color{gray}($a = const$)}
+	\begin{itemize}
+		\pause\item\equationNumber{1} $v(t) = v_0 + a (t - t_0)$\\
+		\pause\item\equationNumber{2} $s(t) = s_0 + v_0 (t - t_0) + \frac{1}{2} a_n (t - t_0)^2$
+	\end{itemize}
+	\pause Realisierung erfolgreich mit Hilfe von Lesya Mankovska.
+\end{frame}
+
+% ----- FRAME 4 -----
+
+\begin{frame}{Geschwindigkeitsprofil - Mathematik II}
+	\includegraphics[scale=0.34]{geschwindigkeitsprofil_gestaucht.png}\\
+	\pause 3 Gleichungen für 3 Sektionstypen:\\
+	\vspace{0.2cm}
+	\pause\textbf{Beschleunigung}\\
+	\vspace{0.1cm}
+	\pause\equationNumber{accel} $s_4 = r_{P1} v_{max} t_4 + \frac{1}{2} a_4 t_4^2$, wegen \equationNumber{2}\\
+	\pause mit \equationNumber{1} gilt: $v_{max} = v_{max} r_{P1} + a_4 t_4$\pause, umst. \& einsetzen in \equationNumber{accel}:\\
+	\vspace{0.1cm}
+	\pause\hspace*{10mm}$s_4 = r_{P1} v_{max} t_4 + \frac{1}{2} v_{max} (1 - r_{P1}) t_4$ \pause$\rightarrow$ kein $a$ mehr drin!\\
+	\vspace{0.3cm}
+	\pause\textbf{konstante Geschwindigkeit}\\
+	\vspace{0.1cm}
+	\pause\equationNumber{const} $s_2 = v_{max} t_2$\\
+	\vspace{0.3cm}
+	\pause\textbf{Abbremsung}\\
+	\vspace{0.1cm}
+	\pause\equationNumber{decel} $s_3 = v_{max} t_3 + \frac{1}{2} v_{max} (r_{P1} - 1) t_3$
+\end{frame}
+
+% ----- FRAME 5 -----
+
+\begin{frame}{Geschwindigkeitsprofil - Mathematik III}
+	Gleichung für jede Sektion nach $t$ umstellen:\\
+	\vspace{0.1cm}
+	\pause$t_4 = \frac{s_4}{v_{max} (0.5 + 0.5 r_{P1})}$ \pause $ = t_3$ \textit{(!)}\pause, $t_2 = \frac{s_2}{v_{max}}$\\
+	\vspace{0.1cm}
+	\pause$t$'s nicht bekannt, $t_{ges}$ schon \pause$\rightarrow t_{ges} = \sum\limits_{i=1}^6 t_i$\\
+	\vspace{0.1cm}
+	\pause nach $v_{max}$ umstellen und ausrechnen: \pause$v_{max} = \frac{\text{{\color{gray}nur bekannte s's \& r's...}}}{t_{ges}}$\\
+	\vspace{0.3cm}
+	\pause$v_{max}$ in $t$-Gleichungen einsetzen \pause$\rightarrow$ $t$'s für jede Sektion bekannt!\\
+	\vspace{0.1cm}
+	\pause{\color{gray}\textit{Test}: Summe der errechneten $t$'s muss $t_{ges}$ ergeben}\\
+	\vspace{0.2cm}
+	\pause Um Beschleunigung zu berechnen: \equationNumber{2} nach $a$ umstellen:\\
+	\vspace{0.2cm}
+	\pause\equationNumber{accel} $a_4 = \frac{2 (s_4 - v_{max} r_{P1} t_4)}{t_4^2}$\\
+	\pause\equationNumber{decel} $a_3 = \frac{2 (s_3 - v_{max} t_3)}{t_3^2}$\\
+	\vspace{0.2cm}
+	\pause\hspace*{10mm}$\rightarrow$ \textbf{jetzt ist alles bekannt!}\\
+	\vspace{0.2cm}
+	\pause\textit{Wie sieht die Umsetzung in Code aus?}
+\end{frame}
+
+% ----- FRAME 6 -----
+
+\begin{frame}{Geschw.profil - Implementierung I}
+	\textbf{1. Berechnung der Kamerafahrt-Daten vor Simulationsstart}
+	\begin{itemize}
+		\pause\item in \code{CameraTour} geordnete Wegpunkte festlegen, pro Punkt:
+		\begin{itemize}
+			\pause\item {\tiny\textit{3 Werte}} 3D-Koordinaten
+			\pause\item {\tiny\textit{1 Wert}} $r_{Pn}$: relative Geschwindigkeitsreduktion im Punkt
+			\pause\item {\tiny\textit{1 Wert}} optionale Wartezeit in Punkt, wird beachtet iff $r_{Pn} = 0$
+		\end{itemize}
+		\pause\item \code{List<Section> sections} sammelt alle Sektionen:
+		\begin{itemize}
+			\pause\item 3 sections pro Abschnitt: \textit{accel}, \textit{const} und \textit{decel}\pause, jede speichert ihre $s$ Werte und Start/Ende Koordinaten
+			\pause\item falls Wartezeit in Punkt: eine \textit{wait}-section
+		\end{itemize}
+		\pause\item ziehe von $t_{ges}$ alle $t_{wait}$ ab, berechne $v_{max}$ wie beschrieben
+		\pause\item nutze $v_{max}$ um $t$'s jeder Sektion (bis auf \textit{wait}'s) zu berechnen
+		\pause\item speichere laufende $t_{sum}$ in Sektionen, damit ist sie zeitlich verortbar innerhalb der Kamerafahrt
+		\pause\item nutze $v_{max}$ und $t$'s um $a$'s in \textit{accel}/\textit{decel} Sekt. zu berechnen
+	\end{itemize}
+	\pause$\rightarrow$ \textbf{alle nötigen Daten generiert!}
+\end{frame}
+
+% ----- FRAME 7 -----
+
+\begin{frame}[fragile]{Geschw.profil - Implementierung II}
+\textbf{2. Abfrage der Kamera Soll-Position in jedem Frame}\\
+\vspace{0.2cm}
+\begin{lstlisting}
+&\pause&void Update () { // in &\code{CameraTour}&
+	&\pause&if (time > simTime)
+		index = 0; // restart sim
+	time = simTime;
+	&\pause&Section section = sections [index];
+	while (!section.thatsMe(time))
+		section = sections [++ index];
+	&\pause&transform.position = section.getCoordsAtTime(time);
+}
+\end{lstlisting}
+\begin{lstlisting}
+&\pause&public Vector3 getCoordsAtTime(float t_abs){ // in &\code{Section}&
+	&\pause&float t_rel= t_abs - t_upToHere;
+	float s_add = 0;
+	&\pause&switch (type) { case Type.ACCELERATION:
+		s_add = r_P * v_max * t_rel + 0.5 * a * t_rel^2;
+		//... }
+	&\pause&float s_rel = s_add / s_inSection;
+	&\pause&return Vector3.Lerp (startCoord, endCoord, s_rel);
+}
+\end{lstlisting}
+\end{frame}
+
+% ----- FRAME 8 -----
+
+\begin{frame}{Kamerafahrt - Verbesserungsmögl.}
+	\begin{itemize}
+	\setlength\itemsep{1em}
+		\pause\item Kurven in Ecken einpassen
+		\pause\item alternative Bahnen anbieten
+		\pause\item zur Runtime zwischen \textit{AgentView} und \textit{CameraTour} springen
+		\pause\item spontanes Ausbrechen aus der Tour\\\pause $\rightarrow$ live-Ausgleichsrechnung
+		\pause\item ...
+	\end{itemize}
+\vspace{0.4cm}
+\pause In Asset Store stellen?
+\end{frame}
+
+% ----- FRAME 8 -----
+
+\begin{frame}{360\degree Video - Idee}
+	\pause\includegraphics[scale=0.3]{360_v14p2_frame585.jpg}\\
+	\begin{minipage}{0.45\textwidth}
+			\pause\includegraphics[scale=0.34]{youtubeview360_v14p2.jpg}
+	\end{minipage}\hfill
+	\begin{minipage}{0.45\textwidth}
+				\pause\includegraphics[scale=0.28]{kolorview360_v14p2.jpg}
+	\end{minipage} \hfill
+\end{frame}
+
+% ----- FRAME 9 -----
+
+\begin{frame}{360\degree  Video - Umsetzung}
+	\begin{itemize}
+	\setlength\itemsep{1em}
+	\pause\item ein 360\degree Bild pro Frame erzeugen \pause mit \textbf{360 Panorama Capture}\\\pause im Asset Store von \textit{eVRydayVR}\pause, mindestens DirectX11 {\tiny\url{assetstore.unity3d.com/en/\#!/content/38755}}
+	\pause\item Bilder zu Video ,,zusammenkleben'' mit \pause\textbf{FFmpeg} {\tiny\url{ffmpeg.org}}
+	\pause\item für YouTube 3D-Player: \textbf{360 Video Metadata Tool} {\tiny\url{support.google.com/youtube/answer/6178631}} benützen und dann hochladen
+	\pause\item oder in einem lokalen Player\pause, bspw: \textbf{Kolor Eyes} {\tiny\url{kolor.com/kolor-eyes/download}}
+	\end{itemize}
+	\vspace{0.3cm}
+	\pause\hspace*{10mm}$\rightarrow$ \textbf{360\degree  Video mit 5000 Personen} bei 24 frames per second und Auflösung 4096x2048: {\color{blue}\url{youtu.be/bwgJue2mv8s}}\\\footnotesize{Qualität auf maximal stellen: \textit{2160s/4K}}
+\end{frame}
+
+\setbeamercovered{transparent}

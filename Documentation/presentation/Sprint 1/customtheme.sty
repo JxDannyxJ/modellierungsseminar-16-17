@@ -1,0 +1,70 @@
+\ProvidesPackage{customtheme}
+
+\setbeamertemplate{footline}{ % footer
+	\hspace*{2ex}\raisebox{1.5ex}[-1.5ex]{
+	\tiny\textcolor{gray}{\tiny\textcolor{gray}{Projektstudium Modellierungsseminar WS15/16, Teamvorträge Sprint 3: Demo und App}}}
+}
+
+\usepackage{ifthen}
+\newcommand{\newChapterSlide}[5]{
+	\section{#2}	
+	\subsection{#1} % author
+	\ifthenelse{\equal{#3}{}}{ %2nd title is empty
+		\setbeamertemplate{footline}{ % footer
+			\hspace*{2ex}\raisebox{1.5ex}[-1.5ex]{
+			\tiny\textcolor{gray}{\tiny\textcolor{gray}{ModSem WS15/16, Sprint 3, #1: #2}}}
+		}
+	}{ % 2nd title is not empty
+		\setbeamertemplate{footline}{ % footer
+			\hspace*{2ex}\raisebox{1.5ex}[-1.5ex]{
+			\tiny\textcolor{gray}{\tiny\textcolor{gray}{ModSem WS15/16, Sprint 3, #1: #2, #3}}}
+		}
+	}
+	\begin{frame}{#1}
+		\begin{center}
+			{\huge{\textcolor{hmred}{#2}}}\\
+			\vspace{0.2cm}
+			\ifthenelse{\equal{#3}{}}{
+			%empty
+			}{
+				{\Large{\textcolor{hmorange}{#3}}}\\
+				\vspace{0.2cm}
+			}
+			{\large{\textcolor{hmgray}{#1}}}\\
+			\vspace{0.8cm}
+			2D: \textbf{#4}\% \textcolor{hmgray}{/} 3D: \textbf{#5}\%\\
+		\end{center}
+	\end{frame}
+}
+
+% for displaying C# code
+\usepackage{color,listings}
+\definecolor{bluekeywords}{rgb}{0.13,0.13,1}
+\definecolor{greencomments}{rgb}{0,0.9,0}
+\definecolor{redstrings}{rgb}{0.9,0,0}
+\definecolor{lightyellow}{RGB}{255,255,230}
+\lstset{
+	language=[Sharp]C,
+  backgroundcolor=\color{lightyellow},
+	xleftmargin=-6mm,
+  xrightmargin=-6mm,
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+	tabsize=4,
+	escapechar=\&,
+  commentstyle=\color{greencomments},
+  keywordstyle=\color{bluekeywords},
+  stringstyle=\color{redstrings},
+	basicstyle=\footnotesize\ttfamily
+}
+
+% for displaying short code-variables etc. inline with text, is `variable` in github markdown
+\definecolor{ttcolor}{RGB}{180,0,0}
+\definecolor{lightgray}{gray}{.92}
+\newcommand{\code}[1]{\fcolorbox{lightgray}{lightgray}{\ttfamily{\color{ttcolor}{#1}}}}
+
+
+\newcommand{\equationNumber}[1]{\textit{{\color{gray}\footnotesize{(#1)}}}}

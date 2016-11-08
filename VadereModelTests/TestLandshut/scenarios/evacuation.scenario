@@ -1,5 +1,5 @@
 {
-  "name" : "no_evacuation",
+  "name" : "evacuation",
   "description" : "",
   "release" : "0.1",
   "processWriters" : {
@@ -91,9 +91,9 @@
       },
       "obstacles" : [ {
         "shape" : {
-          "x" : 5.0,
+          "x" : 0.5,
           "y" : 80.0,
-          "width" : 10.0,
+          "width" : 14.5,
           "height" : 15.0,
           "type" : "RECTANGLE"
         },
@@ -109,27 +109,27 @@
         "id" : -1
       }, {
         "shape" : {
-          "x" : 5.0,
+          "x" : 0.5,
           "y" : 55.0,
-          "width" : 10.0,
+          "width" : 14.5,
           "height" : 15.0,
           "type" : "RECTANGLE"
         },
         "id" : -1
       }, {
         "shape" : {
-          "x" : 5.0,
+          "x" : 0.5,
           "y" : 30.0,
-          "width" : 10.0,
+          "width" : 14.5,
           "height" : 15.0,
           "type" : "RECTANGLE"
         },
         "id" : -1
       }, {
         "shape" : {
-          "x" : 5.0,
+          "x" : 0.5,
           "y" : 5.0,
-          "width" : 10.0,
+          "width" : 14.5,
           "height" : 15.0,
           "type" : "RECTANGLE"
         },
@@ -138,7 +138,7 @@
         "shape" : {
           "x" : 35.0,
           "y" : 55.0,
-          "width" : 10.0,
+          "width" : 14.5,
           "height" : 15.0,
           "type" : "RECTANGLE"
         },
@@ -192,7 +192,7 @@
         "shape" : {
           "x" : 35.0,
           "y" : 80.0,
-          "width" : 10.0,
+          "width" : 14.5,
           "height" : 15.0,
           "type" : "RECTANGLE"
         },
@@ -228,7 +228,7 @@
         "shape" : {
           "x" : 35.0,
           "y" : 30.0,
-          "width" : 10.0,
+          "width" : 14.5,
           "height" : 15.0,
           "type" : "RECTANGLE"
         },
@@ -237,7 +237,7 @@
         "shape" : {
           "x" : 35.0,
           "y" : 5.0,
-          "width" : 10.0,
+          "width" : 14.5,
           "height" : 15.0,
           "type" : "RECTANGLE"
         },
@@ -248,10 +248,112 @@
         "id" : 1,
         "absorbing" : true,
         "shape" : {
-          "x" : 20.0,
+          "x" : 15.0,
           "y" : 95.0,
-          "width" : 10.0,
-          "height" : 5.0,
+          "width" : 20.0,
+          "height" : 4.5,
+          "type" : "RECTANGLE"
+        },
+        "waitingTime" : 0.0,
+        "waitingTimeYellowPhase" : 0.0,
+        "parallelWaiters" : 0,
+        "individualWaiting" : true,
+        "deletionDistance" : 0.1,
+        "startingWithRedLight" : false,
+        "nextSpeed" : -1.0
+      }, {
+        "id" : 2,
+        "absorbing" : true,
+        "shape" : {
+          "x" : 0.5,
+          "y" : 70.0,
+          "width" : 4.5,
+          "height" : 10.0,
+          "type" : "RECTANGLE"
+        },
+        "waitingTime" : 0.0,
+        "waitingTimeYellowPhase" : 0.0,
+        "parallelWaiters" : 0,
+        "individualWaiting" : true,
+        "deletionDistance" : 0.1,
+        "startingWithRedLight" : false,
+        "nextSpeed" : -1.0
+      }, {
+        "id" : 3,
+        "absorbing" : true,
+        "shape" : {
+          "x" : 45.0,
+          "y" : 70.0,
+          "width" : 4.5,
+          "height" : 10.0,
+          "type" : "RECTANGLE"
+        },
+        "waitingTime" : 0.0,
+        "waitingTimeYellowPhase" : 0.0,
+        "parallelWaiters" : 0,
+        "individualWaiting" : true,
+        "deletionDistance" : 0.1,
+        "startingWithRedLight" : false,
+        "nextSpeed" : -1.0
+      }, {
+        "id" : 4,
+        "absorbing" : true,
+        "shape" : {
+          "x" : 0.5,
+          "y" : 45.0,
+          "width" : 4.5,
+          "height" : 10.0,
+          "type" : "RECTANGLE"
+        },
+        "waitingTime" : 0.0,
+        "waitingTimeYellowPhase" : 0.0,
+        "parallelWaiters" : 0,
+        "individualWaiting" : true,
+        "deletionDistance" : 0.1,
+        "startingWithRedLight" : false,
+        "nextSpeed" : -1.0
+      }, {
+        "id" : 5,
+        "absorbing" : true,
+        "shape" : {
+          "x" : 45.0,
+          "y" : 45.0,
+          "width" : 4.5,
+          "height" : 10.0,
+          "type" : "RECTANGLE"
+        },
+        "waitingTime" : 0.0,
+        "waitingTimeYellowPhase" : 0.0,
+        "parallelWaiters" : 0,
+        "individualWaiting" : true,
+        "deletionDistance" : 0.1,
+        "startingWithRedLight" : false,
+        "nextSpeed" : -1.0
+      }, {
+        "id" : 6,
+        "absorbing" : true,
+        "shape" : {
+          "x" : 0.5,
+          "y" : 20.0,
+          "width" : 4.5,
+          "height" : 10.0,
+          "type" : "RECTANGLE"
+        },
+        "waitingTime" : 0.0,
+        "waitingTimeYellowPhase" : 0.0,
+        "parallelWaiters" : 0,
+        "individualWaiting" : true,
+        "deletionDistance" : 0.1,
+        "startingWithRedLight" : false,
+        "nextSpeed" : -1.0
+      }, {
+        "id" : 7,
+        "absorbing" : true,
+        "shape" : {
+          "x" : 45.0,
+          "y" : 20.0,
+          "width" : 4.5,
+          "height" : 10.0,
           "type" : "RECTANGLE"
         },
         "waitingTime" : 0.0,
@@ -285,22 +387,43 @@
       }, {
         "id" : 1,
         "shape" : {
-          "x" : 22.3,
-          "y" : 9.9,
-          "width" : 5.5,
-          "height" : 4.7,
-          "type" : "RECTANGLE"
+          "radius" : 5.0,
+          "center" : {
+            "x" : 25.0,
+            "y" : 5.0
+          },
+          "type" : "CIRCLE"
         },
         "interSpawnTimeDistribution" : "org.vadere.state.scenario.ConstantDistribution",
         "distributionParameters" : [ 1.0 ],
         "spawnNumber" : 5,
         "maxSpawnNumberTotal" : -1,
-        "startTime" : 20.0,
-        "endTime" : 100.0,
+        "startTime" : 0.0,
+        "endTime" : 20.0,
         "spawnAtRandomPositions" : true,
         "useFreeSpaceOnly" : true,
-        "targetIds" : [ 1 ],
+        "targetIds" : [ 2 ],
         "dynamicElementType" : "PEDESTRIAN"
+      }, {
+        "id" : 1,
+        "shape" : {
+          "radius" : 5.0,
+          "center" : {
+            "x" : 25.0,
+            "y" : 5.0
+          },
+          "type" : "CIRCLE"
+        },
+        "interSpawnTimeDistribution" : "org.vadere.state.scenario.ConstantDistribution",
+        "distributionParameters" : [ 1.0 ],
+        "spawnNumber" : 5,
+        "maxSpawnNumberTotal" : -1,
+        "startTime" : 0.0,
+        "endTime" : 20.0,
+        "spawnAtRandomPositions" : true,
+        "useFreeSpaceOnly" : true,
+        "targetIds" : [ 3 ],
+        "dynamicElementType" : "HORSE"
       }, {
         "id" : 1,
         "shape" : {
@@ -318,7 +441,46 @@
         "endTime" : 100.0,
         "spawnAtRandomPositions" : true,
         "useFreeSpaceOnly" : true,
-        "targetIds" : [ 1 ],
+        "targetIds" : [ 4 ],
+        "dynamicElementType" : "PEDESTRIAN"
+      }, {
+        "id" : 1,
+        "shape" : {
+          "radius" : 5.0,
+          "center" : {
+            "x" : 25.0,
+            "y" : 5.0
+          },
+          "type" : "CIRCLE"
+        },
+        "interSpawnTimeDistribution" : "org.vadere.state.scenario.ConstantDistribution",
+        "distributionParameters" : [ 1.0 ],
+        "spawnNumber" : 5,
+        "maxSpawnNumberTotal" : -1,
+        "startTime" : 0.0,
+        "endTime" : 20.0,
+        "spawnAtRandomPositions" : true,
+        "useFreeSpaceOnly" : true,
+        "targetIds" : [ 5 ],
+        "dynamicElementType" : "HORSE"
+      }, {
+        "id" : 1,
+        "shape" : {
+          "x" : 22.3,
+          "y" : 9.9,
+          "width" : 5.5,
+          "height" : 4.7,
+          "type" : "RECTANGLE"
+        },
+        "interSpawnTimeDistribution" : "org.vadere.state.scenario.ConstantDistribution",
+        "distributionParameters" : [ 1.0 ],
+        "spawnNumber" : 5,
+        "maxSpawnNumberTotal" : -1,
+        "startTime" : 20.0,
+        "endTime" : 100.0,
+        "spawnAtRandomPositions" : true,
+        "useFreeSpaceOnly" : true,
+        "targetIds" : [ 6 ],
         "dynamicElementType" : "PEDESTRIAN"
       }, {
         "id" : -1,
@@ -337,7 +499,7 @@
         "endTime" : 100.0,
         "spawnAtRandomPositions" : true,
         "useFreeSpaceOnly" : true,
-        "targetIds" : [ 1 ],
+        "targetIds" : [ 7 ],
         "dynamicElementType" : "HORSE"
       } ],
       "dynamicElements" : [ ],

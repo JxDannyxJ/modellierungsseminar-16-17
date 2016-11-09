@@ -1,4 +1,5 @@
-\documentclass[]{beamer} % handout in [] ignores uncovered and pause, so its much nicer to use pdf if not used in a presentation
+% handout in [] ignores uncovered and pause, so its much nicer to use pdf if not used in a presentation
+\documentclass{beamer}
 
 \usepackage[ngerman,english]{babel}
 \usepackage[utf8]{inputenc}
@@ -12,42 +13,42 @@
 %\usepackage{wrapfig} % for text wrapped around pictures
 \usepackage{mdframed}
 \usepackage{changepage} % to use adjustwidth for reducing margins on frames (wider content area)
-%\usepackage{beamerthemeHM}
-%\usepackage{customtheme}
+\usepackage{beamerthemeHM}
+\usepackage{customtheme}
 \usepackage{gensymb} % for degree symbol
 
-\graphicspath{{images/}{images/logos/}}
+\graphicspath{{appendix/images/}{appendix/images/logos/}}
 
 
 \title{\textcolor{hmorange}{Projektstudium Modellierungsseminar}\\Landshuter Hochzeit:\\Simulation und 3D-Visualisierung}
-\subtitle{WS2016/17 Teamvorträge Sprint 1:\\\textcolor{hmgray}{Demo und App}}
+\subtitle{WS2016/17 Teamvorträge Sprint 1:\\\textcolor{hmgray}{Personenstromsimulation mit Pferd}}
 \author{D. Jadanec, A. Knoll, H. Hager, A. Yauseyenka, A. Gerum}
 \date{10 November 2016}
 \institute{Department of  Computer Science and Mathematics\\\includegraphics[height=1.2cm]{HMLogo_transp.png} \hfill \includegraphics[height=0.8cm]{accurateLogo.png} \hfill \includegraphics[height=0.6cm]{VadereLogo.pdf} \hfill \includegraphics[height=0.8cm]{unityLogo.png}}
 
 \begin{document}
-\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{Background2.jpg}}
-\begin{frame}
-	\titlepage
-\end{frame}
-\usebackgroundtemplate{} % to remove the background picture from the start slide
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{Background2.jpg}}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	\usebackgroundtemplate{} % to remove the background picture from the start slide
 
 
-\include{presentations/intro}
-\include{presentations/alex}
-\include{presentations/daniel}
-\include{presentations/andrei}
-\include{presentations/hubert}
-\include{presentations/andi}
+	%\include{presentations/intro}
+	%\include{presentations/alex}
+	\include{presentations/daniel}
+	%\include{presentations/andrei}
+	%\include{presentations/hubert}
+	%\include{presentations/andi}
 
-%\include{presentations/outro}
+	%\include{presentations/outro}
 
 
-\begin{frame}[allowframebreaks]{Quellen}
-	\setbeamertemplate{bibliography item}[text]
-	\bibliographystyle{plain}
-	\bibliography{Literature}{}
-\end{frame}
+	\begin{frame}[allowframebreaks]{Quellen}
+		\setbeamertemplate{bibliography item}[text]
+		\bibliographystyle{plain}
+		\bibliography{Literature}
+	\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

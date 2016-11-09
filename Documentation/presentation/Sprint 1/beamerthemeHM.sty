@@ -25,7 +25,7 @@
 \setbeamertemplate{navigation symbols}[only frame symbol]
 
 \setbeamertemplate{blocks}[default]
-\setbeamerfont{frametitle}{size=\fontsize{14}{16}}
+\setbeamerfont{frametitle}{size=\fontsize{14}{24}}
 
 \setbeamercolor{block title}        {use=structure}
 \setbeamercolor{block title alerted}{use=alerted text,fg=white,bg=alerted text.fg}
@@ -37,13 +37,14 @@
 \setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=block title.bg!25!bg}
 \setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!15!bg}
 
-\pgfdeclareimage[height=6mm]{uni}{images/logos/HM-Logo.pdf}
+\pgfdeclareimage[height=6mm]{uni}{appendix/images/logos/HM-Logo.pdf}
 \logo{\pgfuseimage{uni}}
 
-\defbeamertemplate*{footline}{infolines theme}{%
+\defbeamertemplate*{footline}{infolines theme}{
 	\hspace*{2ex}\raisebox{1.5ex}[-1.5ex]{%
 	\tiny\insertframenumber{}/\inserttotalframenumber \hspace{32mm} Gerta K\"oster \& Daniel Lehmberg \& Felix Dietrich
-	\hspace{5mm} TGF'2015}%\insertnavigation{0.8\paperwidth}}%
+	\hspace{5mm} TGF'2015}
+	%\insertnavigation{0.8\paperwidth}%
 }
 
 

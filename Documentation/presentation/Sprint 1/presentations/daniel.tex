@@ -1,94 +1,38 @@
-\newChapterSlide{Daniel Jadanec}{Gruppenmodell, Verteilungsparameter, Funktionen zur Dichteanalyse}{}{35}{0}
-\begin{frame}{Gruppenmodell nach Moussa\"{i}d}
+\begin{frame}{Was bisher war}
 	\begin{itemize}
-		\item up to 70\% of observed pedestrians in a commercial street are walking in group \cite{moussaid-2010b}
-		\item groups composed of two to four members are the most frequent \cite{moussaid-2010b}
-		\item group sizes are distributed according to a Poisson distribution \cite{jamesj-1953}
+		\item Zwei dynamische Szenario Elemente "Pedestrian" und "Car"
+		\item Ersteres für die Personenstromsimulation
+		\item Letzeres für die Simulation des Kraftfahrzeugverkehrs (Felix Dietrich und Peter Zarnitz) \cite{zarnitz-2015}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Gruppenmodell nach Moussa\"{i}d}
-	\begin{minipage}{0.50\textwidth}
-		\includegraphics[width=\textwidth]{pres_pics/Groupsize.png}
-		\captionof{figure}{Figure 2 in \cite{moussaid-2010b}}
-	\end{minipage} \hfill
-	\begin{minipage}{0.48\textwidth}
-	\includegraphics[width=\textwidth]{pres_pics/groups.png}
-	\captionof{figure}{Figure 3 in \cite{moussaid-2010b}}
-\end{minipage}
-\end{frame}
-\begin{frame}{Implementierung}
+\begin{frame}{Einführung des Agenten Horse}
 	\begin{figure}
-		\includegraphics[width=0.6\textwidth]{pres_pics/group_problem.png}\\
-		$\Rightarrow$ nicht realisierbar mit Außenpersonenströmen
+		\includegraphics[width=\textwidth, keepaspectratio]{appendix/uml/ScenarioElements.pdf}
 	\end{figure}
 \end{frame}
-\begin{frame}{Lösungsidee I}
+
+\begin{frame}{Einführung des Agenten Horse}
 	\begin{figure}
-		\includegraphics[width=0.55\textwidth]{pres_pics/stack.png}\\
-		$\Rightarrow$ Steckenbleiben der Personen
+		\includegraphics[width=\textwidth, keepaspectratio]{appendix/uml/Attributes.pdf}
 	\end{figure}
 \end{frame}
-\begin{frame}{Lösungsidee II}
+
+\begin{frame}{Änderungen}
+	\begin{itemize}
+		\item Neues dynamisches Element Horse
+		\item Neuee Attribute für Horse
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Review: Arbeitsaufteilung}
 	\begin{figure}
-		\includegraphics[width=0.55\textwidth]{pres_pics/still_stack.png}\\
-		$\Rightarrow$ Listenproblem von bereits verschwindenen Personen
-	\end{figure}
-\end{frame}
-\begin{frame}{Verteilungsparameter}
-	\begin{itemize}
-		\item Bewegung von Beinen idealisiert als Pendelbewegung \cite{weidmann-1993}
-		\begin{itemize}
-			\item Obergrenze des natürlichen Gehens bei 2.0 $\frac{m}{s}$ \cite{weidmann-1993}
-			\item Untergrenze des natürlichen Gehens bei 0.5 $\frac{m}{s}$ \cite{weidmann-1993}
-		\end{itemize}
-		\item Schrittlänge liegt bei ca. 0.63 $m$ $\Rightarrow$ 1.32 $\frac{m}{s}$
-	\end{itemize}
-\end{frame}
-\begin{frame}{Verteilungsparameter}
-	\begin{itemize}
-		\item Bewegung von Beinen idealisiert als Pendelbewegung \cite{weidmann-1993}
-		\begin{itemize}
-			\item Obergrenze des natürlichen Gehens bei 2.0 $\frac{m}{s}$ \cite{weidmann-1993}
-			\item Untergrenze des natürlichen Gehens bei 0.5 $\frac{m}{s}$ \cite{weidmann-1993}
-		\end{itemize}
-		\item Schrittlänge liegt bei ca. 0.63 $m$ $\Rightarrow$ 1.32 $\frac{m}{s}$ \cite{weidmann-1993}
-	\end{itemize}
-	\vspace{1cm}
-	\hspace{1cm}$\Rightarrow$ Wahl der Parameter für Vadere: $0.9 \frac{m}{s}$\\\hspace{1.5cm}als mittlere Wunschgeschwindigkeit und Varianz $0.4$
-\end{frame}
-\begin{frame}{Dichte über JSON-Editor}
-	\begin{itemize}
-		\item Laden von .trajectories-Files
-	\end{itemize}
-\end{frame}
-\begin{frame}{Dichte über JSON-Editor}
-	\begin{itemize}
-		\item Laden von .trajectories-Files
-		\item Definition der Parameter\\(Startpunkt ($x_s$, $y_s$), Größe der Messfläche $A$ von Startpunkt, Größe der Obstacle-Fläche $A_O$, Pedestrian-Radius $r$, Anzahl der Zeitschritte $t_z$, Simulationsschrittlänge $t_{sim}$)
-	\end{itemize}
-\end{frame}
-\begin{frame}{Dichte über JSON-Editor}
-	\begin{itemize}
-		\item Laden von .trajectories-Files
-		\item Definition der Parameter\\(Startpunkt ($x_s$, $y_s$), Größe der Messfläche $A$ von Startpunkt, Größe der Obstacle-Fläche $A_O$, Pedestrian-Radius $r$, Anzahl der Zeitschritte $t$, Simulationsschrittlänge $t_{sim}$)
-		\item Summiere die Fläche der Obstacles mit dem Mittelwert der Fläche der Pedestrians über die Zeitschritte $t_z$ durch die Gesamtfläche $A$
-		\\\vspace{0.5cm}
-		\centering
-		$\rho_{A_t} = \frac{\frac{N_p \cdot r^2 \cdot \pi}{t_z \cdot t_{sim}}}{A - A_O}$\hspace{1cm}with $N_p$ number of all Pedestrians
-	\end{itemize}
-\end{frame}
-\begin{frame}{Ausblick}
-	\begin{figure}
-		Verteilung der Spawnzeiten\\
-		\includegraphics[width=\textwidth]{pres_pics/sirens.png}
+		\includegraphics[width=\textwidth,keepaspectratio]{task_review.png}
 	\end{figure}
 \end{frame}
 \begin{frame}{Ausblick}
-	\begin{minipage}{0.50\textwidth}
-		\includegraphics[width=\textwidth]{pres_pics/NAVI_TRAJ_miklosy.png}
-	\end{minipage} \hfill
-	\begin{minipage}{0.48\textwidth}
-		\includegraphics[width=1.04\textwidth]{pres_pics/NAVI_TRAJ_feld.png}
-	\end{minipage}
+	\begin{itemize}
+		\item Bewegungsmodell des Pferdes soll entwickelt werden
+		\item Bimodales Simulationsmodell für Pferd und Fußgänger
+	\end{itemize}
 \end{frame}

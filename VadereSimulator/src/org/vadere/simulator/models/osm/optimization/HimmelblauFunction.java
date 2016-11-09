@@ -32,9 +32,9 @@ public class HimmelblauFunction extends PotentialEvaluationFunction {
 
 	@Override
 	public double value(double arg) throws FunctionEvaluationException {
-		VPoint newPos = new VPoint(this.getAgentOSM().getPosition().x
+		VPoint newPos = new VPoint(this.getAgentOSM().getPosition().getX()
 				+ stepsize * Math.cos(arg),
-				this.getAgentOSM().getPosition().y + stepsize * Math.sin(arg));
+				this.getAgentOSM().getPosition().getY() + stepsize * Math.sin(arg));
 
 		return getValue(newPos);
 	}
@@ -55,7 +55,7 @@ public class HimmelblauFunction extends PotentialEvaluationFunction {
 		pos[0] = posi[0] - 6;
 		pos[1] = posi[1] - 6;
 		double result = 100000;
-		if (Math.pow(pos[0] - position.x, 2) + Math.pow(pos[1] - position.y, 2) <= Math
+		if (Math.pow(pos[0] - position.getX(), 2) + Math.pow(pos[1] - position.getY(), 2) <= Math
 				.pow(stepsize, 2) + 0.0001) {
 			result = Math.pow((pos[0] * pos[0] + pos[1] - 11), 2)
 					+ Math.pow((pos[1] * pos[1] + pos[0] - 7), 2);

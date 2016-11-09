@@ -35,8 +35,8 @@ public class RectangleLimits {
 
 		VPoint position = site;
 
-		if (position.x < xLow || position.x > xHigh || position.y < yLow
-				|| position.y > yHigh) {
+		if (position.getX() < xLow || position.getX() > xHigh || position.getY() < yLow
+				|| position.getY() > yHigh) {
 			result = false;
 		}
 

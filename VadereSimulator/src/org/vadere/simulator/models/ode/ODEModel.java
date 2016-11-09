@@ -147,15 +147,15 @@ public abstract class ODEModel<T extends DynamicElement, TAttributes extends Att
 			// teleporter code should not be here
 			if (topography.hasTeleporter()) {
 				if (newPosition[0] > topography.getTeleporter()
-						.getTeleporterPosition().x) {
+						.getTeleporterPosition().getX()) {
 					newPosition[0] += topography.getTeleporter()
-							.getTeleporterShift().x;
+							.getTeleporterShift().getX();
 				}
 				if (newPosition[0] < topography.getTeleporter()
-						.getTeleporterPosition().x
-						+ topography.getTeleporter().getTeleporterShift().x) {
+						.getTeleporterPosition().getX()
+						+ topography.getTeleporter().getTeleporterShift().getX()) {
 					newPosition[0] -= topography.getTeleporter()
-							.getTeleporterShift().x;
+							.getTeleporterShift().getX();
 				}
 			}
 

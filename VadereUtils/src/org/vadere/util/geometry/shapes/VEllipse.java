@@ -131,12 +131,12 @@ public class VEllipse implements VShape {
 	public VPoint closestPoint(VPoint point) {
 //		(x/a)^2+(y/b)^2=1
 		
-		double dx = point.x - center.x;
-		double dy = point.y - center.y;
+		double dx = point.getX() - center.getX();
+		double dy = point.getY() - center.getY();
 		double theta = Math.atan2(dy, dx);
 		double r = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)) - ((width*height) / 
 				Math.sqrt(Math.pow(height * Math.cos(theta), 2) + Math.pow(width * Math.sin(theta), 2)));
-		return new VPoint(point.x + r * Math.cos(theta), point.y + r * Math.sin(theta));
+		return new VPoint(point.getX() + r * Math.cos(theta), point.getY() + r * Math.sin(theta));
 	}
 
 	@Override
@@ -171,7 +171,7 @@ public class VEllipse implements VShape {
 	 * Looks if a point is contained in the ellipse
 	 */
 	public boolean contains(VPoint point) {
-		return contains(point.x,point.y);
+		return contains(point.getX(),point.getY());
 	}
 	
 	
@@ -223,8 +223,8 @@ public class VEllipse implements VShape {
 		int diameterW = (int) Math.ceil(2 * width);
 		int diameterH = (int) Math.ceil(2 * height);
 		
-		return new Rectangle((int) Math.floor(center.x - width),
-				(int) Math.floor(center.y - height), diameterW, diameterH);
+		return new Rectangle((int) Math.floor(center.getX() - width),
+				(int) Math.floor(center.getY() - height), diameterW, diameterH);
 	}
 
 	/**
@@ -232,7 +232,7 @@ public class VEllipse implements VShape {
 	 */
 	@Override
 	public Rectangle2D getBounds2D() {
-		return new Rectangle2D.Double(center.x - width, center.y - height,
+		return new Rectangle2D.Double(center.getX() - width, center.getY() - height,
 				2 * width, 2 * height);
 	}
 
@@ -241,8 +241,8 @@ public class VEllipse implements VShape {
 	 */
 	@Override
 	public boolean contains(double x, double y) {
-		return Math.pow(center.x - x, 2)/Math.pow(getWidth(), 2) + 
-				Math.pow(center.y - y, 2)/Math.pow(getHeight(), 2) <= 1;
+		return Math.pow(center.getX() - x, 2)/Math.pow(getWidth(), 2) + 
+				Math.pow(center.getY() - y, 2)/Math.pow(getHeight(), 2) <= 1;
 	}
 
 	/**
@@ -273,7 +273,7 @@ public class VEllipse implements VShape {
 
 	@Override
 	public PathIterator getPathIterator(AffineTransform at) {
-		return new Ellipse2D.Double(center.x - width, center.y - height,
+		return new Ellipse2D.Double(center.getX() - width, center.getY() - height,
 				width * 2, height * 2).getPathIterator(at);
 	}
 

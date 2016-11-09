@@ -66,7 +66,7 @@ public interface EikonalSolver {
 	default double computeGodunovDifference(final Point point, final CellGrid cellGrid, final Direction direction) {
 
 		VPoint position = cellGrid.pointToCoord(point.x, point.y);
-		double cost = getTimeCostFunction().costAt(new VPoint(position.x, position.y));
+		double cost = getTimeCostFunction().costAt(new VPoint(position.getX(), position.getY()));
 		double speed = (1.0 / cellGrid.getResolution()) / cost; // = F/cost
 
 		double a = 0;
@@ -190,8 +190,8 @@ public interface EikonalSolver {
 		double result = Double.MAX_VALUE;
 
 		// enables cost fields with cost != 1
-		VPoint position = cellGrid.pointToCoord(point.x, point.y);
-		double cost = getTimeCostFunction().costAt(new VPoint(position.x, position.y));
+		VPoint position = cellGrid.pointToCoord((int) point.getX(), (int) point.getY());
+		double cost = getTimeCostFunction().costAt(new VPoint(position.getX(), position.getY()));
 
 		double speed = (1.0 / cellGrid.getResolution()) / cost; // = F/cost
 

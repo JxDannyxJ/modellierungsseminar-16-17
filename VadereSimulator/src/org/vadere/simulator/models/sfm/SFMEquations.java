@@ -120,9 +120,9 @@ public class SFMEquations extends AbstractModelEquations<Pedestrian> {
 					* normalizer(v0 * 1.3, MathUtil.norm2(velocity));
 
 			velocityDot[0] = (-grad_field[0] * v0 - velocity[0]) * acc
-					- obstacleGradient.x - pedestrianGradient.x;
+					- obstacleGradient.getX() - pedestrianGradient.getX();
 			velocityDot[1] = (-grad_field[1] * v0 - velocity[1]) * acc
-					- obstacleGradient.y - pedestrianGradient.y;
+					- obstacleGradient.getY() - pedestrianGradient.getY();
 
 			assert (!Double.isNaN(positionDot[0]));
 			assert (!Double.isNaN(positionDot[1]));

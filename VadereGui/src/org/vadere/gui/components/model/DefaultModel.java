@@ -208,8 +208,8 @@ public abstract class DefaultModel<T extends DefaultConfig> extends Observable i
 		// this is needed cause of the mirrowing!
 		VPoint mouseWorldPosition = pixelToWorld(new VPoint(mousePosition.x, mousePosition.y));
 		double factor = Math.max(10, 1 / getGridResolution());
-		cursorWorldPosition = new VPoint((Math.round(mouseWorldPosition.x * factor)) / factor,
-				(Math.round(mouseWorldPosition.y * factor)) / factor);
+		cursorWorldPosition = new VPoint((Math.round(mouseWorldPosition.getX() * factor)) / factor,
+				(Math.round(mouseWorldPosition.getY() * factor)) / factor);
 		setChanged();
 	}
 
@@ -217,8 +217,8 @@ public abstract class DefaultModel<T extends DefaultConfig> extends Observable i
 	public void setStartSelectionPoint(final Point startSelectionPoint) {
 		VPoint worldPosition = pixelToWorld(new VPoint(startSelectionPoint.x, startSelectionPoint.y));
 		double factor = Math.max(10, 1 / getGridResolution());
-		this.startSelectionPoint = new VPoint((Math.round(worldPosition.x * factor)) / factor,
-				(Math.round(worldPosition.y * factor)) / factor);
+		this.startSelectionPoint = new VPoint((Math.round(worldPosition.getX() * factor)) / factor,
+				(Math.round(worldPosition.getY() * factor)) / factor);
 		setChanged();
 	}
 
@@ -362,7 +362,7 @@ public abstract class DefaultModel<T extends DefaultConfig> extends Observable i
 	}
 
 	private Optional<ScenarioElement> getElementsByPosition(final VPoint position) {
-		return getElements(e -> e.getShape().intersects(new Rectangle2D.Double(position.x - 0.1, position.y - 0.1, 0.2, 0.2))).findFirst();
+		return getElements(e -> e.getShape().intersects(new Rectangle2D.Double(position.getX() - 0.1, position.getY() - 0.1, 0.2, 0.2))).findFirst();
 	}
 
 	protected ScenarioElement getClickedElement(final VPoint position) {

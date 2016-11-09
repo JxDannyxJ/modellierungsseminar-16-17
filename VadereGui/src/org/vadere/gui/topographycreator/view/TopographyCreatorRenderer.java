@@ -72,8 +72,8 @@ public class TopographyCreatorRenderer extends DefaultRenderer {
 		g.setColor(panelModel.getCursorColor());
 		g.setStroke(new BasicStroke(lineWidth));
 		final VPoint cursorPosition = panelModel.getMousePosition();
-		double absolutCursorX = cursorPosition.x;
-		double absolutCursorY = cursorPosition.y;
+		double absolutCursorX = cursorPosition.getX();
+		double absolutCursorY = cursorPosition.getY();
 		g.draw(new Line2D.Double(absolutCursorX - resolution * 0.2, absolutCursorY, absolutCursorX + resolution * 0.2,
 				absolutCursorY));
 		g.draw(new Line2D.Double(absolutCursorX, absolutCursorY - resolution * 0.2, absolutCursorX, absolutCursorY

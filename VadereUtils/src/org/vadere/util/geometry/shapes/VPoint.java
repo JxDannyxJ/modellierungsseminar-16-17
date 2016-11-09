@@ -15,8 +15,8 @@ public class VPoint {
 
 	public static final VPoint ZERO = new VPoint(0, 0);
 
-	public double x;
-	public double y;
+	private double x;
+	private double y;
 
 	public VPoint() {}
 
@@ -26,17 +26,17 @@ public class VPoint {
 	}
 
 	public VPoint(Point2D.Double copy) {
-		this.x = copy.x;
-		this.y = copy.y;
+		this.x = copy.getX();
+		this.y = copy.getY();
 	}
 
 	public VPoint(Point copy) {
-		this.x = copy.x;
-		this.y = copy.y;
+		this.x = copy.getX();
+		this.y = copy.getY();
 	}
 
 	public double distance(VPoint other) {
-		return Point2D.distance(x, y, other.x, other.y);
+		return Point2D.distance(x, y, other.getX(), other.getY());
 	}
 
 	public double distance(Point2D other) {
@@ -61,9 +61,9 @@ public class VPoint {
 
 		VPoint other = (VPoint) obj;
 
-		if (this.x != other.x)
+		if (this.x != other.getX())
 			return false;
-		if (this.y != other.y)
+		if (this.y != other.getY())
 			return false;
 
 		return true;
@@ -74,9 +74,9 @@ public class VPoint {
 			return false;
 		}
 
-		if (Math.abs(this.x - point.x) > tolerance)
+		if (Math.abs(this.x - point.getX()) > tolerance)
 			return false;
-		if (Math.abs(this.y - point.y) > tolerance)
+		if (Math.abs(this.y - point.getY()) > tolerance)
 			return false;
 
 		return true;
@@ -96,7 +96,7 @@ public class VPoint {
 	}
 
 	public VPoint add(final VPoint point) {
-		return new VPoint(x + point.x, y + point.y);
+		return new VPoint(x + point.getX(), y + point.getY());
 	}
 
 	public VPoint addPrecise(final VPoint point) {
@@ -104,11 +104,11 @@ public class VPoint {
 	}
 
 	public VPoint subtract(final VPoint point) {
-		return new VPoint(x - point.x, y - point.y);
+		return new VPoint(x - point.getX(), y - point.getY());
 	}
 
 	public VPoint multiply(final VPoint point) {
-		return new VPoint(x * point.x, y * point.y);
+		return new VPoint(x * point.getX(), y * point.getY());
 	}
 
 	public VPoint scalarMultiply(final double factor) {
@@ -116,7 +116,7 @@ public class VPoint {
 	}
 
 	public double scalarProduct(VPoint point) {
-		return x * point.x + y * point.y;
+		return x * point.getX() + y * point.getY();
 	}
 
 	public VPoint norm() {

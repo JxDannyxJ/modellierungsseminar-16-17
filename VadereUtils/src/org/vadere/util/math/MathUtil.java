@@ -386,16 +386,16 @@ public class MathUtil {
 	 */
 	public static boolean pOverLineAB(VPoint p, VPoint a, VPoint b) {
 
-		double criteria = (p.x - a.x) * (a.y - b.y) + (p.y - a.y) * (b.x - a.x);
+		double criteria = (p.getX() - a.getX()) * (a.getY() - b.getY()) + (p.getY() - a.getY()) * (b.getX() - a.getX());
 
 		return criteria > 0;
 	}
 
 	public static VPoint proectVector(final VPoint origin,
 			final VPoint projection) {
-		double tmp = (origin.x * projection.x + origin.y * projection.y)
-				/ (projection.x * projection.x + projection.y * projection.y);
-		return new VPoint(projection.x * tmp, projection.y * tmp);
+		double tmp = (origin.getX() * projection.getX() + origin.getY() * projection.getY())
+				/ (projection.getX() * projection.getX() + projection.getY() * projection.getY());
+		return new VPoint(projection.getX() * tmp, projection.getY() * tmp);
 	}
 
 	/**

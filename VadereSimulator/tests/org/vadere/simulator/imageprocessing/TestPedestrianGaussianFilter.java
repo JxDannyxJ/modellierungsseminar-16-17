@@ -119,8 +119,8 @@ public class TestPedestrianGaussianFilter {
 				* 0.5
 				/ (2 * Math.PI * standardDerivation * standardDerivation);
 
-		double dx = p1.x - p2.x;
-		double dy = p1.y - p2.y;
+		double dx = p1.getX() - p2.getX();
+		double dy = p1.getY() - p2.getY();
 		return (float) scaleFactor * Math.exp(-(dx * dx + dy * dy) / (2 * varianz));
 	}
 

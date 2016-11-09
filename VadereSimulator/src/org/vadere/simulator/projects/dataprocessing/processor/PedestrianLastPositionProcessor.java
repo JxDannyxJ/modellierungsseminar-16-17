@@ -42,6 +42,6 @@ public class PedestrianLastPositionProcessor extends DataProcessor<PedestrianIdK
 	public String[] toStrings(final PedestrianIdKey key) {
 		VPoint pos = this.getValue(key);
 
-		return new String[] { Double.toString(pos.x), Double.toString(pos.y) };
+		return new String[] { Double.toString(pos.getX()), Double.toString(pos.getY()) };
 	}
 }

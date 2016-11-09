@@ -95,8 +95,8 @@ public class PotentialFieldPedestrianOSM implements PotentialFieldAgent {
 		if (distance >= 0
 				&& distance < attributes.getPedestrianRepulsionWidth()) {
 
-			Vector2D direction = new Vector2D(pos.x - positionOther.x, pos.y
-					- positionOther.y);
+			Vector2D direction = new Vector2D(pos.getX() - positionOther.getX(), pos.getY()
+					- positionOther.getY());
 			direction = direction.normalize(distance);
 
 			// part of the gradient that is the same for both vx and vy.
@@ -107,7 +107,7 @@ public class PotentialFieldPedestrianOSM implements PotentialFieldAgent {
 							* Math.pow(distance, attributes.getBPedOSM() / 2.0))
 					* attributes.getPedestrianRepulsionStrength();
 
-			result = new Vector2D(vu * direction.x, vu * direction.y);
+			result = new Vector2D(vu * direction.getX(), vu * direction.getY());
 		} else {
 			result = new Vector2D(0, 0);
 		}

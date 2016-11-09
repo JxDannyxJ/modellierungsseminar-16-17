@@ -146,8 +146,8 @@ public class GNMEquations extends AbstractModelEquations<Pedestrian> implements
 			// viewing direction is a combination of all other peds in the
 			// vincinity
 			for (Agent p : otherPeds) {
-				viewing_direction[0] += p.getPosition().x - position[0];
-				viewing_direction[1] += p.getPosition().y - position[1];
+				viewing_direction[0] += p.getPosition().getX() - position[0];
+				viewing_direction[1] += p.getPosition().getY() - position[1];
 			}
 			MathUtil.normalize(viewing_direction);
 		}
@@ -194,8 +194,8 @@ public class GNMEquations extends AbstractModelEquations<Pedestrian> implements
 		// }
 
 		// perform the computational steps that define this equation model
-		position[0] = -totalGradient.x * (speed[0]);
-		position[1] = -totalGradient.y * (speed[0]);
+		position[0] = -totalGradient.getX() * (speed[0]);
+		position[1] = -totalGradient.getY() * (speed[0]);
 
 		speed[0] = (totalGradient.getLength() * vdes - speed[0])
 				* acc;
@@ -213,8 +213,8 @@ public class GNMEquations extends AbstractModelEquations<Pedestrian> implements
 			// "e moll(norm,1,3) * norm + (1-e moll(norm,1,3))"
 			double moll = Math.E * MathUtil.cutExp(normgrad, 1, 3);
 			double newnorm = moll * normgrad + (1 - moll);
-			double newX = gradient.x / normgrad * newnorm;
-			double newY = gradient.y / normgrad * newnorm;
+			double newX = gradient.getX() / normgrad * newnorm;
+			double newY = gradient.getY() / normgrad * newnorm;
 			return new Vector2D(newX, newY);
 		} else {
 			return gradient;

@@ -83,8 +83,8 @@ public class TimeCostDensityVoronoi implements ITimeCostFunction {
 		List<org.vadere.util.voronoi.Face> faces = null;
 
 		// the area
-		VRectangle measurementArea = new VRectangle(p.x - measurementAreaRadius
-				/ 2, p.y - measurementAreaRadius / 2, measurementAreaRadius,
+		VRectangle measurementArea = new VRectangle(p.getX() - measurementAreaRadius
+				/ 2, p.getY() - measurementAreaRadius / 2, measurementAreaRadius,
 				measurementAreaRadius);
 
 		// voronoiDiagram.computeVoronoiDiagram( pedBodies );

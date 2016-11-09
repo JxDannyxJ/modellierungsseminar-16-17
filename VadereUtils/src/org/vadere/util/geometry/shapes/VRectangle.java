@@ -86,7 +86,7 @@ public class VRectangle extends Rectangle2D.Double implements VShape {
 
 	@Override
 	public boolean contains(VPoint point) {
-		return super.contains(point.x, point.y);
+		return super.contains(point.getX(), point.getY());
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class VRectangle extends Rectangle2D.Double implements VShape {
 
 	@Override
 	public VShape translate(final VPoint vector) {
-		return new VRectangle(getX() + vector.x, getY() + vector.y, getWidth(), getHeight());
+		return new VRectangle(getX() + vector.getX(), getY() + vector.getY(), getWidth(), getHeight());
 	}
 
 	@Override

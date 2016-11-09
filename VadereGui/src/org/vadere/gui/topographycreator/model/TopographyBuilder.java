@@ -167,7 +167,7 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 
 	public ScenarioElement selectElement(final VPoint position) {
 		for (ScenarioElement element : topographyElements)
-			if (element.getShape().intersects(new Rectangle2D.Double(position.x - 0.1, position.y - 0.1, 0.2, 0.2)))
+			if (element.getShape().intersects(new Rectangle2D.Double(position.getX() - 0.1, position.getY() - 0.1, 0.2, 0.2)))
 				return element;
 		return null;
 	}

@@ -59,7 +59,7 @@ public class TimeCostObstacleDensity implements ITimeCostFunction {
 	@Override
 	public double costAt(VPoint p) {
 		double obstacleDensity = 0.0;
-		obstacleDensity = obstacleImageFilter.getFilteredValue(p.x, p.y);
+		obstacleDensity = obstacleImageFilter.getFilteredValue(p.getX(), p.getY());
 		if (obstacleDensity > highest) {
 			highest = obstacleDensity;
 			// logger.info("obstacle density: " + obstacleDensity);

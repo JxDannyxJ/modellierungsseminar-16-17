@@ -83,7 +83,7 @@ public class TimeCost2D1ConfigurationSpace implements ITimeCostFunction3D {
 					VPoint current = new VPoint(c * cellSize, r * cellSize);
 					VPolygon cshape = new VPolygon(shape);
 					cshape.transform(AffineTransform.getTranslateInstance(
-							current.x, current.y));
+							current.getX(), current.getY()));
 					cshape.transform(AffineTransform.getRotateInstance(iPhi
 							/ ((double) gridsizeAngle) * Math.PI * 1.0));
 

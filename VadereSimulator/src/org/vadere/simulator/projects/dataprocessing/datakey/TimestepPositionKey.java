@@ -29,10 +29,10 @@ public class TimestepPositionKey implements DataKey<TimestepPositionKey> {
         int result = Integer.compare(this.timeStep, o.timeStep);
 
         if (result == 0) {
-            result = Double.compare(this.position.x, o.position.x);
+            result = Double.compare(this.position.getX(), o.position.getX());
 
             if (result == 0) {
-                result = Double.compare(this.position.y, o.position.y);
+                result = Double.compare(this.position.getY(), o.position.getY());
             }
         }
 

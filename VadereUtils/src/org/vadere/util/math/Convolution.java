@@ -210,12 +210,12 @@ public class Convolution {
 
 	private static BiFunction<VPoint, VPoint, Float> defaultNominator = (p1, p2) -> {
 		VPoint distance = p1.subtract(p2);
-		return (float) (distance.x * distance.x + distance.y * distance.y);
+		return (float) (distance.getX() * distance.getX() + distance.getY() * distance.getY());
 	};
 
 	private static BiFunction<VPoint, VPoint, Double> doubleDefaultNominator = (p1, p2) -> {
 		VPoint distance = p1.subtract(p2);
-		return (distance.x * distance.x + distance.y * distance.y);
+		return (distance.getX() * distance.getX() + distance.getY() * distance.getY());
 	};
 
 	private static BiFunction<VPoint, VPoint, Float> densityNominator =

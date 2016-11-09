@@ -29,8 +29,8 @@ public class BeachLine {
 
 	BeachLineLeaf getArcAboveSite(VPoint site) {
 		BeachLineNode current = root;
-		double yCoordinate = site.y;
-		double xCoordinate = site.x;
+		double yCoordinate = site.getY();
+		double xCoordinate = site.getX();
 
 		while (current.getClass() == BeachLineInternal.class) {
 			BeachLineInternal internal = (BeachLineInternal) current;

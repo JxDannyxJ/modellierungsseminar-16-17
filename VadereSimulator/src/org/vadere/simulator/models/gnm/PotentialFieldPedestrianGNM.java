@@ -48,9 +48,9 @@ public class PotentialFieldPedestrianGNM implements PotentialFieldAgent {
 		double pot;
 		double visiblePortion;
 		double phi;
-		double[] x = new double[] {pos.x, pos.y};
+		double[] x = new double[] {pos.getX(), pos.getY()};
 		double[] x2 = new double[2];
-		double[] v = new double[] {velocity.x, velocity.y};
+		double[] v = new double[] {velocity.getX(), velocity.getY()};
 
 		for (Agent otherPedestrian : closePedestrians) {
 			if (otherPedestrian == pedestrian) {
@@ -58,8 +58,8 @@ public class PotentialFieldPedestrianGNM implements PotentialFieldAgent {
 			}
 
 			distance = otherPedestrian.getPosition().distance(pos);
-			x2[0] = otherPedestrian.getPosition().x;
-			x2[1] = otherPedestrian.getPosition().y;
+			x2[0] = otherPedestrian.getPosition().getX();
+			x2[1] = otherPedestrian.getPosition().getY();
 
 			pedDistance[0] = x[0] - x2[0];
 			pedDistance[1] = x[1] - x2[1];

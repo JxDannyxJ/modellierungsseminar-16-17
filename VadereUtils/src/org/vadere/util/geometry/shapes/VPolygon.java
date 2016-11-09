@@ -146,8 +146,8 @@ public class VPolygon extends Path2D.Double implements VShape {
 
 		double result = 0;
 		for (int i = 0; i < pointList.size() - 1; i++) {
-			result += (pointList.get(i).y + pointList.get(i + 1).y)
-					* (pointList.get(i).x - pointList.get(i + 1).x);
+			result += (pointList.get(i).getY() + pointList.get(i + 1).getY())
+					* (pointList.get(i).getX() - pointList.get(i + 1).getX());
 		}
 		return Math.abs(result) / 2.0;
 	}
@@ -188,27 +188,27 @@ public class VPolygon extends Path2D.Double implements VShape {
 			nxtVertex = curVertices.get(iVertex + 1);
 
 			distCurLast = curVertex.distance(lastVertex);
-			double x = (curVertex.x - lastVertex.x) / distCurLast;
-			double y = (curVertex.y - lastVertex.y) / distCurLast;
+			double x = (curVertex.getX() - lastVertex.getX()) / distCurLast;
+			double y = (curVertex.getY() - lastVertex.getY()) / distCurLast;
 
 			deltaCurLast = new VPoint(x, y);
 
 			distNxtCur = curVertex.distance(nxtVertex);
-			x = (nxtVertex.x - curVertex.x) / distNxtCur;
-			y = (nxtVertex.y - curVertex.y) / distNxtCur;
+			x = (nxtVertex.getX() - curVertex.getX()) / distNxtCur;
+			y = (nxtVertex.getY() - curVertex.getY()) / distNxtCur;
 			deltaNxtCur = new VPoint(x, y);
 
-			x = (deltaNxtCur.x + deltaCurLast.x);
-			y = (deltaNxtCur.y + deltaCurLast.y);
+			x = (deltaNxtCur.getX() + deltaCurLast.getX());
+			y = (deltaNxtCur.getY() + deltaCurLast.getY());
 			deltaNxtLast = new VPoint(x, y);
 			distNxtLastScaled = deltaNxtLast.distance(new VPoint(0, 0));
 
-			x = deltaNxtLast.x / distNxtLastScaled * absolute;
-			y = deltaNxtLast.y / distNxtLastScaled * absolute;
+			x = deltaNxtLast.getX() / distNxtLastScaled * absolute;
+			y = deltaNxtLast.getY() / distNxtLastScaled * absolute;
 			deltaNxtLast = new VPoint(x, y);
 
-			newVertices.add(new VPoint(curVertex.x + deltaNxtLast.y,
-					curVertex.y - deltaNxtLast.x));
+			newVertices.add(new VPoint(curVertex.getX() + deltaNxtLast.getY(),
+					curVertex.getY() - deltaNxtLast.getX()));
 
 			lastVertex = curVertex;
 			curVertex = nxtVertex;
@@ -219,7 +219,7 @@ public class VPolygon extends Path2D.Double implements VShape {
 
 		this.reset();
 		if (!newVertices.isEmpty()) {
-			this.moveTo(newVertices.get(0).x, newVertices.get(0).y);
+			this.moveTo(newVertices.get(0).getX(), newVertices.get(0).getY());
 			this.append(GeometryUtils.polygonFromPoints2D(newVertices
 					.toArray(new VPoint[0])), false);
 			this.closePath();
@@ -393,7 +393,7 @@ public class VPolygon extends Path2D.Double implements VShape {
 
 	@Override
 	public boolean contains(VPoint point) {
-		return super.contains(point.x, point.y);
+		return super.contains(point.getX(), point.getY());
 	}
 
 	@Override
@@ -404,7 +404,7 @@ public class VPolygon extends Path2D.Double implements VShape {
 	@Override
 	public VPolygon translate(final VPoint vector) {
 		AffineTransform transform = new AffineTransform();
-		transform.translate(vector.x, vector.y);
+		transform.translate(vector.getX(), vector.getY());
 		return new VPolygon(new Path2D.Double(this, transform));
 	}
 
@@ -440,7 +440,7 @@ public class VPolygon extends Path2D.Double implements VShape {
 
 	public VPolygon rotate(VPoint anchor, double angle) {
 		VPolygon resultPolygon = new VPolygon(this);
-		resultPolygon.transform(AffineTransform.getRotateInstance(angle, anchor.x, anchor.y));
+		resultPolygon.transform(AffineTransform.getRotateInstance(angle, anchor.getX(), anchor.getY()));
 		return resultPolygon;
 	}
 

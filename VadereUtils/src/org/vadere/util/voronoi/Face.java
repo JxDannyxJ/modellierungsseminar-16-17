@@ -60,8 +60,8 @@ public class Face {
 				String message = "Edges must be closed (Object " + id + ").";
 				throw new IllegalStateException(message);
 			} else {
-				result += last.getOrigin().x * next.getOrigin().y;
-				result -= next.getOrigin().x * last.getOrigin().y;
+				result += last.getOrigin().getX() * next.getOrigin().getY();
+				result -= next.getOrigin().getX() * last.getOrigin().getY();
 
 				if (next == outerComponent) {
 					result = result / 2;
@@ -234,10 +234,10 @@ public class Face {
 		if (origin != null && neighbor != null && neighbor.getOrigin() != null) {
 			VPoint neighborOrigin = neighbor.getOrigin();
 
-			if ((origin.x < limits.xLow && neighborOrigin.x < limits.xLow)
-					|| (origin.y < limits.yLow && neighborOrigin.y < limits.yLow)
-					|| (origin.x > limits.xHigh && neighborOrigin.x > limits.xHigh)
-					|| (origin.y > limits.yHigh && neighborOrigin.y > limits.yHigh)) {
+			if ((origin.getX() < limits.xLow && neighborOrigin.getX() < limits.xLow)
+					|| (origin.getY() < limits.yLow && neighborOrigin.getY() < limits.yLow)
+					|| (origin.getX() > limits.xHigh && neighborOrigin.getX() > limits.xHigh)
+					|| (origin.getY() > limits.yHigh && neighborOrigin.getY() > limits.yHigh)) {
 				result = false;
 			}
 		}
@@ -379,13 +379,13 @@ public class Face {
 	private int classifyBorderPoint(VPoint point) {
 		int result;
 
-		if (point.x == limits.xLow) {
+		if (point.getX() == limits.xLow) {
 			result = 0;
-		} else if (point.y == limits.yLow) {
+		} else if (point.getY() == limits.yLow) {
 			result = 1;
-		} else if (point.x == limits.xHigh) {
+		} else if (point.getX() == limits.xHigh) {
 			result = 2;
-		} else if (point.y == limits.yHigh) {
+		} else if (point.getY() == limits.yHigh) {
 			result = 3;
 		} else {
 			throw new IllegalArgumentException(
@@ -473,7 +473,7 @@ public class Face {
 			}
 		}
 
-		if (a.x == 1 || b.x == 1) {
+		if (a.getX() == 1 || b.getX() == 1) {
 			getClass();
 		}
 
@@ -488,9 +488,9 @@ public class Face {
 
 		// compute the x value of the intersection with the horizontal line at
 		// y=yLimit
-		result = Math.pow(a.x, 2) + Math.pow((a.y - yLimit), 2);
-		result = result - Math.pow(b.x, 2) - Math.pow(b.y - yLimit, 2);
-		result = result / (2 * (a.x - b.x));
+		result = Math.pow(a.getX(), 2) + Math.pow((a.getY() - yLimit), 2);
+		result = result - Math.pow(b.getX(), 2) - Math.pow(b.getY() - yLimit, 2);
+		result = result / (2 * (a.getX() - b.getX()));
 
 		return result;
 	}
@@ -500,9 +500,9 @@ public class Face {
 
 		// compute the y value of the intersection with the vertical line at
 		// x=xLimit
-		result = Math.pow(a.y, 2) + Math.pow((a.x - xLimit), 2);
-		result = result - Math.pow(b.y, 2) - Math.pow(b.x - xLimit, 2);
-		result = result / (2 * (a.y - b.y));
+		result = Math.pow(a.getY(), 2) + Math.pow((a.getX() - xLimit), 2);
+		result = result - Math.pow(b.getY(), 2) - Math.pow(b.getX() - xLimit, 2);
+		result = result / (2 * (a.getY() - b.getY()));
 
 		return result;
 	}
@@ -511,8 +511,8 @@ public class Face {
 		boolean result = false;
 
 		if (vertex != null) {
-			if (vertex.x < limits.xLow || vertex.x > limits.xHigh
-					|| vertex.y < limits.yLow || vertex.y > limits.yHigh) {
+			if (vertex.getX() < limits.xLow || vertex.getX() > limits.xHigh
+					|| vertex.getY() < limits.yLow || vertex.getY() > limits.yHigh) {
 				result = true;
 			}
 		}

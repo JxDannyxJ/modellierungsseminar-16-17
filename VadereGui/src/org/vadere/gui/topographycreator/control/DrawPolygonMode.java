@@ -74,10 +74,10 @@ public class DrawPolygonMode extends DefaultSelectionMode {
 					panelModel.setMousePosition(event.getPoint());
 					panelModel.setStartSelectionPoint(event.getPoint());
 					path = new Path2D.Double(Path2D.WIND_NON_ZERO);
-					path.moveTo(panelModel.getMousePosition().x, panelModel.getMousePosition().y);
-					path.lineTo(panelModel.getMousePosition().x, panelModel.getMousePosition().y);
-					line = new VLine(panelModel.getMousePosition().x, panelModel.getMousePosition().y,
-							panelModel.getMousePosition().x, panelModel.getMousePosition().y);
+					path.moveTo(panelModel.getMousePosition().getX(), panelModel.getMousePosition().getY());
+					path.lineTo(panelModel.getMousePosition().getX(), panelModel.getMousePosition().getY());
+					line = new VLine(panelModel.getMousePosition().getX(), panelModel.getMousePosition().getY(),
+							panelModel.getMousePosition().getX(), panelModel.getMousePosition().getY());
 
 					/*
 					 * panelModel.addShape(ScenarioShapeFactory.getInstance().createScenarioShape(
@@ -102,8 +102,8 @@ public class DrawPolygonMode extends DefaultSelectionMode {
 						panelModel.setSelectionShape(scan.getPolytope());
 					}
 
-					line = new Line2D.Double(panelModel.getMousePosition().x, panelModel.getMousePosition().y,
-							panelModel.getMousePosition().x, panelModel.getMousePosition().y);
+					line = new Line2D.Double(panelModel.getMousePosition().getX(), panelModel.getMousePosition().getY(),
+							panelModel.getMousePosition().getX(), panelModel.getMousePosition().getY());
 					panelModel.showSelection();
 					lineCount++;
 				} else {
@@ -143,8 +143,8 @@ public class DrawPolygonMode extends DefaultSelectionMode {
 
 		if (state == DrawPathState.ADD) {
 			VPoint cursorPosition = panelModel.getMousePosition();
-			line.x2 = cursorPosition.x;
-			line.y2 = cursorPosition.y;
+			line.x2 = cursorPosition.getX();
+			line.y2 = cursorPosition.getY();
 
 			if (pointList.size() >= 2) {
 				List<VPoint> cloneList = new ArrayList<>(pointList);

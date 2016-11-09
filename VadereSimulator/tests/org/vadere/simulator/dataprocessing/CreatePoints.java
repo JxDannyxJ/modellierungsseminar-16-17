@@ -93,57 +93,57 @@ public class CreatePoints {
 
 
 		boolean addPoint = false;
-		double x = center.x - hexagonAmbitRadius;
-		double y = center.y;
+		double x = center.getX() - hexagonAmbitRadius;
+		double y = center.getY();
 		VPoint left = new VPoint(x, y);
 		if (!containsPoint(points, left, GeometryUtils.DOUBLE_EPS)
-				&& bounds.contains(new VPoint(left.x - hexagonAmbitRadius, left.y))) {
+				&& bounds.contains(new VPoint(left.getX() - hexagonAmbitRadius, left.getY()))) {
 			points.add(left);
 			addPoint = true;
 		}
 
-		x = center.x + hexagonAmbitRadius;
-		y = center.y;
+		x = center.getX() + hexagonAmbitRadius;
+		y = center.getY();
 		VPoint right = new VPoint(x, y);
 		if (!containsPoint(points, right, GeometryUtils.DOUBLE_EPS)
-				&& bounds.contains(new VPoint(right.x + hexagonAmbitRadius, right.y))) {
+				&& bounds.contains(new VPoint(right.getX() + hexagonAmbitRadius, right.getY()))) {
 			points.add(right);
 			addPoint = true;
 		}
 
-		x = center.x - hexagonAmbitRadius / 2;
-		y = center.y + hexagonInCircleRadius;
+		x = center.getX() - hexagonAmbitRadius / 2;
+		y = center.getY() + hexagonInCircleRadius;
 		VPoint topLeft = new VPoint(x, y);
 		if (!containsPoint(points, topLeft, GeometryUtils.DOUBLE_EPS)
-				&& bounds.contains(new VPoint(topLeft.x - hexagonAmbitRadius, topLeft.y + hexagonAmbitRadius))) {
+				&& bounds.contains(new VPoint(topLeft.getX() - hexagonAmbitRadius, topLeft.getY() + hexagonAmbitRadius))) {
 			points.add(topLeft);
 			addPoint = true;
 		}
 
-		x = center.x + hexagonAmbitRadius / 2;
-		y = center.y + hexagonInCircleRadius;
+		x = center.getX() + hexagonAmbitRadius / 2;
+		y = center.getY() + hexagonInCircleRadius;
 		VPoint topRight = new VPoint(x, y);
 		if (!containsPoint(points, topRight, GeometryUtils.DOUBLE_EPS)
-				&& bounds.contains(new VPoint(topRight.x + hexagonAmbitRadius, topRight.y + hexagonAmbitRadius))) {
+				&& bounds.contains(new VPoint(topRight.getX() + hexagonAmbitRadius, topRight.getY() + hexagonAmbitRadius))) {
 			points.add(topRight);
 			addPoint = true;
 		}
 
-		x = center.x - hexagonAmbitRadius / 2;
-		y = center.y - hexagonInCircleRadius;
+		x = center.getX() - hexagonAmbitRadius / 2;
+		y = center.getY() - hexagonInCircleRadius;
 		VPoint bottomLeft = new VPoint(x, y);
 		if (!containsPoint(points, bottomLeft, GeometryUtils.DOUBLE_EPS)
-				&& bounds.contains(new VPoint(bottomLeft.x - hexagonAmbitRadius, bottomLeft.y - hexagonAmbitRadius))) {
+				&& bounds.contains(new VPoint(bottomLeft.getX() - hexagonAmbitRadius, bottomLeft.getY() - hexagonAmbitRadius))) {
 			points.add(bottomLeft);
 			addPoint = true;
 		}
 
 
-		x = center.x + hexagonAmbitRadius / 2;
-		y = center.y - hexagonInCircleRadius;
+		x = center.getX() + hexagonAmbitRadius / 2;
+		y = center.getY() - hexagonInCircleRadius;
 		VPoint bottomRight = new VPoint(x, y);
 		if (!containsPoint(points, bottomRight, GeometryUtils.DOUBLE_EPS) && bounds
-				.contains(new VPoint(bottomRight.x + hexagonAmbitRadius, bottomRight.y - hexagonAmbitRadius))) {
+				.contains(new VPoint(bottomRight.getX() + hexagonAmbitRadius, bottomRight.getY() - hexagonAmbitRadius))) {
 			points.add(bottomRight);
 			addPoint = true;
 		}

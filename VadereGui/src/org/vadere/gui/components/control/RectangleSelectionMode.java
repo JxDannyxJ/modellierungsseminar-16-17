@@ -23,7 +23,7 @@ public class RectangleSelectionMode extends DefaultModeAdapter {
 		} else {
 			panelModel.setStartSelectionPoint(event.getPoint());
 			panelModel
-					.setSelectionShape(new VRectangle(panelModel.getMousePosition().x, panelModel.getMousePosition().y,
+					.setSelectionShape(new VRectangle(panelModel.getMousePosition().getX(), panelModel.getMousePosition().getY(),
 							0.0001 * panelModel.getScaleFactor(), 0.0001 * panelModel.getScaleFactor()));
 			panelModel.showSelection();
 		}
@@ -46,11 +46,11 @@ public class RectangleSelectionMode extends DefaultModeAdapter {
 			VPoint startSelectionPosition = panelModel.getStartSelectionPoint();
 			VPoint cursorPosition = panelModel.getMousePosition();
 
-			double x = Math.min(startSelectionPosition.x, cursorPosition.x);
-			double y = Math.min(startSelectionPosition.y, cursorPosition.y);
+			double x = Math.min(startSelectionPosition.getX(), cursorPosition.getX());
+			double y = Math.min(startSelectionPosition.getY(), cursorPosition.getY());
 			double minValue = Math.min(0.1, panelModel.getGridResolution());
-			double width = Math.max(Math.abs(startSelectionPosition.x - cursorPosition.x), minValue);
-			double height = Math.max(Math.abs(startSelectionPosition.y - cursorPosition.y), minValue);
+			double width = Math.max(Math.abs(startSelectionPosition.getX() - cursorPosition.getX()), minValue);
+			double height = Math.max(Math.abs(startSelectionPosition.getY() - cursorPosition.getY()), minValue);
 
 			// to get nice floating numbers.
 			double factor = Math.max(10, 1 / panelModel.getGridResolution());

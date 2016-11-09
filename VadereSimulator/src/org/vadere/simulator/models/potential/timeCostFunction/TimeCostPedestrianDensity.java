@@ -50,7 +50,7 @@ public class TimeCostPedestrianDensity implements ITimeCostFunction {
 
 		long ms = System.currentTimeMillis();
 
-		cost = gaussianCalculator.getFilteredValue(p.x, p.y);
+		cost = gaussianCalculator.getFilteredValue(p.getX(), p.getY());
 
 		if (heighestDensity < cost) {
 			heighestDensity = cost;

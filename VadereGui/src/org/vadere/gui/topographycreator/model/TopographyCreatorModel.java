@@ -419,6 +419,6 @@ public class TopographyCreatorModel extends DefaultModel implements IDrawPanelMo
 	// privte helper methods
 	private VPoint alignToGrid(final VPoint point) {
 		double factor = Math.max(10, 1 / getGridResolution());
-		return new VPoint(Math.round(point.x * factor) / factor, Math.round(point.y * factor) / factor);
+		return new VPoint(Math.round(point.getX() * factor) / factor, Math.round(point.getY() * factor) / factor);
 	}
 }

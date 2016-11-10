@@ -18,36 +18,36 @@ public class Vector2D extends VPoint {
 	}
 
 	public Vector2D(VPoint p) {
-		super(p.x, p.y);
+		super(p.getX(), p.getY());
 	}
 
 	@Override
 	public Vector2D clone() {
-		return new Vector2D(x, y);
+		return new Vector2D(getX(), getY());
 	}
 
 	public Vector2D normalize(double length) {
 		double rx, ry;
 		double vl = distance(ZERO);
-		if (Math.abs(x) < GeometryUtils.DOUBLE_EPS) {
+		if (Math.abs(getX()) < GeometryUtils.DOUBLE_EPS) {
 			rx = 0;
 		} else {
-			rx = x / vl * length;
+			rx = getX() / vl * length;
 		}
-		if (Math.abs(y) < GeometryUtils.DOUBLE_EPS) {
+		if (Math.abs(getY()) < GeometryUtils.DOUBLE_EPS) {
 			ry = 0;
 		} else {
-			ry = y / vl * length;
+			ry = getY() / vl * length;
 		}
 		return new Vector2D(rx, ry);
 	}
 
 	public Vector2D multiply(double factor) {
-		return new Vector2D(this.x * factor, this.y * factor);
+		return new Vector2D(this.getX() * factor, this.getY() * factor);
 	}
 
 	public double getLength() {
-		return Math.sqrt(x * x + y * y);
+		return Math.sqrt(getX() * getX() + getY() * getY());
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class Vector2D extends VPoint {
 	 * Result is in interval (0,2*PI) according to standard math usage.
 	 */
 	public double angleToZero() {
-		double atan2 = Math.atan2(this.y, this.x);
+		double atan2 = Math.atan2(this.getY(), this.getX());
 
 		if (atan2 < 0.0) {
 			atan2 = Math.PI * 2 + atan2;
@@ -85,7 +85,7 @@ public class Vector2D extends VPoint {
 	 * Result is in interval (0,2*PI) according to standard math usage.
 	 */
 	public double angleTo(VPoint center) {
-		double atan2 = Math.atan2(this.y - center.y, this.x - center.x);
+		double atan2 = Math.atan2(this.getY() - center.getY(), this.getX() - center.getX());
 
 		if (atan2 < 0.0) {
 			atan2 = Math.PI * 2 + atan2;
@@ -95,11 +95,11 @@ public class Vector2D extends VPoint {
 	}
 
 	public Vector2D add(VPoint p) {
-		return new Vector2D(this.x + p.x, this.y + p.y);
+		return new Vector2D(this.getX() + p.getX(), this.getY() + p.getY());
 	}
 
 	public Vector2D sub(VPoint p) {
-		return new Vector2D(this.x - p.x, this.y - p.y);
+		return new Vector2D(this.getX() - p.getX(), this.getY() - p.getY());
 	}
 
 }

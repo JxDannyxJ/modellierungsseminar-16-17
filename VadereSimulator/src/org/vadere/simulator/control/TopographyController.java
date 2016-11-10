@@ -121,7 +121,7 @@ public class TopographyController extends OfflineTopographyController {
 			if (initialAgent.getFreeFlowSpeed() > 0) {
 				realAgent.setFreeFlowSpeed(initialAgent.getFreeFlowSpeed());
 			}
-			if (!Double.isNaN(initialAgent.getVelocity().x) && !Double.isNaN(initialAgent.getVelocity().y)) {
+			if (!Double.isNaN(initialAgent.getVelocity().getX()) && !Double.isNaN(initialAgent.getVelocity().getY())) {
 				realAgent.setVelocity(initialAgent.getVelocity());
 			}
 			topography.addElement(realAgent);

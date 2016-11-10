@@ -35,8 +35,8 @@ public class FloorGradientProviderEuclidean implements GradientProvider {
 		posTarget = targetShapes.get(currentTargetId).closestPoint(
 				new VPoint(x[0], x[1]));
 
-		double tx = posTarget.x;
-		double ty = posTarget.y;
+		double tx = posTarget.getX();
+		double ty = posTarget.getY();
 
 		// compute the direction to the closest point of the target region
 		// (inverse direction to make it an actual gradient)

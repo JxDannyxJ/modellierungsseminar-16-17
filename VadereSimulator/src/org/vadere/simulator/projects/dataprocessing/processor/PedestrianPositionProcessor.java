@@ -48,6 +48,6 @@ public class PedestrianPositionProcessor extends DataProcessor<TimestepPedestria
 	public String[] toStrings(TimestepPedestrianIdKey key) {
 		VPoint p = this.getValue(key);
 
-		return new String[] { Double.toString(p.x), Double.toString(p.y) };
+		return new String[] { Double.toString(p.getX()), Double.toString(p.getY()) };
 	}
 }

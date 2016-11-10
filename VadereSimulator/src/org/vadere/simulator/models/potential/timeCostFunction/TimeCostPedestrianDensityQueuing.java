@@ -56,7 +56,7 @@ public class TimeCostPedestrianDensityQueuing implements ITimeCostFunction {
 		long ms = System.currentTimeMillis();
 
 		double cost = queueWidhtFactor
-				* gaussianCalculator.getFilteredValue(p.x, p.y);
+				* gaussianCalculator.getFilteredValue(p.getX(), p.getY());
 
 		runtime += System.currentTimeMillis() - ms;
 

@@ -82,8 +82,8 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	@Override
 	public double value(double angle) throws FunctionEvaluationException {
 		VPoint pedPos = agentOSM.getPosition();
-		VPoint newPos = new VPoint(stepSize * Math.cos(angle) + pedPos.x,
-				stepSize * Math.sin(angle) + pedPos.y);
+		VPoint newPos = new VPoint(stepSize * Math.cos(angle) + pedPos.getX(),
+				stepSize * Math.sin(angle) + pedPos.getY());
 		return agentOSM.getPotential(newPos);
 	}
 
@@ -95,8 +95,8 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	 */
 	public double getTargetPotential(double angle) {
 		VPoint pedPos = agentOSM.getPosition();
-		VPoint newPos = new VPoint(stepSize * Math.cos(angle) + pedPos.x,
-				stepSize * Math.sin(angle) + pedPos.y);
+		VPoint newPos = new VPoint(stepSize * Math.cos(angle) + pedPos.getX(),
+				stepSize * Math.sin(angle) + pedPos.getY());
 
 		return agentOSM.getTargetPotential(newPos);
 	}
@@ -144,8 +144,8 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 			}
 		}
 
-		if (Math.pow(newPos.x - pedPos.x, 2) + Math.pow(newPos.y - pedPos.y, 2) <= Math.pow(stepSize, 2) + 0.00001
-				&& Math.pow(newPos.x - pedPos.x, 2) + Math.pow(newPos.y - pedPos.y, 2) >= Math.pow(this.minStepSize, 2)
+		if (Math.pow(newPos.getX() - pedPos.getX(), 2) + Math.pow(newPos.getY() - pedPos.getY(), 2) <= Math.pow(stepSize, 2) + 0.00001
+				&& Math.pow(newPos.getX() - pedPos.getX(), 2) + Math.pow(newPos.getY() - pedPos.getY(), 2) >= Math.pow(this.minStepSize, 2)
 						- 0.00001) {
 			result = agentOSM.getPotential(newPos);
 		}
@@ -178,8 +178,8 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	 */
 	public double[] pointToArray(VPoint point) {
 		double[] array = new double[2];
-		array[0] = point.x;
-		array[1] = point.y;
+		array[0] = point.getX();
+		array[1] = point.getY();
 		return array;
 	}
 

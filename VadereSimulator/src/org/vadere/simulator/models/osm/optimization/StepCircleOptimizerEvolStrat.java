@@ -108,10 +108,10 @@ public class StepCircleOptimizerEvolStrat implements StepCircleOptimizer {
 	private EvolStratIndividual mutate(EvolStratIndividual indiv,
 			PotentialEvaluationFunction potentialEvaluationFunction) {
 		EvolStratIndividual newIndiv = new EvolStratIndividual(indiv);
-		double x = indiv.getPosition().x + random.nextGaussian()
-				* indiv.getSigma().x * random.nextInt(2);
-		double y = indiv.getPosition().y + random.nextGaussian()
-				* indiv.getSigma().y * random.nextInt(2);
+		double x = indiv.getPosition().getX() + random.nextGaussian()
+				* indiv.getSigma().getX() * random.nextInt(2);
+		double y = indiv.getPosition().getY() + random.nextGaussian()
+				* indiv.getSigma().getY() * random.nextInt(2);
 		VPoint mutation = new VPoint(x, y);
 		newIndiv.setPosition(mutation);
 		try {
@@ -120,9 +120,9 @@ public class StepCircleOptimizerEvolStrat implements StepCircleOptimizer {
 		} catch (Exception e) {
 			newIndiv.setFitness(100000);
 		}
-		x = indiv.getSigma().x
+		x = indiv.getSigma().getX()
 				* Math.exp(0.1 * startrandom + 0.2 * random.nextGaussian());
-		y = indiv.getSigma().y
+		y = indiv.getSigma().getY()
 				* Math.exp(0.1 * startrandom + 0.2 * random.nextGaussian());
 		VPoint mutationsigma = new VPoint(x, y);
 		newIndiv.setSigma(mutationsigma);

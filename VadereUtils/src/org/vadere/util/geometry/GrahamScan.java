@@ -106,10 +106,10 @@ public class GrahamScan {
 		}
 		Path2D.Double path = new Path2D.Double();
 		VPoint point = convexHull.peek();
-		path.moveTo(point.x, point.y);
+		path.moveTo(point.getX(), point.getY());
 
 		for (VPoint p : convexHull) {
-			path.lineTo(p.x, p.y);
+			path.lineTo(p.getX(), p.getY());
 		}
 
 		path.closePath();
@@ -118,7 +118,7 @@ public class GrahamScan {
 	}
 
 	public static int ccw(final VPoint o1, final VPoint o2, final VPoint o3) {
-		double ccw = (o2.x - o1.x) * (o3.y - o1.y) - (o2.y - o1.y) * (o3.x - o1.x);
+		double ccw = (o2.getX() - o1.getX()) * (o3.getY() - o1.getY()) - (o2.getY() - o1.getY()) * (o3.getX() - o1.getX());
 		if (ccw < 0) {
 			return 1;
 		} else if (ccw > 0) {
@@ -130,13 +130,13 @@ public class GrahamScan {
 	public static class VPointCoordinateComparator implements Comparator<VPoint> {
 		@Override
 		public int compare(VPoint o1, VPoint o2) {
-			if (o1.y < o2.y) {
+			if (o1.getY() < o2.getY()) {
 				return -1;
-			} else if (o1.y > o2.y) {
+			} else if (o1.getY() > o2.getY()) {
 				return 1;
-			} else if (o1.x < o2.x) {
+			} else if (o1.getX() < o2.getX()) {
 				return -1;
-			} else if (o1.x > o2.x) {
+			} else if (o1.getX() > o2.getX()) {
 				return 1;
 			}
 
@@ -168,10 +168,10 @@ public class GrahamScan {
 		 */
 		@Override
 		public int compare(final VPoint o1, final VPoint o2) {
-			double dx1 = o1.x - point.x;
-			double dy1 = o1.y - point.y;
-			double dx2 = o2.x - point.x;
-			double dy2 = o2.y - point.y;
+			double dx1 = o1.getX() - point.getX();
+			double dy1 = o1.getY() - point.getY();
+			double dx2 = o2.getX() - point.getX();
+			double dy2 = o2.getY() - point.getY();
 
 			// o1 above point and o2 below point => o1 before o2 ccw
 			if (dy1 >= 0 && dy2 < 0) {

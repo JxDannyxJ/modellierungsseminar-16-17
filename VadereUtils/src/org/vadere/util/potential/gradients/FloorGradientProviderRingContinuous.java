@@ -39,12 +39,12 @@ public class FloorGradientProviderRingContinuous implements GradientProvider {
 		double[] localCenter = new double[2];
 
 		// shift center to the right side
-		if ((x[0] - this.center.x) > this.xStretch) {
-			localCenter[0] = this.center.x + this.xStretch;
-			localCenter[1] = this.center.y;
+		if ((x[0] - this.center.getX()) > this.xStretch) {
+			localCenter[0] = this.center.getX() + this.xStretch;
+			localCenter[1] = this.center.getY();
 		} else {
-			localCenter[0] = this.center.x - this.xStretch;
-			localCenter[1] = this.center.y;
+			localCenter[0] = this.center.getX() - this.xStretch;
+			localCenter[1] = this.center.getY();
 		}
 
 		// shift position to local coordinate system around the precomputed
@@ -55,7 +55,7 @@ public class FloorGradientProviderRingContinuous implements GradientProvider {
 		// check whether the given position x is close to the straight parts.
 		// if it is, consider a rectangle for gradient generation; otherwise,
 		// consider a circle.
-		if (Math.abs(x[0] - this.center.x) <= this.xStretch) {
+		if (Math.abs(x[0] - this.center.getX()) <= this.xStretch) {
 			// compute default gradient
 			grad[0] = Math.signum(localPos[1]) * (this.directionCW ? -1 : 1);
 			grad[1] = 0;

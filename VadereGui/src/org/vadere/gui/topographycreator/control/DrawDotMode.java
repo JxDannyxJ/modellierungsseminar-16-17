@@ -39,7 +39,7 @@ public class DrawDotMode extends DefaultSelectionMode {
 	@Override
 	public void mouseReleased(MouseEvent event) {
 		if (!SwingUtilities.isRightMouseButton(event)) {
-			panelModel.setSelectionShape(new VCircle(panelModel.getMousePosition().x, panelModel.getMousePosition().y,
+			panelModel.setSelectionShape(new VCircle(panelModel.getMousePosition().getX(), panelModel.getMousePosition().getY(),
 					this.dotRadius));
 			new ActionAddElement("add action", panelModel, undoSupport).actionPerformed(null);
 

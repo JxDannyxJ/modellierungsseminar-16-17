@@ -53,7 +53,7 @@ public class StepCircleOptimizerGradient implements StepCircleOptimizer {
 
 		// TODO [priority=low] [task=refactoring] should be provided by PotentialFieldTarget
 		double[] targetGrad = new double[2];
-		double[] arrayPos = {position.x, position.y};
+		double[] arrayPos = {position.getX(), position.getY()};
 
 		int targetId = agentOSM.getNextTargetId();
 		floorGradient.gradient(0, targetId, arrayPos, targetGrad);
@@ -74,8 +74,8 @@ public class StepCircleOptimizerGradient implements StepCircleOptimizer {
 		for (int i = 0; i <= attributesOSM.getStepCircleResolution(); i++) {
 
 			VPoint nextMove = direction.normalize(resolution * i);
-			nextPos = new VPoint(position.x - nextMove.x, position.y
-					- nextMove.y);
+			nextPos = new VPoint(position.getX() - nextMove.getX(), position.getY()
+					- nextMove.getY());
 
 			nextPot = agentOSM.getPotential(nextPos);
 

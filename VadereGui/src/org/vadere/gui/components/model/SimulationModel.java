@@ -63,8 +63,8 @@ public abstract class SimulationModel<T extends DefaultSimulationConfig> extends
 			double z3 = potentialField.getValue(new Point(gridPoint.x + incX, gridPoint.y + incY)).potential;
 			double z4 = potentialField.getValue(new Point(gridPoint.x, gridPoint.y + incY)).potential;
 
-			double t = (pos.x - gridPointCoord.x) / potentialField.getResolution();
-			double u = (pos.y - gridPointCoord.y) / potentialField.getResolution();
+			double t = (pos.getX() - gridPointCoord.getX()) / potentialField.getResolution();
+			double u = (pos.getY() - gridPointCoord.getY()) / potentialField.getResolution();
 
 			/* Interpolate the known (potential < Double.MAX_VALUE) values. */
 			result = InterpolationUtil.bilinearInterpolation(z1, z2, z3, z4, t, u);

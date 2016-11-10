@@ -230,8 +230,8 @@ public class StepCircleOptimizerDiscrete implements StepCircleOptimizer {
 			// iterate through all angles and compute absolute positions of grid points
 			for (int i = 0; i < numberOfGridPoints; i++) {
 
-				double x = circleOfGrid * Math.cos(anchorAngle + angleDelta * (randOffset + i)) + currentPosition.x;
-				double y = circleOfGrid * Math.sin(anchorAngle + angleDelta * (randOffset + i)) + currentPosition.y;
+				double x = circleOfGrid * Math.cos(anchorAngle + angleDelta * (randOffset + i)) + currentPosition.getX();
+				double y = circleOfGrid * Math.sin(anchorAngle + angleDelta * (randOffset + i)) + currentPosition.getY();
 				VPoint tmpPos = new VPoint(x, y);
 
 				reachablePositions.add(tmpPos);

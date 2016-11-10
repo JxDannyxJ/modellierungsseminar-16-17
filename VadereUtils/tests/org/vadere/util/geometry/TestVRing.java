@@ -39,8 +39,8 @@ public class TestVRing {
 		double expectedX = 0;
 		double expectedY = 0;
 
-		assertEquals(expectedX, validRing.getCenter().x, allowedError);
-		assertEquals(expectedY, validRing.getCenter().y, allowedError);
+		assertEquals(expectedX, validRing.getCenter().getX(), allowedError);
+		assertEquals(expectedY, validRing.getCenter().getY(), allowedError);
 	}
 
 	@Test

@@ -33,13 +33,13 @@ public class BeachLineInternal implements BeachLineNode {
 
 		// TODO [priority=medium] [task=refactoring] QuickFix for avoid exception if both points are equals
 		if (leftSite.equals(rightSite)) {
-			rightSite = new VPoint(rightSite.x + 0.000000001, rightSite.y);
+			rightSite = new VPoint(rightSite.getX() + 0.000000001, rightSite.getY());
 		}
 
-		double xA = leftSite.x;
-		double yA = leftSite.y;
-		double xB = rightSite.x;
-		double yB = rightSite.y;
+		double xA = leftSite.getX();
+		double yA = leftSite.getY();
+		double xB = rightSite.getX();
+		double yB = rightSite.getY();
 
 		if (Math.abs(yA - sweepLine) < 0.000001) {
 			return xA;
@@ -64,7 +64,7 @@ public class BeachLineInternal implements BeachLineNode {
 		List<Double> sol = MathUtil.solveQuadratic(a, b, c);
 
 		if (sol.size() == 2) {
-			if (leftSite.y > rightSite.y) {
+			if (leftSite.getY() > rightSite.getY()) {
 				result = Math.min(sol.get(0), sol.get(1));
 			} else {
 				result = Math.max(sol.get(0), sol.get(1));

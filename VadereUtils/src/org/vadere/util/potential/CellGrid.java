@@ -227,7 +227,7 @@ public class CellGrid {
 	 * towards origin.
 	 */
 	public Point getNearestPointTowardsOrigin(VPoint p) {
-		return getNearestPointTowardsOrigin(p.x, p.y);
+		return getNearestPointTowardsOrigin(p.getX(), p.getY());
 	}
 
 	public Point getNearestPointTowardsOrigin(Point p) {

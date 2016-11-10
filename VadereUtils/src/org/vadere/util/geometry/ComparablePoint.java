@@ -15,7 +15,7 @@ public class ComparablePoint extends VPoint implements
 	}
 
 	public ComparablePoint(VPoint position) {
-		this(position.x, position.y);
+		this(position.getX(), position.getY());
 	}
 
 	/**
@@ -30,16 +30,16 @@ public class ComparablePoint extends VPoint implements
 	 */
 	@Override
 	public int compareTo(ComparablePoint p) {
-		if (Math.abs(this.x - p.x) < GeometryUtils.DOUBLE_EPS) {
-			if (Math.abs(this.y - p.y) < GeometryUtils.DOUBLE_EPS) {
+		if (Math.abs(this.getX() - p.getX()) < GeometryUtils.DOUBLE_EPS) {
+			if (Math.abs(this.getY() - p.getY()) < GeometryUtils.DOUBLE_EPS) {
 				return 0;
 			} else {
-				if (this.y > p.y) {
+				if (this.getY() > p.getY()) {
 					return 1;
 				}
 			}
 		} else {
-			if (this.x > p.x) {
+			if (this.getX() > p.getX()) {
 				return 1;
 			} else {
 				return -1;

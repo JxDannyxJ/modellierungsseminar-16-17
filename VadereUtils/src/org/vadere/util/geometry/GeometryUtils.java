@@ -25,8 +25,8 @@ public class GeometryUtils {
 	 * Interpolates between start and end with the given factor.
 	 */
 	public static VPoint interpolate(VPoint start, VPoint end, double factor) {
-		VPoint result = new VPoint(start.x + factor * (end.x - start.x),
-				start.y + factor * (end.y - start.y));
+		VPoint result = new VPoint(start.getX() + factor * (end.getX() - start.getX()),
+				start.getY() + factor * (end.getY() - start.getY()));
 		return result;
 	}
 
@@ -56,14 +56,14 @@ public class GeometryUtils {
 			return new VPoint(line.x1, line.y1);
 		}
 
-		VPoint a2p = new VPoint(point.x - line.x1, point.y - line.y1);
+		VPoint a2p = new VPoint(point.getX() - line.x1, point.getY() - line.y1);
 		VPoint a2b = new VPoint(line.x2 - line.x1, line.y2 - line.y1);
-		double distAB = a2b.x * a2b.x + a2b.y * a2b.y;
-		double a2p_dot_a2b = a2p.x * a2b.x + a2p.y * a2b.y;
+		double distAB = a2b.getX() * a2b.getX() + a2b.getY() * a2b.getY();
+		double a2p_dot_a2b = a2p.getX() * a2b.getX() + a2p.getY() * a2b.getY();
 
 		// normalize t to [0,1] to stay on the line segment
 		double t = Math.min(1, Math.max(0, a2p_dot_a2b / distAB));
-		return new VPoint(line.x1 + a2b.x * t, line.y1 + a2b.y * t);
+		return new VPoint(line.x1 + a2b.getX() * t, line.y1 + a2b.getY() * t);
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class GeometryUtils {
 
 		for (int i = 0; i < allPoints.size(); i++) {
 			Vector2D p = new Vector2D(allPoints.get(i));
-			orderedList.add(new DataPoint(p.x, p.y, p.angleTo(center)));
+			orderedList.add(new DataPoint(p.getX(), p.getY(), p.angleTo(center)));
 		}
 		// sort by angle
 		Collections.sort(orderedList, DataPoint.getComparator());
@@ -104,7 +104,7 @@ public class GeometryUtils {
 	 * @return ccw(p1 p2 p3)
 	 */
 	public static double ccw(VPoint p1, VPoint p2, VPoint p3) {
-		return (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x);
+		return (p2.getX() - p1.getX()) * (p3.getY() - p1.getY()) - (p2.getY() - p1.getY()) * (p3.getX() - p1.getX());
 	}
 
 	/**
@@ -148,6 +148,6 @@ public class GeometryUtils {
 	}
 
 	public static VPoint add(VPoint p1, VPoint p2) {
-		return new VPoint(p1.x + p2.x, p1.y + p2.y);
+		return new VPoint(p1.getX() + p2.getX(), p1.getY() + p2.getY());
 	}
 }

@@ -100,14 +100,14 @@ public class PedestrianGaussianFilter<E extends Pedestrian> implements IGaussian
 
 	private void setValue(E pedestrian) {
 		VPoint position = pedestrian.getPosition();
-		VPoint filteredPosition = new VPoint(Math.max(0, position.x), Math.max(0, position.y));
+		VPoint filteredPosition = new VPoint(Math.max(0, position.getX()), Math.max(0, position.getY()));
 
 		// better approximation
-		double indexX = filteredPosition.x * getScale();
-		double indexY = filteredPosition.y * getScale();
+		double indexX = filteredPosition.getX() * getScale();
+		double indexY = filteredPosition.getY() * getScale();
 
 		if (indexX == ((int) indexX) && indexY == ((int) indexY)) {
-			setInputValue(filteredPosition.x, filteredPosition.y,
+			setInputValue(filteredPosition.getX(), filteredPosition.getY(),
 					getInputValue((int) indexX, (int) indexY) + pedestrianLoadingStrategy.calculateLoading(pedestrian));
 		} else if (indexX == ((int) indexX) && indexY != ((int) indexY)) {
 			splitY(filteredPosition, (int) indexX, (int) Math.floor(indexY), pedestrian);
@@ -128,8 +128,8 @@ public class PedestrianGaussianFilter<E extends Pedestrian> implements IGaussian
 
 	private void splitXY(final VPoint filteredPosition, final int indexX, final int indexY, Pedestrian pedestrian) {
 		if (checkIndices(indexX, indexY)) {
-			double dx = Math.abs(filteredPosition.x * getScale() - indexX);
-			double dy = Math.abs(filteredPosition.y * getScale() - indexY);
+			double dx = Math.abs(filteredPosition.getX() * getScale() - indexX);
+			double dy = Math.abs(filteredPosition.getY() * getScale() - indexY);
 
 			double weight = ((1.0 - dx) + (1.0 - dy)) / 4.0;
 			// double weight = Math.exp(-(dx * dx + dy * dy) / (2 * 0.7 * 0.7));
@@ -140,7 +140,7 @@ public class PedestrianGaussianFilter<E extends Pedestrian> implements IGaussian
 
 	private void splitX(final VPoint filteredPosition, final int indexX, final int indexY, Pedestrian pedestrian) {
 		if (checkIndices(indexX, indexY)) {
-			double dx = Math.abs(filteredPosition.x * getScale() - indexX);
+			double dx = Math.abs(filteredPosition.getX() * getScale() - indexX);
 			double weight = (1.0 - dx);
 			// double weight = Math.exp(-(dx * dx + dy * dy) / (2 * 0.7 * 0.7));
 			setInputValue(indexX, indexY,
@@ -150,7 +150,7 @@ public class PedestrianGaussianFilter<E extends Pedestrian> implements IGaussian
 
 	private void splitY(final VPoint filteredPosition, final int indexX, final int indexY, Pedestrian pedestrian) {
 		if (checkIndices(indexX, indexY)) {
-			double dy = Math.abs(filteredPosition.y * getScale() - indexY);
+			double dy = Math.abs(filteredPosition.getY() * getScale() - indexY);
 
 			double weight = (1.0 - dy);
 			// double weight = Math.exp(-(dx * dx + dy * dy) / (2 * 0.7 * 0.7));

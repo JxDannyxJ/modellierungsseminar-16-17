@@ -133,13 +133,13 @@ public class PotentialFieldPedestrianCompact implements PotentialFieldAgent {
 
 		if (distance < this.width) {
 
-			Vector2D direction = new Vector2D(pos.x - positionOther.x, pos.y - positionOther.y);
+			Vector2D direction = new Vector2D(pos.getX() - positionOther.getX(), pos.getY() - positionOther.getY());
 			direction = direction.normalize(distance);
 
 			double dp = -2 * height * distance * width * width / Math.pow(distance * distance - width * width, 2);
 			dp = dp * Math.exp(1 / (distance * distance / (width * width) - 1));
 
-			result = new Vector2D(dp * direction.x, dp * direction.y);
+			result = new Vector2D(dp * direction.getX(), dp * direction.getY());
 		} else {
 			result = new Vector2D(0, 0);
 		}

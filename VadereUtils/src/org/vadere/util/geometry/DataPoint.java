@@ -27,11 +27,11 @@ public class DataPoint extends VPoint implements Comparable<VPoint> {
 	}
 
 	public DataPoint(VPoint p, double data) {
-		this(p.x, p.y, data);
+		this(p.getX(), p.getY(), data);
 	}
 
 	public DataPoint(VPoint p1) {
-		super(p1.x, p1.y);
+		super(p1.getX(), p1.getY());
 		if (p1.getClass().equals(DataPoint.class)) {
 			this.data = ((DataPoint) p1).data;
 		} else {
@@ -56,7 +56,7 @@ public class DataPoint extends VPoint implements Comparable<VPoint> {
 
 	@Override
 	public String toString() {
-		return "(" + this.x + "," + this.y + "&" + this.data + ")";
+		return "(" + this.getX() + "," + this.getY() + "&" + this.data + ")";
 	}
 
 	/**
@@ -105,16 +105,16 @@ public class DataPoint extends VPoint implements Comparable<VPoint> {
 	 */
 	@Override
 	public int compareTo(VPoint other) {
-		if (Math.abs(this.x - other.x) < GeometryUtils.DOUBLE_EPS) {
-			if (Math.abs(this.y - other.y) < GeometryUtils.DOUBLE_EPS) {
+		if (Math.abs(this.getX() - other.getX()) < GeometryUtils.DOUBLE_EPS) {
+			if (Math.abs(this.getY() - other.getY()) < GeometryUtils.DOUBLE_EPS) {
 				return 0;
 			} else {
-				if (this.y > other.y) {
+				if (this.getY() > other.getY()) {
 					return 1;
 				}
 			}
 		} else {
-			if (this.x > other.x) {
+			if (this.getX() > other.getX()) {
 				return 1;
 			} else {
 				return -1;

@@ -69,12 +69,12 @@ public class BeachLineLeaf implements BeachLineNode {
 		boolean result = false;
 
 		if (predecessor != null && successor != null) {
-			double yPre = predecessor.getSite().y;
-			double ySuc = successor.getSite().y;
-			double yThis = site.y;
-			double xPre = predecessor.getSite().x;
-			double xSuc = successor.getSite().x;
-			double xThis = site.x;
+			double yPre = predecessor.getSite().getY();
+			double ySuc = successor.getSite().getY();
+			double yThis = site.getY();
+			double xPre = predecessor.getSite().getX();
+			double xSuc = successor.getSite().getX();
+			double xThis = site.getX();
 
 			double criteria = (xThis - xPre) * (yPre - ySuc) + (yThis - yPre)
 					* (xSuc - xPre);
@@ -100,12 +100,12 @@ public class BeachLineLeaf implements BeachLineNode {
 	void createCircleEvent() {
 		double x, y;
 
-		double yPre = predecessor.getSite().y;
-		double xPre = predecessor.getSite().x;
-		double ySuc = successor.getSite().y;
-		double xSuc = successor.getSite().x;
-		double yThis = site.y;
-		double xThis = site.x;
+		double yPre = predecessor.getSite().getY();
+		double xPre = predecessor.getSite().getX();
+		double ySuc = successor.getSite().getY();
+		double xSuc = successor.getSite().getX();
+		double yThis = site.getY();
+		double xThis = site.getX();
 
 		/*
 		 * Formula looks like this:

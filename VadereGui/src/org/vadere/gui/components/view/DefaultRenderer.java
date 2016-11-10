@@ -178,8 +178,8 @@ public abstract class DefaultRenderer {
 		int digitCount = number.length();
 		double scale = 0.4 / Math.sqrt(digitCount);
 		g.scale(scale, scale);
-		g.drawString(number, (float) ((p.getPosition().x - 0.11 * digitCount) * 1 / scale),
-				(float) -((p.getPosition().y - (0.14 - 0.01 * digitCount)) * 1 / scale));
+		g.drawString(number, (float) ((p.getPosition().getX() - 0.11 * digitCount) * 1 / scale),
+				(float) -((p.getPosition().getY() - (0.14 - 0.01 * digitCount)) * 1 / scale));
 		g.setTransform(affineTransform);
 		g.scale(1, -1);
 		g.setColor(c);
@@ -442,8 +442,8 @@ public abstract class DefaultRenderer {
 							go = false;
 							closed = true;
 						} else {
-							g.draw(new Line2D.Double(last.getOrigin().x, last.getOrigin().y, next.getOrigin().x, next
-									.getOrigin().y));
+							g.draw(new Line2D.Double(last.getOrigin().getX(), last.getOrigin().getY(), next.getOrigin().getX(), next
+									.getOrigin().getY()));
 
 							if (next == outerComponent) {
 								go = false;
@@ -463,8 +463,8 @@ public abstract class DefaultRenderer {
 						if (next == null || next.getOrigin() == null) {
 							go = false;
 						} else {
-							g.draw(new Line2D.Double(last.getOrigin().x, last.getOrigin().y, next.getOrigin().x, next
-									.getOrigin().y));
+							g.draw(new Line2D.Double(last.getOrigin().getX(), last.getOrigin().getY(), next.getOrigin().getX(), next
+									.getOrigin().getY()));
 
 							if (next == outerComponent) {
 								go = false;

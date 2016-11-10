@@ -166,24 +166,24 @@ public class DataTriangle extends VTriangle {
 
 	public double evaluateAt(VPoint toEval) {
 		// plane spanned by v1 and v2
-		VPoint v1 = new VPoint(p2.x - p1.x, p2.y - p1.y);
-		VPoint v2 = new VPoint(p3.x - p1.x, p3.y - p1.y);
+		VPoint v1 = new VPoint(p2.getX() - p1.getX(), p2.getY() - p1.getY());
+		VPoint v2 = new VPoint(p3.getX() - p1.getX(), p3.getY() - p1.getY());
 
-		double[] v1d = new double[] {v1.x, v1.y,
+		double[] v1d = new double[] {v1.getX(), v1.getY(),
 				((DataPoint) p1).getData() - ((DataPoint) p2).getData()};
-		double[] v2d = new double[] {v2.x, v2.y,
+		double[] v2d = new double[] {v2.getX(), v2.getY(),
 				((DataPoint) p1).getData() - ((DataPoint) p3).getData()};
 
 		double[] cross = new double[3];
 		GeometryUtils.cross(v1d, v2d, cross);
 		double k = cross[2] * ((DataPoint) p1).getData();
 
-		VPoint p1_minus_toEval = new VPoint(p1.x - toEval.x, p1.y - toEval.y);
+		VPoint p1_minus_toEval = new VPoint(p1.getX() - toEval.getX(), p1.getY() - toEval.getY());
 
 		return 1
 				/ cross[2]
-				* (k - cross[0] * p1_minus_toEval.x - cross[1]
-						* p1_minus_toEval.y);
+				* (k - cross[0] * p1_minus_toEval.getX() - cross[1]
+						* p1_minus_toEval.getY());
 	}
 
 	public Collection<? extends DataPoint> getDataPoints() {

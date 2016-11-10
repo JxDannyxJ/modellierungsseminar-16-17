@@ -93,8 +93,8 @@ public class StepCircleOptimizerBrent implements StepCircleOptimizer {
 		if (minimum == -1) {
 			return curPos;
 		} else {
-			VPoint newPos = new VPoint(stepSize * Math.cos(minimum) + curPos.x,
-					stepSize * Math.sin(minimum) + curPos.y);
+			VPoint newPos = new VPoint(stepSize * Math.cos(minimum) + curPos.getX(),
+					stepSize * Math.sin(minimum) + curPos.getY());
 			return newPos;
 		}
 

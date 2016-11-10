@@ -61,8 +61,8 @@ public class PotentialFieldObstacleGNM implements GradientProvider,
 
 			if (obstacle.getShape().contains(position)) {
 				closest = obstacle.getShape().closestPoint(position);
-				distanceVec[0] = -x[0] + closest.x;
-				distanceVec[1] = -x[1] + closest.y;
+				distanceVec[0] = -x[0] + closest.getX();
+				distanceVec[1] = -x[1] + closest.getY();
 				distance = position.distance(closest);
 			} else {
 
@@ -71,8 +71,8 @@ public class PotentialFieldObstacleGNM implements GradientProvider,
 
 				distance = position.distance(closest);
 
-				distanceVec[0] = x[0] - closest.x;
-				distanceVec[1] = x[1] - closest.y;
+				distanceVec[0] = x[0] - closest.getX();
+				distanceVec[1] = x[1] - closest.getY();
 			}
 
 			// compute the potential from ped i at x
@@ -108,7 +108,7 @@ public class PotentialFieldObstacleGNM implements GradientProvider,
 			Agent pedestrian) {
 
 		double[] completeGrad = new double[2];
-		double[] x = new double[] {pos.x, pos.y};
+		double[] x = new double[] {pos.getX(), pos.getY()};
 		double t = 0;
 		gradient(t, -1, x, completeGrad);
 

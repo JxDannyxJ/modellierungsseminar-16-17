@@ -58,10 +58,10 @@ public class VCircle implements VShape {
 	 */
 	@Override
 	public VPoint closestPoint(VPoint point) {
-		Vector2D direction = new Vector2D(point.x - center.x, point.y
-				- center.y);
+		Vector2D direction = new Vector2D(point.getX() - center.getX(), point.getX()
+				- center.getY());
 		VPoint vector = direction.normalize(radius);
-		return new VPoint(vector.x + center.x, vector.y + center.y);
+		return new VPoint(vector.getX() + center.getX(), vector.getY() + center.getY());
 	}
 
 	@Override
@@ -88,19 +88,19 @@ public class VCircle implements VShape {
 	@Override
 	public Rectangle getBounds() {
 		int diameter = (int) Math.ceil(2 * radius);
-		return new Rectangle((int) Math.floor(center.x - radius),
-				(int) Math.floor(center.y - radius), diameter, diameter);
+		return new Rectangle((int) Math.floor(center.getX() - radius),
+				(int) Math.floor(center.getY() - radius), diameter, diameter);
 	}
 
 	@Override
 	public Rectangle2D getBounds2D() {
-		return new Rectangle2D.Double(center.x - radius, center.y - radius,
+		return new Rectangle2D.Double(center.getX() - radius, center.getY() - radius,
 				2 * radius, 2 * radius);
 	}
 
 	@Override
 	public boolean contains(double x, double y) {
-		return Math.sqrt(Math.pow(center.x - x, 2) + Math.pow(center.y - y, 2)) <= radius;
+		return Math.sqrt(Math.pow(center.getX() - x, 2) + Math.pow(center.getY() - y, 2)) <= radius;
 	}
 
 	@Override
@@ -145,7 +145,7 @@ public class VCircle implements VShape {
 	 */
 	@Override
 	public PathIterator getPathIterator(AffineTransform at) {
-		return new Ellipse2D.Double(center.x - radius, center.y - radius,
+		return new Ellipse2D.Double(center.getX() - radius, center.getY() - radius,
 				radius * 2, radius * 2).getPathIterator(at);
 	}
 
@@ -154,7 +154,7 @@ public class VCircle implements VShape {
 	 */
 	@Override
 	public PathIterator getPathIterator(AffineTransform at, double flatness) {
-		return new Ellipse2D.Double(center.x - radius, center.y - radius,
+		return new Ellipse2D.Double(center.getX() - radius, center.getY() - radius,
 				radius * 2, radius * 2).getPathIterator(at, flatness);
 	}
 

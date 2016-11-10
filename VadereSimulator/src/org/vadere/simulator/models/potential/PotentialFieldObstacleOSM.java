@@ -99,8 +99,8 @@ public class PotentialFieldObstacleOSM implements PotentialFieldObstacle {
 		if (distance >= 0 && distance < attributes.getObstacleRepulsionWidth()) {
 
 			VPoint closestPoint = obs.getShape().closestPoint(pos);
-			Vector2D direction = new Vector2D(pos.x - closestPoint.x, pos.y
-					- closestPoint.y);
+			Vector2D direction = new Vector2D(pos.getX() - closestPoint.getX(), pos.getY()
+					- closestPoint.getY());
 			direction = direction.normalize(distance);
 
 			// Part of the gradient that is the same for both vx and vy.
@@ -111,7 +111,7 @@ public class PotentialFieldObstacleOSM implements PotentialFieldObstacle {
 							* Math.pow(distance, attributes.getBObsOSM() / 2.0))
 					* attributes.getObstacleRepulsionStrength();
 
-			result = new Vector2D(vu * direction.x, vu * direction.y);
+			result = new Vector2D(vu * direction.getX(), vu * direction.getY());
 		} else {
 			result = new Vector2D(0, 0);
 		}

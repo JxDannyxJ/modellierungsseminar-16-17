@@ -39,8 +39,8 @@ public class PedestrianRepulsionPotentialCycle implements
 
 			Teleporter teleporter = scenario.getTeleporter();
 			// shift forwards
-			VPoint shiftPos = new VPoint(pos.x
-					+ teleporter.getTeleporterShift().x, pos.y); // TODO [priority=medium] [task=feature] the y coordinate of the teleporter is not used yet
+			VPoint shiftPos = new VPoint(pos.getX()
+					+ teleporter.getTeleporterShift().getX(), pos.getY()); // TODO [priority=medium] [task=feature] the y coordinate of the teleporter is not used yet
 
 			// TODO [priority=low] [task=refactoring] find a better way to get the close pedestrians in this case
 			closePedestrians = potentialFieldPedestrian.getRelevantAgents(
@@ -50,8 +50,8 @@ public class PedestrianRepulsionPotentialCycle implements
 					pedestrian, closePedestrians);
 
 			// shift backwards
-			shiftPos = new VPoint(pos.x - teleporter.getTeleporterShift().x,
-					pos.y); // TODO [priority=low] [task=refactoring] the y coordinate of the teleporter is not used yet
+			shiftPos = new VPoint(pos.getX() - teleporter.getTeleporterShift().getX(),
+					pos.getY()); // TODO [priority=low] [task=refactoring] the y coordinate of the teleporter is not used yet
 
 			// TODO [task=refactoring] [priority=low] find a better way to get the close pedestrians in this case
 			closePedestrians = potentialFieldPedestrian.getRelevantAgents(
@@ -76,9 +76,9 @@ public class PedestrianRepulsionPotentialCycle implements
 
 			Teleporter teleporter = scenario.getTeleporter();
 			// shift forwards
-			VPoint shiftPos = new VPoint(pos.x
-					+ teleporter.getTeleporterShift().x, pos.y
-							+ teleporter.getTeleporterShift().y);
+			VPoint shiftPos = new VPoint(pos.getX()
+					+ teleporter.getTeleporterShift().getX(), pos.getY()
+							+ teleporter.getTeleporterShift().getY());
 
 			// TODO [priority=low] [task=refactoring] find a better way to get the close pedestrians in this case
 			closePedestrians = potentialFieldPedestrian.getRelevantAgents(
@@ -89,8 +89,8 @@ public class PedestrianRepulsionPotentialCycle implements
 							pedestrian, closePedestrians));
 
 			// shift backwards
-			shiftPos = new VPoint(pos.x - teleporter.getTeleporterShift().x,
-					pos.y - teleporter.getTeleporterShift().y);
+			shiftPos = new VPoint(pos.getX() - teleporter.getTeleporterShift().getX(),
+					pos.getY() - teleporter.getTeleporterShift().getY());
 
 			// TODO [priority=low] [task=refactoring] find a better way to get the close pedestrians in this case
 			closePedestrians = potentialFieldPedestrian.getRelevantAgents(

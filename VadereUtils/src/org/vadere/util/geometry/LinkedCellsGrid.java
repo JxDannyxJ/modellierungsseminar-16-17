@@ -211,11 +211,11 @@ public class LinkedCellsGrid<T> implements Iterable<T> {
 		int iX = (int) Math.max(
 				0,
 				Math.min(this.gridSize[0] - 1,
-						Math.floor((pos.x - left) / width * this.gridSize[0])));
+						Math.floor((pos.getX() - left) / width * this.gridSize[0])));
 		int iY = (int) Math.max(
 				0,
 				Math.min(this.gridSize[1] - 1,
-						Math.floor((pos.y - top) / height * this.gridSize[1])));
+						Math.floor((pos.getY() - top) / height * this.gridSize[1])));
 
 		return new int[] {iX, iY};
 	}

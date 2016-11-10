@@ -55,8 +55,8 @@ public class VTriangle extends VPolygon {
 	}
 
 	public VPoint midPoint() {
-		return new VPoint((p1.x + p2.x + p3.x) / 3.0,
-				(p1.y + p2.y + p3.y) / 3.0);
+		return new VPoint((p1.getX() + p2.getX() + p3.getX()) / 3.0,
+				(p1.getY() + p2.getY() + p3.getY()) / 3.0);
 	}
 
 	public boolean isLine() {
@@ -78,7 +78,7 @@ public class VTriangle extends VPolygon {
 	 * @return inward facing normal vector
 	 */
 	public VPoint getNormal(VPoint p1, VPoint p2) {
-		VPoint normal = new VPoint(p2.y - p1.y, -(p2.x - p1.x));
+		VPoint normal = new VPoint(p2.getY() - p1.getY(), -(p2.getX() - p1.getX()));
 		// if the normal is already inward facing, return it
 		if (GeometryUtils.ccw(p1, p2, normal) == GeometryUtils.ccw(p1, p2,
 				this.midPoint())) {
@@ -86,7 +86,7 @@ public class VTriangle extends VPolygon {
 		}
 		// otherwise, reflect it
 		else {
-			return new VPoint(-normal.x, -normal.y);
+			return new VPoint(-normal.getX(), -normal.getY());
 		}
 	}
 

@@ -11,7 +11,7 @@ public class IndexedPoint extends VPoint {
 	public final int index;
 
 	public IndexedPoint(VPoint point, int index) {
-		this(point.x, point.y, index);
+		this(point.getX(), point.getY(), index);
 	}
 
 	public IndexedPoint(double x, double y, int index) {

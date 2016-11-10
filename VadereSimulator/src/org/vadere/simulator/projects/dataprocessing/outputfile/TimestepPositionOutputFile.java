@@ -9,6 +9,6 @@ public class TimestepPositionOutputFile extends OutputFile<TimestepPositionKey> 
 
     @Override
     public String[] toStrings(TimestepPositionKey key) {
-        return new String[] { Integer.toString(key.getTimeStep()), Double.toString(key.getPosition().x), Double.toString(key.getPosition().y) };
+        return new String[] { Integer.toString(key.getTimeStep()), Double.toString(key.getPosition().getX()), Double.toString(key.getPosition().getY()) };
     }
 }

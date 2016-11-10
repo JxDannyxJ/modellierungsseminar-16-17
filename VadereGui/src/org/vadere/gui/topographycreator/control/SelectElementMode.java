@@ -93,13 +93,13 @@ public class SelectElementMode extends DefaultSelectionMode {
 	private boolean isMouseOnSelectedElement() {
 		ScenarioElement element = panelModel.getSelectedElement();
 		VPoint cursor = panelModel.getMousePosition();
-		return element != null && element.getShape().intersects(cursor.x, cursor.y, 0.001, 0.001);
+		return element != null && element.getShape().intersects(cursor.getX(), cursor.getY(), 0.001, 0.001);
 	}
 
 	private boolean isMouseOnPrototypeShape() {
 		VShape shape = panelModel.getPrototypeShape();
 		VPoint cursor = panelModel.getMousePosition();
-		return panelModel.isPrototypeVisble() && shape.intersects(cursor.x, cursor.y, 0.001, 0.001);
+		return panelModel.isPrototypeVisble() && shape.intersects(cursor.getX(), cursor.getY(), 0.001, 0.001);
 	}
 
 	@Override

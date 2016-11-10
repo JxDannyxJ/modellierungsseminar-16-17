@@ -96,11 +96,11 @@ public abstract class AbstractPotentialFieldTarget implements IPotentialTargetGr
 		double weightOfKnown[] = new double[1];
 		double tmpPotential;
 
-		if (pos.x >= potentialField.getWidth()) {
+		if (pos.getX() >= potentialField.getWidth()) {
 			incX = 0;
 		}
 
-		if (pos.y >= potentialField.getHeight()) {
+		if (pos.getY() >= potentialField.getHeight()) {
 			incY = 0;
 		}
 
@@ -115,9 +115,9 @@ public abstract class AbstractPotentialFieldTarget implements IPotentialTargetGr
 		tmpPotential = InterpolationUtil
 				.bilinearInterpolationWithUnkown(
 						gridPotentials,
-						(pos.x - gridPointCoord.x)
+						(pos.getX() - gridPointCoord.getX())
 								/ potentialField.getResolution(),
-						(pos.y - gridPointCoord.y)
+						(pos.getY() - gridPointCoord.getY())
 								/ potentialField.getResolution(),
 						weightOfKnown);
 

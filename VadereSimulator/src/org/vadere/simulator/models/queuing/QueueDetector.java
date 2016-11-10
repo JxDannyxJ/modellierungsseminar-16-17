@@ -85,7 +85,7 @@ public class QueueDetector extends EikonalSolverFMM {
 
 			VPoint point = cellGrid.pointToCoord(x, y);
 			if (cellGrid.getValue(x, y).tag != PathFindingTag.Target
-					&& filter.getFilteredValue(point.x, point.y) <= QUEUE_DENSITY) {
+					&& filter.getFilteredValue(point.getX(), point.getY()) <= QUEUE_DENSITY) {
 				cellGrid.getValue(x, y).tag = PathFindingTag.Obstacle;
 			} else if (cellGrid.getValue(x, y).tag != PathFindingTag.Target) {
 				// System.out.println("found:" + point);

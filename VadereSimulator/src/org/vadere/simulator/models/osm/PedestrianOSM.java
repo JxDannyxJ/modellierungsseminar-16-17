@@ -189,8 +189,8 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 			setPosition(nextPosition);
 
 			// compute velocity by forward difference
-			setVelocity(new Vector2D(nextPosition.x - currentPosition.x,
-					nextPosition.y - currentPosition.y).multiply(1.0 / stepTime));
+			setVelocity(new Vector2D(nextPosition.getX() - currentPosition.getX(),
+					nextPosition.getY() - currentPosition.getY()).multiply(1.0 / stepTime));
 
 		}
 		strides[0].add(currentPosition.distance(nextPosition));

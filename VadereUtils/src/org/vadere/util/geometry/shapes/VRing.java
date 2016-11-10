@@ -116,7 +116,7 @@ public class VRing implements VShape {
 		List<VPoint> normalizedPoints = new ArrayList<VPoint>();
 
 		for (VPoint point : points) {
-			VPoint normalizedPoint = new VPoint(point.x - center.x, point.y - center.y);
+			VPoint normalizedPoint = new VPoint(point.getX() - center.getX(), point.getY() - center.getY());
 			normalizedPoints.add(normalizedPoint);
 		}
 

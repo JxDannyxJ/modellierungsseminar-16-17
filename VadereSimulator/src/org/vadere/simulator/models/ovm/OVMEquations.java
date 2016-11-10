@@ -215,13 +215,13 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 
 		VPoint myPos = new VPoint(position2[0], position2[1]);
 		Vector2D myVelocity = new Vector2D(speed[0], speed[1]);
-		double mySpeed = myVelocity.x; // only the x coordinate is set. Do NOT use "length" here, otherwise negative speeds occur.
+		double mySpeed = myVelocity.getX(); // only the x coordinate is set. Do NOT use "length" here, otherwise negative speeds occur.
 
 		// velocity is just passed through, but rotated so that the vector points in target
 		// direction
 		if (currentCar.getTargets().size() > 0) {
-			position[0] = myVelocity.x;
-			position[1] = myVelocity.y;
+			position[0] = myVelocity.getX();
+			position[1] = myVelocity.getY();
 		}
 
 		// also change the direction of the acceleration so that the velocity for each car is
@@ -232,8 +232,8 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 					target.getShape().getBounds2D().getCenterY());
 			double localspeed = mySpeed;
 			Vector2D direction = new Vector2D(closest.add(myPos.scalarMultiply(-1))).normalize(localspeed);
-			position[0] = direction.x;
-			position[1] = direction.y;
+			position[0] = direction.getX();
+			position[1] = direction.getY();
 		}
 
 		if (frontCar == null) {

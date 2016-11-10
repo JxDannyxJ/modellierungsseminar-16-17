@@ -39,8 +39,8 @@ public class VoronoiDiagram {
 	 * of area a jts diagram shall be created for.
 	 */
 	public VoronoiDiagram(final List<VPoint> bounds) {
-		this.limits = new RectangleLimits(bounds.get(0).x, bounds.get(0).y,
-				bounds.get(1).x, bounds.get(1).y);
+		this.limits = new RectangleLimits(bounds.get(0).getX(), bounds.get(0).getY(),
+				bounds.get(1).getX(), bounds.get(1).getY());
 	}
 
 	public VoronoiDiagram(final VRectangle rectangle) {
@@ -104,7 +104,7 @@ public class VoronoiDiagram {
 			beachLine.setRoot(siteId, site, faces);
 		} else {
 			// handle degenerating case
-			if (siteOnHorizontalLine && (site.y != lastY)) {
+			if (siteOnHorizontalLine && (site.getY() != lastY)) {
 				siteOnHorizontalLine = false;
 			}
 

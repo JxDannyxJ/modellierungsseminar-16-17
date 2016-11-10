@@ -1,151 +1,47 @@
-\newChapterSlide{Hubert Hager}{Analyse der Simulationsergebnisse}{}{25}{0}
-
-
-
-% Analysen
-\begin{frame}{Mögliche Analysen}
-\begin{itemize}
-\item Macht eine Räumung des Vorzeltgebietes Sinn?
-\item Dauer der Evakuierung in Abhängigkeit der Personendichte
-\item Gibt es kritische Punkte (Stau)?
-\item Verteilung der Personen auf die Ausgänge
-\end{itemize}
-\end{frame}
-
-
-% Vorzelträumung
-\begin{frame}{Vorzelträumung}
-
-
-	\begin{minipage}{0.48\textwidth}
-		\includegraphics[width=\textwidth]{pres_pics/vorzelt1.png}\\
-
-	\end{minipage} \hfill
-	\begin{minipage}{0.48\textwidth}
-		\includegraphics[width=\textwidth]{pres_pics/vorzelt2.png}\\
-
-\end{minipage}
-
-\end{frame}
-
-
-% Personendichte 1
-\begin{frame}{Evakuierungszeit - Personendichte}
-Dauer der Evakuierung in Abhängigkeit der Personendichte
-\begin{itemize}
-	\item Mehrere Simulationen mit unterschiedlichen Dichten
-	\item Personendichte: Anzahl der Personen pro Bank
-	\item Evakuierungszeiten messen und jeweiligen Dichten gegenüberstellen
+\begin{frame}{Meine Aufgaben}
+	\begin{itemize}
+		\item Einarbeiten in das Optimal Steps Model
+		\item Einbinden der Horse Klasse ins OSM
+		\item Erstellen eines Testszenarios 
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{Optimal Steps Model}
+	\begin{itemize}
+		\item Nutzenfunktion
+		\item Optimization
+		\item Update Schemes
+	\end{itemize}
+\end{frame}
 
-% Personendichte 2
-\begin{frame}{Personendichte}
-
+\begin{frame}{Implementierung OSM}
 	\begin{figure}
-		\includegraphics[width=\textwidth]{pres_pics/personendichte.png}\\
-
+		\includegraphics[width=\textwidth, keepaspectratio]{appendix/uml/OSM-vorher.pdf}
 	\end{figure}
-
 \end{frame}
 
-% Personendichte 3
-\begin{frame}{Personendichte}
-
+\begin{frame}{Implementierung HorseOSM}
 	\begin{figure}
-		\includegraphics[width=\textwidth]{pres_pics/personendichte2.png}\\
+		\includegraphics[width=\textwidth, keepaspectratio]{appendix/uml/OSM-nachher.pdf}
 	\end{figure}
-
-		\begin{center}
-		\begin{tiny}
-		   f(x) = p1*x + p2\\
-			Koeffizienten (mit 0,95 Konfidenzgrenzen):\\
-    	  	p1 = 26.46  (23, 29.91)\\
-     		p2 = 119.7  (98.28, 141.2)\\
-     		$\text{R}^2$: 0.9749
-		\end{tiny}
-	\end{center}
-
 \end{frame}
 
-
-
-% Staubildung 1
-\begin{frame}{Staubildung}
-
+\begin{frame}{Ein Schritt im OSM}
 	\begin{figure}
-		\includegraphics[width=0.6\textwidth]{pres_pics/stau1.png}\\
-
+		\includegraphics[width=\textwidth, keepaspectratio]{appendix/uml/EventDrivenUpdate.pdf}
 	\end{figure}
-
 \end{frame}
 
-\begin{frame}{Staubildung}
-
-	\begin{figure}
-		\includegraphics[width=0.6\textwidth]{pres_pics/stau2.png}\\
-
-	\end{figure}
-
-\end{frame}
-
-
-
-% Staubildung 2
-\begin{frame}{Einbau von Zwischenzielen}
-
-
-	\begin{minipage}{0.48\textwidth}
-		\includegraphics[width=\textwidth]{pres_pics/86_wo.png}\\
-		Simulation ohne Zwischenziele
-
-	\end{minipage} \hfill
-	\begin{minipage}{0.48\textwidth}
-		\includegraphics[width=\textwidth]{pres_pics/86_ZZ1.png}\\
-		Simulation mit Zwischenzielen
-
-\end{minipage}
-
-\end{frame}
-
-
-
-% Staubildung 3 Steckenbleiben
-\begin{frame}{Staubildung}
-
-\centering
-Problem: Personen bleiben teilweise stecken
-
-	\begin{figure}
-		\includegraphics[width=0.6\textwidth]{pres_pics/steckenbleibenZZ.png}
-
-	\end{figure}
-
-\end{frame}
-
-
-\begin{frame}{Staubildung}
-
-	\begin{figure}
-		\includegraphics[width=0.6\textwidth]{pres_pics/steckenbleiben2.png}
-
-	\end{figure}
-
-\end{frame}
-
-
-
-% Staubildung 4
-\begin{frame}{Staubildung}
-
-	\begin{minipage}{0.50\textwidth}
-		\includegraphics[width=\textwidth]{pres_pics/100_ZZ1.png}
-
-	\end{minipage} \hfill
-	\begin{minipage}{0.48\textwidth}
-		\includegraphics[width=\textwidth]{pres_pics/100_ZZ2.png}
-
-\end{minipage}
-
+\begin{frame}{Fazit}
+	Schwierigkeiten:
+	\begin{itemize}
+		\item Meine Arbeitszeiten
+	\end{itemize}
+	Fand ich gut:
+	\begin{itemize}
+		\item Organisation durch Trello, Skype
+		\item Arbeitsaufteilung
+		\item gutes Klima
+		\item Anteil 19\%
+	\end{itemize}
 \end{frame}

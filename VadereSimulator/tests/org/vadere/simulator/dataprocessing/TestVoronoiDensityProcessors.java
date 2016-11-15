@@ -10,8 +10,8 @@
 //import org.vadere.state.attributes.AttributesBuilder;
 //import org.vadere.state.attributes.processor.AttributesDensityVoronoiProcessor;
 //import org.vadere.state.attributes.scenario.AttributesAgent;
-//import org.vadere.state.scenario.Agent;
-//import org.vadere.state.scenario.Pedestrian;
+//import org.vadere.state.scenario.dynamicelements.Agent;
+//import org.vadere.state.scenario.dynamicelements.Pedestrian;
 //import org.vadere.state.scenario.Topography;
 //import org.vadere.util.data.Row;
 //import org.vadere.util.data.Table;

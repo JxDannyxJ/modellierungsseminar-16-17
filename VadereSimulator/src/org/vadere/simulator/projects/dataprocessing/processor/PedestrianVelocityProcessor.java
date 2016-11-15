@@ -4,7 +4,7 @@ import org.vadere.simulator.control.SimulationState;
 import org.vadere.simulator.projects.dataprocessing.ProcessorManager;
 import org.vadere.simulator.projects.dataprocessing.datakey.TimestepPedestrianIdKey;
 import org.vadere.state.attributes.processor.AttributesVelocityProcessor;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.util.geometry.shapes.VPoint;
 
 import java.util.LinkedList;

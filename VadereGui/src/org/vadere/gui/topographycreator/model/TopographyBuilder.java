@@ -4,15 +4,15 @@ import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesTopography;
-import org.vadere.state.scenario.Car;
-import org.vadere.state.scenario.Horse;
-import org.vadere.state.scenario.Obstacle;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Car;
+import org.vadere.state.scenario.dynamicelements.Horse;
+import org.vadere.state.scenario.staticelements.Obstacle;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.scenario.ScenarioElement;
-import org.vadere.state.scenario.Source;
-import org.vadere.state.scenario.Stairs;
-import org.vadere.state.scenario.Target;
-import org.vadere.state.scenario.Teleporter;
+import org.vadere.state.scenario.staticelements.Source;
+import org.vadere.state.scenario.staticelements.Stairs;
+import org.vadere.state.scenario.staticelements.Target;
+import org.vadere.state.scenario.staticelements.Teleporter;
 import org.vadere.state.scenario.Topography;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -36,8 +36,8 @@ import java.util.LinkedList;
  */
 public class TopographyBuilder implements Iterable<ScenarioElement> {
 	// TopographyElements
-	private LinkedList<AgentWrapper> pedestrians;
-	private LinkedList<HorseWrapper> horses;
+	private LinkedList<Pedestrian> pedestrians;
+	private LinkedList<Horse> horses;
 	private LinkedList<Obstacle> obstacles;
 	private LinkedList<Stairs> stairs;
 	private LinkedList<Source> sources;
@@ -86,11 +86,11 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 			horses = new LinkedList<>();
 
 			for (Pedestrian pedStore : pedStores) {
-				pedestrians.add(new AgentWrapper(pedStore));
+				pedestrians.add(pedStore);
 			}
 
 			for (Horse horse : horseStores) {
-				horses.add(new HorseWrapper(horse));
+				horses.add(horse);
 			}
 
 //			for (Car car : carStores) {
@@ -154,11 +154,11 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 		for (Target target : targets)
 			topography.addTarget(target);
 
-		for (AgentWrapper pedestrian : pedestrians)
-			topography.addInitialElement(pedestrian.getAgentInitialStore());
+		for (Pedestrian pedestrian : pedestrians)
+			topography.addInitialElement(pedestrian);
 
-		for (HorseWrapper horse: horses)
-			topography.addInitialElement(horse.getAgentInitialStore());
+		for (Horse horse: horses)
+			topography.addInitialElement(horse);
 
 		topography.setTeleporter(teleporter);
 
@@ -206,14 +206,14 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 		this.attributes = attributes;
 	}
 
-	public void addPedestrian(final AgentWrapper pedWrappper) {
-		this.topographyElements.add(pedWrappper);
-		this.pedestrians.add(pedWrappper);
+	public void addPedestrian(final Pedestrian pedestrian) {
+		this.topographyElements.add(pedestrian);
+		this.pedestrians.add(pedestrian);
 	}
 
-	public void addHorse(final HorseWrapper horseWrapper) {
-		this.topographyElements.add(horseWrapper);
-		this.horses.add(horseWrapper);
+	public void addHorse(final Horse horse) {
+		this.topographyElements.add(horse);
+		this.horses.add(horse);
 	}
 
 	public void addObstacle(final Obstacle obstacle) {
@@ -287,7 +287,7 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 		return sources.iterator();
 	}
 
-	public Iterator<AgentWrapper> getPedestrianIterator() {
+	public Iterator<Pedestrian> getPedestrianIterator() {
 		return pedestrians.iterator();
 	}
 

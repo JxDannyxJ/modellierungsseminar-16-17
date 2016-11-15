@@ -5,12 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.vadere.simulator.models.osm.AgentOSM;
-import org.vadere.simulator.models.osm.PedestrianOSM;
 import org.vadere.simulator.models.potential.fields.IPotentialTargetGrid;
-import org.vadere.simulator.models.potential.fields.PotentialFieldTarget;
-import org.vadere.simulator.models.potential.fields.PotentialFieldTargetGrid;
 import org.vadere.state.attributes.models.AttributesOSM;
-import org.vadere.state.scenario.Target;
+import org.vadere.state.scenario.staticelements.Target;
 import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VCircle;

@@ -3,6 +3,7 @@ package org.vadere.state.scenario;
 import java.awt.geom.RectangularShape;
 import java.util.*;
 
+import org.vadere.state.scenario.dynamicelements.DynamicElement;
 import org.vadere.util.geometry.LinkedCellsGrid;
 
 public class DynamicElementContainer<T extends DynamicElement> {

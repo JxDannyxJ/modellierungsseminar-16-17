@@ -1,6 +1,5 @@
 package org.vadere.simulator.entrypoints;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -13,7 +12,7 @@ import org.vadere.state.attributes.AttributesBuilder;
 import org.vadere.state.attributes.AttributesSimulation;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.scenario.ScenarioElementBuilder;
-import org.vadere.state.scenario.Teleporter;
+import org.vadere.state.scenario.staticelements.Teleporter;
 import org.vadere.state.scenario.Topography;
 
 import com.google.gson.JsonElement;

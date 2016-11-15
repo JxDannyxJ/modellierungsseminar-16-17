@@ -35,7 +35,7 @@ public class LoadingFactory {
 	}
 
 	/**
-	 * Creates and returns the laoding dynamic laoding strategy.
+	 * Creates and returns the laoding dynamicelements laoding strategy.
 	 * 
 	 * @param floor
 	 *        the floor that contains all the pedestrian that count.
@@ -43,17 +43,17 @@ public class LoadingFactory {
 	 *        the target id that is the target of the generated potential
 	 *        field that uses this loading strategy
 	 * @param loading
-	 *        the loading that will be multiplied to the dynamic loading
+	 *        the loading that will be multiplied to the dynamicelements loading
 	 *        (c_p in the bachelor thesis of Benedikt Zoennchen)
 	 * @param meanSpeed
 	 *        the mean speed of all pedestrians
-	 * @return the laoding dynamic laoding strategy
+	 * @return the laoding dynamicelements laoding strategy
 	 */
 	public static IPedestrianLoadingStrategy createDynamicPedestrianLoading(
 			final Topography floor, final int floorFieldTargetId,
 			final double loading, final double meanSpeed) {
 		throw new UnsupportedOperationException(
-				"the dynamic generation (potential differences) of the floor field is not supported.");
+				"the dynamicelements generation (potential differences) of the floor field is not supported.");
 		/*
 		 * return new PedestrianLoadingStrategyPotentialDifference(floor,
 		 * floorFieldTargetId, loading, meanSpeed,

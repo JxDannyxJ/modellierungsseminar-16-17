@@ -1,6 +1,6 @@
 package org.vadere.simulator.models.groups;
 
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 
 public class CentroidGroupFactory implements GroupFactory {
 

@@ -19,12 +19,12 @@ public interface ITimeCostFunction {
 	public double costAt(VPoint p);
 
 	/**
-	 * Prepares the dynamic timeCostFunction for the next step.
+	 * Prepares the dynamicelements timeCostFunction for the next step.
 	 */
 	public void update();
 
 	/**
-	 * Indicates that this ITimeCostFunction is for generating a dynamic
+	 * Indicates that this ITimeCostFunction is for generating a dynamicelements
 	 * potential field.
 	 * 
 	 * @return true => this ITimeCostFunction is for generating a dynaic

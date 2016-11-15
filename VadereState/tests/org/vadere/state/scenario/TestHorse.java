@@ -7,6 +7,7 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
 import org.vadere.state.attributes.scenario.AttributesHorse;
+import org.vadere.state.scenario.dynamicelements.Horse;
 
 public class TestHorse {
 

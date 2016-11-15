@@ -4,8 +4,8 @@
 //import java.util.List;
 //
 //import org.vadere.simulator.models.osm.PedestrianOSM;
-//import org.vadere.state.scenario.Agent;
-//import org.vadere.state.scenario.Pedestrian;
+//import org.vadere.state.scenario.dynamicelements.Agent;
+//import org.vadere.state.scenario.dynamicelements.Pedestrian;
 //import org.vadere.util.geometry.Vector2D;
 //
 //public class UpdateSchemeParallel implements UpdateSchemeOSM {

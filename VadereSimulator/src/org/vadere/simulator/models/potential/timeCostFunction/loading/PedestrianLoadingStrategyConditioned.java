@@ -2,7 +2,7 @@ package org.vadere.simulator.models.potential.timeCostFunction.loading;
 
 import java.util.function.Predicate;
 
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 
 public class PedestrianLoadingStrategyConditioned<T extends Pedestrian> implements IPedestrianLoadingStrategy<T> {
 

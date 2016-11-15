@@ -1,6 +1,6 @@
 package org.vadere.simulator.models.queuing;
 
-import org.vadere.state.scenario.ModelPedestrian;
+import org.vadere.state.scenario.dynamicelements.ModelPedestrian;
 import org.vadere.state.types.PedestrianAttitudeType;
 
 public class QueueingGamePedestrian extends ModelPedestrian {

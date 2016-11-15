@@ -5,21 +5,17 @@
  */
 package org.vadere.simulator.models.ovm;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import org.vadere.simulator.models.ode.AbstractModelEquations;
 import org.vadere.simulator.models.ode.ODEModel;
-import org.vadere.state.attributes.models.AttributesODEIntegrator;
 import org.vadere.state.attributes.models.AttributesOVM;
 import org.vadere.state.attributes.scenario.AttributesCar;
-import org.vadere.state.scenario.Car;
-import org.vadere.state.scenario.Pedestrian;
-import org.vadere.state.scenario.Target;
+import org.vadere.state.scenario.dynamicelements.Car;
+import org.vadere.state.scenario.staticelements.Target;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.parallel.AParallelWorker;
@@ -56,7 +52,7 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 		sightDistance = attributesOVM.getSightDistance();
 		sightDistanceFactor = attributesOVM.getSightDistanceFactor();
 
-		// update position of all dynamic elements
+		// update position of all dynamicelements elements
 		ODEModel.updateElementPositions(Car.class, t, topography, this, x);
 
 		// create workers for each pedestrian

@@ -4,7 +4,7 @@ import org.vadere.simulator.control.SimulationState;
 import org.vadere.simulator.projects.dataprocessing.ProcessorManager;
 import org.vadere.simulator.projects.dataprocessing.datakey.PedestrianIdKey;
 import org.vadere.state.attributes.processor.AttributesStartEvacuationTimeProcessor;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 
 /**
  * @author Mario Teixeira Parente

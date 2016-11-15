@@ -2,7 +2,7 @@ package org.vadere.simulator.models.osm;
 
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM.CallMethod;
 import org.vadere.state.attributes.models.AttributesOSM;
-import org.vadere.state.scenario.DynamicElement;
+import org.vadere.state.scenario.dynamicelements.DynamicElement;
 import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VPoint;

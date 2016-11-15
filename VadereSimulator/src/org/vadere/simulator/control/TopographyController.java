@@ -1,15 +1,15 @@
 package org.vadere.simulator.control;
 
+import org.vadere.simulator.models.DynamicElementFactory;
+import org.vadere.state.scenario.Topography;
+import org.vadere.state.scenario.dynamicelements.Agent;
+import org.vadere.state.scenario.dynamicelements.Car;
+import org.vadere.state.scenario.dynamicelements.Horse;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
+import org.vadere.state.scenario.staticelements.TargetPedestrian;
+
 import java.util.Collection;
 import java.util.LinkedList;
-
-import org.vadere.simulator.models.DynamicElementFactory;
-import org.vadere.state.scenario.Agent;
-import org.vadere.state.scenario.Car;
-import org.vadere.state.scenario.Horse;
-import org.vadere.state.scenario.Pedestrian;
-import org.vadere.state.scenario.TargetPedestrian;
-import org.vadere.state.scenario.Topography;
 
 /**
  * This Class handles a {@link Topography} Object.

@@ -3,7 +3,7 @@ package org.vadere.simulator.models.density;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.simulator.models.potential.timeCostFunction.loading.IPedestrianLoadingStrategy;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.util.geometry.shapes.VPoint;
 
 import java.util.Collection;

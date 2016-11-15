@@ -1,8 +1,7 @@
 package org.vadere.state.attributes.scenario;
 
 import org.vadere.state.attributes.Attributes;
-import org.vadere.state.scenario.Agent;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.util.geometry.shapes.VShape;
 
 /**

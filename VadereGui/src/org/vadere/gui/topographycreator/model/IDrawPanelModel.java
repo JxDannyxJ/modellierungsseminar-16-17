@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Point;
-import java.awt.event.ComponentListener;
 import java.util.Observer;
 
 import org.vadere.gui.components.control.IMode;
@@ -12,7 +11,7 @@ import org.vadere.gui.components.model.DefaultConfig;
 import org.vadere.gui.components.model.IDefaultModel;
 import org.vadere.simulator.projects.ScenarioRunManager;
 import org.vadere.state.scenario.ScenarioElement;
-import org.vadere.state.scenario.Teleporter;
+import org.vadere.state.scenario.staticelements.Teleporter;
 import org.vadere.state.scenario.Topography;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VPoint;

@@ -4,8 +4,8 @@ import java.util.Collection;
 
 import org.vadere.simulator.models.ode.AbstractModelEquations;
 import org.vadere.simulator.models.ode.ODEModel;
-import org.vadere.state.scenario.Agent;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Agent;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -101,7 +101,7 @@ public class SFMEquations extends AbstractModelEquations<Pedestrian> {
 			// get the static gradient for obstacles
 			Vector2D obstacleGradient = obstacleGradientProvider
 					.getObstaclePotentialGradient(pos, currentPed);
-			// get the dynamic gradient for pedestrians
+			// get the dynamicelements gradient for pedestrians
 			Collection<? extends Agent> otherPedestrians = pedestrianGradientProvider
 					.getRelevantAgents(new VCircle(pos, 0.1), currentPed,
 							topography);

@@ -1,22 +1,23 @@
 package org.vadere.gui.topographycreator.control;
 
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.geom.Rectangle2D;
-
-import javax.swing.undo.UndoableEdit;
-import javax.swing.undo.UndoableEditSupport;
-
-import org.vadere.gui.topographycreator.model.AgentWrapper;
-import org.vadere.gui.topographycreator.model.HorseWrapper;
 import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.AttributesBuilder;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.scenario.ScenarioElementBuilder;
+import org.vadere.state.scenario.dynamicelements.Agent;
+import org.vadere.state.scenario.dynamicelements.Horse;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.geom.Rectangle2D;
+
+import javax.swing.undo.UndoableEdit;
+import javax.swing.undo.UndoableEditSupport;
 
 /**
  * Insert the last copied element in the topography if this element is not null.
@@ -54,10 +55,10 @@ public class ActionInsertCopiedElement extends TopographyAction {
 			VShape newShape = model.translate(diff);
 			ScenarioElement newElement = null;
 
-			if (element instanceof AgentWrapper || element instanceof HorseWrapper) {
+			if (element instanceof Pedestrian || element instanceof Horse) {
 				VPoint position = new VPoint(newShape.getBounds2D().getCenterX(), newShape.getBounds2D().getCenterY());
 				newElement = element.clone();
-				((AgentWrapper) newElement).getAgentInitialStore().setPosition(position);
+				((Agent) newElement).setPosition(position);
 			} else {
 				// change attributes with reflection!
 				ScenarioElementBuilder<ScenarioElement> elBuilder = new ScenarioElementBuilder<>(element);

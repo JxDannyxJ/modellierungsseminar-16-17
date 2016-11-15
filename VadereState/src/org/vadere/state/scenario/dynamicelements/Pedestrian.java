@@ -1,10 +1,14 @@
-package org.vadere.state.scenario;
-
-import java.util.*;
+package org.vadere.state.scenario.dynamicelements;
 
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.types.ScenarioElementType;
+import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Random;
 
 public class Pedestrian extends Agent {
 
@@ -12,6 +16,7 @@ public class Pedestrian extends Agent {
 
 	private boolean isChild;
 	private boolean isLikelyInjured;
+	private AttributesAgent attributesPed;
 
 	private LinkedList<Integer> groupIds;
 
@@ -29,9 +34,22 @@ public class Pedestrian extends Agent {
 		this(attributesPedestrian, new Random());
 	}
 
-	public Pedestrian(AttributesAgent attributesAgent, Random random) {
-		super(attributesAgent, random);
+	public Pedestrian(AttributesAgent attributesPed, VPoint position) {
+		super(attributesPed, position);
 
+		// Set the attribute again for serialization, attributes is transient in the super class
+		this.attributesPed = attributesPed;
+		modelPedestrianMap = new HashMap<>();
+
+		isChild = false;
+		isLikelyInjured = false;
+		groupIds = new LinkedList<>();
+	}
+
+	public Pedestrian(AttributesAgent attributesPed, Random random) {
+		super(attributesPed, random);
+
+		this.attributesPed = attributesPed;
 		modelPedestrianMap = new HashMap<>();
 
 		isChild = false;

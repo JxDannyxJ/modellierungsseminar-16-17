@@ -5,9 +5,7 @@ import org.apache.commons.math.analysis.MultivariateRealFunction;
 import org.apache.commons.math.analysis.UnivariateRealFunction;
 import org.apache.commons.math3.analysis.MultivariateFunction;
 import org.vadere.simulator.models.osm.AgentOSM;
-import org.vadere.simulator.models.osm.PedestrianOSM;
-import org.vadere.state.scenario.Obstacle;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.staticelements.Obstacle;
 import org.vadere.util.geometry.shapes.VLine;
 import org.vadere.util.geometry.shapes.VPoint;
 

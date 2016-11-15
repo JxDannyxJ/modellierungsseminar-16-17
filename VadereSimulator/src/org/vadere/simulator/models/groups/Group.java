@@ -2,7 +2,7 @@ package org.vadere.simulator.models.groups;
 
 import java.util.List;
 
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 
 public interface Group {
 	public int getID();

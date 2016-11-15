@@ -1,7 +1,7 @@
 package org.vadere.simulator.models.queuing;
 
 import org.vadere.state.attributes.scenario.AttributesTarget;
-import org.vadere.state.scenario.Target;
+import org.vadere.state.scenario.staticelements.Target;
 
 public class TargetQueue extends Target {
 

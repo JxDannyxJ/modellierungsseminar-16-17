@@ -8,7 +8,7 @@ import java.awt.Point;
  * class and currently consists of a Grid which holds the environment data for
  * creation of the potential field as well as the potential values itself. The
  * initializer may either create a static floor field, that does not change over
- * time, or a dynamic floor field which may be updated during simulation.
+ * time, or a dynamicelements floor field which may be updated during simulation.
  */
 public interface PotentialFieldCalculator {
 
@@ -26,8 +26,8 @@ public interface PotentialFieldCalculator {
 
 	/**
 	 * Returns true if the potential field needs an update. The value indicates
-	 * the type of initializer: static or dynamic floor field. Initializer of
-	 * static floor fields may return false, initializers of dynamic floor
+	 * the type of initializer: static or dynamicelements floor field. Initializer of
+	 * static floor fields may return false, initializers of dynamicelements floor
 	 * fields may return true.
 	 */
 	boolean needsUpdate();

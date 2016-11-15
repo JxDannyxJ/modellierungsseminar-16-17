@@ -1,11 +1,19 @@
 package org.vadere.gui.topographycreator.model;
 
 import org.vadere.state.attributes.Attributes;
+import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
 import org.vadere.state.attributes.scenario.AttributesSource;
 import org.vadere.state.attributes.scenario.AttributesStairs;
 import org.vadere.state.attributes.scenario.AttributesTarget;
 import org.vadere.state.scenario.ScenarioElement;
+import org.vadere.state.scenario.dynamicelements.Horse;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
+import org.vadere.state.scenario.staticelements.Obstacle;
+import org.vadere.state.scenario.staticelements.Source;
+import org.vadere.state.scenario.staticelements.Stairs;
+import org.vadere.state.scenario.staticelements.Target;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VCircle;
@@ -29,17 +37,17 @@ public class TopographyElementFactory {
 	public ScenarioElement createScenarioShape(final ScenarioElementType type, final VShape shape) {
 		switch (type) {
 			case OBSTACLE:
-				return new org.vadere.state.scenario.Obstacle(new AttributesObstacle(-1, shape));
+				return new Obstacle(new AttributesObstacle(-1, shape));
 			case STAIRS:
-				return new org.vadere.state.scenario.Stairs(new AttributesStairs(-1, shape, 1, new Vector2D(1.0, 0.0)));
+				return new Stairs(new AttributesStairs(-1, shape, 1, new Vector2D(1.0, 0.0)));
 			case SOURCE:
-				return new org.vadere.state.scenario.Source(new AttributesSource(-1, shape));
+				return new Source(new AttributesSource(-1, shape));
 			case TARGET:
-				return new org.vadere.state.scenario.Target(new AttributesTarget(shape));
+				return new Target(new AttributesTarget(shape));
 			case PEDESTRIAN:
-				return new AgentWrapper(((VCircle) shape).getCenter());
+				return new Pedestrian(new AttributesAgent(), ((VCircle) shape).getCenter());
 			case HORSE:
-				return new HorseWrapper(((VEllipse) shape).getCenter()); //CHANGED AG
+				return new Horse(new AttributesHorse(), ((VEllipse) shape).getCenter()); //CHANGED AG
 			default:
 				throw new IllegalArgumentException("unsupported ScenarioElementType.");
 		}
@@ -47,23 +55,23 @@ public class TopographyElementFactory {
 
 	public <T extends Attributes> ScenarioElement createScenarioShape(final T attributes) {
 		if (attributes instanceof AttributesObstacle) {
-			return new org.vadere.state.scenario.Obstacle((AttributesObstacle) attributes);
+			return new Obstacle((AttributesObstacle) attributes);
 		} else if (attributes instanceof AttributesStairs) {
-			return new org.vadere.state.scenario.Stairs((AttributesStairs) attributes);
+			return new Stairs((AttributesStairs) attributes);
 		} else if (attributes instanceof AttributesSource) {
-			return new org.vadere.state.scenario.Source((AttributesSource) attributes);
+			return new Source((AttributesSource) attributes);
 		} else if (attributes instanceof AttributesTarget) {
-			return new org.vadere.state.scenario.Target((AttributesTarget) attributes);
+			return new Target((AttributesTarget) attributes);
 		} else {
 			throw new IllegalArgumentException("unsupported Attributes.");
 		}
 	}
 
 	public ScenarioElement createScenarioShape(final AttributesTarget attributes) {
-		return new org.vadere.state.scenario.Target(attributes);
+		return new Target(attributes);
 	}
 
 	public ScenarioElement createScenarioShape(final AttributesSource attributes) {
-		return new org.vadere.state.scenario.Source(attributes);
+		return new Source(attributes);
 	}
 }

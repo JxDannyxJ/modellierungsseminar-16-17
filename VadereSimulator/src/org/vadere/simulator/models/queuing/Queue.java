@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import org.vadere.state.attributes.scenario.AttributesTarget;
 import org.vadere.state.scenario.*;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
+import org.vadere.state.scenario.staticelements.Target;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VShape;
 

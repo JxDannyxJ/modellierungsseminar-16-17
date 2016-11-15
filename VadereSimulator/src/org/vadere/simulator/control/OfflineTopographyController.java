@@ -3,10 +3,10 @@ package org.vadere.simulator.control;
 import java.util.Collection;
 
 import org.vadere.state.attributes.scenario.AttributesObstacle;
-import org.vadere.state.scenario.Car;
-import org.vadere.state.scenario.Horse;
-import org.vadere.state.scenario.Obstacle;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Car;
+import org.vadere.state.scenario.dynamicelements.Horse;
+import org.vadere.state.scenario.staticelements.Obstacle;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.shapes.VPolygon;
 

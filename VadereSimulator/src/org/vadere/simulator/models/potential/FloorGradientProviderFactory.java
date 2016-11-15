@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.vadere.simulator.models.potential.fields.IPotentialTargetGrid;
-import org.vadere.state.scenario.Obstacle;
-import org.vadere.state.scenario.Target;
+import org.vadere.state.scenario.staticelements.Obstacle;
+import org.vadere.state.scenario.staticelements.Target;
 import org.vadere.state.scenario.Topography;
 import org.vadere.state.types.GradientProviderType;
 import org.vadere.util.geometry.shapes.VShape;

@@ -3,10 +3,10 @@ package org.vadere.simulator.models.potential.fields;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.state.attributes.models.AttributesFloorField;
-import org.vadere.state.scenario.Agent;
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.ScenarioElement;
-import org.vadere.state.scenario.Target;
-import org.vadere.state.scenario.TargetPedestrian;
+import org.vadere.state.scenario.staticelements.Target;
+import org.vadere.state.scenario.staticelements.TargetPedestrian;
 import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
@@ -43,7 +43,7 @@ public abstract class AbstractPotentialFieldTarget implements IPotentialTargetGr
 
 	/**
 	 *
-	 * Returns the potential value of the static or dynamic target floor field.
+	 * Returns the potential value of the static or dynamicelements target floor field.
 	 * This does not take obstacle repulsion and pedestrian repulsion into
 	 * account. This is specific to pedestrians. See pedestrian perception for
 	 * more information.
@@ -209,11 +209,11 @@ public abstract class AbstractPotentialFieldTarget implements IPotentialTargetGr
 	}
 
 	/**
-	 * Returns the secondaryPotential fields (which represents the dynamic
+	 * Returns the secondaryPotential fields (which represents the dynamicelements
 	 * potential fields) if they are available, otherwise the static potential
 	 * fields.
 	 *
-	 * @return the secondaryPotential fields (which represents the dynamic
+	 * @return the secondaryPotential fields (which represents the dynamicelements
 	 *         potential fields) if they are available, otherwise the static
 	 *         potential fields.
 	 */

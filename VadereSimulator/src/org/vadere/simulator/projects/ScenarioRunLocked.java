@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
 import org.vadere.simulator.control.Simulation;
 import org.vadere.simulator.models.MainModelBuilder;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VPoint;

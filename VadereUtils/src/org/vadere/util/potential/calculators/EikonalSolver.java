@@ -32,8 +32,8 @@ public interface EikonalSolver {
 
 	/**
 	 * Returns true if the potential field needs an update. The value indicates
-	 * the type of initializer: static or dynamic floor field. Initializer of
-	 * static floor fields may return false, initializers of dynamic floor
+	 * the type of initializer: static or dynamicelements floor field. Initializer of
+	 * static floor fields may return false, initializers of dynamicelements floor
 	 * fields may return true.
 	 */
 	default boolean needsUpdate() {

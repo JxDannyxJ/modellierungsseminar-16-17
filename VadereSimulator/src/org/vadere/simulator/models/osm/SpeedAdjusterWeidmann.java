@@ -1,8 +1,7 @@
 package org.vadere.simulator.models.osm;
 
 import org.vadere.simulator.models.SpeedAdjuster;
-import org.vadere.state.scenario.Horse;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 
 /**
  * Adjusts the desired speed according to the Weidmann fundamental diagram,

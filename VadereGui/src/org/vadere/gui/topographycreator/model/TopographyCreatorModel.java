@@ -6,8 +6,14 @@ import org.vadere.gui.components.model.DefaultModel;
 import org.vadere.simulator.projects.ScenarioRunManager;
 import org.vadere.state.attributes.scenario.AttributesTopography;
 import org.vadere.state.scenario.ScenarioElement;
-import org.vadere.state.scenario.Teleporter;
 import org.vadere.state.scenario.Topography;
+import org.vadere.state.scenario.dynamicelements.Horse;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
+import org.vadere.state.scenario.staticelements.Obstacle;
+import org.vadere.state.scenario.staticelements.Source;
+import org.vadere.state.scenario.staticelements.Stairs;
+import org.vadere.state.scenario.staticelements.Target;
+import org.vadere.state.scenario.staticelements.Teleporter;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VRectangle;
@@ -253,25 +259,25 @@ public class TopographyCreatorModel extends DefaultModel implements IDrawPanelMo
 	public void addShape(final ScenarioElement shape) {
 		switch (shape.getType()) {
 			case OBSTACLE:
-				topographyBuilder.addObstacle((org.vadere.state.scenario.Obstacle) shape);
+				topographyBuilder.addObstacle((Obstacle) shape);
 				break;
 			case STAIRS:
-				topographyBuilder.addStairs((org.vadere.state.scenario.Stairs) shape);
+				topographyBuilder.addStairs((Stairs) shape);
 				break;
 			case PEDESTRIAN:
-				topographyBuilder.addPedestrian((AgentWrapper) shape);
+				topographyBuilder.addPedestrian( (Pedestrian) shape);
 				break;
 			case SOURCE:
-				topographyBuilder.addSource((org.vadere.state.scenario.Source) shape);
+				topographyBuilder.addSource((Source) shape);
 				break;
 			case TARGET:
-				topographyBuilder.addTarget((org.vadere.state.scenario.Target) shape);
+				topographyBuilder.addTarget((Target) shape);
 				break;
 			case TELEPORTER:
-				topographyBuilder.setTeleporter((org.vadere.state.scenario.Teleporter) shape);
+				topographyBuilder.setTeleporter((Teleporter) shape);
 				break;
 			case HORSE :  //CHANGED AG
-				topographyBuilder.addHorse((HorseWrapper) shape);
+				topographyBuilder.addHorse((Horse) shape);
 				break;
 			default:
 				throw new IllegalArgumentException("unsupported TopograpyhElementType.");

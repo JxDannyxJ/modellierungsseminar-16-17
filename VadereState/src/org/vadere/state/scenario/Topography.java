@@ -5,6 +5,16 @@ import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesDynamicElement;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesTopography;
+import org.vadere.state.scenario.dynamicelements.Agent;
+import org.vadere.state.scenario.dynamicelements.Car;
+import org.vadere.state.scenario.dynamicelements.DynamicElement;
+import org.vadere.state.scenario.dynamicelements.Horse;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
+import org.vadere.state.scenario.staticelements.Obstacle;
+import org.vadere.state.scenario.staticelements.Source;
+import org.vadere.state.scenario.staticelements.Stairs;
+import org.vadere.state.scenario.staticelements.Target;
+import org.vadere.state.scenario.staticelements.Teleporter;
 import org.vadere.util.geometry.LinkedCellsGrid;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
@@ -21,7 +31,7 @@ import java.util.stream.Collectors;
 
 /**
  * This class holds the topography of the simulation map. This means it carries
- * the attributes, obstacles, sources, targets and the dynamic elements
+ * the attributes, obstacles, sources, targets and the dynamicelements elements
  */
 public class Topography {
 

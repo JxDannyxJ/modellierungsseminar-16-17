@@ -1,6 +1,7 @@
-package org.vadere.state.scenario;
+package org.vadere.state.scenario.staticelements;
 
 import org.vadere.state.attributes.scenario.AttributesTeleporter;
+import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VPoint;

@@ -1,6 +1,6 @@
 package org.vadere.simulator.models.potential.timeCostFunction.loading;
 
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 
 /**
  * Inspired by Hartmann using two constant loadings. One for the pedestrians

@@ -1,7 +1,8 @@
-package org.vadere.state.scenario;
+package org.vadere.state.scenario.staticelements;
 
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
+import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VShape;
 

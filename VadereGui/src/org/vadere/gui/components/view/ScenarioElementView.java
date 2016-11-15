@@ -14,14 +14,13 @@ import org.vadere.gui.components.model.IDefaultModel;
 import org.vadere.gui.projectview.view.JsonValidIndicator;
 import org.vadere.gui.projectview.view.ProjectView;
 import org.vadere.gui.projectview.view.ScenarioJPanel;
-import org.vadere.gui.topographycreator.model.AgentWrapper;
-import org.vadere.gui.topographycreator.model.HorseWrapper;
 import org.vadere.gui.topographycreator.model.TopographyCreatorModel;
 import org.vadere.simulator.projects.io.JsonConverter;
 import org.vadere.state.attributes.Attributes;
-import org.vadere.state.scenario.Horse;
-import org.vadere.state.scenario.Pedestrian;
 import org.vadere.state.scenario.ScenarioElement;
+import org.vadere.state.scenario.dynamicelements.Agent;
+import org.vadere.state.scenario.dynamicelements.Horse;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 
 import java.awt.*;
 import java.io.IOException;
@@ -128,25 +127,20 @@ public class ScenarioElementView extends JPanel implements ISelectScenarioElemen
 				return;
 
 			// try {
-			if (element instanceof AgentWrapper) {
+			if (element instanceof Agent) {
 				// JsonSerializerVShape shapeSerializer = new JsonSerializerVShape();
 				Horse hor = null;
 				Pedestrian ped = null;
 				try {
-					if (element instanceof HorseWrapper) {
-						hor = JsonConverter.deserializeHorse(json);
+					if (element instanceof Horse) {
+						element = JsonConverter.deserializeHorse(json);
+
 					} else {
-						ped = JsonConverter.deserializePedestrian(json);
+						element = JsonConverter.deserializePedestrian(json);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				if (element instanceof HorseWrapper) {
-					((AgentWrapper) element).setAgentInitialStore(hor);
-				} else {
-					((AgentWrapper) element).setAgentInitialStore(ped);
-				}
-
 			} else {
 				try {
 					Attributes attributes = JsonConverter.deserializeScenarioElementType(json, element.getType());
@@ -186,14 +180,9 @@ public class ScenarioElementView extends JPanel implements ISelectScenarioElemen
 				}
 			} else {
 				try {
-					if (scenarioElement instanceof AgentWrapper) {
+					if (scenarioElement instanceof Pedestrian) {
 						this.txtrTextfiletextarea.setText(
-								JsonConverter.serializeObject(((AgentWrapper) scenarioElement).getAgentInitialStore()));
-					} else if (scenarioElement instanceof Pedestrian) {
-						this.txtrTextfiletextarea.setText(JsonConverter.serializeObject(scenarioElement));
-					} else if (scenarioElement instanceof HorseWrapper) {
-						this.txtrTextfiletextarea.setText(
-								JsonConverter.serializeObject(((HorseWrapper) scenarioElement).getAgentInitialStore()));
+								JsonConverter.serializeObject(scenarioElement));
 					} else if (scenarioElement instanceof Horse) {
 						this.txtrTextfiletextarea.setText(JsonConverter.serializeObject(scenarioElement));
 					} else {

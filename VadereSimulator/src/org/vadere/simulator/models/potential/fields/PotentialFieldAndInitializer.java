@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import org.vadere.simulator.models.potential.timeCostFunction.TimeCostFunctionFactory;
 import org.vadere.state.attributes.models.AttributesFloorField;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.Obstacle;
+import org.vadere.state.scenario.staticelements.Obstacle;
 import org.vadere.state.scenario.Topography;
 import org.vadere.state.types.EikonalSolverType;
 import org.vadere.util.geometry.shapes.VShape;
@@ -18,7 +18,6 @@ import org.vadere.util.potential.timecost.ITimeCostFunction;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

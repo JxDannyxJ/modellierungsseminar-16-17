@@ -1,11 +1,12 @@
-package org.vadere.state.scenario;
+package org.vadere.state.scenario.staticelements;
 
 import org.vadere.state.attributes.scenario.AttributesSource;
+import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VShape;
 
 /**
- * Class represents the source, where dynamic scenario elements spawn on.
+ * Class represents the source, where dynamicelements scenario elements spawn on.
  */
 public class Source implements ScenarioElement {
 

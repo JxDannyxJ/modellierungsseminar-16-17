@@ -1,4 +1,4 @@
-package org.vadere.state.scenario;
+package org.vadere.state.scenario.staticelements;
 
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
@@ -6,6 +6,7 @@ import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 
 import org.vadere.state.attributes.scenario.AttributesStairs;
+import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VLine;
 import org.vadere.util.geometry.shapes.VPoint;

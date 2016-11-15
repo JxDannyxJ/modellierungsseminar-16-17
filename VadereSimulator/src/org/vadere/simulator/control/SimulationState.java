@@ -1,9 +1,9 @@
 package org.vadere.simulator.control;
 
 import org.vadere.simulator.projects.ScenarioStore;
-import org.vadere.state.scenario.Car;
-import org.vadere.state.scenario.Horse;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Car;
+import org.vadere.state.scenario.dynamicelements.Horse;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.shapes.VPoint;
 

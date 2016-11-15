@@ -3,8 +3,8 @@ package org.vadere.state.scenario;
 import org.junit.Before;
 import org.junit.Test;
 import org.vadere.state.attributes.scenario.AttributesStairs;
-import org.vadere.state.scenario.Stairs;
-import org.vadere.state.scenario.Stairs.Tread;
+import org.vadere.state.scenario.staticelements.Stairs;
+import org.vadere.state.scenario.staticelements.Stairs.Tread;
 import org.vadere.util.geometry.GeometryUtils;
 import org.vadere.util.io.IOUtils;
 
@@ -38,7 +38,7 @@ public class TestStairs {
 	}
 
 	/**
-	 * Test method for {@link org.vadere.state.scenario.Stairs#getTreads()}.
+	 * Test method for {@link Stairs#getTreads()}.
 	 */
 	@Test
 	public void testGetTreadCount1() {
@@ -46,7 +46,7 @@ public class TestStairs {
 	}
 
 	/**
-	 * Test method for {@link org.vadere.state.scenario.Stairs#getTreads()}.
+	 * Test method for {@link Stairs#getTreads()}.
 	 */
 	@Test
 	public void testGetTreadsLines1() {
@@ -61,7 +61,7 @@ public class TestStairs {
 	}
 
 	/**
-	 * Test method for {@link org.vadere.state.scenario.Stairs#getTreads()}.
+	 * Test method for {@link Stairs#getTreads()}.
 	 */
 	@Test
 	public void testGetTreadsLines2() {
@@ -77,7 +77,7 @@ public class TestStairs {
 
 
 	/**
-	 * Test method for {@link org.vadere.state.scenario.Stairs#getAttributes()}.
+	 * Test method for {@link Stairs#getAttributes()}.
 	 */
 	@Test
 	public void testGetAttributes() {

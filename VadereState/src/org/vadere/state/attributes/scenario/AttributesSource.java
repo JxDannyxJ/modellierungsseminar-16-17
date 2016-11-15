@@ -55,9 +55,9 @@ public class AttributesSource extends Attributes {
 	private boolean useFreeSpaceOnly;
 	private List<Integer> targetIds = new LinkedList<>();
 	/**
-	 * The type of dynamic elements this source creates.
+	 * The type of dynamicelements elements this source creates.
 	 */
-	//TODO: Make this type dynamic to be able to spawn different dynamic types
+	//TODO: Make this type dynamicelements to be able to spawn different dynamicelements types
 	private DynamicElementType dynamicElementType = DynamicElementType.PEDESTRIAN;
 
 	/**

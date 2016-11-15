@@ -1,7 +1,7 @@
 package org.vadere.gui.components.view;
 
 import org.vadere.gui.components.model.IDefaultModel;
-import org.vadere.state.scenario.Agent;
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.util.geometry.shapes.VRectangle;
 import org.vadere.util.math.MathUtil;

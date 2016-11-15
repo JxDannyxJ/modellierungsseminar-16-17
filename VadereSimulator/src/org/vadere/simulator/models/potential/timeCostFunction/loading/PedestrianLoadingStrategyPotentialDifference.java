@@ -1,12 +1,10 @@
 package org.vadere.simulator.models.potential.timeCostFunction.loading;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.vadere.simulator.models.potential.fields.IPotentialTargetGrid;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.shapes.VPoint;
 
@@ -20,10 +18,10 @@ import org.vadere.util.geometry.shapes.VPoint;
  * body does not move towards the target, so the laoding should be higher. If
  * the potential difference is zero the body does not move. The Problem is that
  * a negative potential difference on the static potential field does not
- * necesserely mean that the pedestrian disturbs. On the dynamic field on the
+ * necesserely mean that the pedestrian disturbs. On the dynamicelements field on the
  * other hand we have no well defined measurement. So we try to combine the
- * informations. The dynamic field gives the indication that the movement is
- * disturbing (if the potential difference is negative on the dynamic field) or
+ * informations. The dynamicelements field gives the indication that the movement is
+ * disturbing (if the potential difference is negative on the dynamicelements field) or
  * is not disturbing (if the potential is positive). The static field gives the
  * us the measurement.
  * 
@@ -52,7 +50,7 @@ class PedestrianLoadingStrategyPotentialDifference implements
 	 *        the target id of the potential field that will be influenced
 	 *        by this loadin strategy
 	 * @param loading
-	 *        the constant laoding that will be multiplied to the dynamic
+	 *        the constant laoding that will be multiplied to the dynamicelements
 	 *        laoding
 	 * @param meanSpeed
 	 *        the mean speed of all pedestrians

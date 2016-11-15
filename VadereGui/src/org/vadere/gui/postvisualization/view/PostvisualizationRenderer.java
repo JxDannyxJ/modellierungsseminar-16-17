@@ -13,7 +13,7 @@ import org.vadere.gui.components.utils.ColorHelper;
 import org.vadere.gui.components.view.DefaultRenderer;
 import org.vadere.gui.components.view.SimulationRenderer;
 import org.vadere.gui.postvisualization.model.PostvisualizationModel;
-import org.vadere.state.scenario.Agent;
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.simulation.Step;
 import org.vadere.state.simulation.Trajectory;
 import org.vadere.util.geometry.shapes.VPoint;

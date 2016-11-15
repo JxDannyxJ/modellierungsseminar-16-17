@@ -17,10 +17,10 @@ public class AttributesTimeCost extends Attributes {
 	public enum TimeCostFunctionType {
 		/** a static middle scale navigation. */
 		UNIT,
-		/** a dynamic middle scale navigation (navigation around groups). */
+		/** a dynamicelements middle scale navigation (navigation around groups). */
 		NAVIGATION,
 
-		/** a dynamic middle scale navigation (queuing). */
+		/** a dynamicelements middle scale navigation (queuing). */
 		QUEUEING,
 
 		/** for the queuing game */
@@ -45,7 +45,7 @@ public class AttributesTimeCost extends Attributes {
 		 */
 		CONSTANT_RESPECT_TARGETS,
 		/**
-		 * use the dynamic loading strategy to calculate for each pedestrain an
+		 * use the dynamicelements loading strategy to calculate for each pedestrain an
 		 * individual loading.
 		 */
 		DYNAMIC,
@@ -77,10 +77,10 @@ public class AttributesTimeCost extends Attributes {
 	// @SerializedName("queueWidthLaoding")
 	private double queueWidthLoading = 1;
 
-	/** the laoding that will be multiplied to the dynamic loading. */
+	/** the laoding that will be multiplied to the dynamicelements loading. */
 	private double pedestrianDynamicWeight = 6.0;
 	/**
-	 * indicate that the dynamic potential field should calculate a individual
+	 * indicate that the dynamicelements potential field should calculate a individual
 	 * loading for each pedestrian or uses a constant laoding strategy. This
 	 * will be done by the loading strategies. If the
 	 * loadingType=CONSTANT_RESPECT_TARGETS than

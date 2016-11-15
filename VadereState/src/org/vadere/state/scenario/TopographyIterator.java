@@ -1,5 +1,7 @@
 package org.vadere.state.scenario;
 
+import org.vadere.state.scenario.dynamicelements.Agent;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;

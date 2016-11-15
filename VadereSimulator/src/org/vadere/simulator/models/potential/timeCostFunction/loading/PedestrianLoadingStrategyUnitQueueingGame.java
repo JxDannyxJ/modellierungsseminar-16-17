@@ -1,7 +1,7 @@
 package org.vadere.simulator.models.potential.timeCostFunction.loading;
 
 import org.vadere.simulator.models.queuing.QueueingGamePedestrian;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.types.PedestrianAttitudeType;
 
 public class PedestrianLoadingStrategyUnitQueueingGame<T extends Pedestrian>

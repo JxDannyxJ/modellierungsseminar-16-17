@@ -8,8 +8,8 @@ import org.vadere.simulator.projects.ScenarioStore;
 import org.vadere.simulator.projects.dataprocessing.ProcessorManager;
 import org.vadere.state.attributes.AttributesSimulation;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.Source;
-import org.vadere.state.scenario.Target;
+import org.vadere.state.scenario.staticelements.Source;
+import org.vadere.state.scenario.staticelements.Target;
 import org.vadere.state.scenario.Topography;
 
 import java.util.Collection;

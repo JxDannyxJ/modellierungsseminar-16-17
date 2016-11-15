@@ -3,10 +3,9 @@ package org.vadere.simulator.models.potential.timeCostFunction;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.simulator.models.potential.timeCostFunction.loading.IPedestrianLoadingStrategy;
-import org.vadere.simulator.models.potential.timeCostFunction.loading.LoadingFactory;
 import org.vadere.state.attributes.models.AttributesTimeCost;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.potential.timecost.ITimeCostFunction;
@@ -43,7 +42,7 @@ public class TimeCostPedestrianDensityIteration implements ITimeCostFunction {
 	private IPedestrianLoadingStrategy loadingStrategy;
 
 	/**
-	 * a flag which decide that we use a dynamic (true) or a constant (false)
+	 * a flag which decide that we use a dynamicelements (true) or a constant (false)
 	 * pedestrian loading.
 	 */
 	private boolean useDynamicLoading = false;
@@ -73,7 +72,7 @@ public class TimeCostPedestrianDensityIteration implements ITimeCostFunction {
 				+ attributes.getStandardDerivation());
 		logger.info("varianz:  " + this.varianz);
 		logger.info("scaleFactor (S_p):  " + this.scaleFactor);
-		logger.info("use dynamic loading:  " + useDynamicLoading);
+		logger.info("use dynamicelements loading:  " + useDynamicLoading);
 		logger.info("loading strategy:  " + loadingStrategy);
 		logger.info("time cost function:  " + timeCostFunction);
 	}

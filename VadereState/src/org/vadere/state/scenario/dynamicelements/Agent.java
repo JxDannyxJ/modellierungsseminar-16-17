@@ -1,4 +1,4 @@
-package org.vadere.state.scenario;
+package org.vadere.state.scenario.dynamicelements;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -8,6 +8,7 @@ import java.util.Random;
 import org.apache.commons.math3.random.JDKRandomGenerator;
 import org.apache.commons.math3.random.RandomGenerator;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.scenario.staticelements.Source;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -15,8 +16,8 @@ import org.vadere.util.geometry.shapes.VShape;
 import org.vadere.util.math.TruncatedNormalDistribution;
 
 /**
- * Agent is the abstract interface of all dynamic scenario elements. Thus a new scenario element
- * has to derive from this class to be a dynamic element in a scenario.
+ * Agent is the abstract interface of all dynamicelements scenario elements. Thus a new scenario element
+ * has to derive from this class to be a dynamicelements element in a scenario.
  */
 public abstract class Agent implements DynamicElement {
 
@@ -40,7 +41,7 @@ public abstract class Agent implements DynamicElement {
 	/**
 	 * The attributes, position, the velocity and the free flow velocity of an agent
 	 */
-	private AttributesAgent attributes;
+	private transient AttributesAgent attributes;
 	private VPoint position;
 	private Vector2D velocity;
 	private double freeFlowSpeed;
@@ -64,6 +65,12 @@ public abstract class Agent implements DynamicElement {
 		nextTargetListIndex = 0;
 
 		attributes = attributesAgent;
+	}
+
+	public Agent(AttributesAgent attributes, VPoint position) {
+		this(attributes, new Random());
+		setPosition(position);
+		setTargets(new LinkedList<Integer>());
 	}
 
 	/**
@@ -297,7 +304,7 @@ public abstract class Agent implements DynamicElement {
 
 	/**
 	 * Setter for the source of the agent, which is responsible for the spawn location
-	 * @param source object for spawning dynamic elements
+	 * @param source object for spawning dynamicelements elements
 	 */
 	public void setSource(Source source) {
 		this.source = source;

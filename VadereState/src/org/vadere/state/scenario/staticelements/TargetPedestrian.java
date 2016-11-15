@@ -1,6 +1,8 @@
-package org.vadere.state.scenario;
+package org.vadere.state.scenario.staticelements;
 
 import org.vadere.state.attributes.scenario.AttributesTarget;
+import org.vadere.state.scenario.DynamicElementRemoveListener;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.util.geometry.shapes.VShape;
 
 public class TargetPedestrian extends Target implements DynamicElementRemoveListener<Pedestrian> {

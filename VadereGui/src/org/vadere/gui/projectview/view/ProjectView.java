@@ -215,14 +215,19 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 	public static void start() {
 		try {
 			// Set Java L&F from system
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException
 				| IllegalAccessException e) {
 			IOUtils.errorBox("The system look and feel could not be loaded.", "Error setLookAndFeel");
 		}
+
 		// show GUI
 		ProjectViewModel model = new ProjectViewModel();
 		ProjectView frame = new ProjectView(model);
+
+//		frame.setUndecorated(true);
+//		frame.getRootPane().setWindowDecorationStyle(JRootPane.QUESTION_DIALOG);
 
 		//TODO: ASK FOR PERMISSION
 		java.util.List<Image> images = new ArrayList<Image>();

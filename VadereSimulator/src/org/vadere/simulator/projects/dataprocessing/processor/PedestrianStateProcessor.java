@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.vadere.simulator.control.SimulationState;
 import org.vadere.simulator.projects.dataprocessing.ProcessorManager;
 import org.vadere.simulator.projects.dataprocessing.datakey.TimestepPedestrianIdKey;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 
 /**
  * @brief   PedestrianStateProcessor adds a column "state" to the output with the state of a pedestrian.

@@ -1,13 +1,10 @@
 package org.vadere.gui.components.control;
 
 
-import java.lang.reflect.Field;
-
-import org.vadere.gui.topographycreator.model.AgentWrapper;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.scenario.ScenarioElement;
-import org.vadere.util.geometry.shapes.VPoint;
-import org.vadere.util.geometry.shapes.VShape;
+
+import java.lang.reflect.Field;
 
 /**
  * Setter and getter implementation to modify Attributes. This class uses use of reflection.

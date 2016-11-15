@@ -6,8 +6,8 @@ import org.apache.log4j.Logger;
 import org.vadere.simulator.projects.ScenarioRunManager;
 import org.vadere.simulator.projects.dataprocessing.processor.PedestrianPositionProcessor;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.Agent;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Agent;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.simulation.Step;
 import org.vadere.util.geometry.shapes.VPoint;
 
@@ -56,7 +56,7 @@ public class TrajectoryReader {
 						VPoint pos = new VPoint(Double.parseDouble(cells[2]), Double.parseDouble(cells[3]));
 						int targetId = Integer.parseInt(cells[4]);
 						
-						// also should read type and then call dynamic instantiation for type.
+						// also should read type and then call dynamicelements instantiation for type.
 
 						Pedestrian ped = new Pedestrian(new AttributesAgent(this.attributesAgent, pedestrianId), new Random());
 						ped.setPosition(pos);

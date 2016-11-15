@@ -4,7 +4,7 @@ import java.util.function.Predicate;
 
 import org.vadere.state.attributes.models.AttributesTimeCost;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.scenario.Topography;
 
 /**
@@ -39,7 +39,7 @@ public interface IPedestrianLoadingStrategy<T extends Pedestrian> {
 		switch (timeCostAttributes.getLoadingType()) {
 			case DYNAMIC:
 				throw new UnsupportedOperationException(
-						"the dynamic generation (potential differences) of the floor field is not supported.");
+						"the dynamicelements generation (potential differences) of the floor field is not supported.");
 				/*
 				 * loadingStrategy = new PedestrianLoadingStrategyPotentialDifference(
 				 * topography,

@@ -1,4 +1,4 @@
-package org.vadere.state.scenario;
+package org.vadere.state.scenario.staticelements;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import org.vadere.state.attributes.scenario.AttributesTarget;
+import org.vadere.state.scenario.ScenarioElement;
+import org.vadere.state.scenario.TargetListener;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VShape;
 

@@ -3,7 +3,7 @@ package org.vadere.simulator.control;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.simulator.projects.ScenarioRunManager;
-import org.vadere.state.scenario.Agent;
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.Topography;
 import org.vadere.state.simulation.Step;
 import org.vadere.state.simulation.Trajectory;

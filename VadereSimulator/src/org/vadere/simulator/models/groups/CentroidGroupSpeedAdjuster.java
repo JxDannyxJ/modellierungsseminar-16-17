@@ -1,8 +1,7 @@
 package org.vadere.simulator.models.groups;
 
 import org.vadere.simulator.models.SpeedAdjuster;
-import org.vadere.state.scenario.Horse;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 
 public class CentroidGroupSpeedAdjuster implements SpeedAdjuster {
 

@@ -7,15 +7,15 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.commons.math3.optim.OptimizationData;
-import org.vadere.state.scenario.Agent;
+import org.vadere.state.scenario.dynamicelements.Agent;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.util.geometry.shapes.VPoint;
 
 /**
- * A Trajectory is a list of {@link org.vadere.state.scenario.Pedestrian} objects, that can be seen
+ * A Trajectory is a list of {@link Pedestrian} objects, that can be seen
  * as pedestrian states of the same
  * pedestrian. The representing pedestrian is the same, so all
- * {@link org.vadere.state.scenario.Pedestrian} objects has
+ * {@link Pedestrian} objects has
  * the same id but the state of a pedestrian changes over time.
  *
  */

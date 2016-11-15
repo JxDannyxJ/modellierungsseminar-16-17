@@ -1,18 +1,15 @@
-package org.vadere.state.scenario;
-
-import java.util.LinkedList;
-import java.util.Random;
+package org.vadere.state.scenario.dynamicelements;
 
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.types.ScenarioElementType;
-import org.vadere.util.geometry.Vector2D;
-import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VPolygon;
 import org.vadere.util.geometry.shapes.VRectangle;
 
+import java.util.Random;
+
 /**
- * Represents a dynamic car scenario element.
+ * Represents a dynamicelements car scenario element.
  */
 public class Car extends Agent implements Comparable<Car> {
 

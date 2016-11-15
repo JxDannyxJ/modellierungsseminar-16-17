@@ -5,7 +5,7 @@ import org.vadere.simulator.models.potential.timeCostFunction.loading.IPedestria
 import org.vadere.simulator.models.queuing.QueueingGamePedestrian;
 import org.vadere.state.attributes.models.AttributesTimeCost;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.scenario.Topography;
 import org.vadere.state.types.PedestrianAttitudeType;
 import org.vadere.util.potential.timecost.ITimeCostFunction;

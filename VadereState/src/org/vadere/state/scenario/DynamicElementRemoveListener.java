@@ -1,6 +1,8 @@
 package org.vadere.state.scenario;
 
 
+import org.vadere.state.scenario.dynamicelements.DynamicElement;
+
 /**
  * @see PedestrianRemoveListener
  */

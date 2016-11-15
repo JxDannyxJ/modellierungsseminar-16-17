@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.Collection;
 import java.util.Optional;
 
-import org.vadere.state.scenario.Agent;
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.math.InterpolationUtil;
 import org.vadere.util.potential.CellGrid;

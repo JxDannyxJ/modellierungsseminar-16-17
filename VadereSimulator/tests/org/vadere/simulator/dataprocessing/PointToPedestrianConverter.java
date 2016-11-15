@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.Random;
 
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.Agent;
-import org.vadere.state.scenario.Pedestrian;
-import org.vadere.util.geometry.GeometryUtils;
+import org.vadere.state.scenario.dynamicelements.Agent;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.util.geometry.shapes.VPoint;
-import org.vadere.util.geometry.shapes.VRectangle;
 
 /**
  * This class helps to generate specific sets of positions and sets of pedestrians.

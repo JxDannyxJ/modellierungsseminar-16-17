@@ -1,10 +1,8 @@
-package org.vadere.state.scenario;
+package org.vadere.state.scenario.dynamicelements;
 
 import org.jetbrains.annotations.NotNull;
-import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.types.ScenarioElementType;
-import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VEllipse;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
@@ -17,9 +15,17 @@ import java.util.Random;
  */
 public class Horse extends Agent implements Comparable<Horse> {
 
-	private AttributesHorse attributesHorse;
 	private transient Random random;
 	private ScenarioElementType type = ScenarioElementType.HORSE;
+	private AttributesHorse attributesHorse;
+
+	private Horse() {
+		this(new AttributesHorse());
+	}
+
+	private Horse(AttributesHorse attributesHorse) {
+		this(attributesHorse, new Random());
+	}
 
 	/**
 	 * Default constructor of the Horse class, which accepts attributes
@@ -31,18 +37,12 @@ public class Horse extends Agent implements Comparable<Horse> {
 	 */
 	public Horse(AttributesHorse attributesHorse, Random random) {
 		super(attributesHorse, random);
+		this.attributesHorse = attributesHorse;
+	}
 
-		this.setAttributesHorse(attributesHorse);
-		setPosition(new VPoint(0, 0));
-		setVelocity(new Vector2D(0, 0));
-	}
-	
-	private Horse() {
-		this(new AttributesHorse());
-	}
-	
-	private Horse(AttributesHorse attributesHorse) {
-		this(attributesHorse, new Random());
+	public Horse(AttributesHorse attributesHorse, VPoint position) {
+		super(attributesHorse, position);
+		this.attributesHorse = attributesHorse;
 	}
 
 	/**
@@ -54,21 +54,12 @@ public class Horse extends Agent implements Comparable<Horse> {
 		super(other);
 	}
 
-	/**
-	 * Setter for the horse attributes
-	 *
-	 * @param attributesHorse attributes object of the horse
-	 */
-	public void setAttributesHorse(AttributesHorse attributesHorse) {
-		this.attributesHorse = attributesHorse;
-	}
-
 	@Override
 	public int compareTo(@NotNull Horse o) {
 		Double thisPos = new Double(this.getPosition().getX());
 		Double othPos = new Double(o.getPosition().getX());
 
-		if (attributesHorse.getDirection().getX() >= 0) {
+		if (((AttributesHorse)super.getAttributes()).getDirection().getX() >= 0) {
 			return -1 * thisPos.compareTo(othPos);
 		} else {
 			return thisPos.compareTo(othPos);
@@ -77,7 +68,7 @@ public class Horse extends Agent implements Comparable<Horse> {
 
 	@Override
 	public VShape getShape() {
-		return new VEllipse(this.getPosition(), attributesHorse.getHeight(), attributesHorse.getWidth());
+		return new VEllipse(this.getPosition(), ((AttributesHorse)super.getAttributes()).getHeight(), ((AttributesHorse)super.getAttributes()).getWidth());
 	}
 
 	@Override
@@ -88,11 +79,6 @@ public class Horse extends Agent implements Comparable<Horse> {
 	@Override
 	public Horse clone() {
 		return new Horse(this);
-	}
-	
-	@Override 
-	public AttributesHorse getAttributes() {
-		return attributesHorse;
 	}
 	
 }

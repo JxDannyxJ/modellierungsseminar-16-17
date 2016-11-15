@@ -1,7 +1,6 @@
 package org.vadere.simulator.models;
 
-import org.vadere.state.scenario.Horse;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 
 /**
  * Speed adjuster adjust the desired speed according to some criteria. See

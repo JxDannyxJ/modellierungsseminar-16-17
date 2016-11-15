@@ -8,7 +8,7 @@ import java.util.Map;
 import org.vadere.gui.components.view.DefaultRenderer;
 import org.vadere.gui.components.view.SimulationRenderer;
 import org.vadere.gui.onlinevisualization.model.OnlineVisualizationModel;
-import org.vadere.state.scenario.Agent;
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.util.geometry.shapes.VPoint;
 
 public class OnlinevisualizationRenderer extends SimulationRenderer {

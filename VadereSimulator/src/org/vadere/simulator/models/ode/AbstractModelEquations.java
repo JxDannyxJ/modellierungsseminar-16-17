@@ -9,8 +9,7 @@ import java.util.Map;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.vadere.simulator.models.potential.fields.PotentialFieldAgent;
 import org.vadere.simulator.models.potential.fields.PotentialFieldObstacle;
-import org.vadere.state.scenario.DynamicElement;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.DynamicElement;
 import org.vadere.state.scenario.Topography;
 import org.vadere.util.potential.gradients.GradientProvider;
 

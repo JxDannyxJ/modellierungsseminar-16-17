@@ -6,10 +6,9 @@ package org.vadere.simulator.models.osm.stairOptimization;
 
 import org.apache.log4j.Logger;
 import org.vadere.simulator.models.osm.AgentOSM;
-import org.vadere.simulator.models.osm.PedestrianOSM;
 import org.vadere.simulator.models.osm.optimization.StepCircleOptimizer;
-import org.vadere.state.scenario.Stairs;
-import org.vadere.state.scenario.Stairs.Tread;
+import org.vadere.state.scenario.staticelements.Stairs;
+import org.vadere.state.scenario.staticelements.Stairs.Tread;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VLine;

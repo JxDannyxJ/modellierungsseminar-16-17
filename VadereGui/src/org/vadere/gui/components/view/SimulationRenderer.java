@@ -6,7 +6,7 @@ import org.vadere.gui.components.model.SimulationModel;
 import org.vadere.gui.components.utils.CLGaussianCalculator;
 import org.vadere.gui.components.utils.ColorHelper;
 import org.vadere.gui.components.utils.Resources;
-import org.vadere.state.scenario.Agent;
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.util.geometry.shapes.VPoint;
 
 import java.awt.*;

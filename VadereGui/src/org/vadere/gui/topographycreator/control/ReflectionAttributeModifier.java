@@ -1,12 +1,12 @@
 package org.vadere.gui.topographycreator.control;
 
-import java.lang.reflect.Field;
-
-import org.vadere.gui.topographycreator.model.AgentWrapper;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.scenario.ScenarioElement;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
+
+import java.lang.reflect.Field;
 
 /**
  * Setter and getter implementation to modify Attributes. This class uses use of reflection.
@@ -25,10 +25,10 @@ public class ReflectionAttributeModifier {
 	static void setShapeToAttributes(final ScenarioElement element, final VShape shape) {
 		try {
 			Field field;
-			if (element instanceof AgentWrapper) {
+			if (element instanceof Pedestrian) {
 				double x = shape.getBounds2D().getCenterX();
 				double y = shape.getBounds2D().getCenterY();
-				((AgentWrapper) element).getAgentInitialStore().setPosition(new VPoint(x, y));
+				((Pedestrian) element).setPosition(new VPoint(x, y));
 			} else {
 				Attributes attributes =
 						org.vadere.gui.components.control.ReflectionAttributeModifier.getAttributes(element);

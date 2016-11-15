@@ -1,11 +1,9 @@
 package org.vadere.simulator.imageprocessing;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.vadere.simulator.dataprocessing.CreatePoints;
-import org.vadere.simulator.models.density.IGaussianFilter;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VRectangle;
 

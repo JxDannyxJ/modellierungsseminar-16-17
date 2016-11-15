@@ -9,7 +9,6 @@ import java.util.Collection;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class PedestrianTargetIdProcessor extends DataProcessor<TimestepPedestrianIdKey, Integer> {
@@ -29,5 +28,12 @@ public class PedestrianTargetIdProcessor extends DataProcessor<TimestepPedestria
 	@Override
 	public void init(final ProcessorManager manager) {
 		// No initialization needed
+	}
+
+	@Override
+	public String[] toStrings(TimestepPedestrianIdKey key) {
+		Integer targetID = this.getValue(key);
+
+		return new String[]{Integer.toString(targetID != null ? targetID : -1)};
 	}
 }

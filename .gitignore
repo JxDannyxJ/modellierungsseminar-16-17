@@ -37,3 +37,6 @@ VadereGui/output/
 #linux
 tags
 *.swp
+
+#ignore first sprint
+Documentation/presentation/Sprint 1/*

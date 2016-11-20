@@ -3,7 +3,7 @@ package org.vadere.gui.components.utils;
 import javax.swing.*;
 
 import org.vadere.gui.projectview.VadereApplication;
-import org.vadere.gui.projectview.view.ProjectView;
+import org.vadere.gui.projectview.view.VadereWindow;
 
 import java.beans.Beans;
 import java.util.Locale;
@@ -52,7 +52,7 @@ public abstract class Messages {
 
 	public static void changeLanguage(Locale lang) {
 		Preferences.userNodeForPackage(VadereApplication.class).put("language", lang.getLanguage());
-		JOptionPane.showMessageDialog(ProjectView.getMainWindow(), getString("Messages.changeLanguagePopup.text"),
+		JOptionPane.showMessageDialog(VadereWindow.getMainWindow(), getString("Messages.changeLanguagePopup.text"),
 				getString("Messages.changeLanguagePopup.title"), JOptionPane.INFORMATION_MESSAGE);
 	}
 

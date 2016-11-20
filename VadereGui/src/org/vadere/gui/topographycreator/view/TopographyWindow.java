@@ -91,7 +91,7 @@ public class TopographyWindow extends JPanel {
 	}
 
 	private static JButton addActionToToolbar(final JToolBar toolbar, final Action action,
-			final String toolTipProperty) {
+											  final String toolTipProperty) {
 		JButton button = toolbar.add(action);
 		button.setBorderPainted(false);
 		button.setToolTipText(Messages.getString(toolTipProperty));
@@ -99,7 +99,7 @@ public class TopographyWindow extends JPanel {
 	}
 
 	private static JButton addActionToToolbar(final JToolBar toolbar, final Action action, final String toolTipProperty,
-			final JButton button) {
+											  final JButton button) {
 		button.setAction(action);
 		button.setText("");
 		toolbar.add(button);
@@ -244,15 +244,15 @@ public class TopographyWindow extends JPanel {
 				/* list of actions for the sub-dialog */
 				Action pen = new ActionSwitchSelectionMode("Pen", new ImageIcon(Resources.class
 						.getResource("/icons/paint_method_pen_icon.png")), panelModel, new DrawPolygonMode(panelModel,
-								undoSupport),
+						undoSupport),
 						basicAction);
 				Action rectangle = new ActionSwitchSelectionMode("Rectangle", new ImageIcon(Resources.class
 						.getResource("/icons/paint_method_rectangle_icon.png")), panelModel, new DrawRectangleMode(
-								panelModel, undoSupport),
+						panelModel, undoSupport),
 						basicAction);
 				Action dot = new ActionSwitchSelectionMode("Circle", new ImageIcon(Resources.class
 						.getResource("/icons/paint_method_dot_icon.png")), panelModel, new DrawDotMode(panelModel,
-								undoSupport),
+						undoSupport),
 						basicAction);
 
 				List<Action> obstacleAndTargetDrawModes = new ArrayList<Action>();
@@ -293,7 +293,7 @@ public class TopographyWindow extends JPanel {
 				TopographyAction switchToHorseAction = new ActionSwitchCategory("switch to horse", panelModel,  //CHANGED AG NOT WORKING
 						ScenarioElementType.HORSE, selectEllipseAction);
 				TopographyAction closeDialogAction2 = new ActionCloseDrawOptionPanel("Horse", new ImageIcon(
-						Resources.class.getResource("/icons/horse.png")), panelModel,switchToHorseAction);
+						Resources.class.getResource("/icons/horse.png")), panelModel, switchToHorseAction);
 				
 
 				/* switch category to source action */
@@ -307,13 +307,13 @@ public class TopographyWindow extends JPanel {
 						sourceDrawModes);
 
 				addActionToToolbar(toolbar, new ActionSelectSelectShape("select shape mode", new ImageIcon(
-						Resources.class.getResource("/icons/select_shapes_icon.png")), panelModel, undoSupport),
+								Resources.class.getResource("/icons/select_shapes_icon.png")), panelModel, undoSupport),
 						"select_shape_tooltip");
 				addActionToToolbar(
 						toolbar,
 						new ActionSwitchSelectionMode("erase mode", new ImageIcon(Resources.class
 								.getResource("/icons/eraser_icon.png")), panelModel, new EraserMode(panelModel,
-										undoSupport),
+								undoSupport),
 								basicAction),
 						"TopographyCreator.btnErase.tooltip");
 				toolbar.addSeparator(new Dimension(5, 50));

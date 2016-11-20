@@ -1,5 +1,6 @@
 package org.vadere.state.scenario.staticelements;
 
+import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.AttributesTeleporter;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
@@ -9,7 +10,7 @@ import org.vadere.util.geometry.shapes.VShape;
 
 public class Teleporter implements ScenarioElement {
 
-	private final AttributesTeleporter attributes;
+	private AttributesTeleporter attributes;
 
 	public Teleporter(AttributesTeleporter attributes) {
 		this.attributes = attributes;
@@ -40,6 +41,11 @@ public class Teleporter implements ScenarioElement {
 
 	public AttributesTeleporter getAttributes() {
 		return this.attributes;
+	}
+
+	@Override
+	public void setAttributes(Attributes attributes) {
+		this.attributes = (AttributesTeleporter)attributes;
 	}
 
 	@Override

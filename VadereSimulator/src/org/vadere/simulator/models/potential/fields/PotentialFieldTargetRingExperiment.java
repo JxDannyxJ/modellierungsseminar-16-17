@@ -1,5 +1,6 @@
 package org.vadere.simulator.models.potential.fields;
 
+import org.vadere.simulator.models.osm.HorseOSM;
 import org.vadere.simulator.models.osm.PedestrianOSM;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.AttributesPotentialRingExperiment;
@@ -44,23 +45,28 @@ public class PotentialFieldTargetRingExperiment implements IPotentialTargetGrid 
 	 * Afterwards, rate "pos" and check if it lies in the same direction as tangent vector.
 	 */
 	@Override
-	public double getTargetPotential(VPoint pos, Agent ped) {
-		Vector2D pedestrian = new Vector2D(ped.getPosition());
+	public double getTargetPotential(VPoint pos, Agent agent) {
+		Vector2D agentVector = new Vector2D(agent.getPosition());
 		Vector2D center = new Vector2D(attributes.getCenter());
 
-		Vector2D centerToPedestrian = pedestrian.sub(center);
+		Vector2D centerToPedestrian = agentVector.sub(center);
 		VPoint rotatedVector = centerToPedestrian.rotate(Math.PI / 2);
 		Vector2D tangent = new Vector2D(rotatedVector);
 
 		double stepLength = attributes.getPedestrianRadius();
 
-		if (ped instanceof PedestrianOSM) {
-			PedestrianOSM pedestrianOSM = (PedestrianOSM) ped;
+		if (agent instanceof PedestrianOSM) {
+			PedestrianOSM pedestrianOSM = (PedestrianOSM) agent;
 			stepLength = pedestrianOSM.getStepSize();
+		} else {
+			if (agent instanceof HorseOSM) {
+				HorseOSM horseOSM = (HorseOSM) agent;
+				stepLength = horseOSM.getStepSize();
+			}
 		}
 
 		Vector2D normalizedTangent = tangent.normalize(stepLength);
-		Vector2D bestNextPosition = pedestrian.add(normalizedTangent);
+		Vector2D bestNextPosition = agentVector.add(normalizedTangent);
 
 		double potential = bestNextPosition.distance(pos);
 
@@ -68,12 +74,12 @@ public class PotentialFieldTargetRingExperiment implements IPotentialTargetGrid 
 	}
 
 	@Override
-	public Vector2D getTargetPotentialGradient(VPoint pos, Agent ped) {
-		Vector2D pedestrian = new Vector2D(ped.getPosition());
+	public Vector2D getTargetPotentialGradient(VPoint pos, Agent agent) {
+		Vector2D agentVector = new Vector2D(agent.getPosition());
 		Vector2D center = new Vector2D(attributes.getCenter());
 
-		Vector2D centerToPedestrian = pedestrian.sub(center);
-		VPoint rotatedVector = centerToPedestrian.rotate(Math.PI / 2);
+		Vector2D centerToAgent = agentVector.sub(center);
+		VPoint rotatedVector = centerToAgent.rotate(Math.PI / 2);
 		Vector2D tangent = new Vector2D(rotatedVector);
 
 		return tangent;

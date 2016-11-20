@@ -1,20 +1,21 @@
 package org.vadere.state.scenario.staticelements;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-
+import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.AttributesTarget;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.scenario.TargetListener;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VShape;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+
 public class Target implements ScenarioElement, Comparable<Target> {
 
-	private final AttributesTarget attributes;
+	private AttributesTarget attributes;
 	private final Map<Integer, Double> enteringTimes;
 	
 	/** Collection of listeners - order does not play a role. */
@@ -114,6 +115,11 @@ public class Target implements ScenarioElement, Comparable<Target> {
 	@Override
 	public AttributesTarget getAttributes() {
 		return attributes;
+	}
+
+	@Override
+	public void setAttributes(Attributes attributes) {
+		this.attributes = (AttributesTarget) attributes;
 	}
 
 	/** Is this target actually a pedestrian? @see scenario.TargetPedestrian */

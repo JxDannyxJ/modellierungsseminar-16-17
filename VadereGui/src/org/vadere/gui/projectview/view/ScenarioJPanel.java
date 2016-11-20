@@ -114,7 +114,7 @@ public class ScenarioJPanel extends JPanel implements IProjectChangeListener, Pr
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						if (JOptionPane.showConfirmDialog(ProjectView.getMainWindow(),
+						if (JOptionPane.showConfirmDialog(VadereWindow.getMainWindow(),
 								Messages.getString("Tab.Model.confirmLoadTemplate.text"),
 								Messages.getString("Tab.Model.confirmLoadTemplate.title"),
 								JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
@@ -187,7 +187,7 @@ public class ScenarioJPanel extends JPanel implements IProjectChangeListener, Pr
 				processorsMenu.add(new JMenuItem(new AbstractAction(templateFileName) {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						if (JOptionPane.showConfirmDialog(ProjectView.getMainWindow(),
+						if (JOptionPane.showConfirmDialog(VadereWindow.getMainWindow(),
 								Messages.getString("Tab.Model.confirmLoadTemplate.text"),
 								Messages.getString("Tab.Model.confirmLoadTemplate.title"),
 								JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {

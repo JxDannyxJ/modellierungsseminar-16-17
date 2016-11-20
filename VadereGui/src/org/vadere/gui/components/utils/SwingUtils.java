@@ -2,8 +2,6 @@ package org.vadere.gui.components.utils;
 
 import javax.swing.*;
 
-import org.vadere.gui.projectview.view.ProjectView;
-
 import java.awt.*;
 
 public class SwingUtils {

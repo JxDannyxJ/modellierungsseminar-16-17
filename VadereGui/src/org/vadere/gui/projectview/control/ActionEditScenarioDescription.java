@@ -4,7 +4,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.gui.components.utils.Messages;
 import org.vadere.gui.projectview.model.ProjectViewModel;
-import org.vadere.gui.projectview.view.ProjectView;
+import org.vadere.gui.projectview.view.VadereWindow;
 import org.vadere.simulator.projects.ScenarioRunManager;
 
 import java.awt.*;
@@ -45,7 +45,7 @@ public class ActionEditScenarioDescription extends AbstractAction {
 		});
 
 		int ret = JOptionPane.showConfirmDialog(
-				ProjectView.getMainWindow(),
+				VadereWindow.getMainWindow(),
 				scrollPane,
 				Messages.getString("ActionEditScenarioDescription.menu.title"),
 				JOptionPane.OK_CANCEL_OPTION);

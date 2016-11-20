@@ -1,5 +1,6 @@
 package org.vadere.state.scenario.dynamicelements;
 
+import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -24,7 +25,9 @@ public class Pedestrian extends Agent {
 	// TODO used at all? Car does NOT have this field. remove if unused!
 	private ScenarioElementType type = ScenarioElementType.PEDESTRIAN;
 
-	/* this constructor will be called by gson */
+	/**
+	 * This constructor is used by the json serializer while serializing the class
+	 */
 	@SuppressWarnings("unused")
 	private Pedestrian() {
 		this(new AttributesAgent());
@@ -37,8 +40,6 @@ public class Pedestrian extends Agent {
 	public Pedestrian(AttributesAgent attributesPed, VPoint position) {
 		super(attributesPed, position);
 
-		// Set the attribute again for serialization, attributes is transient in the super class
-		this.attributesPed = attributesPed;
 		modelPedestrianMap = new HashMap<>();
 
 		isChild = false;
@@ -49,7 +50,6 @@ public class Pedestrian extends Agent {
 	public Pedestrian(AttributesAgent attributesPed, Random random) {
 		super(attributesPed, random);
 
-		this.attributesPed = attributesPed;
 		modelPedestrianMap = new HashMap<>();
 
 		isChild = false;
@@ -76,6 +76,16 @@ public class Pedestrian extends Agent {
 	@Override
 	public Pedestrian clone() {
 		return new Pedestrian(this);
+	}
+
+	@Override
+	public AttributesAgent getAttributes() {
+		return attributesPed;
+	}
+
+	@Override
+	public void setAttributes(Attributes attributes) {
+		attributesPed = (AttributesAgent) attributes;
 	}
 
 	public <T extends ModelPedestrian> T getModelPedestrian(Class<? extends T> modelType) {
@@ -117,5 +127,15 @@ public class Pedestrian extends Agent {
 
 	public void setLikelyInjured(boolean likelyInjured) {
 		this.isLikelyInjured = likelyInjured;
+	}
+
+	@Override
+	public void copy(Agent element) {
+		super.copy(element);
+		Pedestrian ped = ((Pedestrian)element);
+		this.isChild = ped.isChild();
+		this.isLikelyInjured = ped.isLikelyInjured();
+
+		this.groupIds = new LinkedList<>(ped.getGroupIds());
 	}
 }

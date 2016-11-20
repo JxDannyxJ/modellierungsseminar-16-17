@@ -1,5 +1,18 @@
 package org.vadere.simulator.projects;
 
+import au.com.bytecode.opencsv.CSVReader;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.vadere.simulator.control.Simulation;
+import org.vadere.simulator.models.MainModelBuilder;
+import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.scenario.Topography;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
+import org.vadere.util.geometry.Vector2D;
+import org.vadere.util.geometry.shapes.VPoint;
+import org.vadere.util.io.filewatcher.LockFileHandler;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -13,19 +26,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.vadere.simulator.control.Simulation;
-import org.vadere.simulator.models.MainModelBuilder;
-import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.dynamicelements.Pedestrian;
-import org.vadere.state.scenario.Topography;
-import org.vadere.util.geometry.Vector2D;
-import org.vadere.util.geometry.shapes.VPoint;
-import org.vadere.util.io.filewatcher.LockFileHandler;
-
-import au.com.bytecode.opencsv.CSVReader;
 
 /**
  * Can be used to start Vadere in [lock] mode.
@@ -148,6 +148,12 @@ public class ScenarioRunLocked extends ScenarioRunManager {
 		}
 	}
 
+	/**
+	 *
+	 * @param topography
+	 * @return
+	 * @throws IOException
+	 */
 	private Topography prepareTopographyWithTSF(Topography topography) throws IOException {
 		final char separator = ';';// TODO [task=feature] [priority=low] add config for this separator
 

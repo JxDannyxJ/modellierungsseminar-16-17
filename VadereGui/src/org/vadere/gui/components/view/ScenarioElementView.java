@@ -4,23 +4,25 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rsyntaxtextarea.Theme;
 import org.vadere.gui.components.control.ReflectionAttributeModifier;
 import org.vadere.gui.components.model.IDefaultModel;
 import org.vadere.gui.projectview.view.JsonValidIndicator;
-import org.vadere.gui.projectview.view.ProjectView;
 import org.vadere.gui.projectview.view.ScenarioJPanel;
+import org.vadere.gui.projectview.view.VadereWindow;
 import org.vadere.gui.topographycreator.model.TopographyCreatorModel;
 import org.vadere.simulator.projects.io.JsonConverter;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.scenario.dynamicelements.Agent;
-import org.vadere.state.scenario.dynamicelements.Horse;
-import org.vadere.state.scenario.dynamicelements.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.DynamicElement;
+import org.vadere.state.types.ScenarioElementType;
 
 import java.awt.*;
 import java.io.IOException;
@@ -31,7 +33,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 /**
- * The ScenarioElementView display's a ScenarioElement in JSON-Format.
+ * This class represents the json text view in the side bar of the topography designer.
+ * Changes in the view are tracked here, saved locally and errors in the json file are displayed.
  */
 public class ScenarioElementView extends JPanel implements ISelectScenarioElementListener {
 
@@ -52,6 +55,7 @@ public class ScenarioElementView extends JPanel implements ISelectScenarioElemen
 		this.panelModel.addSelectScenarioElementListener(this);
 		CellConstraints cc = new CellConstraints();
 		JScrollPane scrollPane = new JScrollPane();
+		logger.setLevel(Level.INFO);
 		scrollPane.setPreferredSize(new Dimension(1, Toolkit.getDefaultToolkit().getScreenSize().height));
 
 		if (topComponent != null) {
@@ -115,6 +119,10 @@ public class ScenarioElementView extends JPanel implements ISelectScenarioElemen
 		txtrTextfiletextarea.getDocument().addDocumentListener(documentListener);
 	}
 
+	/**
+	 * Update Model is called whenever the document listener tracks a change of the json file
+	 * in the side bar of the topography designer
+	 */
 	private void updateModel() {
 		// set the content for the view
 		// defaultModel.setJSONContent(event.getDocument().getText(0,
@@ -122,38 +130,38 @@ public class ScenarioElementView extends JPanel implements ISelectScenarioElemen
 		ScenarioElement element = panelModel.getSelectedElement();
 		if (element != null) {
 			String json = txtrTextfiletextarea.getText();
+			ScenarioElementType type = element.getType();
 
 			if (json.length() == 0)
 				return;
 
-			// try {
-			if (element instanceof Agent) {
-				// JsonSerializerVShape shapeSerializer = new JsonSerializerVShape();
-				Horse hor = null;
-				Pedestrian ped = null;
-				try {
-					if (element instanceof Horse) {
-						element = JsonConverter.deserializeHorse(json);
+			try {
+				logger.log(Priority.DEBUG, "Starting to LOAD text from json view into scenario element object...");
 
-					} else {
-						element = JsonConverter.deserializePedestrian(json);
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
+				// If dynamic element, then deserialize both, attributes and scenario element
+				if (element instanceof DynamicElement) {
+					//TODO: Copy is placed in Agent class to provide subclasses the option to copy variables from another Agent class
+					((Agent) element).copy(JsonConverter.deserializeDynamicElement(json, type));
+				} else {
+					Attributes attributes = JsonConverter.deserializeScenarioElementAttributes(json, type);
+					element.setAttributes(attributes);
+//					ReflectionAttributeModifier.setAttributes(element, attributes);
 				}
-			} else {
-				try {
-					Attributes attributes = JsonConverter.deserializeScenarioElementType(json, element.getType());
-					ReflectionAttributeModifier.setAttributes(element, attributes);
-					ScenarioJPanel.removeJsonParsingErrorMsg();
-					ProjectView.getMainWindow().refreshScenarioNames();
-					jsonValidIndicator.setValid();
-					((TopographyCreatorModel) panelModel).getScenario().updateCurrentStateSerialized(); // casting should be safe her because in the other two modes (onlineVis and postVis), updateModel() won't be called because it's set to uneditable
-				} catch (IOException e) {
-					ScenarioJPanel.setActiveJsonParsingErrorMsg("TOPOGRAPHY CREATOR tab:\n" + e.getMessage()); // add name of scenario element?
-					jsonValidIndicator.setInvalid();
-				}
+				ScenarioJPanel.removeJsonParsingErrorMsg();
+				VadereWindow.getMainWindow().refreshScenarioNames();
+				jsonValidIndicator.setValid();
+
+				// Replace the changed element in the main json
+
+
+				// casting should be safe her because in the other two modes (onlineVis and postVis), updateModel() won't be called because it's set to uneditable
+				((TopographyCreatorModel) panelModel).getScenario().updateCurrentStateSerialized();
+			} catch (IOException e) {
+				logger.log(Priority.WARN, "The JsonParser encountered an error while parsing an invalid json document!", e);
+				ScenarioJPanel.setActiveJsonParsingErrorMsg("TOPOGRAPHY CREATOR tab:\n" + e.getMessage()); // add name of scenario element?
+				jsonValidIndicator.setInvalid();
 			}
+
 			panelModel.setElementHasChanged(element);
 			panelModel.notifyObservers();
 		}
@@ -180,17 +188,16 @@ public class ScenarioElementView extends JPanel implements ISelectScenarioElemen
 				}
 			} else {
 				try {
-					if (scenarioElement instanceof Pedestrian) {
+					logger.log(Priority.DEBUG, "Starting to SAVE scenario element objects into json view...");
+					if (scenarioElement instanceof DynamicElement) {
 						this.txtrTextfiletextarea.setText(
 								JsonConverter.serializeObject(scenarioElement));
-					} else if (scenarioElement instanceof Horse) {
-						this.txtrTextfiletextarea.setText(JsonConverter.serializeObject(scenarioElement));
 					} else {
 						this.txtrTextfiletextarea.setText(JsonConverter
 								.serializeObject(ReflectionAttributeModifier.getAttributes(scenarioElement)));
 					}
 				} catch (JsonProcessingException e) {
-					e.printStackTrace();
+					logger.log(Priority.ERROR, "Exception occurred during serializing object into Topography-Designer Json View", e);
 				}
 			}
 		}

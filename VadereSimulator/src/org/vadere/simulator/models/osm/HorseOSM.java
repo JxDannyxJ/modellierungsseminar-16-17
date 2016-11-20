@@ -1,32 +1,32 @@
 package org.vadere.simulator.models.osm;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-
 import org.vadere.simulator.models.SpeedAdjuster;
 import org.vadere.simulator.models.osm.optimization.StepCircleOptimizer;
 import org.vadere.simulator.models.osm.stairOptimization.StairStepOptimizer;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeEventDriven;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM;
-import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeSequential;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM.CallMethod;
+import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeSequential;
 import org.vadere.simulator.models.potential.fields.PotentialFieldAgent;
 import org.vadere.simulator.models.potential.fields.PotentialFieldObstacle;
 import org.vadere.simulator.models.potential.fields.PotentialFieldTarget;
 import org.vadere.simulator.models.potential.fields.PotentialFieldTargetRingExperiment;
 import org.vadere.state.attributes.models.AttributesOSM;
 import org.vadere.state.attributes.scenario.AttributesHorse;
+import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.Horse;
 import org.vadere.state.scenario.staticelements.Stairs;
-import org.vadere.state.scenario.Topography;
 import org.vadere.state.types.UpdateType;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
 
 public class HorseOSM extends Horse implements AgentOSM {
 
@@ -46,7 +46,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	private final double stepLength;
 	private final double stepDeviation;
-//	private List<SpeedAdjuster> speedAdjusters;
+	//	private List<SpeedAdjuster> speedAdjusters;
 	private final double minStepLength;
 
 	private double durationNextStep;
@@ -58,7 +58,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 	// for event driven update...
 	private double timeOfNextStep;
 
-	private transient Collection<? extends Agent> relevantPedestrians;
+	private transient Collection<? extends Agent> relevantHorses;
 
 	// calculated by (current position - last position)/(period of time).
 	private double speedByAbsoluteDistance;
@@ -68,14 +68,14 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	@SuppressWarnings("unchecked")
 	HorseOSM(AttributesOSM attributesOSM,
-			AttributesHorse attributesPedestrian, Topography topography,
-			Random random, PotentialFieldTarget potentialFieldTarget,
-			PotentialFieldObstacle potentialFieldObstacle,
-			PotentialFieldAgent potentialFieldPedestrian,
-			List<SpeedAdjuster> speedAdjusters,
-			StepCircleOptimizer stepCircleOptimizer) {
+			 AttributesHorse attributesHorse, Topography topography,
+			 Random random, PotentialFieldTarget potentialFieldTarget,
+			 PotentialFieldObstacle potentialFieldObstacle,
+			 PotentialFieldAgent potentialFieldPedestrian,
+			 List<SpeedAdjuster> speedAdjusters,
+			 StepCircleOptimizer stepCircleOptimizer) {
 
-		super(attributesPedestrian, random);
+		super(attributesHorse, random);
 
 		this.attributesOSM = attributesOSM;
 		this.topography = topography;
@@ -86,7 +86,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 		this.updateScheme = createUpdateScheme(attributesOSM.getUpdateType(), this);
 
 //		this.speedAdjusters = speedAdjusters;
-		this.relevantPedestrians = new HashSet<>();
+		this.relevantHorses = new HashSet<>();
 		this.timeCredit = 0;
 
 		this.setVelocity(new Vector2D(0, 0));
@@ -137,7 +137,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 		if (PotentialFieldTargetRingExperiment.class.equals(potentialFieldTarget.getClass())) {
 			VCircle reachableArea = new VCircle(getPosition(), getStepSize());
-			this.relevantPedestrians = potentialFieldPedestrian
+			this.relevantHorses = potentialFieldPedestrian
 					.getRelevantAgents(reachableArea, this, topography);
 
 			nextPosition = stepCircleOptimizer.getNextPosition(this, reachableArea);
@@ -151,7 +151,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 		} else {
 			VCircle reachableArea = new VCircle(getPosition(), getStepSize());
 
-			this.relevantPedestrians = potentialFieldPedestrian
+			this.relevantHorses = potentialFieldPedestrian
 					.getRelevantAgents(reachableArea, this, topography);
 
 
@@ -196,12 +196,15 @@ public class HorseOSM extends Horse implements AgentOSM {
 		strides[1].add(this.getTimeOfNextStep());
 	}
 
+	/**
+	 * Calculate the step size from the horse
+	 */
 	public double getStepSize() {
 
 		if (attributesOSM.isDynamicStepLength()) {
 			return attributesOSM.getStepLengthIntercept()
 					+ attributesOSM.getStepLengthSlopeSpeed()
-							* getDesiredSpeed()
+					* getDesiredSpeed()
 					+ stepDeviation;
 		} else {
 			return stepLength;
@@ -223,7 +226,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 		double targetPotential = potentialFieldTarget.getTargetPotential(newPos, this);
 
 		double pedestrianPotential = potentialFieldPedestrian
-				.getAgentPotential(newPos, this, relevantPedestrians);
+				.getAgentPotential(newPos, this, relevantHorses);
 		double obstacleRepulsionPotential = potentialFieldObstacle
 				.getObstaclePotential(newPos, this);
 		return targetPotential + pedestrianPotential
@@ -255,7 +258,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	public Vector2D getPedestrianGradient(VPoint pos) {
 		return potentialFieldPedestrian.getAgentPotentialGradient(pos,
-				new Vector2D(0, 0), this, relevantPedestrians);
+				new Vector2D(0, 0), this, relevantHorses);
 	}
 
 	public double getTimeOfNextStep() {
@@ -274,8 +277,8 @@ public class HorseOSM extends Horse implements AgentOSM {
 		return timeCredit;
 	}
 
-	public Collection<? extends Agent> getRelevantPedestrians() {
-		return relevantPedestrians;
+	public Collection<? extends Agent> getRelevantHorses() {
+		return relevantHorses;
 	}
 
 	public double getDurationNextStep() {
@@ -320,7 +323,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 	public double getMinStepLength() {
 		return minStepLength;
 	}
-	
+
 	@Override
 	public VPoint getPosition() {
 		return super.getPosition();

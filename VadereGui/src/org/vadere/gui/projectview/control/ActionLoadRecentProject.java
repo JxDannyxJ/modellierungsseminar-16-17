@@ -3,7 +3,7 @@ package org.vadere.gui.projectview.control;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.gui.projectview.model.ProjectViewModel;
-import org.vadere.gui.projectview.view.ProjectView;
+import org.vadere.gui.projectview.view.VadereWindow;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -40,7 +40,7 @@ public class ActionLoadRecentProject extends AbstractAction {
 			String msg = "The project " + Paths.get(path).getParent().toString() + " has been deleted or moved.";
 			JOptionPane.showMessageDialog(null, msg, "Project not found", JOptionPane.ERROR_MESSAGE, null);
 			logger.error(msg);
-			ProjectView.getMainWindow().updateRecentProjectsMenu();
+			VadereWindow.getMainWindow().updateRecentProjectsMenu();
 		}
 	}
 

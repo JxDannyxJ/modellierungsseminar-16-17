@@ -12,7 +12,7 @@ import javax.swing.*;
 import javax.swing.undo.UndoableEditSupport;
 
 /**
- * In this mode VCircles will be generated.
+ * In this mode VEllipse will be generated.
  *
  *
  */

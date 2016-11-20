@@ -4,7 +4,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.gui.components.utils.Messages;
 import org.vadere.gui.projectview.model.ProjectViewModel;
-import org.vadere.gui.projectview.view.ProjectView;
+import org.vadere.gui.projectview.view.VadereWindow;
 import org.vadere.gui.projectview.view.VDialogManager;
 import org.vadere.gui.projectview.view.VTable;
 
@@ -39,7 +39,7 @@ public class ActionSeeDiscardChanges extends AbstractAction {
 			singularPlural = "plural";
 
 		int choice = JOptionPane.showOptionDialog(
-				ProjectView.getMainWindow(),
+				VadereWindow.getMainWindow(),
 				VDialogManager.getPanelWithBodyAndTextArea("<html>" +
 						Messages.getString("ActionSeeDiscardChanges.changes." + singularPlural + ".text")
 								.replace("%VAR%", String.valueOf(selectedRows.length))

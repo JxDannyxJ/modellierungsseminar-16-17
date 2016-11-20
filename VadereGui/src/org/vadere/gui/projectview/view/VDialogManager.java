@@ -45,7 +45,7 @@ public class VDialogManager {
 	public static int showConfirmDialogWithBodyAndTextArea(String title, String body, String textAreaContent,
 			int buttonOptions) {
 		return JOptionPane.showConfirmDialog(
-				ProjectView.getMainWindow(),
+				VadereWindow.getMainWindow(),
 				getPanelWithBodyAndTextArea(body, textAreaContent),
 				title, buttonOptions);
 	}
@@ -54,7 +54,7 @@ public class VDialogManager {
 	public static void showMessageDialogWithBodyAndTextArea(String title, String body, String textAreaContent,
 			int messageType) {
 		JOptionPane.showMessageDialog(
-				ProjectView.getMainWindow(),
+				VadereWindow.getMainWindow(),
 				getPanelWithBodyAndTextArea(
 						"<html>" + body + "<br><br></html>",
 						textAreaContent),
@@ -79,7 +79,7 @@ public class VDialogManager {
 		JScrollPane jsp = new JScrollPane(new JTextArea(textAreaContent)); // via http://stackoverflow.com/a/14011536
 		jsp.setPreferredSize(new Dimension(600, 300));
 		JOptionPane.showMessageDialog(
-				ProjectView.getMainWindow(),
+				VadereWindow.getMainWindow(),
 				jsp, title, messageType);
 	}
 

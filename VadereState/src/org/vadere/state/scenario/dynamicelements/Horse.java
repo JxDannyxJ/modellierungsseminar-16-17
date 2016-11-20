@@ -1,6 +1,8 @@
 package org.vadere.state.scenario.dynamicelements;
 
 import org.jetbrains.annotations.NotNull;
+import org.vadere.state.attributes.Attributes;
+import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VEllipse;
@@ -19,6 +21,10 @@ public class Horse extends Agent implements Comparable<Horse> {
 	private ScenarioElementType type = ScenarioElementType.HORSE;
 	private AttributesHorse attributesHorse;
 
+	/**
+	 * This constructor is used by the json serializer while serializing the class
+	 */
+	@SuppressWarnings("unused")
 	private Horse() {
 		this(new AttributesHorse());
 	}
@@ -37,12 +43,10 @@ public class Horse extends Agent implements Comparable<Horse> {
 	 */
 	public Horse(AttributesHorse attributesHorse, Random random) {
 		super(attributesHorse, random);
-		this.attributesHorse = attributesHorse;
 	}
 
 	public Horse(AttributesHorse attributesHorse, VPoint position) {
 		super(attributesHorse, position);
-		this.attributesHorse = attributesHorse;
 	}
 
 	/**
@@ -59,7 +63,7 @@ public class Horse extends Agent implements Comparable<Horse> {
 		Double thisPos = new Double(this.getPosition().getX());
 		Double othPos = new Double(o.getPosition().getX());
 
-		if (((AttributesHorse)super.getAttributes()).getDirection().getX() >= 0) {
+		if (((AttributesHorse)getAttributes()).getDirection().getX() >= 0) {
 			return -1 * thisPos.compareTo(othPos);
 		} else {
 			return thisPos.compareTo(othPos);
@@ -68,7 +72,7 @@ public class Horse extends Agent implements Comparable<Horse> {
 
 	@Override
 	public VShape getShape() {
-		return new VEllipse(this.getPosition(), ((AttributesHorse)super.getAttributes()).getHeight(), ((AttributesHorse)super.getAttributes()).getWidth());
+		return new VEllipse(this.getPosition(), ((AttributesHorse)getAttributes()).getHeight(), ((AttributesHorse)getAttributes()).getWidth());
 	}
 
 	@Override
@@ -80,5 +84,15 @@ public class Horse extends Agent implements Comparable<Horse> {
 	public Horse clone() {
 		return new Horse(this);
 	}
-	
+
+	@Override
+	public AttributesAgent getAttributes() {
+		return attributesHorse;
+	}
+
+	@Override
+	public void setAttributes(Attributes attributes) {
+		attributesHorse = (AttributesHorse) attributes;
+	}
+
 }

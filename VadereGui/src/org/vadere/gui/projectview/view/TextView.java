@@ -185,7 +185,7 @@ public class TextView extends JPanel {
 						}
 						currentScenario.updateCurrentStateSerialized();
 						ScenarioJPanel.removeJsonParsingErrorMsg();
-						ProjectView.getMainWindow().refreshScenarioNames();
+						VadereWindow.getMainWindow().refreshScenarioNames();
 						jsonValidIndicator.setValid();
 					} catch (Exception e) {
 						ScenarioJPanel.setActiveJsonParsingErrorMsg(attributeType.name() + " tab:\n" + e.getMessage());

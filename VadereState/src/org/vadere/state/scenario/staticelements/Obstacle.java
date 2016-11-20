@@ -12,7 +12,7 @@ import org.vadere.util.geometry.shapes.VShape;
  */
 public class Obstacle implements ScenarioElement {
 
-	private final AttributesObstacle attributes;
+	private AttributesObstacle attributes;
 
 	/**
 	 * Constructor which initializes the obstacle with given attributes
@@ -78,5 +78,10 @@ public class Obstacle implements ScenarioElement {
 	@Override
 	public Attributes getAttributes() {
 		return attributes;
+	}
+
+	@Override
+	public void setAttributes(Attributes attributes) {
+		this.attributes = (AttributesObstacle) attributes;
 	}
 }

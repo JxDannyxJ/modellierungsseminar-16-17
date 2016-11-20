@@ -31,4 +31,7 @@ public interface ScenarioElement extends Cloneable {
 	 * @return Attributes object which hold the properties of a scenario element
 	 */
 	Attributes getAttributes();
+
+	void setAttributes(Attributes attributes);
+
 }

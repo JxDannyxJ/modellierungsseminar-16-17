@@ -32,6 +32,7 @@ public class ActionSaveAsProject extends ActionAbstractSaveProject {
 		try {
 			ActionAbstractSaveProject.saveProject(model);
 		} catch (IOException e) {
+			logger.error(e);
 		}
 	}
 }

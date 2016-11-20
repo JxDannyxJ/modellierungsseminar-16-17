@@ -1,5 +1,6 @@
 package org.vadere.state.scenario.dynamicelements;
 
+import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.types.ScenarioElementType;
@@ -14,11 +15,25 @@ import java.util.Random;
 public class Car extends Agent implements Comparable<Car> {
 
 	private transient Random random;
+	private ScenarioElementType type = ScenarioElementType.CAR;
+	private AttributesCar attributesCar;
+
+	/**
+	 * This constructor is used by the json serializer while serializing the class
+	 */
+	@SuppressWarnings("unused")
+	private Car() {
+		this(new AttributesCar());
+	}
+
+	private Car(AttributesCar attributesCar) {
+		this(attributesCar, new Random());
+	}
 
 	/**
 	 * Constructor for the car scenario element
+	 *
 	 * @param attributesCar properties of a car, which are necessary for the simulation
-	 * @param random
 	 */
 	public Car(AttributesAgent attributesCar, Random random) {
 		super(attributesCar, random);
@@ -39,7 +54,7 @@ public class Car extends Agent implements Comparable<Car> {
 		Double thisPos = new Double(getPosition().getX());
 		Double othPos = new Double(o.getPosition().getX());
 
-		if (((AttributesCar)super.getAttributes()).getDirection().getX() >= 0) {
+		if (((AttributesCar) getAttributes()).getDirection().getX() >= 0) {
 			return -1 * thisPos.compareTo(othPos);
 		} else {
 			return thisPos.compareTo(othPos);
@@ -49,7 +64,7 @@ public class Car extends Agent implements Comparable<Car> {
 	@Override
 	public VPolygon getShape() {
 
-		AttributesCar attributesCar = (AttributesCar) super.getAttributes();
+		AttributesCar attributesCar = (AttributesCar) getAttributes();
 		// Rectangle with the Attributes of a Car
 		VRectangle rect = new VRectangle(getPosition().getX() - attributesCar.getLength(),
 				getPosition().getY() - attributesCar.getWidth() / 2, attributesCar.getLength(),
@@ -64,12 +79,27 @@ public class Car extends Agent implements Comparable<Car> {
 
 	@Override
 	public ScenarioElementType getType() {
-		return ScenarioElementType.CAR;
+		return type;
 	}
 
 	@Override
 	public Car clone() {
 		return new Car(this);
+	}
+
+	@Override
+	public AttributesAgent getAttributes() {
+		return attributesCar;
+	}
+
+	@Override
+	public void setAttributes(Attributes attributes) {
+		attributesCar = (AttributesCar) attributes;
+	}
+
+	@Override
+	public void copy(Agent element) {
+		super.copy(element);
 	}
 
 	/*

@@ -12,7 +12,7 @@ import java.util.Collection;
  *
  */
 
-public class PedestrianTypeProcessor extends DataProcessor<TimestepPedestrianIdKey, String> {
+public class PedestrianTypeProcessor extends DataProcessor<TimestepPedestrianIdKey, Integer> {
 
 	public PedestrianTypeProcessor() {
 		super("agentType");
@@ -23,7 +23,7 @@ public class PedestrianTypeProcessor extends DataProcessor<TimestepPedestrianIdK
 //		Collection<Pedestrian> peds = state.getTopography().getElements(Pedestrian.class);
 		Collection<Agent> agents = state.getTopography().getAllAgents();
 
-		agents.forEach(p -> this.setValue(new TimestepPedestrianIdKey(state.getStep(), p.getId()), p.getType().toString()));
+		agents.forEach(p -> this.setValue(new TimestepPedestrianIdKey(state.getStep(), p.getId()), p.getType().ordinal()));
 	}
 
 	@Override
@@ -33,8 +33,8 @@ public class PedestrianTypeProcessor extends DataProcessor<TimestepPedestrianIdK
 
 	@Override
 	public String [] toStrings(TimestepPedestrianIdKey key) {
-		String agentType = this.getValue(key);
+		Integer agentType = this.getValue(key);
 
-		return new String [] {agentType};
+		return new String [] {agentType.toString()};
 	}
 }

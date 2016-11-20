@@ -1,12 +1,8 @@
 package org.vadere.state.scenario.dynamicelements;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-
 import org.apache.commons.math3.random.JDKRandomGenerator;
 import org.apache.commons.math3.random.RandomGenerator;
+import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.scenario.staticelements.Source;
 import org.vadere.util.geometry.Vector2D;
@@ -15,10 +11,16 @@ import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
 import org.vadere.util.math.TruncatedNormalDistribution;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
 /**
  * Agent is the abstract interface of all dynamicelements scenario elements. Thus a new scenario element
  * has to derive from this class to be a dynamicelements element in a scenario.
  */
+@SuppressWarnings("JavadocReference")
 public abstract class Agent implements DynamicElement {
 
 	/**
@@ -41,7 +43,6 @@ public abstract class Agent implements DynamicElement {
 	/**
 	 * The attributes, position, the velocity and the free flow velocity of an agent
 	 */
-	private transient AttributesAgent attributes;
 	private VPoint position;
 	private Vector2D velocity;
 	private double freeFlowSpeed;
@@ -63,8 +64,7 @@ public abstract class Agent implements DynamicElement {
 		setVelocity(new Vector2D(0, 0));
 		targetIds = new LinkedList<>();
 		nextTargetListIndex = 0;
-
-		attributes = attributesAgent;
+		setAttributes(attributesAgent);
 	}
 
 	public Agent(AttributesAgent attributes, VPoint position) {
@@ -146,7 +146,7 @@ public abstract class Agent implements DynamicElement {
 	 * Getter for the speed distribution
 	 */
 	public double getSpeedDistributionMean() {
-		return attributes.getSpeedDistributionMean();
+		return getAttributes().getSpeedDistributionMean();
 	}
 
 	/**
@@ -155,7 +155,7 @@ public abstract class Agent implements DynamicElement {
 	 * @return acceleration attribute
 	 */
 	public double getAcceleration() {
-		return attributes.getAcceleration();
+		return getAttributes().getAcceleration();
 	}
 
 	/**
@@ -164,7 +164,7 @@ public abstract class Agent implements DynamicElement {
 	 * @return radius attribute
 	 */
 	public double getRadius() {
-		return attributes.getRadius();
+		return getAttributes().getRadius();
 	}
 
 	@Override
@@ -174,7 +174,7 @@ public abstract class Agent implements DynamicElement {
 
 	@Override
 	public VShape getShape() {
-		return new VCircle(position, attributes.getRadius());
+		return new VCircle(position, getAttributes().getRadius());
 	}
 
 	public Source getSource() {
@@ -183,7 +183,7 @@ public abstract class Agent implements DynamicElement {
 
 	@Override
 	public int getId() {
-		return attributes.getId();
+		return getAttributes().getId();
 	}
 
 	/**
@@ -276,14 +276,23 @@ public abstract class Agent implements DynamicElement {
 		return nextTargetListIndex < targetIds.size();
 	}
 
+	/**
+	 * Abstract Getter for the attributes object, which has to be implemented by the subclass
+	 * to provide the attributes information for the other classes. An attributes object shouldn't be
+	 * set in this class, since all the subclasses will be serialized and duplicate attributes objects
+	 * would appear in json nodes.
+	 */
 	@Override
-	public AttributesAgent getAttributes() {
-		return attributes;
-	}
+	public abstract AttributesAgent getAttributes();
 
-	public void setAttributes(AttributesAgent attributes) {
-		this.attributes = attributes;
-	}
+	/**
+	 * Abstract Setter for the attributes object, which has to be implemented by the subclass
+	 * to provide the attributes information for the other classes. An attributes object shouldn't be
+	 * set in this class, since all the subclasses will be serialized and duplicate attributes objects
+	 * would appear in json nodes.
+	 */
+	@Override
+	public abstract void setAttributes(Attributes attributes);
 
 	// Setters...
 
@@ -350,6 +359,16 @@ public abstract class Agent implements DynamicElement {
 	// TODO [task=refactoring] remove again!
 	public void setFreeFlowSpeed(double freeFlowSpeed) {
 		this.freeFlowSpeed = freeFlowSpeed;
+	}
+
+	public void copy(Agent element) {
+		this.source = element.getSource();
+		this.targetIds = new LinkedList<>(element.getTargets());
+		this.freeFlowSpeed = element.getFreeFlowSpeed();
+		this.idAsTarget = element.getIdAsTarget();
+		this.nextTargetListIndex = element.getNextTargetListIndex();
+		this.velocity = element.getVelocity();
+		setAttributes(element.getAttributes());
 	}
 
 }

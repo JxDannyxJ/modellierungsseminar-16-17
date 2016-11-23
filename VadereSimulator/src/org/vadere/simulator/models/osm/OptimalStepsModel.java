@@ -298,13 +298,13 @@ public class OptimalStepsModel implements MainModel {
 
 	private void parallelCall(double timeStepInSec) {
 		CallMethod[] callMethods = {CallMethod.SEEK, CallMethod.MOVE, CallMethod.CONFLICTS, CallMethod.STEPS};
-		List<Future<?>> futures;
+		List<Future<?>> futures; // result list of asynchronus computations
 
 		for (CallMethod callMethod : callMethods) {
 			futures = new LinkedList<>();
-			for (final PedestrianOSM pedestrian : ListUtils.select(
-					topography.getElements(Pedestrian.class), PedestrianOSM.class)) {
-				Runnable worker = new ParallelWorkerOSM(callMethod, pedestrian,
+			for (final AgentOSM agent : ListUtils.select(
+					topography.getElements(AgentOSM.class), AgentOSM.class)) {
+				Runnable worker = new ParallelWorkerOSM(callMethod, agent,
 						timeStepInSec);
 				futures.add(executorService.submit(worker));
 			}

@@ -11,14 +11,13 @@ import org.apache.log4j.Priority;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rsyntaxtextarea.Theme;
-import org.vadere.gui.components.control.ReflectionAttributeModifier;
 import org.vadere.gui.components.model.IDefaultModel;
 import org.vadere.gui.projectview.view.JsonValidIndicator;
 import org.vadere.gui.projectview.view.ScenarioJPanel;
 import org.vadere.gui.projectview.view.VadereWindow;
 import org.vadere.gui.topographycreator.model.TopographyCreatorModel;
 import org.vadere.simulator.projects.io.JsonConverter;
-import org.vadere.state.attributes.Attributes;
+import org.vadere.state.attributes.scenario.AttributesScenarioElement;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.DynamicElement;
@@ -143,7 +142,7 @@ public class ScenarioElementView extends JPanel implements ISelectScenarioElemen
 					//TODO: Copy is placed in Agent class to provide subclasses the option to copy variables from another Agent class
 					((Agent) element).copy(JsonConverter.deserializeDynamicElement(json, type));
 				} else {
-					Attributes attributes = JsonConverter.deserializeScenarioElementAttributes(json, type);
+					AttributesScenarioElement attributes = JsonConverter.deserializeScenarioElementAttributes(json, type);
 					element.setAttributes(attributes);
 //					ReflectionAttributeModifier.setAttributes(element, attributes);
 				}
@@ -194,7 +193,7 @@ public class ScenarioElementView extends JPanel implements ISelectScenarioElemen
 								JsonConverter.serializeObject(scenarioElement));
 					} else {
 						this.txtrTextfiletextarea.setText(JsonConverter
-								.serializeObject(ReflectionAttributeModifier.getAttributes(scenarioElement)));
+								.serializeObject(scenarioElement.getAttributes()));
 					}
 				} catch (JsonProcessingException e) {
 					logger.log(Priority.ERROR, "Exception occurred during serializing object into Topography-Designer Json View", e);

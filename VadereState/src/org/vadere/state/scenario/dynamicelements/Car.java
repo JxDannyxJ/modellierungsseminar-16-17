@@ -1,8 +1,8 @@
 package org.vadere.state.scenario.dynamicelements;
 
-import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
+import org.vadere.state.attributes.scenario.AttributesScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VPolygon;
 import org.vadere.util.geometry.shapes.VRectangle;
@@ -74,6 +74,8 @@ public class Car extends Agent implements Comparable<Car> {
 		// turn the car in the driving direction
 		double angle = this.getVelocity().angleToZero();
 		poly = poly.rotate(getPosition(), angle);
+
+		attributesCar.setShape(poly);
 		return poly;
 	}
 
@@ -93,7 +95,7 @@ public class Car extends Agent implements Comparable<Car> {
 	}
 
 	@Override
-	public void setAttributes(Attributes attributes) {
+	public void setAttributes(AttributesScenarioElement attributes) {
 		attributesCar = (AttributesCar) attributes;
 	}
 

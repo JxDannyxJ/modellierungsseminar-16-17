@@ -38,6 +38,7 @@ public class AttributesAgent extends AttributesDynamicElement {
 		this.minimumSpeed = other.minimumSpeed;
 		this.maximumSpeed = other.maximumSpeed;
 		this.acceleration = other.acceleration;
+		setShape(other.getShape());
 	}
 
 	// Getters...

@@ -2,7 +2,7 @@ package org.vadere.gui.topographycreator.control;
 
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.scenario.ScenarioElement;
-import org.vadere.state.scenario.dynamicelements.Pedestrian;
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
 
@@ -25,10 +25,10 @@ public class ReflectionAttributeModifier {
 	static void setShapeToAttributes(final ScenarioElement element, final VShape shape) {
 		try {
 			Field field;
-			if (element instanceof Pedestrian) {
+			if (element instanceof Agent) {
 				double x = shape.getBounds2D().getCenterX();
 				double y = shape.getBounds2D().getCenterY();
-				((Pedestrian) element).setPosition(new VPoint(x, y));
+				((Agent) element).setPosition(new VPoint(x, y));
 			} else {
 				Attributes attributes =
 						org.vadere.gui.components.control.ReflectionAttributeModifier.getAttributes(element);

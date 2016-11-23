@@ -33,6 +33,7 @@ import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
+import org.vadere.state.attributes.scenario.AttributesScenarioElement;
 import org.vadere.state.attributes.scenario.AttributesSource;
 import org.vadere.state.attributes.scenario.AttributesStairs;
 import org.vadere.state.attributes.scenario.AttributesTarget;
@@ -153,6 +154,7 @@ public abstract class JsonConverter {
 					case ELLIPSE:
 						jsonGenerator
 								.writeTree(mapper.convertValue(new EllipseStore((VEllipse) vShape), JsonNode.class));
+						break;
 					case RECTANGLE:
 						jsonGenerator.writeTree(serializeVRectangle((VRectangle) vShape)); // this doesn't seem to get called ever, the VRectangle serializer always seem to get called
 						break;
@@ -406,7 +408,7 @@ public abstract class JsonConverter {
 	 * @param type which is described by Json input-
 	 * @return instance of {@link Attributes}.
 	 */
-	public static Attributes deserializeScenarioElementAttributes(String json, ScenarioElementType type) throws IOException {
+	public static AttributesScenarioElement deserializeScenarioElementAttributes(String json, ScenarioElementType type) throws IOException {
 		// TODO [priority=low] [task=refactoring] find a better way!
 		switch (type) {
 			case PEDESTRIAN:

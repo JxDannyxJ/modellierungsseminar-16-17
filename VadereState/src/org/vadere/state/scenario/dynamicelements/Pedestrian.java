@@ -1,8 +1,9 @@
 package org.vadere.state.scenario.dynamicelements;
 
-import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
+import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
 
@@ -84,8 +85,14 @@ public class Pedestrian extends Agent {
 	}
 
 	@Override
-	public void setAttributes(Attributes attributes) {
+	public void setAttributes(AttributesScenarioElement attributes) {
 		attributesPed = (AttributesAgent) attributes;
+	}
+
+	@Override
+	public VShape getShape() {
+		getAttributes().setShape(new VCircle(getPosition(), getAttributes().getRadius()));
+		return getAttributes().getShape();
 	}
 
 	public <T extends ModelPedestrian> T getModelPedestrian(Class<? extends T> modelType) {

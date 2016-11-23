@@ -1,9 +1,9 @@
 package org.vadere.state.scenario.dynamicelements;
 
 import org.jetbrains.annotations.NotNull;
-import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesHorse;
+import org.vadere.state.attributes.scenario.AttributesScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VEllipse;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -72,7 +72,8 @@ public class Horse extends Agent implements Comparable<Horse> {
 
 	@Override
 	public VShape getShape() {
-		return new VEllipse(this.getPosition(), ((AttributesHorse)getAttributes()).getHeight(), ((AttributesHorse)getAttributes()).getWidth());
+		getAttributes().setShape(new VEllipse(this.getPosition(), ((AttributesHorse) getAttributes()).getHeight(), ((AttributesHorse) getAttributes()).getWidth()));
+		return getAttributes().getShape();
 	}
 
 	@Override
@@ -91,7 +92,7 @@ public class Horse extends Agent implements Comparable<Horse> {
 	}
 
 	@Override
-	public void setAttributes(Attributes attributes) {
+	public void setAttributes(AttributesScenarioElement attributes) {
 		attributesHorse = (AttributesHorse) attributes;
 	}
 

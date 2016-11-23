@@ -2,11 +2,10 @@ package org.vadere.state.scenario.dynamicelements;
 
 import org.apache.commons.math3.random.JDKRandomGenerator;
 import org.apache.commons.math3.random.RandomGenerator;
-import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesScenarioElement;
 import org.vadere.state.scenario.staticelements.Source;
 import org.vadere.util.geometry.Vector2D;
-import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
 import org.vadere.util.math.TruncatedNormalDistribution;
@@ -173,9 +172,7 @@ public abstract class Agent implements DynamicElement {
 	}
 
 	@Override
-	public VShape getShape() {
-		return new VCircle(position, getAttributes().getRadius());
-	}
+	public abstract VShape getShape();
 
 	public Source getSource() {
 		return source;
@@ -292,7 +289,7 @@ public abstract class Agent implements DynamicElement {
 	 * would appear in json nodes.
 	 */
 	@Override
-	public abstract void setAttributes(Attributes attributes);
+	public abstract void setAttributes(AttributesScenarioElement attributes);
 
 	// Setters...
 

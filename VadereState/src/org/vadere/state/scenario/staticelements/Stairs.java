@@ -1,6 +1,6 @@
 package org.vadere.state.scenario.staticelements;
 
-import org.vadere.state.attributes.Attributes;
+import org.vadere.state.attributes.scenario.AttributesScenarioElement;
 import org.vadere.state.attributes.scenario.AttributesStairs;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
@@ -133,7 +133,7 @@ public class Stairs implements ScenarioElement {
 	}
 
 	@Override
-	public void setAttributes(Attributes attributes) {
+	public void setAttributes(AttributesScenarioElement attributes) {
 		this.attributes = (AttributesStairs) attributes;
 	}
 

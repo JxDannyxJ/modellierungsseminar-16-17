@@ -1,30 +1,26 @@
 package org.vadere.state.attributes.scenario;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.vadere.state.attributes.Attributes;
 import org.vadere.state.scenario.ConstantDistribution;
 import org.vadere.state.types.DynamicElementType;
 import org.vadere.util.geometry.shapes.VShape;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Simulation attributes for the source, where the scenario elements spawn. It contains
  * information of the spawn time, the source shape, the spawn location, the spawn conditions
  * and the type of the spawned elements.
  */
-public class AttributesSource extends Attributes {
+public class AttributesSource extends AttributesScenarioElement {
 
 	public static final String CONSTANT_DISTRIBUTION = ConstantDistribution.class.getName();
 	public static final int NO_MAX_SPAWN_NUMBER_TOTAL = -1;
 
-	private int id;
-
 	/**
-	 * Shape and position.
+	 * Position.
 	 */
-	private VShape shape = null;
 	private String interSpawnTimeDistribution = CONSTANT_DISTRIBUTION;
 	private List<Double> distributionParameters = Collections.singletonList(1.0);
 
@@ -70,12 +66,11 @@ public class AttributesSource extends Attributes {
 	}
 
 	public AttributesSource(int id) {
-		this.id = id;
+		super(id);
 	}
 
 	public AttributesSource(int id, VShape shape) {
-		this.id = id;
-		this.shape = shape;
+		super(id, shape);
 	}
 
 	// Getters...
@@ -125,6 +120,7 @@ public class AttributesSource extends Attributes {
 	 * random. How to ensure, that exactly 10 elements are spawned? Solution:
 	 * Set the {@link endTime} to 1e9 and this attribute to 10.
 	 */
+	@SuppressWarnings("JavadocReference")
 	public int getMaxSpawnNumberTotal() {
 		return maxSpawnNumberTotal;
 	}
@@ -139,14 +135,6 @@ public class AttributesSource extends Attributes {
 
 	public List<Integer> getTargetIds() {
 		return targetIds;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public VShape getShape() {
-		return shape;
 	}
 
 	public DynamicElementType getDynamicElementType() {

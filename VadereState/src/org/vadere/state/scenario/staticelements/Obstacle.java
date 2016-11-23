@@ -1,7 +1,7 @@
 package org.vadere.state.scenario.staticelements;
 
-import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
+import org.vadere.state.attributes.scenario.AttributesScenarioElement;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VShape;
@@ -76,12 +76,12 @@ public class Obstacle implements ScenarioElement {
 	}
 
 	@Override
-	public Attributes getAttributes() {
+	public AttributesObstacle getAttributes() {
 		return attributes;
 	}
 
 	@Override
-	public void setAttributes(Attributes attributes) {
+	public void setAttributes(AttributesScenarioElement attributes) {
 		this.attributes = (AttributesObstacle) attributes;
 	}
 }

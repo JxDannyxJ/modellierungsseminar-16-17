@@ -1,6 +1,5 @@
 package org.vadere.state.attributes.scenario;
 
-import org.vadere.state.attributes.Attributes;
 import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.util.geometry.shapes.VShape;
 
@@ -8,16 +7,13 @@ import org.vadere.util.geometry.shapes.VShape;
  * Attributes of a target area, used by TargetController in VadereSimulation.
  * 
  */
-public class AttributesTarget extends Attributes {
+public class AttributesTarget extends AttributesScenarioElement {
 
-	private int id = -1;
 	/**
 	 * True: elements are removed from the simulation after entering.
 	 * False: the target id is removed from the target id list, but the element remains.
 	 */
 	private boolean absorbing = true;
-	/** Shape and position. */
-	private VShape shape;
 	/**
 	 * Waiting time in seconds on this area.
 	 * If "individualWaiting" is true, then each element waits the given time on this area before
@@ -64,9 +60,8 @@ public class AttributesTarget extends Attributes {
 	public AttributesTarget() {}
 
 	public AttributesTarget(final AttributesTarget attributes, final VShape shape) {
-		this.shape = shape;
+		super(attributes.getId(), shape);
 		this.absorbing = attributes.absorbing;
-		this.id = attributes.id;
 		this.waitingTime = attributes.waitingTime;
 		this.waitingTimeYellowPhase = attributes.waitingTimeYellowPhase;
 		this.parallelWaiters = attributes.parallelWaiters;
@@ -76,19 +71,17 @@ public class AttributesTarget extends Attributes {
 	}
 
 	public AttributesTarget(final VShape shape) {
-		this.shape = shape;
+		setShape(shape);
 	}
 
 	public AttributesTarget(final VShape shape, final int id, final boolean absorbing) {
-		this.shape = shape;
-		this.id = id;
+		super(id, shape);
 		this.absorbing = absorbing;
 	}
 
-	public AttributesTarget(Agent pedestrian) {
-		this.shape = pedestrian.getShape();
+	public AttributesTarget(Agent agent) {
+		super(agent.getIdAsTarget(), agent.getShape());
 		this.absorbing = true;
-		this.id = pedestrian.getIdAsTarget();
 		this.waitingTime = 0;
 		this.waitingTimeYellowPhase = 0;
 		this.parallelWaiters = 0;
@@ -105,14 +98,6 @@ public class AttributesTarget extends Attributes {
 
 	public boolean isAbsorbing() {
 		return absorbing;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public VShape getShape() {
-		return shape;
 	}
 
 	public double getWaitingTime() {

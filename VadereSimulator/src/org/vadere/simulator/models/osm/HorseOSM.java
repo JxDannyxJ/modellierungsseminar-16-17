@@ -1,13 +1,9 @@
 package org.vadere.simulator.models.osm;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import org.vadere.simulator.models.SpeedAdjuster;
-import org.vadere.simulator.models.osm.optimization.StepCircleOptimizer;
+import org.vadere.simulator.models.osm.optimization.StepOptimizer;
 import org.vadere.simulator.models.osm.stairOptimization.StairStepOptimizer;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeEventDriven;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM;
@@ -23,34 +19,55 @@ import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.Horse;
 import org.vadere.state.scenario.staticelements.Stairs;
 import org.vadere.state.scenario.Topography;
+import org.vadere.state.types.MovementType;
 import org.vadere.state.types.UpdateType;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VCircle;
+import org.vadere.util.geometry.shapes.VEllipse;
 import org.vadere.util.geometry.shapes.VPoint;
 
+/**
+ *
+ */
 public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * transient fields will not be serialized by Gson.
 	 */
 
+	/** attriubtes of {@link OptimalStepsModel}. **/
 	private final AttributesOSM attributesOSM;
-	private final transient StepCircleOptimizer stepCircleOptimizer;
+
+	/** {@link StepOptimizer}.**/
+	private final transient StepOptimizer stepOptimizer;
+
+	/** {@link UpdateSchemeOSM} defining how to update agent.**/
 	private final transient UpdateSchemeOSM updateScheme;
 
+	/** Potentialfield for {@link Target}.**/
 	private transient PotentialFieldTarget potentialFieldTarget;
+	/** Potentialfield for {@link Obstacle}.**/
 	private transient PotentialFieldObstacle potentialFieldObstacle;
-	private transient PotentialFieldAgent potentialFieldPedestrian;
+	/** Potentialfield for {@link Agent}.**/
+	private transient PotentialFieldAgent potentialFieldAgent;
 
+	/** The {@link Topography}. **/
 	private final transient Topography topography;
 
+	/** the step length. **/
 	private final double stepLength;
+	/** the step deviation. **/
 	private final double stepDeviation;
-//	private List<SpeedAdjuster> speedAdjusters;
+	/** List of {@link SpeedAdjuster}. **/
+	private List<SpeedAdjuster> speedAdjusters;
+	/** min step length. **/
 	private final double minStepLength;
 
+	/** duration of next step. **/
 	private double durationNextStep;
+	/** next position {@link VPoint}.**/
 	private VPoint nextPosition;
+	/** last position {@link VPoint}.**/
 	private VPoint lastPosition;
 
 	// for unit time clock update...
@@ -58,7 +75,8 @@ public class HorseOSM extends Horse implements AgentOSM {
 	// for event driven update...
 	private double timeOfNextStep;
 
-	private transient Collection<? extends Agent> relevantPedestrians;
+	/** collection of relevant {@link Agent}'s (neighbors).**/
+	private transient Collection<? extends Agent> relevantAgents;
 
 	// calculated by (current position - last position)/(period of time).
 	private double speedByAbsoluteDistance;
@@ -66,30 +84,44 @@ public class HorseOSM extends Horse implements AgentOSM {
 	private List<Double>[] strides;
 	private StairStepOptimizer stairStepOptimizer;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param attributesOSM attributes of {@link OptimalStepsModel}.
+	 * @param attributesAgent attributes of {@link AttributesHorse}.
+	 * @param topography the {@link Topography}.
+	 * @param random just random instance.
+	 * @param potentialFieldTarget the {@link Target} potential field.
+	 * @param potentialFieldObstacle the {@link Obstacle} potential field.
+	 * @param potentialFieldAgent {@link Agent} potential field.
+	 * @param speedAdjusters list of {@link SpeedAdjuster}.
+	 * @param stepOptimizer the {@link StepOptimizer}.
+	 */
 	@SuppressWarnings("unchecked")
 	HorseOSM(AttributesOSM attributesOSM,
-			AttributesHorse attributesPedestrian, Topography topography,
+			AttributesHorse attributesAgent, Topography topography,
 			Random random, PotentialFieldTarget potentialFieldTarget,
 			PotentialFieldObstacle potentialFieldObstacle,
-			PotentialFieldAgent potentialFieldPedestrian,
+			PotentialFieldAgent potentialFieldAgent,
 			List<SpeedAdjuster> speedAdjusters,
-			StepCircleOptimizer stepCircleOptimizer) {
+			StepOptimizer stepOptimizer) {
 
-		super(attributesPedestrian, random);
+		super(attributesAgent, random);
 
 		this.attributesOSM = attributesOSM;
 		this.topography = topography;
 		this.potentialFieldTarget = potentialFieldTarget;
 		this.potentialFieldObstacle = potentialFieldObstacle;
-		this.potentialFieldPedestrian = potentialFieldPedestrian;
-		this.stepCircleOptimizer = stepCircleOptimizer;
+		this.potentialFieldAgent = potentialFieldAgent;
+		this.stepOptimizer = stepOptimizer;
 		this.updateScheme = createUpdateScheme(attributesOSM.getUpdateType(), this);
 
-//		this.speedAdjusters = speedAdjusters;
-		this.relevantPedestrians = new HashSet<>();
+		this.speedAdjusters = speedAdjusters;
+		this.relevantAgents = new HashSet<>();
 		this.timeCredit = 0;
 
-		this.setVelocity(new Vector2D(0, 0));
+		// hier wird noch vorerst die richtung gesetzt
+		this.setVelocity(new Vector2D(0, 1));
 
 		this.stepDeviation = random.nextGaussian() * attributesOSM.getStepLengthSD();
 
@@ -106,41 +138,58 @@ public class HorseOSM extends Horse implements AgentOSM {
 		this.strides[1] = new ArrayList<>();
 	}
 
-	private static UpdateSchemeOSM createUpdateScheme(UpdateType updateType, AgentOSM agentOSM) {
+	/**
+	 * Creates update schme for this {@link AgentOSM}.
+	 *
+	 * @param updateType the {@link UpdateType}.
+	 * @param agent the {@link AgentOSM} to update.
+	 * @return new instance of {@link UpdateSchemeOSM}.
+	 */
+	private static UpdateSchemeOSM createUpdateScheme(UpdateType updateType, AgentOSM agent) {
 
 		UpdateSchemeOSM result;
 
 		switch (updateType) {
 			case EVENT_DRIVEN:
-				result = new UpdateSchemeEventDriven(agentOSM);
+				result = new UpdateSchemeEventDriven(agent);
 				break;
 //			case PARALLEL:
 //				result = new UpdateSchemeParallel(agentOSM);
 //				break;
 			case SEQUENTIAL:
-				result = new UpdateSchemeSequential(agentOSM);
+				result = new UpdateSchemeSequential(agent);
 				break;
 			default:
-				result = new UpdateSchemeSequential(agentOSM);
+				result = new UpdateSchemeSequential(agent);
 		}
 
 		return result;
 	}
 
+	/**
+	 * Update routine.
+	 *
+	 * @param timeStepInSec duration of timestep.
+	 * @param currentTimeInSec current time.
+	 * @param callMethod {@link CallMethod}.
+	 */
 	public void update(double timeStepInSec, double currentTimeInSec, CallMethod callMethod) {
 
 		this.updateScheme.update(timeStepInSec, currentTimeInSec, callMethod);
 
 	}
 
+	/**
+	 * Updates next position of this {@link HorseOSM}.
+	 */
 	public void updateNextPosition() {
 
 		if (PotentialFieldTargetRingExperiment.class.equals(potentialFieldTarget.getClass())) {
 			VCircle reachableArea = new VCircle(getPosition(), getStepSize());
-			this.relevantPedestrians = potentialFieldPedestrian
+			this.relevantAgents = potentialFieldAgent
 					.getRelevantAgents(reachableArea, this, topography);
 
-			nextPosition = stepCircleOptimizer.getNextPosition(this, reachableArea);
+			nextPosition = stepOptimizer.getNextPosition(this, reachableArea);
 			// if (nextPosition.distance(this.getPosition()) < this.minStepLength) {
 			// nextPosition = this.getPosition();
 			// }
@@ -151,7 +200,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 		} else {
 			VCircle reachableArea = new VCircle(getPosition(), getStepSize());
 
-			this.relevantPedestrians = potentialFieldPedestrian
+			this.relevantAgents = potentialFieldAgent
 					.getRelevantAgents(reachableArea, this, topography);
 
 
@@ -165,7 +214,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 			}
 
 			if (stairs == null) { // meaning pedestrian is on area
-				nextPosition = stepCircleOptimizer.getNextPosition(this, reachableArea);
+				nextPosition = stepOptimizer.getNextPosition(this, reachableArea);
 			} else {
 				stairStepOptimizer = new StairStepOptimizer(stairs);
 				reachableArea = new VCircle(getPosition(), stairs.getTreadDepth() * 1.99);
@@ -177,6 +226,11 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	}
 
+	/**
+	 * Make step.
+	 *
+	 * @param stepTime duration of step.
+	 */
 	public void makeStep(double stepTime) {
 		VPoint currentPosition = getPosition();
 
@@ -196,6 +250,10 @@ public class HorseOSM extends Horse implements AgentOSM {
 		strides[1].add(this.getTimeOfNextStep());
 	}
 
+	/**
+	 * Returns step size.
+	 * @return step size.
+	 */
 	public double getStepSize() {
 
 		if (attributesOSM.isDynamicStepLength()) {
@@ -208,127 +266,274 @@ public class HorseOSM extends Horse implements AgentOSM {
 		}
 	}
 
-//	public double getDesiredSpeed() {
-//		double desiredSpeed = getFreeFlowSpeed();
-//
-//		for (SpeedAdjuster adjuster : speedAdjusters) {
-//			desiredSpeed = adjuster.getAdjustedSpeed(this, desiredSpeed);
-//		}
-//
-//		return desiredSpeed;
-//	}
-
+	/**
+	 * Compute potential for {@link HorseOSM} at positiion {@link VPoint}.
+	 *
+	 * @param newPos at which potential should be calculated.
+	 * @return potential value at position.
+	 */
 	public double getPotential(VPoint newPos) {
 
 		double targetPotential = potentialFieldTarget.getTargetPotential(newPos, this);
 
-		double pedestrianPotential = potentialFieldPedestrian
-				.getAgentPotential(newPos, this, relevantPedestrians);
+		double pedestrianPotential = potentialFieldAgent
+				.getAgentPotential(newPos, this, relevantAgents);
 		double obstacleRepulsionPotential = potentialFieldObstacle
 				.getObstaclePotential(newPos, this);
 		return targetPotential + pedestrianPotential
 				+ obstacleRepulsionPotential;
 	}
 
+	/**
+	 * Clears strides.
+	 */
 	public void clearStrides() {
 		strides[0].clear();
 		strides[1].clear();
 	}
 
-	// Getters...
-
+	/**
+	 * Compute target potential.
+	 *
+	 * @param pos at which potential should be calculated.
+	 * @return target potential at position.
+	 */
 	public double getTargetPotential(VPoint pos) {
 		return potentialFieldTarget.getTargetPotential(pos, this);
 	}
 
+	/**
+	 * Getter for {@link PotentialFieldTarget}.
+	 * @return the {@link PotentialFieldTarget} instance.
+	 */
 	public PotentialFieldTarget getPotentialFieldTarget() {
 		return potentialFieldTarget;
 	}
 
+	/**
+	 * Compute target gradient at position.
+	 *
+	 * @param pos at which gradient should be calculated.
+	 * @return gradient vector at position.
+	 */
 	public Vector2D getTargetGradient(VPoint pos) {
 		return potentialFieldTarget.getTargetPotentialGradient(pos, this);
 	}
 
+	/**
+	 * Compute obstacle gradient at postion.
+	 *
+	 * @param pos at which gradient should be calculated.
+	 * @return gradient vector at postion.
+	 */
 	public Vector2D getObstacleGradient(VPoint pos) {
 		return potentialFieldObstacle.getObstaclePotentialGradient(pos, this);
 	}
 
-	public Vector2D getPedestrianGradient(VPoint pos) {
-		return potentialFieldPedestrian.getAgentPotentialGradient(pos,
-				new Vector2D(0, 0), this, relevantPedestrians);
+	/**
+	 * Compute agent gradient at position.
+	 *
+	 * @param pos at which gradient should be calculated.
+	 * @return gradient vector at position.
+	 */
+	public Vector2D getAgentGradient(VPoint pos) {
+		return potentialFieldAgent.getAgentPotentialGradient(pos,
+				new Vector2D(0, 0), this, relevantAgents);
 	}
 
+	/**
+	 * Getter for time of next step.
+	 * @return time for next step.
+	 */
 	public double getTimeOfNextStep() {
 		return timeOfNextStep;
 	}
 
+	/**
+	 * Getter for next position {@link VPoint}.
+	 * @return next position.
+	 */
 	public VPoint getNextPosition() {
 		return nextPosition;
 	}
 
+	/**
+	 * Getter for last postion {@link VPoint}.
+	 * @return last position.
+	 */
 	public VPoint getLastPosition() {
 		return lastPosition;
 	}
 
+	/**
+	 * Getter for time credit.
+	 * @return time credit.
+	 */
 	public double getTimeCredit() {
 		return timeCredit;
 	}
 
-	public Collection<? extends Agent> getRelevantPedestrians() {
-		return relevantPedestrians;
+	/**
+	 * Getter for relevant agents.
+	 * @return list of relevant agents.
+	 */
+	public Collection<? extends Agent> getRelevantAgents() {
+		return relevantAgents;
 	}
 
+	/**
+	 * Getter for duration time of next step.
+	 * @return duration time of next step.
+	 */
 	public double getDurationNextStep() {
 		return durationNextStep;
 	}
 
+	/**
+	 * Getter for OSM attributes.
+	 * @return OSM attributes.
+	 */
 	public AttributesOSM getAttributesOSM() {
 		return attributesOSM;
 	}
 
+	/**
+	 * Getter for strides.
+	 * @return strides.
+	 */
 	public List<Double>[] getStrides() {
 		return strides;
 	}
 
 
-	// Setters...
-
+	/**
+	 * Setter for next position {@link VPoint}.
+	 * @param nextPosition next position of this agent.
+	 */
 	public void setNextPosition(VPoint nextPosition) {
 		this.nextPosition = nextPosition;
 	}
 
+	/**
+	 * Setter for last postion {@link VPoint}.
+	 * @param lastPosition last position of this agent.
+	 */
 	public void setLastPosition(VPoint lastPosition) {
 		this.lastPosition = lastPosition;
 	}
 
+	/**
+	 * Setter for time credit.
+	 * @param timeCredit
+	 */
 	public void setTimeCredit(double timeCredit) {
 		this.timeCredit = timeCredit;
 	}
 
+	/**
+	 * Setter for time of next step.
+	 * @param timeOfNextStep
+	 */
 	public void setTimeOfNextStep(double timeOfNextStep) {
 		this.timeOfNextStep = timeOfNextStep;
 	}
 
+	/**
+	 * Setter for duration time of next step.
+	 * @param durationNextStep
+	 */
 	public void setDurationNextStep(double durationNextStep) {
 		this.durationNextStep = durationNextStep;
 	}
 
+	/**
+	 * Getter for {@link Topography}.
+	 * @return instance of a {@link Topography}.
+	 */
 	public Topography getTopography() {
 		return topography;
 	}
 
+	/**
+	 * Getter for min step length.
+	 * @return min step length.
+	 */
 	public double getMinStepLength() {
 		return minStepLength;
 	}
-	
+
+	/**
+	 * Getter for current position.
+	 * @return current position.
+	 */
 	@Override
 	public VPoint getPosition() {
 		return super.getPosition();
 	}
 
+	/**
+	 * Getter for desired speed.
+	 * @return desired speed.
+	 */
 	@Override
 	public double getDesiredSpeed() {
 		return super.getFreeFlowSpeed();
 	}
 
+	/**
+	 * Getter for discrete ellipse points (possible next steps).
+	 * @param random used to randomize location of step on ellipse.
+	 * @return List of discrete {@link VPoint}.
+	 */
+	@Override
+	public LinkedList<VPoint> getReachablePositions(Random random) {
+
+		LinkedList<VPoint> reachablePositions = new LinkedList<>();
+		double height = ((VEllipse) getShape()).getWidth();
+		double width = ((VEllipse) getShape()).getHeight();
+		double randOffset = attributesOSM.isVaryStepDirection() ? random.nextDouble() : 0;
+		//double randOffset = 0;
+
+		int numberOfGridPoints;
+		int numberOfEllipses = 1;
+		double angle;
+		double anchorAngle;
+		if (attributesOSM.getMovementType() == MovementType.DIRECTIONAL) {
+			angle = Math.PI / 2.0;
+			anchorAngle = Math.PI / 4.0;
+		}
+		else {
+			angle = Math.PI / 4.0;
+			anchorAngle = 2 * Math.PI - (Math.PI / 4.0);
+		}
+
+		numberOfGridPoints = 4;
+		double angleDelta = (Math.PI / 2.0) / numberOfGridPoints;
+		double angles[] = new double[numberOfGridPoints+1];
+		for(int i = 0; i <= numberOfGridPoints; i++) {
+			angles[i] = anchorAngle + i * angleDelta + randOffset * 0.1;
+		}
+
+		// compute all discrete ellipse points
+		VPoint ellipsePoints[] = new VPoint[numberOfGridPoints+1];
+		double x, y = 0;
+		for(int i = 0; i <= numberOfGridPoints; i++) {
+			int factor = angles[i] % (2 * Math.PI) <= Math.PI / 4.0 ? 1 : -1;
+			x = (height * width)/(Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2) * Math.pow(Math.tan(angles[i]), 2) ));
+			y = factor * width * Math.sqrt(1 - (Math.pow(x, 2)/Math.pow(height, 2)));
+			ellipsePoints[i] = new VPoint(x, y);
+		}
+
+		// rotate each point
+		LinkedList<VPoint> rotatedEllipsePoints = new LinkedList<>();
+		double rotationAngle = getVelocity().angleToZero();
+		for(int i = 0; i <= numberOfGridPoints; i++) {
+			VPoint ellipsePoint = ellipsePoints[i];
+			Vector2D pointVector = new Vector2D(ellipsePoint.getX(), ellipsePoint.getY());
+			Vector2D newPoint = new Vector2D(pointVector.rotate(rotationAngle));
+			newPoint = newPoint.add(getPosition());
+			rotatedEllipsePoints.add(newPoint.clone());
+		}
+		return rotatedEllipsePoints;
+	}
 }

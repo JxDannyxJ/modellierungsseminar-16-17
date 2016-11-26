@@ -7,6 +7,9 @@ import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VPoint;
 
+import java.util.LinkedList;
+import java.util.Random;
+
 public interface AgentOSM extends DynamicElement {
 	
 	public double getTimeOfNextStep();
@@ -37,7 +40,9 @@ public interface AgentOSM extends DynamicElement {
 	public Vector2D getVelocity();
 	public int getNextTargetId();
 	public Vector2D getObstacleGradient(VPoint position);
-	public Vector2D getPedestrianGradient(VPoint position);
+	public Vector2D getAgentGradient(VPoint position);
 	public void update(double i, double simTimeInSec, CallMethod eventDriven);
+
+	LinkedList<VPoint> getReachablePositions(Random random);
 
 }

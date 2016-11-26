@@ -2,6 +2,7 @@ package org.vadere.simulator.models.osm;
 
 import org.vadere.simulator.models.SpeedAdjuster;
 import org.vadere.simulator.models.osm.optimization.StepCircleOptimizer;
+import org.vadere.simulator.models.osm.optimization.StepOptimizer;
 import org.vadere.simulator.models.osm.stairOptimization.StairStepOptimizer;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeEventDriven;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM;
@@ -17,16 +18,13 @@ import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.scenario.staticelements.Stairs;
+import org.vadere.state.types.MovementType;
 import org.vadere.state.types.UpdateType;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class PedestrianOSM extends Pedestrian implements AgentOSM {
 
@@ -35,7 +33,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 	 */
 
 	private final AttributesOSM attributesOSM;
-	private final transient StepCircleOptimizer stepCircleOptimizer;
+	private final transient StepOptimizer stepCircleOptimizer;
 	private final transient UpdateSchemeOSM updateScheme;
 
 	private transient PotentialFieldTarget potentialFieldTarget;
@@ -73,7 +71,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 			PotentialFieldObstacle potentialFieldObstacle,
 			PotentialFieldAgent potentialFieldPedestrian,
 			List<SpeedAdjuster> speedAdjusters,
-			StepCircleOptimizer stepCircleOptimizer) {
+			StepOptimizer stepCircleOptimizer) {
 
 		super(attributesPedestrian, random);
 
@@ -254,7 +252,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 		return potentialFieldObstacle.getObstaclePotentialGradient(pos, this);
 	}
 
-	public Vector2D getPedestrianGradient(VPoint pos) {
+	public Vector2D getAgentGradient(VPoint pos) {
 		return potentialFieldPedestrian.getAgentPotentialGradient(pos,
 				new Vector2D(0, 0), this, relevantAgents);
 	}
@@ -325,5 +323,81 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 	@Override
 	public VPoint getPosition() {
 		return super.getPosition();
+	}
+
+	@Override
+	public LinkedList<VPoint> getReachablePositions(Random random) {
+
+		final AttributesOSM attributesOSM = getAttributesOSM();
+		double randOffset = attributesOSM.isVaryStepDirection() ? random.nextDouble() : 0;
+
+		VPoint currentPosition = getPosition();
+		LinkedList<VPoint> reachablePositions = new LinkedList<VPoint>();
+		int numberOfCircles = attributesOSM.getNumberOfCircles();
+		double circleOfGrid = 0;
+		int numberOfGridPoints;
+
+		// if number of circle is negative, choose number of circles according to
+		// StepCircleResolution
+		if (attributesOSM.getNumberOfCircles() < 0) {
+			numberOfCircles = (int) Math.ceil(attributesOSM
+					.getStepCircleResolution() / (2 * Math.PI));
+		}
+
+		// maximum possible angle of movement relative to ankerAngle
+		double angle;
+
+		// smallest possible angle of movement
+		double anchorAngle;
+
+		// compute maximum angle and corresponding anchor if appropriate
+		if (attributesOSM.getMovementType() == MovementType.DIRECTIONAL) {
+			angle = getMovementAngle();
+			Vector2D velocity = getVelocity();
+			anchorAngle = velocity.angleToZero() - angle;
+			angle = 2 * angle;
+		} else {
+			angle = 2 * Math.PI;
+			anchorAngle = 0;
+		}
+
+		// iterate through all circles
+		for (int j = 1; j <= numberOfCircles; j++) {
+
+			circleOfGrid = getStepSize() * j / numberOfCircles;
+
+			numberOfGridPoints = (int) Math.ceil(circleOfGrid / getStepSize()
+					* attributesOSM.getStepCircleResolution());
+
+			// reduce number of grid points proportional to the constraint of direction
+			if (attributesOSM.getMovementType() == MovementType.DIRECTIONAL) {
+				numberOfGridPoints = (int) Math.ceil(numberOfGridPoints * angle / (2 * Math.PI));
+			}
+
+			double angleDelta = angle / numberOfGridPoints;
+
+			// iterate through all angles and compute absolute positions of grid points
+			for (int i = 0; i < numberOfGridPoints; i++) {
+
+				double x = circleOfGrid * Math.cos(anchorAngle + angleDelta * (randOffset + i)) + currentPosition.getX();
+				double y = circleOfGrid * Math.sin(anchorAngle + angleDelta * (randOffset + i)) + currentPosition.getY();
+				VPoint tmpPos = new VPoint(x, y);
+
+				reachablePositions.add(tmpPos);
+			}
+		}
+		return reachablePositions;
+	}
+
+
+	private double getMovementAngle() {
+
+		final double speed = getVelocity().getLength();
+		double result = Math.PI - speed;
+
+		if (result < 0.1) {
+			result = 0.1;
+		}
+		return result;
 	}
 }

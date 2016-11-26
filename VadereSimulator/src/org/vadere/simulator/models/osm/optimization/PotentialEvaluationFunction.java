@@ -18,9 +18,8 @@ import java.util.List;
 public class PotentialEvaluationFunction implements UnivariateRealFunction,
 		MultivariateRealFunction, MultivariateFunction {
 
-	/** The pedestrian. */
-//	private final PedestrianOSM pedestrian;
-	private final AgentOSM agentOSM;
+	/** The agent. */
+	private final AgentOSM agent;
 	
 	/** The step size. */
 	private double stepSize;
@@ -31,24 +30,18 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	/**
 	 * Instantiates a new potential evaluation function.
 	 * 
-	 * @param pedestrian
-	 *        the considered pedestrian
+	 * @param agent
+	 *        the considered agent
 	 */
-//	PotentialEvaluationFunction(final PedestrianOSM pedestrian) {
-//		this.pedestrian = pedestrian;
-//		this.minStepSize = pedestrian.getMinStepLength();
-//		this.stepSize = 0;
-//		this.counter = 0;
-//	}
-	public PotentialEvaluationFunction(final AgentOSM agentOSM) {
-		this.agentOSM = agentOSM;
-		this.minStepSize = agentOSM.getMinStepLength();
+	public PotentialEvaluationFunction(final AgentOSM agent) {
+		this.agent = agent;
+		this.minStepSize = agent.getMinStepLength();
 		this.stepSize = 0;
 		this.counter = 0;
 	}
 
 	/**
-	 * Sets the step size for the pedestrian.
+	 * Sets the step size for the agent.
 	 * 
 	 * @param stepSize
 	 *        the new step size
@@ -58,13 +51,10 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	}
 
 	/**
-	 * Returns the considered pedestrian.
+	 * Returns the considered agent.
 	 */
-//	public Pedestrian getPedestrian() {
-//		return agentOSM;
-//	}
 	public AgentOSM getAgentOSM() {
-		return agentOSM;
+		return agent;
 	}
 
 	/**
@@ -79,10 +69,11 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	 */
 	@Override
 	public double value(double angle) throws FunctionEvaluationException {
-		VPoint pedPos = agentOSM.getPosition();
-		VPoint newPos = new VPoint(stepSize * Math.cos(angle) + pedPos.getX(),
-				stepSize * Math.sin(angle) + pedPos.getY());
-		return agentOSM.getPotential(newPos);
+		// some circle logic........ should this work for horses??
+		VPoint agentPosition = agent.getPosition();
+		VPoint newPosition = new VPoint(stepSize * Math.cos(angle) + agentPosition.getX(),
+				stepSize * Math.sin(angle) + agentPosition.getY());
+		return agent.getPotential(newPosition);
 	}
 
 	/**
@@ -92,11 +83,12 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	 *        the angle of the direction to new position
 	 */
 	public double getTargetPotential(double angle) {
-		VPoint pedPos = agentOSM.getPosition();
-		VPoint newPos = new VPoint(stepSize * Math.cos(angle) + pedPos.getX(),
-				stepSize * Math.sin(angle) + pedPos.getY());
+		// some circle logic........ should this work for horses??
+		VPoint agentPosition = agent.getPosition();
+		VPoint newPosition = new VPoint(stepSize * Math.cos(angle) + agentPosition.getX(),
+				stepSize * Math.sin(angle) + agentPosition.getY());
 
-		return agentOSM.getTargetPotential(newPos);
+		return agent.getTargetPotential(newPosition);
 	}
 
 	/**
@@ -113,8 +105,7 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	 */
 	public double getValue(VPoint pos) throws FunctionEvaluationException,
 			IllegalArgumentException {
-		double result = value(this.pointToArray(pos));
-		return result;
+		return value(this.pointToArray(pos));
 	}
 
 	/**
@@ -131,24 +122,43 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	 */
 	@Override
 	public double value(double[] pos) {
-		VPoint pedPos = agentOSM.getPosition();
-		VPoint newPos = new VPoint(pos[0], pos[1]);
+		VPoint agentPosition = agent.getPosition();
+		VPoint newPosition = new VPoint(pos[0], pos[1]);
+		// potential default result
 		double result = 100000;
-		if (agentOSM.getAttributesOSM().isSeeSmallWalls()) {
-			List<Obstacle> obstacles = agentOSM.getTopography().getObstacles();
+		if (agent.getAttributesOSM().isSeeSmallWalls()) {
+			List<Obstacle> obstacles = agent.getTopography().getObstacles();
 			for (Obstacle obstacle : obstacles) {
-				if (obstacle.getShape().intersects(new VLine(pedPos, newPos)))
+				if (obstacle.getShape().intersects(new VLine(agentPosition, newPosition)))
 					return result;
 			}
 		}
-
-		if (Math.pow(newPos.getX() - pedPos.getX(), 2) + Math.pow(newPos.getY() - pedPos.getY(), 2) <= Math.pow(stepSize, 2) + 0.00001
-				&& Math.pow(newPos.getX() - pedPos.getX(), 2) + Math.pow(newPos.getY() - pedPos.getY(), 2) >= Math.pow(this.minStepSize, 2)
-						- 0.00001) {
-			result = agentOSM.getPotential(newPos);
+		// check if new position is acceptable
+		if (acceptablePosition(newPosition, agentPosition)) {
+			// compute potential for this position using related agents logic
+			result = agent.getPotential(newPosition);
 		}
 		counter++;
 		return result;
+	}
+
+	/**
+	 * Checks if position is acceptable.
+	 *
+	 * @param newPosition to check.
+	 * @param agentPosition current position of agent.
+	 * @return true if accepted, else false.
+	 */
+	private boolean acceptablePosition(VPoint newPosition, VPoint agentPosition) {
+		// check if new pos is not bigger than max step length
+		boolean firstCriteria = Math.pow(newPosition.getX() - agentPosition.getX(), 2)
+				+ Math.pow(newPosition.getY() - agentPosition.getY(), 2) <= Math.pow(stepSize, 1) + 0.00001;
+
+		// check if new pos is not smaller than min step length squared
+		boolean secondCriteria = Math.pow(newPosition.getX() - agentPosition.getX(), 2)
+				+ Math.pow(newPosition.getY() - agentPosition.getY(), 2) >= Math.pow(this.minStepSize, 2) - 0.00001;
+
+		return firstCriteria && secondCriteria;
 	}
 
 	/**

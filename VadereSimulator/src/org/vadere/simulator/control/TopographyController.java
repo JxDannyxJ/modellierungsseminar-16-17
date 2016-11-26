@@ -162,7 +162,12 @@ public class TopographyController extends OfflineTopographyController {
 	 * @param realAgent the new generated {@link Horse}
 	 */
 	private void preLoopHorse(Horse initialAgent, Horse realAgent) {
-		return;
+		realAgent.setIdAsTarget(initialAgent.getIdAsTarget());
+		//TODO: Can a Horse be a Target as well? If so, this method should be uncommented
+//		if (realAgent.getIdAsTarget() != -1) {
+//			topography.addTarget(new TargetPedestrian(realAgent));
+//		}
+		realAgent.setTargets(new LinkedList<>(initialAgent.getTargets()));
 	}
 	
 

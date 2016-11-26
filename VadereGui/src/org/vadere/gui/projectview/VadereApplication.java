@@ -2,7 +2,7 @@ package org.vadere.gui.projectview;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.vadere.gui.projectview.view.ProjectView;
+import org.vadere.gui.projectview.view.VadereWindow;
 import org.vadere.util.io.IOUtils;
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class VadereApplication {
 		loadPreferences();
 
 		// start main gui
-		ProjectView.start();
+		VadereWindow.start();
 	}
 
 	/**

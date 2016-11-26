@@ -1,12 +1,13 @@
 package org.vadere.gui.components.view;
 
-import javax.swing.*;
-
+import org.vadere.gui.components.control.IMode;
 import org.vadere.gui.components.control.IScaleChangeListener;
 import org.vadere.gui.components.model.IDefaultModel;
 import org.vadere.util.geometry.shapes.VPoint;
 
 import java.awt.*;
+
+import javax.swing.*;
 
 public abstract class ScaleablePanel extends JPanel implements IScaleChangeListener {
 
@@ -15,6 +16,8 @@ public abstract class ScaleablePanel extends JPanel implements IScaleChangeListe
 	private final IDefaultModel model;
 	private Point lastMousePos;
 	private VPoint newRelMousePos;
+	/** a reference copy of the selection mode of the panelModel. */
+	protected IMode selectionMode;
 
 
 	public ScaleablePanel(final IDefaultModel defaultModel, final DefaultRenderer renderer,
@@ -109,6 +112,19 @@ public abstract class ScaleablePanel extends JPanel implements IScaleChangeListe
 					viewport.getHeight());
 		}
 		super.paintComponent(g);
+	}
+
+	protected void setMouseSelectionMode(final IMode selectionMode) {
+		if (selectionMode != null && !selectionMode.equals(this.selectionMode)) {
+			removeMouseListener(this.selectionMode);
+			removeMouseMotionListener(this.selectionMode);
+			removeMouseWheelListener(this.selectionMode);
+
+			addMouseListener(selectionMode);
+			addMouseMotionListener(selectionMode);
+			addMouseWheelListener(selectionMode);
+			this.selectionMode = selectionMode;
+		}
 	}
 
 }

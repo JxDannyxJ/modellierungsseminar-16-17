@@ -5,20 +5,25 @@ import org.apache.log4j.Logger;
 import org.vadere.gui.components.utils.Messages;
 import org.vadere.gui.projectview.control.IOutputFileRefreshListener;
 import org.vadere.gui.projectview.control.IProjectChangeListener;
-import org.vadere.gui.projectview.view.ProjectView;
 import org.vadere.gui.projectview.view.ScenarioJPanel;
 import org.vadere.gui.projectview.view.VDialogManager;
 import org.vadere.gui.projectview.view.VTable;
+import org.vadere.gui.projectview.view.VadereWindow;
+import org.vadere.simulator.projects.ProjectWriter;
 import org.vadere.simulator.projects.ScenarioRunManager;
 import org.vadere.simulator.projects.VadereProject;
-import org.vadere.simulator.projects.ProjectWriter;
 import org.vadere.simulator.projects.io.IOOutput;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.swing.*;
 
 public class ProjectViewModel {
 	private static Logger logger = LogManager.getLogger(ProjectViewModel.class);
@@ -76,7 +81,7 @@ public class ProjectViewModel {
 
 	public void discardChangesOfSelectedScenarios(final int[] rows) {
 		getScenariosByRows(rows).forEach(scenario -> scenario.discardChanges());
-		ProjectView.getMainWindow().updateScenarioJPanel();
+		VadereWindow.getMainWindow().updateScenarioJPanel();
 	}
 
 	public void saveSelectedScenarios(final int[] rows) {
@@ -341,7 +346,7 @@ public class ProjectViewModel {
 	 * Set selection in scenario JTable. Why in this class? It is GUI stuff!
 	 * Because some Actions have use this method and Actions only have access to the model.
 	 * "actions only access the model" -- that seems pretty idealistic. We already break this
-	 * concept by using ProjectView's getMainWindow().
+	 * concept by using VadereWindow's getMainWindow().
 	 */
 	public void setSelectedRowIndexInScenarioTable(final int rowIndex) {
 		if (scenarioTable.getRowCount() > 0)

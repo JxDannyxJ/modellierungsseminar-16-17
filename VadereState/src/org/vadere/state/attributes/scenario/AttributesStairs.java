@@ -1,7 +1,6 @@
 package org.vadere.state.attributes.scenario;
 
 import org.apache.log4j.Logger;
-import org.vadere.state.attributes.Attributes;
 import org.vadere.state.scenario.staticelements.Stairs;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VShape;
@@ -16,10 +15,8 @@ import org.vadere.util.geometry.shapes.VShape;
  * 
  *
  */
-public class AttributesStairs extends Attributes {
+public class AttributesStairs extends AttributesScenarioElement {
 
-	private VShape shape = null;
-	private int id = -1;
 	private int treadCount = 1;
 	private Vector2D upwardDirection = new Vector2D(1.0, 0.0);
 
@@ -28,28 +25,19 @@ public class AttributesStairs extends Attributes {
 	}
 
 	public AttributesStairs(int id) {
-		this.id = id;
+		super(id);
 		this.treadCount = 1;
 		upwardDirection = new Vector2D(1.0, 0.0);
 	}
 
 	public AttributesStairs(int id, VShape shape, int treadCount, Vector2D upwardDirection) {
-		this(id);
-		this.shape = shape;
+		super(id, shape);
 		this.treadCount = Math.max(1, treadCount);
 		this.upwardDirection = upwardDirection.normalize(1.0);
 
 		if (treadCount < 1) {
 			Logger.getLogger(getClass()).error("Tread count too small (" + treadCount + "). Setting it to one.");
 		}
-	}
-
-	public VShape getShape() {
-		return shape;
-	}
-
-	public int getId() {
-		return id;
 	}
 
 	public int getTreadCount() {

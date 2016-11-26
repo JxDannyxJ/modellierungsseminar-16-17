@@ -12,6 +12,14 @@ public class AttributesCar extends AttributesAgent {
 	private Vector2D direction = new Vector2D(1, 0);
 
 
+	public AttributesCar() {
+		super(-1);
+	}
+
+	public AttributesCar(final int id) {
+		super(id);
+	}
+
 	public AttributesCar(final AttributesAgent other, final int id) {
 		super(other, id);
 
@@ -20,16 +28,9 @@ public class AttributesCar extends AttributesAgent {
 			this.length = car.length;
 			this.width = car.width;
 			this.direction = car.direction;
+			this.setShape(other.getShape());
 		}
 
-	}
-
-	public AttributesCar() {
-		super(-1);
-	}
-
-	public AttributesCar(final int id) {
-		super(id);
 	}
 
 	// Getters

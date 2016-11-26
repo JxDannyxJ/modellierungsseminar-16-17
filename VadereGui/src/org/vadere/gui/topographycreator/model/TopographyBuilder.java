@@ -31,8 +31,6 @@ import java.util.LinkedList;
  * build Topography
  * is a new Object. The references of the members of two Topography-Object can be the same because
  * they wont be cloned.
- * 
- *
  */
 public class TopographyBuilder implements Iterable<ScenarioElement> {
 	// TopographyElements
@@ -69,53 +67,41 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 	 * @param topography the topography that member-references will be copied.
 	 */
 	public TopographyBuilder(final Topography topography) {
-		try {
-			LinkedList<Pedestrian> pedStores = new LinkedList<>(topography.getInitialElements(Pedestrian.class));
-			LinkedList<Horse> horseStores = new LinkedList<>(topography.getInitialElements(Horse.class));
-			LinkedList<Car> carStores = new LinkedList<>(topography.getInitialElements(Car.class));
+		LinkedList<Pedestrian> pedStores = new LinkedList<>(topography.getInitialElements(Pedestrian.class));
+		LinkedList<Horse> horseStores = new LinkedList<>(topography.getInitialElements(Horse.class));
+		LinkedList<Car> carStores = new LinkedList<>(topography.getInitialElements(Car.class));
 
-			// Static scenario elements
-			obstacles = new LinkedList<>(topography.getObstacles());
-			stairs = new LinkedList<>(topography.getStairs());
-			sources = new LinkedList<>(topography.getSources());
-			targets = new LinkedList<>(topography.getTargets());
-			teleporter = topography.getTeleporter();
+		// Static scenario elements
+		obstacles = new LinkedList<>(topography.getObstacles());
+		stairs = new LinkedList<>(topography.getStairs());
+		sources = new LinkedList<>(topography.getSources());
+		targets = new LinkedList<>(topography.getTargets());
+		teleporter = topography.getTeleporter();
 
-			// Dynamic scenario elements
-			pedestrians = new LinkedList<>();
-			horses = new LinkedList<>();
+		// Dynamic scenario elements
+		pedestrians = new LinkedList<>(pedStores);
+		horses = new LinkedList<>(horseStores);
 
-			for (Pedestrian pedStore : pedStores) {
-				pedestrians.add(pedStore);
-			}
-
-			for (Horse horse : horseStores) {
-				horses.add(horse);
-			}
-
-//			for (Car car : carStores) {
-//				cars.add(new Car(car));
-//			}
-
-		} catch (SecurityException | IllegalArgumentException e) {
-			e.printStackTrace();
-		}
+		// Initialize the attributes for the dynamic scenario types
 		attributes = topography.getAttributes();
 		attributesPedestrian = topography.getAttributesPedestrian();
 		attributesHorse = topography.getAttributesHorse();
 		attributesCar = topography.getAttributesCar();
+
+		// Add all scenario elements to the list of topography elements
 		topographyElements = new LinkedList<>();
-		topographyElements.addAll(obstacles);
-		topographyElements.addAll(stairs);
 		topographyElements.addAll(pedestrians);
 		topographyElements.addAll(horses);
+		topographyElements.addAll(obstacles);
+		topographyElements.addAll(stairs);
 		topographyElements.addAll(sources);
 		topographyElements.addAll(targets);
+
 	}
 
 	/**
 	 * Copy-Constructor (all objects will be copied, not only the references!).
-	 * 
+	 *
 	 * @param builder the orign
 	 */
 	public TopographyBuilder(final TopographyBuilder builder) {
@@ -139,26 +125,27 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 		return attributes;
 	}
 
+	/**
+	 * Creates a Topography object with the attributes variables of the TopographyBuilder class
+	 * and initializes the list of topography scenario elements with the list of scenario elements
+	 * held in the TopographyBuilder class
+	 *
+	 * @return A new initialized Topography object
+	 */
 	public Topography build() {
 		Topography topography = new Topography(attributes, attributesPedestrian, attributesCar, attributesHorse);
 
-		for (Obstacle obstacle : obstacles)
-			topography.addObstacle(obstacle);
+		obstacles.forEach(topography::addObstacle);
 
-		for (Stairs stairs : this.stairs)
-			topography.addStairs(stairs);
+		this.stairs.forEach(topography::addStairs);
 
-		for (Source source : sources)
-			topography.addSource(source);
+		sources.forEach(topography::addSource);
 
-		for (Target target : targets)
-			topography.addTarget(target);
+		targets.forEach(topography::addTarget);
 
-		for (Pedestrian pedestrian : pedestrians)
-			topography.addInitialElement(pedestrian);
+		pedestrians.forEach(topography::addInitialElement);
 
-		for (Horse horse: horses)
-			topography.addInitialElement(horse);
+		horses.forEach(topography::addInitialElement);
 
 		topography.setTeleporter(teleporter);
 

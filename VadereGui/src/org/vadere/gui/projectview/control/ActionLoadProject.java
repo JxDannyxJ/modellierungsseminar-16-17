@@ -4,7 +4,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.gui.projectview.VadereApplication;
 import org.vadere.gui.projectview.model.ProjectViewModel;
-import org.vadere.gui.projectview.view.ProjectView;
+import org.vadere.gui.projectview.view.VadereWindow;
 import org.vadere.gui.projectview.view.VDialogManager;
 import org.vadere.simulator.projects.VadereProject;
 import org.vadere.simulator.projects.io.IOVadere;
@@ -73,7 +73,7 @@ public class ActionLoadProject extends AbstractAction {
 		}
 		Preferences.userNodeForPackage(VadereApplication.class).put("last_used_project", path);
 		Preferences.userNodeForPackage(VadereApplication.class).put("recent_projects", str);
-		ProjectView.getMainWindow().updateRecentProjectsMenu();
+		VadereWindow.getMainWindow().updateRecentProjectsMenu();
 	}
 
 	public static void loadProjectByPath(ProjectViewModel projectViewModel, String projectFilePath) {
@@ -92,7 +92,7 @@ public class ActionLoadProject extends AbstractAction {
 					projectViewModel.getCurrentProjectPath());
 
 			addToRecentProjects(projectFilePath);
-			ProjectView.getMainWindow().setProjectSpecificActionsEnabled(true);
+			VadereWindow.getMainWindow().setProjectSpecificActionsEnabled(true);
 
 			logger.info(String.format("project '%s' loaded.", projectViewModel.getProject().getName()));
 
@@ -126,7 +126,7 @@ public class ActionLoadProject extends AbstractAction {
 									+ " scenarios were successfully upgraded. The old versions were moved to the legacy-folder.\n\n";
 
 						JOptionPane.showMessageDialog(
-								ProjectView.getMainWindow(),
+								VadereWindow.getMainWindow(),
 								message, "Migration assistant",
 								JOptionPane.INFORMATION_MESSAGE);
 						return null;

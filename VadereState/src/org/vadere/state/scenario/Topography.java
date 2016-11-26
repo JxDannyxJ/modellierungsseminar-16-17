@@ -106,12 +106,181 @@ public class Topography {
 		this(new AttributesTopography(), new AttributesAgent(), new AttributesCar(), new AttributesHorse());
 	}
 
-	public Rectangle2D.Double getBounds() {
-		return this.attributes.getBounds();
+	public boolean containsTarget(final Predicate<Target> targetPredicate) {
+		return getTargets().stream().anyMatch(targetPredicate);
 	}
 
-	public double getBoundingBoxWidth() {
-		return this.attributes.getBoundingBoxWidth();
+	public boolean containsTarget(final Predicate<Target> targetPredicate, final int targetId) {
+		return getTargets().stream().filter(t -> t.getId() == targetId).anyMatch(targetPredicate);
+	}
+
+	public <T extends DynamicElement> void addElement(T element) {
+		((DynamicElementContainer<T>) getContainer(element.getClass())).addElement(element);
+	}
+
+	public <T extends DynamicElement> void removeElement(T element) {
+		((DynamicElementContainer<T>) getContainer(element.getClass())).removeElement(element);
+	}
+
+	public void addSource(Source source) {
+		this.sources.add(source);
+	}
+
+	public void addTarget(Target target) {
+		this.targets.add(target);
+	}
+
+	public void addObstacle(Obstacle obstacle) {
+		this.obstacles.add(obstacle);
+	}
+
+	public void addStairs(Stairs stairs) {
+		this.stairs.add(stairs);
+	}
+
+	public void setTeleporter(Teleporter teleporter) {
+		this.teleporter = teleporter;
+	}
+
+	public <T extends DynamicElement> void addInitialElement(T element) {
+		((DynamicElementContainer<T>) this.getContainer(element.getClass())).addInitialElement(element);
+	}
+
+	public <T extends DynamicElement> void addElementAddedListener(Class<T> elementType,
+																   DynamicElementAddListener<T> addListener) {
+		getContainer(elementType).addElementAddedListener(addListener);
+	}
+
+	public <T extends DynamicElement> void addElementRemovedListener(Class<T> elementType,
+																	 DynamicElementRemoveListener<T> listener) {
+		getContainer(elementType).addElementRemovedListener(listener);
+	}
+
+	public <T extends DynamicElement> void clearListeners(Class<T> elementType) {
+		getContainer(elementType).clearListeners();
+	}
+
+	/**
+	 * Adds a given obstacle to the list of obstacles as well as the list of boundary obstacles.
+	 * This way, the boundary can both be treated like normal obstacles, but can also be removed for
+	 * writing the topography to file.
+	 */
+	public void addBoundary(Obstacle obstacle) {
+		this.addObstacle(obstacle);
+		this.boundaryObstacles.add(obstacle);
+	}
+
+	public void removeBoundary() {
+		for (Obstacle boundaryObstacle : this.boundaryObstacles) {
+			this.obstacles.remove(boundaryObstacle);
+		}
+		this.boundaryObstacles.clear();
+	}
+
+	/**
+	 * Call this method to reset the topography to the state before a simulation take place.
+	 * After this call all generated boundaries, pedestrians (from source) and all listeners will be
+	 * removed.
+	 */
+	public void reset() {
+		removeBoundary();
+		pedestrians.clear();
+		horses.clear();
+		cars.clear();
+		clearListeners(Pedestrian.class);
+		clearListeners(Horse.class);
+		clearListeners(Car.class);
+	}
+
+	/**
+	 * Creates a deep copy of the scenario.
+	 */
+	@Override
+	public Topography clone() {
+		Topography topography = new Topography(this.attributes, this.attributesPedestrian, this.attributesCar, this.attributesHorse);
+
+		for (Obstacle obstacle : this.getObstacles()) {
+			if (this.boundaryObstacles.contains(obstacle))
+				topography.addBoundary(obstacle.clone());
+			else
+				topography.addObstacle(obstacle.clone());
+		}
+		this.getStairs().forEach(topography::addStairs);
+
+		for (Target target : this.getTargets()) {
+			topography.addTarget(target.clone());
+		}
+		for (Source source : this.getSources()) {
+			topography.addSource(source.clone());
+		}
+
+		// Add pedestrian elements to the topography
+		this.getElements(Pedestrian.class).forEach(topography::addElement);
+		getInitialElements(Pedestrian.class).forEach(topography::addInitialElement);
+
+		// Add car elements to the topography
+		this.getElements(Car.class).forEach(topography::addElement);
+		getInitialElements(Car.class).forEach(topography::addInitialElement);
+
+		// Add horse elements to the topography
+		this.getElements(Horse.class).forEach(topography::addElement);
+		getInitialElements(Horse.class).forEach(topography::addInitialElement);
+
+		if (this.hasTeleporter()) {
+			topography.setTeleporter(this.getTeleporter().clone());
+		}
+
+		/**
+		 *  Add element added listener and element removed listener
+		 */
+		for (DynamicElementAddListener<Pedestrian> pedestrianAddListener : this.pedestrians.getElementAddedListener()) {
+			topography.addElementAddedListener(Pedestrian.class, pedestrianAddListener);
+		}
+		for (DynamicElementRemoveListener<Pedestrian> pedestrianRemoveListener : this.pedestrians
+				.getElementRemovedListener()) {
+			topography.addElementRemovedListener(Pedestrian.class, pedestrianRemoveListener);
+		}
+		for (DynamicElementAddListener<Car> carAddListener : this.cars.getElementAddedListener()) {
+			topography.addElementAddedListener(Car.class, carAddListener);
+		}
+		for (DynamicElementRemoveListener<Car> carRemoveListener : this.cars.getElementRemovedListener()) {
+			topography.addElementRemovedListener(Car.class, carRemoveListener);
+		}
+		for (DynamicElementAddListener<Horse> horseAddListener : this.horses.getElementAddedListener()) {
+			topography.addElementAddedListener(Horse.class, horseAddListener);
+		}
+		for (DynamicElementRemoveListener<Horse> horseRemoveListener : this.horses.getElementRemovedListener()) {
+			topography.addElementRemovedListener(Horse.class, horseRemoveListener);
+		}
+
+		return topography;
+	}
+
+	public int getNextFreeTargetID() {
+		Collections.sort(this.targets);
+		return targets.getLast().getId() + 1;
+	}
+
+	public int getNearestTarget(VPoint position) {
+		double distance = Double.MAX_VALUE;
+		double tmpDistance;
+		int targetID = -1;
+
+		for (Target target : this.targets) {
+			if (!target.isTargetPedestrian()) {
+				tmpDistance = target.getShape().distance(position);
+				if (tmpDistance < distance) {
+					distance = tmpDistance;
+					targetID = target.getId();
+				}
+			}
+		}
+
+		return targetID;
+	}
+
+	public boolean hasBoundary() {
+		return this.boundaryObstacles.size() > 0;
 	}
 
 	public Target getTarget(int targetId) {
@@ -120,16 +289,43 @@ public class Topography {
 				return target;
 			}
 		}
-
 		return null;
 	}
 
-	public boolean containsTarget(final Predicate<Target> targetPredicate) {
-		return getTargets().stream().anyMatch(targetPredicate);
+	public boolean hasTeleporter() {
+		return teleporter != null;
 	}
 
-	public boolean containsTarget(final Predicate<Target> targetPredicate, final int targetId) {
-		return getTargets().stream().filter(t -> t.getId() == targetId).anyMatch(targetPredicate);
+	public boolean isBounded() {
+		return this.attributes.isBounded();
+	}
+
+	public AttributesTopography getAttributes() {
+		return attributes;
+	}
+
+	public AttributesAgent getAttributesPedestrian() {
+		return attributesPedestrian;
+	}
+
+	public AttributesCar getAttributesCar() {
+		return attributesCar;
+	}
+
+	public AttributesHorse getAttributesHorse() {
+		return attributesHorse;
+	}
+
+	public void setAttributesPedestrian(AttributesAgent attributesPedestrian) {
+		this.attributesPedestrian = attributesPedestrian;
+	}
+
+	public void setAttributesCar(AttributesCar attributesCar) {
+		this.attributesCar = attributesCar;
+	}
+
+	public void setAttributesHorse(AttributesHorse attributesHorse) {
+		this.attributesHorse = attributesHorse;
 	}
 
 	/**
@@ -139,6 +335,10 @@ public class Topography {
 		return getTargets().stream().filter(t -> t.getId() == targetId).collect(Collectors.toList());
 	}
 
+	/**
+	 * Gets all target shapes mapped by id of the target
+	 * @return map of target shapes with the id as a key
+	 */
 	public Map<Integer, List<VShape>> getTargetShapes() {
 		return getTargets().stream()
 				.collect(Collectors
@@ -146,65 +346,13 @@ public class Topography {
 								.mapping(t -> t.getShape(), Collectors
 										.toList())));
 	}
-	
+
 	public Collection<Agent> getAllAgents() {
 		List<Agent> allAgents = new LinkedList<Agent>();
 		allAgents.addAll(pedestrians.getElements());
 		allAgents.addAll(horses.getElements());
-		
+
 		return allAgents;
-	}
-
-	@SuppressWarnings("unchecked")
-	private <T extends DynamicElement, TAttributes extends AttributesDynamicElement> DynamicElementContainer<T> getContainer(
-			Class<? extends T> elementType) {
-		if (Car.class.isAssignableFrom(elementType)) {
-			return (DynamicElementContainer<T>) cars;
-		}
-		if (Pedestrian.class.isAssignableFrom(elementType)) {
-			return (DynamicElementContainer<T>) pedestrians;
-		}
-		if (Horse.class.isAssignableFrom(elementType)) {
-			return (DynamicElementContainer<T>) horses;
-		}
-
-		// TODO [priority=medium] [task=refactoring] this is needed for the SimulationDataWriter. Refactor in the process of refactoring the Writer.
-		if (DynamicElement.class.isAssignableFrom(elementType)) {
-
-			DynamicElementContainer result = new DynamicElementContainer<>(this.getBounds(), CELL_SIZE);
-			for (Pedestrian ped : pedestrians.getElements()) {
-				result.addElement(ped);
-			}
-			for (Car car : cars.getElements()) {
-				result.addElement(car);
-			}
-			for (Horse horse : horses.getElements()) {
-				result.addElement(horse);
-			}
-			return result;
-		}
-
-		throw new IllegalArgumentException("Class " + elementType + " does not have a container.");
-	}
-
-	public <T extends DynamicElement> LinkedCellsGrid<T> getSpatialMap(Class<T> elementType) {
-		return getContainer(elementType).getCellsElements();
-	}
-
-	public <T extends DynamicElement> Collection<T> getElements(Class<T> elementType) {
-		return getContainer(elementType).getElements();
-	}
-
-	public <T extends DynamicElement> T getElement(Class<T> elementType, int id) {
-		return getContainer(elementType).getElement(id);
-	}
-
-	public <T extends DynamicElement> void addElement(T element) {
-		((DynamicElementContainer<T>) getContainer(element.getClass())).addElement(element);
-	}
-
-	public <T extends DynamicElement> void removeElement(T element) {
-		((DynamicElementContainer<T>) getContainer(element.getClass())).removeElement(element);
 	}
 
 	public List<Source> getSources() {
@@ -239,206 +387,55 @@ public class Topography {
 		return horses;
 	}
 
-	public void addSource(Source source) {
-		this.sources.add(source);
-	}
-
-	public void addTarget(Target target) {
-		this.targets.add(target);
-	}
-
-	public void addObstacle(Obstacle obstacle) {
-		this.obstacles.add(obstacle);
-	}
-
-	public void addStairs(Stairs stairs) {
-		this.stairs.add(stairs);
-	}
-
-	public void setTeleporter(Teleporter teleporter) {
-		this.teleporter = teleporter;
-	}
-
-	public <T extends DynamicElement> void addInitialElement(T element) {
-		((DynamicElementContainer<T>) this.getContainer(element.getClass())).addInitialElement(element);
-	}
-
 	public <T extends DynamicElement> List<T> getInitialElements(Class<T> elementType) {
 		return this.getContainer(elementType).getInitialElements();
 	}
 
-	public boolean hasTeleporter() {
-		return teleporter != null;
+	public <T extends DynamicElement> Collection<T> getElements(Class<T> elementType) {
+		return getContainer(elementType).getElements();
 	}
 
-	public AttributesTopography getAttributes() {
-		return attributes;
+	public <T extends DynamicElement> T getElement(Class<T> elementType, int id) {
+		return getContainer(elementType).getElement(id);
 	}
 
-	public AttributesAgent getAttributesPedestrian() {
-		return attributesPedestrian;
+	@SuppressWarnings("unchecked")
+	private <T extends DynamicElement, TAttributes extends AttributesDynamicElement> DynamicElementContainer<T> getContainer(
+			Class<? extends T> elementType) {
+		if (Car.class.isAssignableFrom(elementType)) {
+			return (DynamicElementContainer<T>) cars;
+		}
+		if (Pedestrian.class.isAssignableFrom(elementType)) {
+			return (DynamicElementContainer<T>) pedestrians;
+		}
+		if (Horse.class.isAssignableFrom(elementType)) {
+			return (DynamicElementContainer<T>) horses;
+		}
+
+		// TODO [priority=medium] [task=refactoring] this is needed for the SimulationDataWriter. Refactor in the process of refactoring the Writer.
+		if (DynamicElement.class.isAssignableFrom(elementType)) {
+
+			DynamicElementContainer result = new DynamicElementContainer<>(this.getBounds(), CELL_SIZE);
+			pedestrians.getElements().forEach(result::addElement);
+			cars.getElements().forEach(result::addElement);
+			horses.getElements().forEach(result::addElement);
+
+			return result;
+		}
+
+		throw new IllegalArgumentException("Class " + elementType + " does not have a container.");
 	}
 
-	public void setAttributesPedestrian(AttributesAgent attributesPedestrian) {
-		this.attributesPedestrian = attributesPedestrian;
+	public <T extends DynamicElement> LinkedCellsGrid<T> getSpatialMap(Class<T> elementType) {
+		return getContainer(elementType).getCellsElements();
 	}
 
-	public AttributesCar getAttributesCar() {
-		return attributesCar;
+	public Rectangle2D.Double getBounds() {
+		return this.attributes.getBounds();
 	}
 
-	public void setAttributesCar(AttributesCar attributesCar) {
-		this.attributesCar = attributesCar;
+	public double getBoundingBoxWidth() {
+		return this.attributes.getBoundingBoxWidth();
 	}
 
-	public AttributesHorse getAttributesHorse() {
-		return attributesHorse;
-	}
-
-	public void setAttributesHorse(AttributesHorse attributesHorse) {
-		this.attributesHorse = attributesHorse;
-	}
-
-	public <T extends DynamicElement> void addElementRemovedListener(Class<T> elementType,
-																	 DynamicElementRemoveListener<T> listener) {
-		getContainer(elementType).addElementRemovedListener(listener);
-	}
-
-	public <T extends DynamicElement> void clearListeners(Class<T> elementType) {
-		getContainer(elementType).clearListeners();
-	}
-
-	public <T extends DynamicElement> void addElementAddedListener(Class<T> elementType,
-																   DynamicElementAddListener<T> addListener) {
-		getContainer(elementType).addElementAddedListener(addListener);
-	}
-
-	/**
-	 * Adds a given obstacle to the list of obstacles as well as the list of boundary obstacles.
-	 * This way, the boundary can both be treated like normal obstacles, but can also be removed for
-	 * writing the topography to file.
-	 */
-	public void addBoundary(Obstacle obstacle) {
-		this.addObstacle(obstacle);
-		this.boundaryObstacles.add(obstacle);
-	}
-
-	public void removeBoundary() {
-		for (Obstacle boundaryObstacle : this.boundaryObstacles) {
-			this.obstacles.remove(boundaryObstacle);
-		}
-		this.boundaryObstacles.clear();
-	}
-
-	/**
-	 * Call this method to reset the topography to the state before a simulation take place.
-	 * After this call all generated boundaries, pedestrians (from source) and all listeners will be
-	 * removed.
-	 */
-	public void reset() {
-		removeBoundary();
-		pedestrians.clear();
-		cars.clear();
-		clearListeners(Pedestrian.class);
-		clearListeners(Car.class);
-	}
-
-	public boolean isBounded() {
-		return this.attributes.isBounded();
-	}
-
-	/**
-	 * Creates a deep copy of the scenario.
-	 */
-	@Override
-	public Topography clone() {
-		Topography s = new Topography(this.attributes, this.attributesPedestrian, this.attributesCar, this.attributesHorse);
-
-		for (Obstacle obstacle : this.getObstacles()) {
-			if (this.boundaryObstacles.contains(obstacle))
-				s.addBoundary(obstacle.clone());
-			else
-				s.addObstacle(obstacle.clone());
-		}
-		for (Stairs stairs : this.getStairs()) {
-			s.addStairs(stairs);
-		}
-		for (Target target : this.getTargets()) {
-			s.addTarget(target.clone());
-		}
-		for (Source source : this.getSources()) {
-			s.addSource(source.clone());
-		}
-		for (Pedestrian pedestrian : this.getElements(Pedestrian.class)) {
-			s.addElement(pedestrian);
-		}
-		for (Pedestrian ped : getInitialElements(Pedestrian.class)) {
-			s.addInitialElement(ped);
-		}
-		for (Car car : this.getElements(Car.class)) {
-			s.addElement(car);
-		}
-		for (Car car : getInitialElements(Car.class)) {
-			s.addInitialElement(car);
-		}
-		for (Horse horse : this.getElements(Horse.class)) {
-			s.addElement(horse);
-		}
-		for (Horse horse : getInitialElements(Horse.class)) {
-			s.addInitialElement(horse);
-		}
-
-		if (this.hasTeleporter()) {
-			s.setTeleporter(this.getTeleporter().clone());
-		}
-
-		for (DynamicElementAddListener<Pedestrian> pedestrianAddListener : this.pedestrians.getElementAddedListener()) {
-			s.addElementAddedListener(Pedestrian.class, pedestrianAddListener);
-		}
-		for (DynamicElementRemoveListener<Pedestrian> pedestrianRemoveListener : this.pedestrians
-				.getElementRemovedListener()) {
-			s.addElementRemovedListener(Pedestrian.class, pedestrianRemoveListener);
-		}
-		for (DynamicElementAddListener<Car> carAddListener : this.cars.getElementAddedListener()) {
-			s.addElementAddedListener(Car.class, carAddListener);
-		}
-		for (DynamicElementRemoveListener<Car> carRemoveListener : this.cars.getElementRemovedListener()) {
-			s.addElementRemovedListener(Car.class, carRemoveListener);
-		}
-		for (DynamicElementAddListener<Horse> horseAddListener : this.horses.getElementAddedListener()) {
-			s.addElementAddedListener(Horse.class, horseAddListener);
-		}
-		for (DynamicElementRemoveListener<Horse> horseRemoveListener : this.horses.getElementRemovedListener()) {
-			s.addElementRemovedListener(Horse.class, horseRemoveListener);
-		}
-
-		return s;
-	}
-
-	public int getNextFreeTargetID() {
-		Collections.sort(this.targets);
-		return targets.getLast().getId() + 1;
-	}
-
-	public int getNearestTarget(VPoint position) {
-		double distance = Double.MAX_VALUE;
-		double tmpDistance;
-		int targetID = -1;
-
-		for (Target target : this.targets) {
-			if (!target.isTargetPedestrian()) {
-				tmpDistance = target.getShape().distance(position);
-				if (tmpDistance < distance) {
-					distance = tmpDistance;
-					targetID = target.getId();
-				}
-			}
-		}
-
-		return targetID;
-	}
-
-	public boolean hasBoundary() {
-		return this.boundaryObstacles.size() > 0;
-	}
 }

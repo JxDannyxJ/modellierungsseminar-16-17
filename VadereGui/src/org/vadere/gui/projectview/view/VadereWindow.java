@@ -1,5 +1,6 @@
 package org.vadere.gui.projectview.view;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.gui.components.utils.Messages;
@@ -46,13 +47,19 @@ import org.vadere.util.io.IOUtils;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Optional;
+import java.util.Set;
 import java.util.prefs.Preferences;
 
 import javax.swing.*;
@@ -61,30 +68,30 @@ import javax.swing.event.ListSelectionEvent;
 
 /**
  * Main view of the Vadere GUI.
- *
- *
  */
-public class ProjectView extends JFrame implements ProjectFinishedListener, SingleScenarioFinishedListener,
+public class VadereWindow extends JFrame implements ProjectFinishedListener, SingleScenarioFinishedListener,
 		IOutputFileRefreshListener, IProjectChangeListener {
 	/**
 	 * Static variables
 	 */
 	private static final long serialVersionUID = -2081363246241235943L;
-	private static Logger logger = LogManager.getLogger(ProjectView.class);
-	/** Store a reference to the main window as "owner" parameter for dialogs. */
-	private static ProjectView mainWindow;
+	private static Logger logger = LogManager.getLogger(VadereWindow.class);
+	/**
+	 * Store a reference to the main window as "owner" parameter for dialogs.
+	 */
+	private static VadereWindow mainWindow;
 
 	/**
-	 * The model of the {@link ProjectView}
+	 * The model of the {@link VadereWindow}
 	 */
 	private ProjectViewModel model;
 
 	/**
-	 * GUI elements (part of the view) of the {@link ProjectView}
-	 * 
-	 * TODO [priority=medium] [task=refactoring] do the actions have to be stored in member variables
-	 * or could it be better to store them locally where they are needed?
-	 * Some are used in different methods, maybe only store these as members?
+	 * GUI elements (part of the view) of the {@link VadereWindow}
+	 *
+	 * TODO [priority=medium] [task=refactoring] do the actions have to be stored in member
+	 * variables or could it be better to store them locally where they are needed? Some are used in
+	 * different methods, maybe only store these as members?
 	 */
 	private JPanel contentPane = new JPanel();
 	private JPanel controlPanel = new JPanel();
@@ -116,7 +123,7 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 	private void selectCurrentScenarioRunManager() {
 		int index = model.getProject().getScenarioIndexByName(model.getProject().getCurrentScenario());
 
-		if(index != -1) {
+		if (index != -1) {
 			scenarioTable.setRowSelectionInterval(index, index);
 		}
 	}
@@ -224,7 +231,7 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 
 		// show GUI
 		ProjectViewModel model = new ProjectViewModel();
-		ProjectView frame = new ProjectView(model);
+		VadereWindow frame = new VadereWindow(model);
 
 //		frame.setUndecorated(true);
 //		frame.getRootPane().setWindowDecorationStyle(JRootPane.QUESTION_DIALOG);
@@ -256,7 +263,7 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 		}
 	}
 
-	public static ProjectView getMainWindow() {
+	public static VadereWindow getMainWindow() {
 		return mainWindow;
 	}
 
@@ -286,15 +293,18 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 	/**
 	 * Create the main frame.
 	 */
-	public ProjectView(final ProjectViewModel model) {
-		ProjectView.mainWindow = this;
+	public VadereWindow(final ProjectViewModel model) {
+		VadereWindow.mainWindow = this;
 
 		model.addOutputFileRefreshListener(this);
 		model.addProjectChangeListener(this);
 		this.model = model;
 
 		setTitle("Vadere GUI");
-		setBounds(100, 100, 1000, 600);
+
+		// Set Position and size of the window
+		mainWindow.setLocationByPlatform(true);
+
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); // DO_NOTHING_ON_CLOSE so that the cancel button on the "save project on exit" question does not cause the windows to close.
 
 		ActionCloseApplication closeApplicationAction =
@@ -398,6 +408,24 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 		Action showAboutAction = new ActionShowAboutDialog(Messages.getString("ProjectView.mntmAbout.text"));
 		setAcceleratorFromLocalizedShortcut(showAboutAction, "ProjectView.mntmAbout.shortcut");
 		JMenuItem mntmAbout = new JMenuItem(showAboutAction);
+
+		/**
+		 *  Action to set the log level on debug
+		 */
+		JCheckBoxMenuItem logLevel = new JCheckBoxMenuItem("Debug");
+
+		logLevel.addItemListener(e -> {
+
+			ArrayList<Logger> logList = Collections.list(LogManager.getCurrentLoggers());
+
+			if (ItemEvent.SELECTED == e.getStateChange()) {
+				logList.forEach(logger -> logger.setLevel(Level.DEBUG));
+			} else {
+				logList.forEach(logger -> logger.setLevel(Level.INFO));
+			}
+		});
+
+		mnHelp.add(logLevel);
 
 		mnHelp.add(mntmAbout);
 
@@ -588,7 +616,7 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 		scenarioListPopupMenu.add(new JMenuItem(
 				new ActionRenameScenario(Messages.getString("ProjectView.mntmRename.text"), model)));
 		/*scenarioListPopupMenu.add(new JMenuItem(
-				new ActionConvertScenarioToWMP(Messages.getString("ProjectView.mntmConvertToWMP.text"), model)));*/
+				new ActionConvertScenarioToWMP(Messages.getString("VadereWindow.mntmConvertToWMP.text"), model)));*/
 
 		JPopupMenu scenarioListPopupMenuMultiSelect = new JPopupMenu();
 		scenarioListPopupMenuMultiSelect.add(new JMenuItem(addScenarioAction));
@@ -608,7 +636,7 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 		Action runAllScenariosAction =
 				new ActionRunAllScenarios(Messages.getString("ProjectView.btnRunAllTests.text"), model);
 		runAllScenariosAction.putValue(Action.LARGE_ICON_KEY,
-				new ImageIcon(ProjectView.class.getResource("/icons/greenarrows_right_small.png")));
+				new ImageIcon(VadereWindow.class.getResource("/icons/greenarrows_right_small.png")));
 		btnRunAllScenarios = new JButton(runAllScenariosAction);
 		toolBar.add(btnRunAllScenarios);
 		addToProjectSpecificActions(runAllScenariosAction);
@@ -619,7 +647,7 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 		runSelectedScenarios.putValue(Action.SHORT_DESCRIPTION,
 				Messages.getString("ProjectView.btnRunSelectedTest.toolTipText"));
 		runSelectedScenarios.putValue(Action.LARGE_ICON_KEY,
-				new ImageIcon(ProjectView.class.getResource("/icons/greenarrow_right_small.png")));
+				new ImageIcon(VadereWindow.class.getResource("/icons/greenarrow_right_small.png")));
 		btnRunSelectedScenario = new JButton(runSelectedScenarios);
 		toolBar.add(btnRunSelectedScenario);
 		addToProjectSpecificActions(runSelectedScenarios);
@@ -628,7 +656,7 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 		Action interruptScenariosAction =
 				new ActionInterruptScenarios(Messages.getString("ProjectView.btnStopRunningTests.text"), model);
 		interruptScenariosAction.putValue(Action.LARGE_ICON_KEY,
-				new ImageIcon(ProjectView.class.getResource("/icons/redcross_small.png")));
+				new ImageIcon(VadereWindow.class.getResource("/icons/redcross_small.png")));
 		btnStopRunningScenarios = new JButton(interruptScenariosAction);
 		toolBar.add(btnStopRunningScenarios);
 
@@ -638,7 +666,7 @@ public class ProjectView extends JFrame implements ProjectFinishedListener, Sing
 				Messages.getString("ProjectView.btnPauseRunningTests.toolTipText") + " ("
 						+ Messages.getString("ProjectView.pauseTests.shortcut").charAt(0) + ")");
 		pauseScenarioAction.putValue(Action.LARGE_ICON_KEY,
-				new ImageIcon(ProjectView.class.getResource("/icons/greenpause_small.png")));
+				new ImageIcon(VadereWindow.class.getResource("/icons/greenpause_small.png")));
 		btnPauseRunningScenarios = new JButton(pauseScenarioAction);
 		toolBar.add(btnPauseRunningScenarios);
 		toolBar.getInputMap().put(

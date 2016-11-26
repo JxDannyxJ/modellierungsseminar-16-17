@@ -83,7 +83,10 @@ public class VadereProject implements ScenarioFinishedListener {
 		}
 
 		// TODO [priority=normal] [task=bugfix] this is a bug: scenariosLeft may be overwritten even if there are still scenarios in it
-		scenariosLeft = new LinkedBlockingDeque<>();
+
+		if (scenariosLeft == null || scenariosLeft.size() == 0) {
+			scenariosLeft = new LinkedBlockingDeque<>();
+		}
 		scenariosLeft.addAll(scenariosRMsToRun);
 
 		if (!scenariosLeft.isEmpty()) {

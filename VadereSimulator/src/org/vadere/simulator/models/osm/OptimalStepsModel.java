@@ -98,7 +98,7 @@ public class OptimalStepsModel implements MainModel {
 	private List<SpeedAdjuster> speedAdjusters;
 	private Topography topography;
 	private double lastSimTimeInSec;
-	private int pedestrianIdCounter;
+	private int agentIdCounter;
 //	private PriorityQueue<PedestrianOSM> pedestrianEventsQueue;
 	private PriorityQueue<AgentOSM> agentEventsQueue;
 
@@ -121,7 +121,7 @@ public class OptimalStepsModel implements MainModel {
 		this.potentialFieldObstacle = potentialFieldObstacle;
 		this.potentialFieldPedestrian = potentialFieldPedestrian;
 		this.stepCircleOptimizer = stepCircleOptimizer;
-		this.pedestrianIdCounter = 0;
+		this.agentIdCounter = 0;
 		this.speedAdjusters = speedAdjusters;
 
 		if (attributesOSM.getUpdateType() == UpdateType.EVENT_DRIVEN) {
@@ -140,7 +140,7 @@ public class OptimalStepsModel implements MainModel {
 	}
 
 	public OptimalStepsModel() {
-		this.pedestrianIdCounter = 0;
+		this.agentIdCounter = 0;
 		this.speedAdjusters = new LinkedList<>();
 	}
 
@@ -298,13 +298,13 @@ public class OptimalStepsModel implements MainModel {
 
 	private void parallelCall(double timeStepInSec) {
 		CallMethod[] callMethods = {CallMethod.SEEK, CallMethod.MOVE, CallMethod.CONFLICTS, CallMethod.STEPS};
-		List<Future<?>> futures;
+		List<Future<?>> futures; // result list of asynchronus computations
 
 		for (CallMethod callMethod : callMethods) {
 			futures = new LinkedList<>();
-			for (final PedestrianOSM pedestrian : ListUtils.select(
-					topography.getElements(Pedestrian.class), PedestrianOSM.class)) {
-				Runnable worker = new ParallelWorkerOSM(callMethod, pedestrian,
+			for (final AgentOSM agent : ListUtils.select(
+					topography.getElements(AgentOSM.class), AgentOSM.class)) {
+				Runnable worker = new ParallelWorkerOSM(callMethod, agent,
 						timeStepInSec);
 				futures.add(executorService.submit(worker));
 			}
@@ -334,14 +334,14 @@ public class OptimalStepsModel implements MainModel {
 //		if (!Pedestrian.class.isAssignableFrom(type))
 //			throw new IllegalArgumentException("OSM cannot initialize " + type.getCanonicalName());
 
-		pedestrianIdCounter++;
+		agentIdCounter++;
 		AttributesAgent pedAttributes = new AttributesAgent(
-				this.attributesPedestrian, id > 0 ? id : pedestrianIdCounter);
+				this.attributesPedestrian, id > 0 ? id : agentIdCounter);
 
 		AgentOSM agentOSM = null;
 		if (type == Horse.class) {
 			agentOSM = new HorseOSM(attributesOSM,new AttributesHorse(topography.getAttributesHorse(), 
-					id > 0 ? id : pedestrianIdCounter), topography, random, potentialFieldTarget,
+					id > 0 ? id : agentIdCounter), topography, random, potentialFieldTarget,
 					potentialFieldObstacle.copy(), potentialFieldPedestrian,
 					speedAdjusters, stepCircleOptimizer.clone());
 		} else if (type == Pedestrian.class) {

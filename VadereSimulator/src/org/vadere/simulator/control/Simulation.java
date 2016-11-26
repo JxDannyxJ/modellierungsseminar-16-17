@@ -218,6 +218,10 @@ public class Simulation {
 		this.simulationState = simulationState;
 	}
 
+	/**
+	 * Assigning Targets to target controller and updating source/target controller
+	 * @param simTimeInSec the simulation time in seconds
+	 */
 	private void updateActiveCallbacks(double simTimeInSec) {
 
 		this.targetControllers.clear();

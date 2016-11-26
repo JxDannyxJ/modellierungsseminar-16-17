@@ -30,7 +30,7 @@ public interface AgentOSM extends DynamicElement {
 	public VPoint getLastPosition();
 	public void setVelocity(Vector2D vector2d);
 	public double getRadius();
-//	public Object getRelevantPedestrians();
+//	public Object getRelevantHorses();
 	public double getPotential(VPoint reachPoint);
 	public VPoint getPosition();
 	public double getMinStepLength();

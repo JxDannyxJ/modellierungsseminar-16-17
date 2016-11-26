@@ -33,12 +33,13 @@ import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
+import org.vadere.state.attributes.scenario.AttributesScenarioElement;
 import org.vadere.state.attributes.scenario.AttributesSource;
 import org.vadere.state.attributes.scenario.AttributesStairs;
 import org.vadere.state.attributes.scenario.AttributesTarget;
 import org.vadere.state.attributes.scenario.AttributesTeleporter;
 import org.vadere.state.attributes.scenario.AttributesTopography;
-import org.vadere.state.scenario.*;
+import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.Car;
 import org.vadere.state.scenario.dynamicelements.DynamicElement;
@@ -78,6 +79,7 @@ public abstract class JsonConverter {
 
 	private static ObjectMapper mapper = new ObjectMapper();
 	private static ObjectWriter writer = mapper.writerWithDefaultPrettyPrinter();
+
 	static {
 		mapper.configure(DeserializationFeature.ACCEPT_FLOAT_AS_INT, false); // otherwise 4.7 will automatically be casted to 4 for integers, with this it throws an error
 		mapper.enable(JsonParser.Feature.STRICT_DUPLICATE_DETECTION); // forbids duplicate keys
@@ -151,7 +153,8 @@ public abstract class JsonConverter {
 						break;
 					case ELLIPSE:
 						jsonGenerator
-							.writeTree(mapper.convertValue(new EllipseStore((VEllipse) vShape), JsonNode.class));
+								.writeTree(mapper.convertValue(new EllipseStore((VEllipse) vShape), JsonNode.class));
+						break;
 					case RECTANGLE:
 						jsonGenerator.writeTree(serializeVRectangle((VRectangle) vShape)); // this doesn't seem to get called ever, the VRectangle serializer always seem to get called
 						break;
@@ -219,7 +222,8 @@ public abstract class JsonConverter {
 		public double height;
 		public ShapeType type = ShapeType.RECTANGLE;
 
-		public VRectangleStore() {}
+		public VRectangleStore() {
+		}
 
 		public VRectangleStore(VRectangle vRect) {
 			x = vRect.x;
@@ -237,7 +241,8 @@ public abstract class JsonConverter {
 		public ShapeType type = ShapeType.POLYGON;
 		public List<VPoint> points;
 
-		public Polygon2DStore() {}
+		public Polygon2DStore() {
+		}
 
 		public Polygon2DStore(VPolygon vPoly) {
 			points = vPoly.getPoints();
@@ -253,7 +258,8 @@ public abstract class JsonConverter {
 		public VPoint center;
 		public ShapeType type = ShapeType.CIRCLE;
 
-		public CircleStore() {}
+		public CircleStore() {
+		}
 
 		public CircleStore(VCircle vCircle) {
 			radius = vCircle.getRadius();
@@ -264,25 +270,26 @@ public abstract class JsonConverter {
 			return new VCircle(center, radius);
 		}
 	}
-	
+
 	/**
-	 *Class to store informations of Ellipse and
-	 *create new Instances of VEllipse.
+	 * Class to store informations of Ellipse and
+	 * create new Instances of VEllipse.
 	 */
 	private static class EllipseStore {
 		public double height;
 		public double width;
 		public VPoint center;
 		public ShapeType type = ShapeType.ELLIPSE;
-		
-		public EllipseStore() {}
-		
+
+		public EllipseStore() {
+		}
+
 		public EllipseStore(VEllipse vEllipse) {
 			height = vEllipse.getHeight();
 			width = vEllipse.getWidth();
 			center = vEllipse.getCenter();
 		}
-		
+
 		public VEllipse newVEllipse() {
 			return new VEllipse(center, height, width);
 		}
@@ -291,7 +298,7 @@ public abstract class JsonConverter {
 	public static ScenarioRunManager deserializeScenarioRunManager(String json) throws IOException {
 		return deserializeScenarioRunManagerFromNode(mapper.readTree(json));
 	}
-	
+
 	public static ScenarioRunManager deserializeScenarioRunManagerFromNode(JsonNode node) throws IOException {
 		JsonNode rootNode = node;
 		String name = rootNode.get("name").asText();
@@ -381,54 +388,37 @@ public abstract class JsonConverter {
 		}
 	}
 
-	public static Agent deserializeAgent(String json) throws IOException {
-		return mapper.readValue(json, Agent.class);
+	public static Agent deserializeDynamicElement(String json, ScenarioElementType type) throws IOException {
+		switch (type) {
+			case PEDESTRIAN:
+				return mapper.readValue(json, Pedestrian.class);
+			case HORSE:
+				return mapper.readValue(json, Horse.class);
+			case CAR:
+				return mapper.readValue(json, Car.class);
+			default:
+				return null;
+		}
 	}
 
 	/**
-	 * Deserialize Object from Json.
-	 * @param json description of {@link Pedestrian}.
-	 * @return instance of {@link Pedestrian}.
-	 * @throws IOException
-	 */
-	public static Pedestrian deserializePedestrian(String json) throws IOException {
-		return mapper.readValue(json, Pedestrian.class);
-	}
-
-	/**
-	 * Deserialize Object from Json.
-	 * @param json description of {@link Car}.
-	 * @return instance of {@link Car}.
-	 * @throws IOException
-	 */
-	public static Car deserializeCar(String json) throws IOException {
-		return mapper.readValue(json, Car.class);
-	}
-	
-	/**
-	 * Deserialize Object from Json.
-	 * @param json description of {@link Horse}.
-	 * @return instance of {@link Horse}.
-	 * @throws IOException
-	 */
-	public static Horse deserializeHorse(String json) throws IOException {
-		return mapper.readValue(json, Horse.class);
-	}
-
-	/**
-	 * Deserialize Json input and create the right {@link Attributes} Object. 
+	 * Deserialize Json input and create the right {@link Attributes} Object.
+	 *
 	 * @param json representation of {@link Attributes} for {@link ScenarioElementType}.
 	 * @param type which is described by Json input-
 	 * @return instance of {@link Attributes}.
-	 * @throws IOException
 	 */
-	public static Attributes deserializeScenarioElementType(String json, ScenarioElementType type) throws IOException {
+	public static AttributesScenarioElement deserializeScenarioElementAttributes(String json, ScenarioElementType type) throws IOException {
 		// TODO [priority=low] [task=refactoring] find a better way!
 		switch (type) {
-			case OBSTACLE:
-				return mapper.readValue(json, AttributesObstacle.class);
 			case PEDESTRIAN:
 				return mapper.readValue(json, AttributesAgent.class);
+			case HORSE:
+				return mapper.readValue(json, AttributesHorse.class);
+			case CAR:
+				return mapper.readValue(json, AttributesCar.class);
+			case OBSTACLE:
+				return mapper.readValue(json, AttributesObstacle.class);
 			case SOURCE:
 				return mapper.readValue(json, AttributesSource.class);
 			case TARGET:
@@ -437,10 +427,6 @@ public abstract class JsonConverter {
 				return mapper.readValue(json, AttributesStairs.class);
 			case TELEPORTER:
 				return mapper.readValue(json, AttributesTeleporter.class);
-			case CAR:
-				return mapper.readValue(json, AttributesCar.class);
-			case HORSE:
-				return mapper.readValue(json, AttributesHorse.class);
 			default:
 				return null;
 		}
@@ -479,7 +465,7 @@ public abstract class JsonConverter {
 	}
 
 	public static JsonNode serializeScenarioRunManagerToNode(ScenarioRunManager scenarioRunManager,
-			boolean commitHashIncluded) throws IOException {
+															 boolean commitHashIncluded) throws IOException {
 		ScenarioStore scenarioStore = scenarioRunManager.getScenarioStore();
 		ObjectNode rootNode = mapper.createObjectNode();
 		serializeMeta(rootNode, commitHashIncluded, scenarioStore);
@@ -582,7 +568,7 @@ public abstract class JsonConverter {
 
 		JsonNode attributesHorseNode = mapper.convertValue(topography.getAttributesHorse(), JsonNode.class);
 		topographyNode.set("attributesHorse", attributesHorseNode);
-		
+
 
 		return topographyNode;
 	}

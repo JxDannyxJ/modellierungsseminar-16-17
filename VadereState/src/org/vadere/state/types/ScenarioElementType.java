@@ -1,10 +1,16 @@
 package org.vadere.state.types;
 
-import java.awt.*;
-
 import org.vadere.state.attributes.Attributes;
-import org.vadere.state.attributes.scenario.*;
+import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesHorse;
+import org.vadere.state.attributes.scenario.AttributesObstacle;
+import org.vadere.state.attributes.scenario.AttributesSource;
+import org.vadere.state.attributes.scenario.AttributesStairs;
+import org.vadere.state.attributes.scenario.AttributesTarget;
+import org.vadere.state.attributes.scenario.AttributesTeleporter;
+
+import java.awt.*;
 
 /**
  * Enumeration which contains the different types of scenario elements.
@@ -12,14 +18,14 @@ import org.vadere.state.attributes.scenario.AttributesHorse;
  */
 public enum ScenarioElementType {
 
-	OBSTACLE(Color.BLACK, AttributesObstacle.class),
 	PEDESTRIAN(Color.BLUE, AttributesAgent.class),
+	HORSE(Color.CYAN, AttributesHorse.class),
+	CAR(Color.black, AttributesCar.class),
+	OBSTACLE(Color.BLACK, AttributesObstacle.class),
 	SOURCE(Color.ORANGE, AttributesSource.class),
 	TARGET(Color.GREEN, AttributesTarget.class),
 	STAIRS(Color.PINK, AttributesStairs.class),
-	TELEPORTER(Color.GRAY, AttributesTeleporter.class),
-	CAR(Color.black, AttributesCar.class),
-	HORSE(Color.CYAN, AttributesHorse.class); //DJ
+	TELEPORTER(Color.GRAY, AttributesTeleporter.class);
 
 	private Color color;
 	private Class<? extends Attributes> clazz;

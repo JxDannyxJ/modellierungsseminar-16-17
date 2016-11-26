@@ -25,6 +25,7 @@ public class AttributesHorse extends AttributesAgent {
 		this.height = other.height;
 		this.width = other.width;
 		this.direction = other.direction;
+		this.setShape(other.getShape());
 	}
 
 	/**

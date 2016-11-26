@@ -58,7 +58,7 @@ public class VCircle implements VShape {
 	 */
 	@Override
 	public VPoint closestPoint(VPoint point) {
-		Vector2D direction = new Vector2D(point.getX() - center.getX(), point.getX()
+		Vector2D direction = new Vector2D(point.getX() - center.getX(), point.getY()
 				- center.getY());
 		VPoint vector = direction.normalize(radius);
 		return new VPoint(vector.getX() + center.getX(), vector.getY() + center.getY());

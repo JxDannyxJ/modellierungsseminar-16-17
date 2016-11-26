@@ -1,6 +1,6 @@
 package org.vadere.state.scenario;
 
-import org.vadere.state.attributes.Attributes;
+import org.vadere.state.attributes.scenario.AttributesScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VShape;
 
@@ -30,5 +30,8 @@ public interface ScenarioElement extends Cloneable {
 	 * Getter for the attributes for the scenario element
 	 * @return Attributes object which hold the properties of a scenario element
 	 */
-	Attributes getAttributes();
+	AttributesScenarioElement getAttributes();
+
+	void setAttributes(AttributesScenarioElement attributes);
+
 }

@@ -45,7 +45,7 @@ public class StepOptimizerDiscrete implements StepOptimizer{
      *
      * @param agent the agent which is requesting a new position.
      * @param reachableArea the agents reachableArea.
-     * @return
+     * @return new position for agent.
      */
     @Override
     public VPoint getNextPosition(AgentOSM agent, VShape reachableArea) {

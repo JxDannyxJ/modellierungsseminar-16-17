@@ -41,6 +41,8 @@ public interface AgentOSM extends DynamicElement {
 	public int getNextTargetId();
 	public Vector2D getObstacleGradient(VPoint position);
 	public Vector2D getAgentGradient(VPoint position);
+	public Vector2D getTargetGradient(VPoint position);
+	public VPoint angleToPosition(double angle, double stepSize);
 	public void update(double i, double simTimeInSec, CallMethod eventDriven);
 
 	LinkedList<VPoint> getReachablePositions(Random random);

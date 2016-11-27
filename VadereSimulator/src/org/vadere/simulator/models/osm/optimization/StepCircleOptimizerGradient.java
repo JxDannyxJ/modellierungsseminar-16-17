@@ -57,7 +57,7 @@ public class StepCircleOptimizerGradient implements StepCircleOptimizer {
 		Vector2D directionTarget = new Vector2D(targetGrad[0], targetGrad[1]);
 
 		Vector2D gradientObstacle = agentOSM.getObstacleGradient(position);
-		Vector2D gradientPedestrians = agentOSM.getPedestrianGradient(position);
+		Vector2D gradientPedestrians = agentOSM.getAgentGradient(position);
 		Vector2D directionDynamic = gradientObstacle.add(gradientPedestrians);
 		Vector2D direction = directionTarget.add(directionDynamic).normalize(1.0);
 

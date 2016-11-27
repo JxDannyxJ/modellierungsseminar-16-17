@@ -400,4 +400,18 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 		}
 		return result;
 	}
+
+	/**
+	 * Computes new position to given angle and step size.
+	 *
+	 * @param angle the angle.
+	 * @param stepSize the step size.
+	 * @return new {@link VPoint} instance.
+	 */
+	@Override
+	public VPoint angleToPosition(double angle, double stepSize) {
+		VPoint newPos = new VPoint(stepSize * Math.cos(angle) + getPosition().getX(),
+				stepSize * Math.sin(angle) + getPosition().getY());
+		return newPos;
+	}
 }

@@ -536,4 +536,25 @@ public class HorseOSM extends Horse implements AgentOSM {
 		}
 		return rotatedEllipsePoints;
 	}
+
+	/**
+	 * Computes new position to given angle and step size.
+	 *
+	 * @param angle the angle.
+	 * @param stepSize the step size.
+	 * @return new {@link VPoint} instance.
+	 */
+	@Override
+	public VPoint angleToPosition(double angle, double stepSize) {
+		double height = ((VEllipse) getShape()).getWidth();
+		double width = ((VEllipse) getShape()).getHeight();
+		int factor = angle % (2 * Math.PI) <= Math.PI / 4.0 ? 1 : -1;
+		double x = (height * width)/(Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2) * Math.pow(Math.tan(angle), 2) ));
+		double y = factor * width * Math.sqrt(1 - (Math.pow(x, 2)/Math.pow(height, 2)));
+		double rotationAngle = getVelocity().angleToZero();
+		Vector2D pointVector = new Vector2D(x, y);
+		Vector2D newPoint = new Vector2D(pointVector.rotate(rotationAngle));
+		newPoint = newPoint.add(getPosition());
+		return newPoint;
+	}
 }

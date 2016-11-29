@@ -1,12 +1,23 @@
 package org.vadere.state.attributes.models;
 
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.attributes.Attributes;
+import org.vadere.state.scenario.dynamicelements.Horse;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 
 /**
  * Provides potential attributes for pedestrians and obstacles in the Gradient Navigation Model.
  * 
  */
 public class AttributesPotentialOSM extends Attributes {
+
+    private double horseBodyPotential = 2000;
+    private double horseRepulsionWidth = 2.0;
+    private double horseRepulsionStrength = 0.8;
+    private double horseRecognitionDistance = 3.0;
+    private double aHorseOSM = 7;
+    private double bHorseOSM = 1.2;
+    private double horseDensityFactor = 2.4;
 
 	private double pedestrianBodyPotential = 1000;
 	private double pedestrianRepulsionWidth = 1.0;
@@ -23,27 +34,75 @@ public class AttributesPotentialOSM extends Attributes {
 	private double bObsOSM = 0.2;
 
 	public AttributesPotentialOSM() {}
-
-	// Getters...
-
-	public double getPedestrianBodyPotential() {
-		return pedestrianBodyPotential;
+	
+	public double getBodyPotential(Class<? extends Agent> type) {
+		if(Pedestrian.class.isAssignableFrom(type)) {
+			return pedestrianBodyPotential;
+		} 
+		else if (Horse.class.isAssignableFrom(type)) {
+			return horseBodyPotential;
+		}
+		return 0;
+	}
+	
+	public double getRepulsionWidth(Class<? extends Agent> type) {
+		if(Pedestrian.class.isAssignableFrom(type)) {
+			return pedestrianRepulsionWidth;
+		} 
+		else if (Horse.class.isAssignableFrom(type)) {
+			return horseRepulsionWidth;
+		}
+		return 0;
+	}
+	
+	public double getRepulsionStrength(Class<? extends Agent> type) {
+		if(Pedestrian.class.isAssignableFrom(type)) {
+			return pedestrianRepulsionStrength;
+		} 
+		else if (Horse.class.isAssignableFrom(type)) {
+			return horseRepulsionStrength;
+		}
+		return 0;
+	}
+	
+	public double getRecognitionDistance(Class<? extends Agent> type) {
+		if(Pedestrian.class.isAssignableFrom(type)) {
+			return pedestrianRecognitionDistance;
+		} 
+		else if (Horse.class.isAssignableFrom(type)) {
+			return horseRecognitionDistance;
+		}
+		return 0;
+	}
+	
+	public double getA(Class<? extends Agent> type) {
+		if(Pedestrian.class.isAssignableFrom(type)) {
+			return aPedOSM;
+		} 
+		else if (Horse.class.isAssignableFrom(type)) {
+			return aHorseOSM;
+		}
+		return 0;
 	}
 
-	public double getPedestrianRepulsionWidth() {
-		return pedestrianRepulsionWidth;
+	public double getB(Class<? extends Agent> type) {
+		if(Pedestrian.class.isAssignableFrom(type)) {
+			return bPedOSM;
+		} 
+		else if (Horse.class.isAssignableFrom(type)) {
+			return bHorseOSM;
+		}
+		return 0;
 	}
 
-	public double getPedestrianRepulsionStrength() {
-		return pedestrianRepulsionStrength;
-	}
-
-	public double getPedestrianRecognitionDistance() {
-		return pedestrianRecognitionDistance;
-	}
-
-	public double getPersonalDensityFactor() {
-		return personalDensityFactor;
+	public double getDensityFactor(Class<? extends Agent> type) {
+		if(Pedestrian.class.isAssignableFrom(type)) {
+			return personalDensityFactor;
+		} 
+		else if (Horse.class.isAssignableFrom(type)) {
+			return horseDensityFactor;
+		}
+		return 0;
 	}
 
 	public double getObstacleBodyPotential() {
@@ -73,4 +132,5 @@ public class AttributesPotentialOSM extends Attributes {
 	public double getBObsOSM() {
 		return bObsOSM;
 	}
+
 }

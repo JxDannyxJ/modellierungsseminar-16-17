@@ -3,7 +3,7 @@ package org.vadere.simulator.models.osm;
 import java.util.*;
 
 import org.vadere.simulator.models.SpeedAdjuster;
-import org.vadere.simulator.models.osm.optimization.StepOptimizer;
+import org.vadere.simulator.models.osm.optimization.StepCircleOptimizer;
 import org.vadere.simulator.models.osm.stairOptimization.StairStepOptimizer;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeEventDriven;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM;
@@ -39,7 +39,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 	private final AttributesOSM attributesOSM;
 
 	/** {@link StepOptimizer}.**/
-	private final transient StepOptimizer stepOptimizer;
+	private final transient StepCircleOptimizer stepOptimizer;
 
 	/** {@link UpdateSchemeOSM} defining how to update agent.**/
 	private final transient UpdateSchemeOSM updateScheme;
@@ -104,7 +104,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 			PotentialFieldObstacle potentialFieldObstacle,
 			PotentialFieldAgent potentialFieldAgent,
 			List<SpeedAdjuster> speedAdjusters,
-			StepOptimizer stepOptimizer) {
+			StepCircleOptimizer stepOptimizer) {
 
 		super(attributesAgent, random);
 

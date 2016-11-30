@@ -1,21 +1,21 @@
 package org.vadere.simulator.models.ode;
 
-import java.util.Collection;
-import java.util.Random;
-
 import org.apache.commons.math3.exception.MathIllegalNumberException;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.simulator.models.MainModel;
 import org.vadere.state.attributes.scenario.AttributesDynamicElement;
+import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.Car;
 import org.vadere.state.scenario.dynamicelements.DynamicElement;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
-import org.vadere.state.scenario.Topography;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VPoint;
+
+import java.util.Collection;
+import java.util.Random;
 
 public abstract class ODEModel<T extends DynamicElement, TAttributes extends AttributesDynamicElement>
 		implements MainModel {

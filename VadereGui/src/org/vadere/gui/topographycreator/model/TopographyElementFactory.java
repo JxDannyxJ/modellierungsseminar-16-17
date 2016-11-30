@@ -2,12 +2,14 @@ package org.vadere.gui.topographycreator.model;
 
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
 import org.vadere.state.attributes.scenario.AttributesSource;
 import org.vadere.state.attributes.scenario.AttributesStairs;
 import org.vadere.state.attributes.scenario.AttributesTarget;
 import org.vadere.state.scenario.ScenarioElement;
+import org.vadere.state.scenario.dynamicelements.Car;
 import org.vadere.state.scenario.dynamicelements.Horse;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.scenario.staticelements.Obstacle;
@@ -46,6 +48,8 @@ public class TopographyElementFactory {
 				return new Target(new AttributesTarget(shape));
 			case PEDESTRIAN:
 				return new Pedestrian(new AttributesAgent(), ((VCircle) shape).getCenter());
+			case CAR:
+				return new Car(new AttributesCar(), shape.getCentroid());
 			case HORSE:
 				return new Horse(new AttributesHorse(), ((VEllipse) shape).getCenter()); //CHANGED AG
 			default:

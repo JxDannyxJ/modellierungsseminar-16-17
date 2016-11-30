@@ -4,16 +4,16 @@ import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesTopography;
+import org.vadere.state.scenario.ScenarioElement;
+import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.Car;
 import org.vadere.state.scenario.dynamicelements.Horse;
-import org.vadere.state.scenario.staticelements.Obstacle;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
-import org.vadere.state.scenario.ScenarioElement;
+import org.vadere.state.scenario.staticelements.Obstacle;
 import org.vadere.state.scenario.staticelements.Source;
 import org.vadere.state.scenario.staticelements.Stairs;
 import org.vadere.state.scenario.staticelements.Target;
 import org.vadere.state.scenario.staticelements.Teleporter;
-import org.vadere.state.scenario.Topography;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VPoint;
 
@@ -36,6 +36,7 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 	// TopographyElements
 	private LinkedList<Pedestrian> pedestrians;
 	private LinkedList<Horse> horses;
+	private LinkedList<Car> cars;
 	private LinkedList<Obstacle> obstacles;
 	private LinkedList<Stairs> stairs;
 	private LinkedList<Source> sources;
@@ -53,6 +54,7 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 	public TopographyBuilder() {
 		pedestrians = new LinkedList<>();
 		horses = new LinkedList<>();
+		cars = new LinkedList<>();
 		obstacles = new LinkedList<>();
 		stairs = new LinkedList<>();
 		sources = new LinkedList<>();
@@ -81,6 +83,7 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 		// Dynamic scenario elements
 		pedestrians = new LinkedList<>(pedStores);
 		horses = new LinkedList<>(horseStores);
+		cars = new LinkedList<>(carStores);
 
 		// Initialize the attributes for the dynamic scenario types
 		attributes = topography.getAttributes();
@@ -92,6 +95,7 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 		topographyElements = new LinkedList<>();
 		topographyElements.addAll(pedestrians);
 		topographyElements.addAll(horses);
+		topographyElements.addAll(cars);
 		topographyElements.addAll(obstacles);
 		topographyElements.addAll(stairs);
 		topographyElements.addAll(sources);
@@ -147,6 +151,8 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 
 		horses.forEach(topography::addInitialElement);
 
+		cars.forEach(topography::addInitialElement);
+
 		topography.setTeleporter(teleporter);
 
 		return topography;
@@ -201,6 +207,11 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 	public void addHorse(final Horse horse) {
 		this.topographyElements.add(horse);
 		this.horses.add(horse);
+	}
+
+	public void addCar(final Car car) {
+		this.topographyElements.add(car);
+		this.cars.add(car);
 	}
 
 	public void addObstacle(final Obstacle obstacle) {

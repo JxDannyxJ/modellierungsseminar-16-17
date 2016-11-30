@@ -1,10 +1,10 @@
 package org.vadere.simulator.models;
 
-import java.util.Random;
-
 import org.vadere.simulator.projects.ScenarioStore;
 import org.vadere.state.attributes.AttributesSimulation;
 import org.vadere.util.reflection.DynamicClassInstantiator;
+
+import java.util.Random;
 
 /**
  * This class encapsulates the creation of MainModel.
@@ -44,6 +44,10 @@ public class MainModelBuilder {
 		return random;
 	}
 
+	/**
+	 * Creates a main model from the json attribute "mainModel", which represents
+	 * the class location of the main model and fills i
+	 */
 	private MainModel instantiateMainModel(Random random) {
 		String mainModelName = scenarioStore.mainModel;
 		DynamicClassInstantiator<MainModel> instantiator = new DynamicClassInstantiator<>();

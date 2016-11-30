@@ -1,19 +1,19 @@
 package org.vadere.simulator.models.sfm;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
-
 import org.vadere.simulator.models.potential.fields.PotentialFieldAgent;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.AttributesPotentialSFM;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.Topography;
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.util.geometry.Vector2D;
-import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
+import org.vadere.util.geometry.shapes.VShape;
 import org.vadere.util.math.MathUtil;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 
 public class PotentialFieldPedestrianSFM implements PotentialFieldAgent {
 
@@ -119,10 +119,10 @@ public class PotentialFieldPedestrianSFM implements PotentialFieldAgent {
 	}
 
 	@Override
-	public Collection<Agent> getRelevantAgents(VCircle relevantArea,
-			Agent center, Topography scenario) {
+	public Collection<Agent> getRelevantAgents(VShape relevantArea,
+											   Agent center, Topography scenario) {
 		List<Agent> closePedestrians = scenario.getSpatialMap(Agent.class)
-				.getObjects(relevantArea.getCenter(),
+				.getObjects(relevantArea.getCentroid(),
 						attributes.getPedestrianRecognitionDistance() + 3);
 		// add five meters accounting for the fact that a negative exponential is used, not a
 		// function on compact support.

@@ -7,6 +7,7 @@ import org.vadere.simulator.projects.ScenarioRunManager;
 import org.vadere.state.attributes.scenario.AttributesTopography;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.scenario.Topography;
+import org.vadere.state.scenario.dynamicelements.Car;
 import org.vadere.state.scenario.dynamicelements.Horse;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.scenario.staticelements.Obstacle;
@@ -275,6 +276,9 @@ public class TopographyCreatorModel extends DefaultModel implements IDrawPanelMo
 				break;
 			case TELEPORTER:
 				topographyBuilder.setTeleporter((Teleporter) shape);
+				break;
+			case CAR:
+				topographyBuilder.addCar((Car) shape);
 				break;
 			case HORSE :  //CHANGED AG
 				topographyBuilder.addHorse((Horse) shape);

@@ -1,20 +1,20 @@
 package org.vadere.simulator.models.potential;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-
 import org.vadere.simulator.models.potential.fields.PotentialFieldAgent;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.AttributesPotentialCompactSoftshell;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
-import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.Vector2D;
-import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
+import org.vadere.util.geometry.shapes.VShape;
+
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 public class PotentialFieldPedestrianCompactSoftshell implements PotentialFieldAgent {
 
@@ -32,12 +32,12 @@ public class PotentialFieldPedestrianCompactSoftshell implements PotentialFieldA
 	}
 
 	@Override
-	public Collection<Pedestrian> getRelevantAgents(VCircle relevantArea,
-			Agent pedestrian, Topography scenario) {
+	public Collection<Pedestrian> getRelevantAgents(VShape relevantArea,
+													Agent pedestrian, Topography scenario) {
 		List<Pedestrian> result = new LinkedList<>();
 
 		List<Pedestrian> closePedestrians = scenario.getSpatialMap(Pedestrian.class)
-				.getObjects(relevantArea.getCenter(), this.personalWidth + 0.5);
+				.getObjects(relevantArea.getCentroid(), this.personalWidth + 0.5);
 
 		result = closePedestrians;
 

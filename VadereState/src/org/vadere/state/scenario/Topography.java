@@ -351,6 +351,7 @@ public class Topography {
 		List<Agent> allAgents = new LinkedList<Agent>();
 		allAgents.addAll(pedestrians.getElements());
 		allAgents.addAll(horses.getElements());
+		allAgents.addAll(cars.getElements());
 
 		return allAgents;
 	}

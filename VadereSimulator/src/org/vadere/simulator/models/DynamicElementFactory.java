@@ -11,5 +11,5 @@ public interface DynamicElementFactory {
 	 * Note: Every attribute of the given element should be cloned for each individual in this
 	 * method, because some fields are individual.
 	 */
-	public <T extends DynamicElement> DynamicElement createElement(VPoint position, int id, Class<T> type);
+	<T extends DynamicElement> DynamicElement createElement(VPoint position, int id, Class<T> type);
 }

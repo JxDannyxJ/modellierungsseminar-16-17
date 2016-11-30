@@ -4,14 +4,17 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.simulator.models.DynamicElementFactory;
 import org.vadere.simulator.models.MainModel;
+import org.vadere.simulator.models.ovm.OptimalVelocityModel;
 import org.vadere.simulator.projects.ScenarioStore;
 import org.vadere.simulator.projects.dataprocessing.ProcessorManager;
 import org.vadere.state.attributes.AttributesSimulation;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.staticelements.Source;
 import org.vadere.state.scenario.staticelements.Target;
-import org.vadere.state.scenario.Topography;
+import org.vadere.state.types.ScenarioElementType;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,7 +61,7 @@ public class Simulation {
 	private MainModel mainModel;
 
 	public Simulation(MainModel mainModel, double startTimeInSec, final String name, ScenarioStore scenarioStore,
-			List<PassiveCallback> passiveCallbacks, Random random, ProcessorManager processorManager) {
+					  List<PassiveCallback> passiveCallbacks, Random random, ProcessorManager processorManager) {
 		this.name = name;
 		this.mainModel = mainModel;
 		this.scenarioStore = scenarioStore;
@@ -85,11 +88,23 @@ public class Simulation {
 		for (PassiveCallback pc : this.passiveCallbacks) {
 			pc.setTopography(topography);
 		}
+		ArrayList<ActiveCallback> subModels = new ArrayList<>();
+		activeCallbacks.stream().filter(p -> p instanceof OptimalVelocityModel).forEach(subModels::add);
 
+		/**
+		 *	Here the sourceControllers get their dynamicElementFactory
+		 *	This means for each motion model the appropriate dynamicElementFactory has to be added
+		 */
 		// create source and target controllers
 		for (Source source : topography.getSources()) {
-			sourceControllers
-					.add(new SourceController(topography, source, dynamicElementFactory, attributesAgent, random));
+			SourceController sourceController;
+			//TODO: Try to get the dynamicElementFactory type from the json file or as an attribute from source which can be placed
+			if (ScenarioElementType.CAR.name().equals(source.getAttributes().getDynamicElementType().name())) {
+				sourceController = new SourceController(topography, source, (OptimalVelocityModel) subModels.get(0), attributesAgent, random);
+			} else {
+				sourceController = new SourceController(topography, source, dynamicElementFactory, attributesAgent, random);
+			}
+			sourceControllers.add(sourceController);
 		}
 		for (Target target : topography.getTargets()) {
 			targetControllers.add(new TargetController(topography, target));
@@ -193,8 +208,7 @@ public class Simulation {
 					logger.info("Simulation interrupted.");
 				}
 			}
-		}
-		finally {
+		} finally {
 			// this is necessary to free the resources (files), the SimulationWriter and processor are writing in!
 			postLoop();
 
@@ -220,6 +234,7 @@ public class Simulation {
 
 	/**
 	 * Assigning Targets to target controller and updating source/target controller
+	 *
 	 * @param simTimeInSec the simulation time in seconds
 	 */
 	private void updateActiveCallbacks(double simTimeInSec) {

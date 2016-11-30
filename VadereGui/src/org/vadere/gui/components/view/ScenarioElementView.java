@@ -156,7 +156,7 @@ public class ScenarioElementView extends JPanel implements ISelectScenarioElemen
 				// casting should be safe her because in the other two modes (onlineVis and postVis), updateModel() won't be called because it's set to uneditable
 				((TopographyCreatorModel) panelModel).getScenario().updateCurrentStateSerialized();
 			} catch (IOException e) {
-				logger.log(Priority.WARN, "The JsonParser encountered an error while parsing an invalid json document!", e);
+				logger.log(Priority.DEBUG, "The JsonParser encountered an error while parsing an invalid json document!", e);
 				ScenarioJPanel.setActiveJsonParsingErrorMsg("TOPOGRAPHY CREATOR tab:\n" + e.getMessage()); // add name of scenario element?
 				jsonValidIndicator.setInvalid();
 			}

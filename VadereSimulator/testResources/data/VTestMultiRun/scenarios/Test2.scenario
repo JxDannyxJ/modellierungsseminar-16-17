@@ -48,7 +48,7 @@
         "numPedConsidered": 5.0
       }
     },
-    "attributesPedestrian": {
+    "attributesAgent": {
       "radius": 0.195,
       "densityDependentSpeed": false,
       "speedDistributionMean": 1.34,

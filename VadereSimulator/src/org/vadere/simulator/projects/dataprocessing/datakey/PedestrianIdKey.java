@@ -17,7 +17,7 @@ public class PedestrianIdKey implements DataKey<PedestrianIdKey> {
 	}
 
 	public static String getHeader() {
-		return "pedestrianId";
+		return "agentId";
 	}
 
 	@Override

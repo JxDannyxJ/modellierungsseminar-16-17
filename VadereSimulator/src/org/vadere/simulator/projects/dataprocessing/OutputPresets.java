@@ -1,8 +1,8 @@
 package org.vadere.simulator.projects.dataprocessing;
 
+import org.vadere.simulator.projects.dataprocessing.store.DataProcessorStore;
 import org.vadere.simulator.projects.dataprocessing.store.OutputDefinitionStore;
 import org.vadere.simulator.projects.dataprocessing.store.OutputFileStore;
-import org.vadere.simulator.projects.dataprocessing.store.DataProcessorStore;
 
 import java.util.Arrays;
 
@@ -24,8 +24,8 @@ public final class OutputPresets {
         this.outputDefinition.addProcessor(processor1);
 
         DataProcessorStore processor2 = new DataProcessorStore();
-        processor2.setType("org.vadere.simulator.projects.dataprocessing.processor.PedestrianTargetIdProcessor");
-        processor2.setId(2);
+		processor2.setType("org.vadere.simulator.projects.dataprocessing.processor.AgentTargetIdProcessor");
+		processor2.setId(2);
         this.outputDefinition.addProcessor(processor2);
 
         OutputFileStore outputFile = new OutputFileStore();

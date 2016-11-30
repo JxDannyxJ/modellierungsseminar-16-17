@@ -2,8 +2,8 @@ package org.vadere.simulator.models.osm;
 
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM.CallMethod;
 import org.vadere.state.attributes.models.AttributesOSM;
-import org.vadere.state.scenario.dynamicelements.DynamicElement;
 import org.vadere.state.scenario.Topography;
+import org.vadere.state.scenario.dynamicelements.DynamicElement;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VPoint;
 
@@ -11,39 +11,67 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public interface AgentOSM extends DynamicElement {
-	
-	public double getTimeOfNextStep();
-	public double getStepSize();
-	public double getDesiredSpeed();
-	public double getDurationNextStep();
-	
-	public void setTimeOfNextStep(double d);
-	public void setDurationNextStep(double d);
-	public void makeStep(double d);
-	public void updateNextPosition();
-	public double getTimeCredit();
-	public void setTimeCredit(double d);
-	public VPoint getNextPosition();
-	public void setPosition(VPoint nextPosition);
-	public void setLastPosition(VPoint position);
-	public int getId();
-	public VPoint getLastPosition();
-	public void setVelocity(Vector2D vector2d);
-	public double getRadius();
-//	public Object getRelevantHorses();
-	public double getPotential(VPoint reachPoint);
-	public VPoint getPosition();
-	public double getMinStepLength();
-	public double getTargetPotential(VPoint newPos);
-	public Topography getTopography();
-	public AttributesOSM getAttributesOSM();
-	public Vector2D getVelocity();
-	public int getNextTargetId();
-	public Vector2D getObstacleGradient(VPoint position);
-	public Vector2D getAgentGradient(VPoint position);
-	public Vector2D getTargetGradient(VPoint position);
-	public VPoint angleToPosition(double angle, double stepSize);
-	public void update(double i, double simTimeInSec, CallMethod eventDriven);
+
+	double getTimeOfNextStep();
+
+	double getStepSize();
+
+	double getDesiredSpeed();
+
+	double getDurationNextStep();
+
+	void setTimeOfNextStep(double d);
+
+	void setDurationNextStep(double d);
+
+	void makeStep(double d);
+
+	void updateNextPosition();
+
+	double getTimeCredit();
+
+	void setTimeCredit(double d);
+
+	VPoint getNextPosition();
+
+	void setPosition(VPoint nextPosition);
+
+	void setLastPosition(VPoint position);
+
+	int getId();
+
+	VPoint getLastPosition();
+
+	void setVelocity(Vector2D vector2d);
+
+	double getRadius();
+
+	//	 Object getRelevantHorses();
+	double getPotential(VPoint reachPoint);
+
+	VPoint getPosition();
+
+	double getMinStepLength();
+
+	double getTargetPotential(VPoint newPos);
+
+	Topography getTopography();
+
+	AttributesOSM getAttributesOSM();
+
+	Vector2D getVelocity();
+
+	int getNextTargetId();
+
+	Vector2D getObstacleGradient(VPoint position);
+
+	Vector2D getAgentGradient(VPoint position);
+
+	Vector2D getTargetGradient(VPoint position);
+
+	VPoint angleToPosition(double angle, double stepSize);
+
+	void update(double i, double simTimeInSec, CallMethod eventDriven);
 
 	LinkedList<VPoint> getReachablePositions(Random random);
 

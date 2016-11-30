@@ -16,10 +16,10 @@
       "type" : "org.vadere.simulator.projects.dataprocessing.processor.PedestrianPositionProcessor",
       "id" : 1
     }, {
-      "type" : "org.vadere.simulator.projects.dataprocessing.processor.PedestrianTargetIdProcessor",
+      "type" : "org.vadere.simulator.projects.dataprocessing.processor.AgentTargetIdProcessor",
       "id" : 2
     }, {
-      "type" : "org.vadere.simulator.projects.dataprocessing.processor.PedestrianTypeProcessor",
+      "type" : "org.vadere.simulator.projects.dataprocessing.processor.AgentTypeProcessor",
       "id" : 3
     } ],
     "isTimestamped" : true
@@ -53,7 +53,24 @@
         "targetPotentialModel" : "org.vadere.simulator.models.potential.fields.PotentialFieldTargetGrid",
         "pedestrianPotentialModel" : "org.vadere.simulator.models.potential.PotentialFieldPedestrianCompact",
         "obstaclePotentialModel" : "org.vadere.simulator.models.potential.PotentialFieldObstacleCompact",
-        "submodels" : [ ]
+        "submodels" : [ "org.vadere.simulator.models.ovm.OptimalVelocityModel" ]
+      },
+      "org.vadere.state.attributes.models.AttributesOVM" : {
+        "attributesODEIntegrator" : {
+          "solverType" : "DORMAND_PRINCE_45",
+          "stepSizeMin" : 1.0E-4,
+          "stepSizeMax" : 1.0,
+          "toleranceAbsolute" : 1.0E-5,
+          "toleranceRelative" : 1.0E-4
+        },
+        "sensitivity" : 1.0,
+        "sightDistance" : 10.0,
+        "sightDistanceFactor" : 1.0,
+        "firstDistanceRandom" : {
+          "x" : 5.0,
+          "y" : 15.0
+        },
+        "ignoreOtherCars" : false
       },
       "org.vadere.state.attributes.models.AttributesFloorField" : {
         "createMethod" : "HIGH_ACCURACY_FAST_MARCHING",
@@ -74,12 +91,12 @@
       }
     },
     "attributesSimulation" : {
-      "finishTime" : 100.0,
+      "finishTime" : 200.0,
       "simTimeStepLength" : 0.4,
       "realTimeSimTimeRatio" : 0.1,
       "writeSimulationData" : true,
       "visualizationEnabled" : true,
-      "printFPS" : false,
+      "printFPS" : true,
       "needsBoundary" : false,
       "digitsPerCoordinate" : 2,
       "useRandomSeed" : true,
@@ -284,7 +301,26 @@
         "spawnNumber" : 5,
         "maxSpawnNumberTotal" : -1,
         "startTime" : 0.0,
-        "endTime" : 20.0,
+        "endTime" : 0.0,
+        "spawnAtRandomPositions" : true,
+        "useFreeSpaceOnly" : true,
+        "targetIds" : [ ],
+        "dynamicElementType" : "HORSE"
+      }, {
+        "id" : 1,
+        "shape" : {
+          "x" : 16.0,
+          "y" : 11.0,
+          "width" : 5.5,
+          "height" : 4.7,
+          "type" : "RECTANGLE"
+        },
+        "interSpawnTimeDistribution" : "org.vadere.state.scenario.ConstantDistribution",
+        "distributionParameters" : [ 1.0 ],
+        "spawnNumber" : 5,
+        "maxSpawnNumberTotal" : -1,
+        "startTime" : 0.0,
+        "endTime" : 10.0,
         "spawnAtRandomPositions" : true,
         "useFreeSpaceOnly" : true,
         "targetIds" : [ 1 ],
@@ -292,8 +328,8 @@
       }, {
         "id" : 1,
         "shape" : {
-          "x" : 22.3,
-          "y" : 9.9,
+          "x" : 28.5,
+          "y" : 11.0,
           "width" : 5.5,
           "height" : 4.7,
           "type" : "RECTANGLE"
@@ -302,37 +338,18 @@
         "distributionParameters" : [ 1.0 ],
         "spawnNumber" : 5,
         "maxSpawnNumberTotal" : -1,
-        "startTime" : 20.0,
-        "endTime" : 100.0,
+        "startTime" : 0.0,
+        "endTime" : 0.0,
         "spawnAtRandomPositions" : true,
         "useFreeSpaceOnly" : true,
-        "targetIds" : [ 1 ],
-        "dynamicElementType" : "PEDESTRIAN"
-      }, {
-        "id" : 1,
-        "shape" : {
-          "x" : 22.3,
-          "y" : 9.9,
-          "width" : 5.5,
-          "height" : 4.7,
-          "type" : "RECTANGLE"
-        },
-        "interSpawnTimeDistribution" : "org.vadere.state.scenario.ConstantDistribution",
-        "distributionParameters" : [ 1.0 ],
-        "spawnNumber" : 5,
-        "maxSpawnNumberTotal" : -1,
-        "startTime" : 20.0,
-        "endTime" : 100.0,
-        "spawnAtRandomPositions" : true,
-        "useFreeSpaceOnly" : true,
-        "targetIds" : [ 1 ],
-        "dynamicElementType" : "PEDESTRIAN"
+        "targetIds" : [ ],
+        "dynamicElementType" : "HORSE"
       }, {
         "id" : -1,
         "shape" : {
-          "x" : 21.1,
+          "x" : 20.0,
           "y" : 6.4,
-          "width" : 8.1,
+          "width" : 10.0,
           "height" : 5.7,
           "type" : "RECTANGLE"
         },
@@ -340,55 +357,15 @@
         "distributionParameters" : [ 1.0 ],
         "spawnNumber" : 5,
         "maxSpawnNumberTotal" : -1,
-        "startTime" : 40.0,
-        "endTime" : 100.0,
+        "startTime" : 0.0,
+        "endTime" : 0.0,
         "spawnAtRandomPositions" : true,
         "useFreeSpaceOnly" : true,
-        "targetIds" : [ 1 ],
-        "dynamicElementType" : "HORSE"
+        "targetIds" : [ ],
+        "dynamicElementType" : "PEDESTRIAN"
       } ],
-      "dynamicElements" : [ {
-        "source" : null,
-        "targetIds" : [ 1 ],
-        "nextTargetListIndex" : 0,
-        "position" : {
-          "x" : 26.1,
-          "y" : 84.2
-        },
-        "velocity" : {
-          "x" : 0.0,
-          "y" : 0.0
-        },
-        "freeFlowSpeed" : 1.34,
-        "idAsTarget" : -1,
-        "type" : "HORSE",
-        "attributesHorse" : {
-          "id" : -1,
-          "shape" : {
-            "height" : 0.7,
-            "width" : 1.2,
-            "center" : {
-              "x" : 26.1,
-              "y" : 84.2
-            },
-            "type" : "ELLIPSE"
-          },
-          "radius" : 0.195,
-          "densityDependentSpeed" : false,
-          "speedDistributionMean" : 1.34,
-          "speedDistributionStandardDeviation" : 0.0,
-          "minimumSpeed" : 0.3,
-          "maximumSpeed" : 3.0,
-          "acceleration" : 2.0,
-          "height" : 0.7,
-          "width" : 1.2,
-          "direction" : {
-            "x" : 1.0,
-            "y" : 0.0
-          }
-        }
-      } ],
-      "attributesPedestrian" : {
+      "dynamicElements" : [ ],
+      "attributesAgent" : {
         "shape" : null,
         "radius" : 0.195,
         "densityDependentSpeed" : false,

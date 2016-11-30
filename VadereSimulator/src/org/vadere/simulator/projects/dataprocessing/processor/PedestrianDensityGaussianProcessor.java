@@ -10,6 +10,10 @@ import org.vadere.state.attributes.processor.AttributesDensityGaussianProcessor;
 
 public class PedestrianDensityGaussianProcessor extends PedestrianDensityProcessor {
 
+	public PedestrianDensityGaussianProcessor() {
+		super("gaussianDensity");
+	}
+
 	@Override
 	public void init(final ProcessorManager manager) {
 		AttributesDensityGaussianProcessor attDensGauss =

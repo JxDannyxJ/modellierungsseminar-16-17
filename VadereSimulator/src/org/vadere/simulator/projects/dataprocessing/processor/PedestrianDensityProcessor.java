@@ -15,6 +15,10 @@ public abstract class PedestrianDensityProcessor extends DataProcessor<TimestepP
 	private PedestrianPositionProcessor pedPosProc;
 	private IPointDensityAlgorithm densAlg;
 
+	protected PedestrianDensityProcessor(String... headers) {
+		super(headers);
+	}
+
 	protected void setAlgorithm(IPointDensityAlgorithm densAlg) {
 		this.densAlg = densAlg;
 		this.setHeaders(this.densAlg.getName() + "Density");

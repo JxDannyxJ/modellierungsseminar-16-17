@@ -204,7 +204,7 @@ public abstract class JsonConverter {
 
 	private static class TopographyStore {
 		AttributesTopography attributes = new AttributesTopography();
-		AttributesAgent attributesPedestrian = new AttributesAgent();
+		AttributesAgent attributesAgent = new AttributesAgent();
 		AttributesCar attributesCar = new AttributesCar();
 		AttributesHorse attributesHorse = new AttributesHorse();
 		Collection<AttributesObstacle> obstacles = new LinkedList<>();
@@ -364,7 +364,7 @@ public abstract class JsonConverter {
 
 	private static Topography deserializeTopographyFromNode(JsonNode node) {
 		TopographyStore store = mapper.convertValue(node, TopographyStore.class);
-		Topography topography = new Topography(store.attributes, store.attributesPedestrian, store.attributesCar, store.attributesHorse);
+		Topography topography = new Topography(store.attributes, store.attributesAgent, store.attributesCar, store.attributesHorse);
 		store.obstacles.forEach(obstacle -> topography.addObstacle(new Obstacle(obstacle)));
 		store.stairs.forEach(stairs -> topography.addStairs(new Stairs(stairs)));
 		store.targets.forEach(target -> topography.addTarget(new Target(target)));
@@ -555,7 +555,7 @@ public abstract class JsonConverter {
 		topographyNode.set("dynamicElements", dynamicElementNodes);
 
 		JsonNode attributesPedestrianNode = mapper.convertValue(topography.getAttributesPedestrian(), JsonNode.class);
-		topographyNode.set("attributesPedestrian", attributesPedestrianNode);
+		topographyNode.set("attributesAgent", attributesPedestrianNode);
 		if (attributesPedestrianNode != null)
 			((ObjectNode) attributesPedestrianNode).remove("id");
 

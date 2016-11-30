@@ -4,6 +4,7 @@ import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
+import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VPolygon;
 import org.vadere.util.geometry.shapes.VRectangle;
 
@@ -28,6 +29,10 @@ public class Car extends Agent implements Comparable<Car> {
 
 	private Car(AttributesCar attributesCar) {
 		this(attributesCar, new Random());
+	}
+
+	public Car(AttributesCar attributesHorse, VPoint position) {
+		super(attributesHorse, position);
 	}
 
 	/**
@@ -67,8 +72,8 @@ public class Car extends Agent implements Comparable<Car> {
 		AttributesCar attributesCar = (AttributesCar) getAttributes();
 		// Rectangle with the Attributes of a Car
 		VRectangle rect = new VRectangle(getPosition().getX() - attributesCar.getLength(),
-				getPosition().getY() - attributesCar.getWidth() / 2, attributesCar.getLength(),
-				attributesCar.getWidth());
+				getPosition().getY() - attributesCar.getWidth() / 2, attributesCar.getWidth(),
+				attributesCar.getLength());
 		VPolygon poly = new VPolygon(rect);
 
 		// turn the car in the driving direction

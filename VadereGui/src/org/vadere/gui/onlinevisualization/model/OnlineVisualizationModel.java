@@ -3,13 +3,13 @@ package org.vadere.gui.onlinevisualization.model;
 import org.vadere.gui.components.model.DefaultSimulationConfig;
 import org.vadere.gui.components.model.SimulationModel;
 import org.vadere.gui.onlinevisualization.OnlineVisualization;
+import org.vadere.state.scenario.ScenarioElement;
+import org.vadere.state.scenario.Topography;
+import org.vadere.state.scenario.TopographyIterator;
 import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.Car;
 import org.vadere.state.scenario.dynamicelements.Horse;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
-import org.vadere.state.scenario.ScenarioElement;
-import org.vadere.state.scenario.Topography;
-import org.vadere.state.scenario.TopographyIterator;
 import org.vadere.util.potential.CellGrid;
 import org.vadere.util.voronoi.VoronoiDiagram;
 
@@ -31,7 +31,7 @@ public class OnlineVisualizationModel extends SimulationModel<DefaultSimulationC
 
 	/**
 	 * Latest snapshot of the potential field to be displayed. This is a certain
-	 * pontetial field of a certain pedestrian. See 'Simulation' for more
+	 * potential field of a certain pedestrian. See 'Simulation' for more
 	 * information. For debug purposes. Updated by popDrawData().
 	 */
 	private CellGrid potentialField = null;

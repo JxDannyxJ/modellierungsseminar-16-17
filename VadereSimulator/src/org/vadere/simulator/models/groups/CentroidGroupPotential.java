@@ -1,19 +1,19 @@
 package org.vadere.simulator.models.groups;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
-
 import org.vadere.simulator.models.potential.fields.PotentialFieldAgent;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.AttributesCGM;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
-import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.Vector2D;
-import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
+import org.vadere.util.geometry.shapes.VShape;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 
 public class CentroidGroupPotential implements PotentialFieldAgent {
 
@@ -112,8 +112,8 @@ public class CentroidGroupPotential implements PotentialFieldAgent {
 	}
 
 	@Override
-	public Collection<? extends Agent> getRelevantAgents(VCircle relevantArea,
-			Agent pedestrian, Topography scenario) {
+	public Collection<? extends Agent> getRelevantAgents(VShape relevantArea,
+														 Agent pedestrian, Topography scenario) {
 		return potentialFieldPedestrian.getRelevantAgents(relevantArea,
 				pedestrian, scenario);
 	}

@@ -11,9 +11,9 @@ import java.util.Collection;
  * @author Mario Teixeira Parente
  */
 
-public class PedestrianTargetIdProcessor extends DataProcessor<TimestepPedestrianIdKey, Integer> {
+public class AgentTargetIdProcessor extends DataProcessor<TimestepPedestrianIdKey, Integer> {
 
-	public PedestrianTargetIdProcessor() {
+	public AgentTargetIdProcessor() {
 		super("targetId");
 	}
 

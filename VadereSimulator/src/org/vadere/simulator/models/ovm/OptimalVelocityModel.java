@@ -4,13 +4,6 @@
  */
 package org.vadere.simulator.models.ovm;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
 import org.vadere.simulator.control.ActiveCallback;
 import org.vadere.simulator.models.Model;
 import org.vadere.simulator.models.ode.IntegratorFactory;
@@ -19,13 +12,20 @@ import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.AttributesOVM;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
+import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.Car;
 import org.vadere.state.scenario.dynamicelements.DynamicElement;
-import org.vadere.state.scenario.Topography;
 import org.vadere.util.data.Table;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.parallel.ParallelWorkerUtil;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class OptimalVelocityModel extends ODEModel<Car, AttributesCar> {
 
@@ -73,7 +73,7 @@ public class OptimalVelocityModel extends ODEModel<Car, AttributesCar> {
 			AttributesAgent attributesPedestrian, Random random) {
 
 		this.attributesOVM = Model.findAttributes(modelAttributesList, AttributesOVM.class);
-		AttributesCar elementAttributes = Model.findAttributes(modelAttributesList, AttributesCar.class);
+		AttributesCar elementAttributes = new AttributesCar(topography.getAttributesHorse(), topography.getAttributesHorse().getId());
 
 		this.ovmEquations = new OVMEquations();
 
@@ -82,7 +82,7 @@ public class OptimalVelocityModel extends ODEModel<Car, AttributesCar> {
 						attributesOVM.getAttributesODEIntegrator()),
 				ovmEquations, elementAttributes, topography, random);
 
-		ovmEquations.setPedestrianInteraction(false);
+		ovmEquations.setPedestrianInteraction(true);
 		ovmEquations.setModelAttributes(attributesOVM);
 		ovmEquations.setGradients(null, null, null, topography);
 

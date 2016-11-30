@@ -1,8 +1,5 @@
 package org.vadere.simulator.models.potential.fields;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.simulator.models.Model;
@@ -18,13 +15,16 @@ import org.vadere.state.attributes.models.AttributesPotentialCompactSoftshell;
 import org.vadere.state.attributes.models.AttributesPotentialGNM;
 import org.vadere.state.attributes.models.AttributesPotentialOSM;
 import org.vadere.state.attributes.models.AttributesPotentialSFM;
-import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.Topography;
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.util.geometry.Vector2D;
-import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
+import org.vadere.util.geometry.shapes.VShape;
 import org.vadere.util.reflection.DynamicClassInstantiator;
 import org.vadere.util.reflection.VadereClassNotFoundException;
+
+import java.util.Collection;
+import java.util.List;
 
 public interface PotentialFieldAgent extends Model {
 
@@ -45,21 +45,21 @@ public interface PotentialFieldAgent extends Model {
 	 *        pedestrians.
 	 * @return
 	 */
-	public Collection<? extends Agent> getRelevantAgents(VCircle relevantArea,
-			Agent pedestrian, Topography topography);
+	Collection<? extends Agent> getRelevantAgents(VShape relevantArea,
+												  Agent pedestrian, Topography topography);
 
-	public double getAgentPotential(VPoint pos, Agent pedestrian,
-			Agent otherPedestrian);
+	double getAgentPotential(VPoint pos, Agent pedestrian,
+							 Agent otherPedestrian);
 
-	public double getAgentPotential(VPoint pos, Agent pedestrian,
-			Collection<? extends Agent> otherAgents);
+	double getAgentPotential(VPoint pos, Agent pedestrian,
+							 Collection<? extends Agent> otherAgents);
 
-	public Vector2D getAgentPotentialGradient(VPoint pos,
-			Vector2D velocity, Agent pedestrian,
-			Collection<? extends Agent> otherAgents);
+	Vector2D getAgentPotentialGradient(VPoint pos,
+									   Vector2D velocity, Agent pedestrian,
+									   Collection<? extends Agent> otherAgents);
 
-	public static PotentialFieldAgent createPotentialField(List<Attributes> modelAttributesList,
-			Topography topography, String className) {
+	static PotentialFieldAgent createPotentialField(List<Attributes> modelAttributesList,
+													Topography topography, String className) {
 
 		DynamicClassInstantiator<PotentialFieldAgent> instantiator = new DynamicClassInstantiator<>();
 		Class<? extends PotentialFieldAgent> type = instantiator.getClassFromName(className);

@@ -3,18 +3,19 @@ package org.vadere.simulator.control;
 import org.apache.commons.math3.distribution.RealDistribution;
 import org.vadere.simulator.models.DynamicElementFactory;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesDynamicElement;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesSource;
+import org.vadere.state.scenario.DistributionFactory;
+import org.vadere.state.scenario.ScenarioElement;
+import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.Car;
-import org.vadere.state.scenario.DistributionFactory;
 import org.vadere.state.scenario.dynamicelements.DynamicElement;
 import org.vadere.state.scenario.dynamicelements.Horse;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
-import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.scenario.staticelements.Source;
-import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.LinkedCellsGrid;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VEllipse;
@@ -100,6 +101,9 @@ public class SourceController {
 		}
 		if (attributesDynamicElement instanceof AttributesAgent) {
 			return new VCircle(((AttributesAgent) attributesDynamicElement).getRadius());
+		}
+		if (attributesDynamicElement instanceof AttributesCar) {
+			return attributesDynamicElement.getShape();
 		}
 
 		return new VCircle(0.2);

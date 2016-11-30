@@ -12,9 +12,9 @@ import java.util.Collection;
  *
  */
 
-public class PedestrianTypeProcessor extends DataProcessor<TimestepPedestrianIdKey, Integer> {
+public class AgentTypeProcessor extends DataProcessor<TimestepPedestrianIdKey, Integer> {
 
-	public PedestrianTypeProcessor() {
+	public AgentTypeProcessor() {
 		super("agentType");
 	}
 

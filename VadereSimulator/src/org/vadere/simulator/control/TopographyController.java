@@ -152,7 +152,8 @@ public class TopographyController extends OfflineTopographyController {
 	 * @param realAgent the new generated {@link Car}
 	 */
 	private void preLoopCar(Car initialAgent, Car realAgent) {
-		return;
+		realAgent.setIdAsTarget(initialAgent.getIdAsTarget());
+		realAgent.setTargets(new LinkedList<>(initialAgent.getTargets()));
 	}
 	
 	/**

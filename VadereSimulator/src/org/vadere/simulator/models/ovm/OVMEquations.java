@@ -1,27 +1,28 @@
 /**
  * This class manages the Equations of the Optimal Velocity Model and computes the
  * derivative-equations
- * 
  */
 package org.vadere.simulator.models.ovm;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.ExecutionException;
 
 import org.vadere.simulator.models.ode.AbstractModelEquations;
 import org.vadere.simulator.models.ode.ODEModel;
 import org.vadere.state.attributes.models.AttributesOVM;
 import org.vadere.state.attributes.scenario.AttributesCar;
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.Car;
 import org.vadere.state.scenario.staticelements.Target;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.parallel.AParallelWorker;
+import org.vadere.util.parallel.AParallelWorker.Work;
 import org.vadere.util.parallel.CountableParallelWorker;
 import org.vadere.util.parallel.IAsyncComputable;
-import org.vadere.util.parallel.AParallelWorker.Work;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncComputable {
 
@@ -35,10 +36,9 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 
 	/**
 	 * Optimal Velocity Function in the form of the original paper
-	 * 
-	 * @param x_n Xn
+	 *
+	 * @param x_n   Xn
 	 * @param x_n_1 Xn-1
-	 * @return
 	 */
 	public double ovFunction(double x_n, double x_n_1, double speed) {
 		double dX = Math.max(0, x_n_1 - x_n);
@@ -63,24 +63,24 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 		for (final Car car : elements) {
 			AParallelWorker<Double[]> w = new CountableParallelWorker<Double[]>(
 					personCounter, new Work<Double[]>() {
-						private int ID;
+				private int ID;
 
-						@Override
-						public Double[] call() throws Exception {
-							computeSingleCarParallel(car, getWorkerID(), t, x, xdot);
-							return null;
-						}
+				@Override
+				public Double[] call() throws Exception {
+					computeSingleAgentParallel(car, getWorkerID(), t, x, xdot);
+					return null;
+				}
 
-						@Override
-						public void setID(int ID) {
-							this.ID = ID;
-						}
+				@Override
+				public void setID(int ID) {
+					this.ID = ID;
+				}
 
-						@Override
-						public int getWorkerID() {
-							return this.ID;
-						}
-					});
+				@Override
+				public int getWorkerID() {
+					return this.ID;
+				}
+			});
 			personCounter++;
 			workers.add(w);
 			w.start();
@@ -102,19 +102,26 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 		}
 	}
 
-
-	private void computeSingleCarParallel(
-			Car currentCar, int carIdInArray, double t,
+	/**
+	 *
+	 * @param currentAgent
+	 * @param carIdInArray
+	 * @param t
+	 * @param x
+	 * @param xdot
+	 */
+	private void computeSingleAgentParallel(
+			Car currentAgent, int carIdInArray, double t,
 			double[] x, double[] xdot) {
 
 		int fCI = -1;
-		Car nearestCar = null;
+		Agent nearestCar = null;
 
-		List<Car> neighbors = topography.getSpatialMap(Car.class).getObjects(currentCar.getPosition(), sightDistance);
+		List<Car> neighbors = topography.getSpatialMap(Car.class).getObjects(currentAgent.getPosition(), sightDistance);
 		if (topography.hasTeleporter()) {
 			Vector2D tpoint = topography.getTeleporter().getTeleporterShift();
 			List<Car> ghostCars =
-					topography.getSpatialMap(Car.class).getObjects(currentCar.getPosition().add(tpoint), sightDistance);
+					topography.getSpatialMap(Car.class).getObjects(currentAgent.getPosition().add(tpoint), sightDistance);
 			for (Car ghost : ghostCars) {
 				Car repositionedGhost = new Car(ghost.getAttributes(), rand);
 				repositionedGhost.setPosition(
@@ -128,13 +135,13 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 			Car car = neighbors.get(j);
 
 			if (nearestCar == null) {
-				if (car != currentCar && isInFront(car, currentCar)) {
+				if (car != currentAgent && isInFront(car, currentAgent)) {
 					nearestCar = car;
 					fCI = j;
 				}
 			} else {
-				if (car != currentCar &&
-						isInFront(car, currentCar) &&
+				if (car != currentAgent &&
+						isInFront(car, currentAgent) &&
 						isInFront(nearestCar, car)) {
 					nearestCar = car;
 					fCI = j;
@@ -145,6 +152,14 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 		// Check Pedestrians if pedestrianIteraction is turned on
 		if (pedestrianInteraction) {
 			// TODO [priority=medium] [task=bugfix] [Error?]
+			Collection<Agent> agents = topography.getAllAgents();
+
+			for (Agent agent : agents) {
+				if (isInFront(agent, currentAgent)) {
+					nearestCar = agent;
+				}
+			}
+
 		}
 
 		// evaluate the front car with respect to a limited sight distance
@@ -162,45 +177,44 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 		 * }
 		 * }
 		 */
-		computeSingleCar(currentCar, nearestCar, t, x, xdot, carIdInArray, fCI);
+		computeSingleCar(currentAgent, nearestCar, t, x, xdot, carIdInArray, fCI);
 
 	}
 
-	private boolean isInFront(Car car, Car currentCar) {
+	/**
+	 * Checks whether the given agent is in front of the current agent
+	 *
+	 * @param agent as the
+	 * @return true if the agent is in front of the other
+	 */
+	private boolean isInFront(Agent agent, Agent currentAgent) {
 		if (this.attributesOVM.isIgnoreOtherCars())
 			return false;
 
-		if (currentCar.getTargets().size() > 0 && car.getTargets().size() > 0) {
+		if (currentAgent.getTargets().size() > 0 && agent.getTargets().size() > 0) {
 			// TODO [priority=low] [task=feature] check that the cars actually stop when another
 			// car is in front
-			if (currentCar.getNextTargetId() != car.getNextTargetId()) {
+			if (currentAgent.getNextTargetId() != agent.getNextTargetId()) {
 				return false;
 			}
 
-			Target target = topography.getTarget(currentCar.getNextTargetId());
+			Target target = topography.getTarget(currentAgent.getNextTargetId());
 			if (target == null) {
-				System.out.println(currentCar.getNextTargetId());
+				System.out.println(currentAgent.getNextTargetId());
 			}
-			double distanceToThis = target.getShape().distance(currentCar.getPosition());
-			double distanceToOther = target.getShape().distance(car.getPosition());
+			double distanceToThis = target.getShape().distance(currentAgent.getPosition());
+			double distanceToOther = target.getShape().distance(agent.getPosition());
 			return distanceToOther < distanceToThis;
 		} else {
-			return car.getPosition().getX() >= currentCar.getPosition().getX();
+			return agent.getPosition().getX() >= currentAgent.getPosition().getX();
 		}
 	}
 
 	/**
 	 * Computation of speed and position of a single car for one time step
-	 * 
-	 * @param currentCar
-	 * @param frontCar
-	 * @param t
-	 * @param x
-	 * @param xdot
-	 * @param index
 	 */
-	private void computeSingleCar(Car currentCar, Car frontCar, double t, double[] x, double[] xdot, int index,
-			int fCI) {
+	private void computeSingleCar(Agent currentAgent, Agent frontAgent, double t, double[] x, double[] xdot, int index,
+								  int fCI) {
 
 		double[] position = new double[2];
 		double[] speed = new double[2];
@@ -215,15 +229,15 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 
 		// velocity is just passed through, but rotated so that the vector points in target
 		// direction
-		if (currentCar.getTargets().size() > 0) {
+		if (currentAgent.getTargets().size() > 0) {
 			position[0] = myVelocity.getX();
 			position[1] = myVelocity.getY();
 		}
 
 		// also change the direction of the acceleration so that the velocity for each car is
 		// correctly set.
-		if (currentCar.getTargets().size() > 0) {
-			Target target = topography.getTarget(currentCar.getNextTargetId());
+		if (currentAgent.getTargets().size() > 0) {
+			Target target = topography.getTarget(currentAgent.getNextTargetId());
 			VPoint closest = new Vector2D(target.getShape().getBounds2D().getCenterX(),
 					target.getShape().getBounds2D().getCenterY());
 			double localspeed = mySpeed;
@@ -232,25 +246,25 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 			position[1] = direction.getY();
 		}
 
-		if (frontCar == null) {
+		if (frontAgent == null) {
 			double newTargetX = sightDistance * sightDistanceFactor;
 
-			if (currentCar.hasNextTarget()) // only one target left (?)
+			if (currentAgent.hasNextTarget()) // only one target left (?)
 			{
-				Target target = topography.getTarget(currentCar.getNextTargetId());
+				Target target = topography.getTarget(currentAgent.getNextTargetId());
 				if (target == null) {
-					System.out.println(currentCar.getNextTargetId());
+					System.out.println(currentAgent.getNextTargetId());
 				}
 				if (target.getShape().distance(myPos) < sightDistance) {
 					newTargetX = myPos.distance(new VPoint(target.getShape().getBounds2D().getCenterX(),
 							target.getShape().getBounds2D().getCenterY()));
 				}
 			}
-			speed[0] = sensitivity * ovFunction(0.0, newTargetX, currentCar.getFreeFlowSpeed()) - sensitivity * mySpeed;
+			speed[0] = sensitivity * ovFunction(0.0, newTargetX, currentAgent.getFreeFlowSpeed()) - sensitivity * mySpeed;
 		} else {
 			speed[0] = sensitivity * ovFunction(0.0,
-					myPos.distance(frontCar.getPosition()) - ((AttributesCar)currentCar.getAttributes()).getLength() * 2,
-					currentCar.getFreeFlowSpeed()) - sensitivity * myVelocity.getLength();
+					myPos.distance(frontAgent.getPosition()) - ((AttributesCar) currentAgent.getAttributes()).getLength() * 2,
+					currentAgent.getFreeFlowSpeed()) - sensitivity * myVelocity.getLength();
 		}
 		speed[1] = 0;
 

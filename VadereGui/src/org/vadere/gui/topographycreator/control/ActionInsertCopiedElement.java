@@ -6,8 +6,6 @@ import org.vadere.state.attributes.AttributesBuilder;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.scenario.ScenarioElementBuilder;
 import org.vadere.state.scenario.dynamicelements.Agent;
-import org.vadere.state.scenario.dynamicelements.Horse;
-import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
@@ -55,7 +53,7 @@ public class ActionInsertCopiedElement extends TopographyAction {
 			VShape newShape = model.translate(diff);
 			ScenarioElement newElement = null;
 
-			if (element instanceof Pedestrian || element instanceof Horse) {
+			if (element instanceof Agent) {
 				VPoint position = new VPoint(newShape.getBounds2D().getCenterX(), newShape.getBounds2D().getCenterY());
 				newElement = element.clone();
 				((Agent) newElement).setPosition(position);

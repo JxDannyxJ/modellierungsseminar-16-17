@@ -374,7 +374,7 @@
         "groupIds" : [ ],
         "type" : "PEDESTRIAN"
       } ],
-      "attributesPedestrian" : {
+      "attributesAgent" : {
         "radius" : 0.195,
         "densityDependentSpeed" : false,
         "speedDistributionMean" : 1.34,

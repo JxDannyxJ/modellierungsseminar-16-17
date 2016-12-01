@@ -1,0 +1,25 @@
+\frametitle{Geschw.profil - Implementierung II}
+\textbf{2. Abfrage der Kamera Soll-Position in jedem Frame}\\
+\vspace{0.2cm}
+\begin{lstlisting}
+&\pause&void Update () { // in &\code{CameraTour}&
+	&\pause&if (time > simTime)
+		index = 0; // restart sim
+	time = simTime;
+	&\pause&Section section = sections [index];
+	while (!section.thatsMe(time))
+		section = sections [++ index];
+	&\pause&transform.position = section.getCoordsAtTime(time);
+}
+\end{lstlisting}
+\begin{lstlisting}
+&\pause&public Vector3 getCoordsAtTime(float t_abs){ // in &\code{Section}&
+	&\pause&float t_rel= t_abs - t_upToHere;
+	float s_add = 0;
+	&\pause&switch (type) { case Type.ACCELERATION:
+		s_add = r_P * v_max * t_rel + 0.5 * a * t_rel^2;
+		//... }
+	&\pause&float s_rel = s_add / s_inSection;
+	&\pause&return Vector3.Lerp (startCoord, endCoord, s_rel);
+}
+\end{lstlisting}

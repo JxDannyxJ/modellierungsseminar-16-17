@@ -14,6 +14,12 @@ public class AttributesHorse extends AttributesAgent {
 	private Vector2D direction = new Vector2D(1, 0);
 
 	/**
+	 * Angle reduction of an eyepatched Horse.
+	 */
+	private final static double EYEPATCHED = Math.PI/0.125;
+	
+
+	/**
 	 * Copy constructor for horse attributes. Despite being able to copy a horse,
 	 * a new horse must have a new ID
 	 *
@@ -66,5 +72,8 @@ public class AttributesHorse extends AttributesAgent {
 		} else {
 			return height;
 		}
+	}
+	public static double getEYEPATCHED() {
+		return EYEPATCHED;
 	}
 }

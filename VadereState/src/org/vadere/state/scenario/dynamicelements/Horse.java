@@ -19,6 +19,17 @@ public class Horse extends Agent implements Comparable<Horse> {
 
 	private transient Random random;
 	private ScenarioElementType type = ScenarioElementType.HORSE;
+	
+	/**
+	 * Attribute that affects the moving angle of a horse
+	 */
+	private boolean hasEyepatch;
+	
+	/**
+	 * Attribute that effects the moving speed of a horse
+	 */
+	private boolean isSaddled;
+	
 	private AttributesHorse attributesHorse;
 
 	/**
@@ -96,4 +107,19 @@ public class Horse extends Agent implements Comparable<Horse> {
 		attributesHorse = (AttributesHorse) attributes;
 	}
 
+	public boolean isHasEyepatch() {
+		return hasEyepatch;
+	}
+	
+	public void setHasEyepatch(boolean hasEyepatch) {
+		this.hasEyepatch = hasEyepatch;
+	}
+	
+	public boolean isSaddled() {
+		return isSaddled;
+	}
+	
+	public void setSaddled(boolean isSaddled) {
+		this.isSaddled = isSaddled;
+	}
 }

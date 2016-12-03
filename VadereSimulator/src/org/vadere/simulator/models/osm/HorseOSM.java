@@ -3,7 +3,7 @@ package org.vadere.simulator.models.osm;
 import java.util.*;
 
 import org.vadere.simulator.models.SpeedAdjuster;
-import org.vadere.simulator.models.osm.optimization.StepCircleOptimizer;
+import org.vadere.simulator.models.osm.optimization.StepOptimizer;
 import org.vadere.simulator.models.osm.stairOptimization.StairStepOptimizer;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeEventDriven;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM;
@@ -39,7 +39,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 	private final AttributesOSM attributesOSM;
 
 	/** {@link StepOptimizer}.**/
-	private final transient StepCircleOptimizer stepOptimizer;
+	private final transient StepOptimizer stepOptimizer;
 
 	/** {@link UpdateSchemeOSM} defining how to update agent.**/
 	private final transient UpdateSchemeOSM updateScheme;
@@ -104,7 +104,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 			PotentialFieldObstacle potentialFieldObstacle,
 			PotentialFieldAgent potentialFieldAgent,
 			List<SpeedAdjuster> speedAdjusters,
-			StepCircleOptimizer stepOptimizer) {
+			StepOptimizer stepOptimizer) {
 
 		super(attributesAgent, random);
 
@@ -489,7 +489,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 	public LinkedList<VPoint> getReachablePositions(Random random) {
 
 		LinkedList<VPoint> reachablePositions = new LinkedList<>();
-		double height = ((VEllipse) getShape()).getWidth();
+		double height = stepLength;//((VEllipse) getShape()).getWidth();
 		double width = ((VEllipse) getShape()).getHeight();
 		double randOffset = attributesOSM.isVaryStepDirection() ? random.nextDouble() : 0;
 		//double randOffset = 0;

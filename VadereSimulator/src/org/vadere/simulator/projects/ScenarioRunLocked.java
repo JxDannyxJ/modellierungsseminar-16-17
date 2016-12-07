@@ -5,7 +5,7 @@ import au.com.bytecode.opencsv.CSVReader;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.simulator.control.Simulation;
-import org.vadere.simulator.models.MainModelBuilder;
+import org.vadere.simulator.models.MotionModelBuilder;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
@@ -93,9 +93,9 @@ public class ScenarioRunLocked extends ScenarioRunManager {
 
 				double currentTime = 0;
 				if (simulation == null) {
-					MainModelBuilder modelBuilder = new MainModelBuilder(scenarioStore);
+					MotionModelBuilder modelBuilder = new MotionModelBuilder(scenarioStore);
 					modelBuilder.createModelAndRandom();
-					simulation = new Simulation(modelBuilder.getModel(), currentTime, getName(),
+					simulation = new Simulation(modelBuilder, currentTime,
 							scenarioStore, passiveCallbacks, modelBuilder.getRandom(), thisVadere.processorManager);
 				} else {
 					currentTime = simulation.getCurrentTime();

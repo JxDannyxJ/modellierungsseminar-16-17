@@ -20,18 +20,18 @@ import java.util.Random;
 public abstract class ODEModel<T extends DynamicElement, TAttributes extends AttributesDynamicElement>
 		implements MainModel {
 
-	protected Random random;
+	protected transient Random random;
 	/**
 	 * The last time this scenario was updated, in seconds.
 	 */
-	protected double lastSimTimeInSec;
-	private FirstOrderIntegrator integrator;
-	protected AbstractModelEquations<T> equations;
-	protected Topography topography;
+	protected transient double lastSimTimeInSec;
+	private transient FirstOrderIntegrator integrator;
+	protected transient AbstractModelEquations<T> equations;
+	protected transient Topography topography;
 	protected TAttributes elementAttributes;
 
-	private Logger logger = LogManager.getLogger(ODEModel.class);
-	private Class<T> type;
+	private transient Logger logger = LogManager.getLogger(ODEModel.class);
+	private transient Class<T> type;
 
 	@Deprecated
 	public ODEModel(Class<T> type, Topography scenario, FirstOrderIntegrator integrator,
@@ -207,5 +207,10 @@ public abstract class ODEModel<T extends DynamicElement, TAttributes extends Att
 			((Car) element).setPosition(newPos);
 		} else
 			throw new IllegalArgumentException("Element is neither a car nor a pedestrian.");
+	}
+
+	@Override
+	public AttributesDynamicElement getAttributesAgent() {
+		return elementAttributes;
 	}
 }

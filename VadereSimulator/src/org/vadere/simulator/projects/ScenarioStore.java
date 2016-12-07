@@ -1,10 +1,9 @@
 package org.vadere.simulator.projects;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.vadere.simulator.models.MainModel;
 import org.vadere.simulator.projects.io.JsonConverter;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.AttributesSimulation;
@@ -12,7 +11,9 @@ import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.scenario.Topography;
 import org.vadere.util.reflection.VadereClassNotFoundException;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Contains the data for a Vadere object that can be serialized.
@@ -24,22 +25,24 @@ public class ScenarioStore {
 	public String name;
 	public String description;
 	public String mainModel;
+	public List<MainModel> subModels;
 	public List<Attributes> attributesList;
 	public AttributesSimulation attributesSimulation;
 	public Topography topography;
 
 	public ScenarioStore(final String name, final String description, final String mainModel, final List<Attributes> attributesModel,
-			final AttributesSimulation attributesSimulation, final Topography topography) {
+						 final AttributesSimulation attributesSimulation, final Topography topography, final List<MainModel> subModels) {
 		this.name = name;
 		this.description = description;
 		this.mainModel = mainModel;
 		this.attributesList = attributesModel;
 		this.attributesSimulation = attributesSimulation;
 		this.topography = topography;
+		this.subModels = subModels;
 	}
 
 	public ScenarioStore(final String name) {
-		this(name, "", null, new ArrayList<>(), new AttributesSimulation(), new Topography());
+		this(name, "", null, new ArrayList<>(), new AttributesSimulation(), new Topography(), new ArrayList<>());
 	}
 
 	public AttributesCar getAttributesCar() {

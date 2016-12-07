@@ -3,10 +3,10 @@ package org.vadere.gui.vadere;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.vadere.simulator.models.osm.OptimalStepsModel;
+import org.vadere.simulator.projects.ProjectWriter;
 import org.vadere.simulator.projects.ScenarioRunManager;
 import org.vadere.simulator.projects.ScenarioStore;
 import org.vadere.simulator.projects.VadereProject;
-import org.vadere.simulator.projects.ProjectWriter;
 import org.vadere.simulator.projects.io.IOVadere;
 import org.vadere.simulator.projects.io.JsonConverter;
 import org.vadere.state.attributes.Attributes;
@@ -18,13 +18,15 @@ import org.vadere.state.attributes.models.AttributesPotentialOSM;
 import org.vadere.state.scenario.Topography;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -45,9 +47,9 @@ public class TestProjectWriterAndReader {
 		attributes.add(new AttributesFloorField());
 		attributes.add(new AttributesPotentialOSM());
 		LinkedList<ScenarioRunManager> tests = new LinkedList<>();
-		tests.add(new ScenarioRunManager(new ScenarioStore(testName + "1", "", OptimalStepsModel.class.getName(), attributes, new AttributesSimulation(), new Topography())));
-		tests.add(new ScenarioRunManager(new ScenarioStore(testName + "2", "", OptimalStepsModel.class.getName(), attributes, new AttributesSimulation(), new Topography())));
-		tests.add(new ScenarioRunManager(new ScenarioStore(testName + "3", "", OptimalStepsModel.class.getName(), attributes, new AttributesSimulation(), new Topography())));
+		tests.add(new ScenarioRunManager(new ScenarioStore(testName + "1", "", OptimalStepsModel.class.getName(), attributes, new AttributesSimulation(), new Topography(), new ArrayList<>())));
+		tests.add(new ScenarioRunManager(new ScenarioStore(testName + "2", "", OptimalStepsModel.class.getName(), attributes, new AttributesSimulation(), new Topography(), new ArrayList<>())));
+		tests.add(new ScenarioRunManager(new ScenarioStore(testName + "3", "", OptimalStepsModel.class.getName(), attributes, new AttributesSimulation(), new Topography(), new ArrayList<>())));
 		testProject = new VadereProject(testProjectName, tests);
 	}
 

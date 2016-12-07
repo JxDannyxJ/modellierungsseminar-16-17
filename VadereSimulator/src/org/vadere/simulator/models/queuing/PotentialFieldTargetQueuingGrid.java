@@ -9,11 +9,11 @@ import org.vadere.state.attributes.models.AttributesFloorField;
 import org.vadere.state.attributes.models.AttributesQueuingGame;
 import org.vadere.state.attributes.models.AttributesTimeCost.TimeCostFunctionType;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.DynamicElementAddListener;
 import org.vadere.state.scenario.DynamicElementRemoveListener;
-import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.scenario.Topography;
+import org.vadere.state.scenario.dynamicelements.Agent;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.types.PedestrianAttitudeType;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -294,7 +294,7 @@ public class PotentialFieldTargetQueuingGrid implements IPotentialTargetGrid, Dy
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesAgent, Random random) {
 		// TODO should be used to initialize the Model
 	}
 }

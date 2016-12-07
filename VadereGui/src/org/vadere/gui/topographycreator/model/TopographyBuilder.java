@@ -1,8 +1,8 @@
 package org.vadere.gui.topographycreator.model;
 
-import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesHorse;
+import org.vadere.state.attributes.scenario.AttributesPedestrian;
 import org.vadere.state.attributes.scenario.AttributesTopography;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.scenario.Topography;
@@ -44,7 +44,7 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 	private Teleporter teleporter;
 	private LinkedList<ScenarioElement> topographyElements;
 	private AttributesTopography attributes;
-	private AttributesAgent attributesPedestrian;
+	private AttributesPedestrian attributesPedestrian;
 	private AttributesHorse attributesHorse;
 	private AttributesCar attributesCar;
 
@@ -246,9 +246,9 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 			case HORSE:
 				element = horses.removeLast();
 				break;
-//			case CAR:
-//				element = cars.removeLast();
-//				break;
+			case CAR:
+				element = cars.removeLast();
+				break;
 			case SOURCE:
 				element = sources.removeLast();
 				break;

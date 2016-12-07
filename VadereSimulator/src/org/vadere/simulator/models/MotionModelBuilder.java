@@ -2,8 +2,11 @@ package org.vadere.simulator.models;
 
 import org.vadere.simulator.projects.ScenarioStore;
 import org.vadere.state.attributes.AttributesSimulation;
+import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.util.reflection.DynamicClassInstantiator;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -12,13 +15,14 @@ import java.util.Random;
  * For creation of submodels, see {@link SubModelBuilder}! The SubModelBuilder
  * should be used in the {@link MainModel#initialize} method.
  */
-public class MainModelBuilder {
+public class MotionModelBuilder {
 
 	private ScenarioStore scenarioStore;
 	private MainModel model;
+	private List<MainModel> subModels;
 	private Random random;
 
-	public MainModelBuilder(ScenarioStore scenarioStore) {
+	public MotionModelBuilder(ScenarioStore scenarioStore) {
 		this.scenarioStore = scenarioStore;
 	}
 
@@ -33,11 +37,16 @@ public class MainModelBuilder {
 		}
 
 		model = instantiateMainModel(random);
+		subModels = instantiateSubModels(scenarioStore.subModels);
 
 	}
 
-	public MainModel getModel() {
+	public MainModel getMainModel() {
 		return model;
+	}
+
+	public List<MainModel> getSubModels() {
+		return subModels;
 	}
 
 	public Random getRandom() {
@@ -55,6 +64,17 @@ public class MainModelBuilder {
 		mainModel.initialize(scenarioStore.attributesList, scenarioStore.topography,
 				scenarioStore.topography.getAttributesPedestrian(), random);
 		return mainModel;
+	}
+
+	private List<MainModel> instantiateSubModels(List<MainModel> subModels) {
+		List<MainModel> subModelList = new LinkedList<>();
+		for (MainModel subModel : subModels) {
+			//TODO: Define the Attributes of the submodel in the submodel node and make it accessible from scenario store
+			subModel.initialize(scenarioStore.attributesList, scenarioStore.topography, (AttributesAgent) subModel.getAttributesAgent(), random);
+			subModelList.add(subModel);
+			model.getActiveCallbacks().add(subModel);
+		}
+		return subModelList;
 	}
 
 }

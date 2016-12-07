@@ -212,7 +212,7 @@ public class TextView extends JPanel {
 		switch (attributeType) {
 			case MODEL:
 				this.txtrTextfiletextarea.setText(JsonConverter.serializeMainModelAttributesModelBundle(
-						scenario.getSortedAttributesMode(), scenario.getScenarioStore().mainModel));
+						scenario.getSortedAttributesMode(), scenario.getScenarioStore()));
 				break;
 			case SIMULATION:
 				this.txtrTextfiletextarea

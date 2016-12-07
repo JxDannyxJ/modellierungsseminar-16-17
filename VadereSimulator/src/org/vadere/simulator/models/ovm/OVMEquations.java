@@ -19,7 +19,6 @@ import org.vadere.util.parallel.CountableParallelWorker;
 import org.vadere.util.parallel.IAsyncComputable;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
@@ -149,10 +148,10 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 			}
 		}
 
-		// Check Pedestrians if pedestrianIteraction is turned on
+		// Check Pedestrians if pedestrianInteraction is turned on
 		if (pedestrianInteraction) {
 			// TODO [priority=medium] [task=bugfix] [Error?]
-			Collection<Agent> agents = topography.getAllAgents();
+			List<Agent> agents = topography.getSpatialMap(Agent.class).getObjects(currentAgent.getPosition(), sightDistance);
 
 			for (Agent agent : agents) {
 				if (isInFront(agent, currentAgent)) {

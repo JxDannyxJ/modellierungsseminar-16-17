@@ -7,14 +7,18 @@ import org.vadere.simulator.models.Model;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.AttributesTPM;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-
+import org.vadere.state.attributes.scenario.AttributesDynamicElement;
 import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.DynamicElement;
 import org.vadere.state.types.DynamicElementType;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.reflection.DynamicClassInstantiator;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by alex on 16.11.16.
@@ -26,6 +30,7 @@ public class TypedPairModel implements MainModel {
     private Map<DynamicElementFactory, Attributes> modelAttributesMap;
     private List<ActiveCallback> modelCallbacks;
     private AttributesTPM attributesTPM;
+	private AttributesAgent attributesAgent;
 
 
     @Override
@@ -76,17 +81,24 @@ public class TypedPairModel implements MainModel {
     @Override
     public void initialize(List<Attributes> attributesList, Topography topography, AttributesAgent attributesAgent, Random random) {
         this.typeModelMap = new HashMap<>();
-        this.modelAttributesMap = new HashMap<>();
+		this.attributesAgent = attributesAgent;
+		this.modelAttributesMap = new HashMap<>();
         this.modelCallbacks = new LinkedList<>();
         this.attributesTPM = Model.findAttributes(attributesList, AttributesTPM.class);
         Map<String, String> typePairs = attributesTPM.getTypePairs();
         for (Map.Entry<String, String> entry : typePairs.entrySet()) {
             DynamicClassInstantiator<MainModel> instantiator = new DynamicClassInstantiator<>();
-            DynamicElementType assosiatedType = DynamicElementType.valueOf(entry.getKey());
-            MainModel model = instantiator.createObject(entry.getValue());
+			DynamicElementType associatedType = DynamicElementType.valueOf(entry.getKey());
+			MainModel model = instantiator.createObject(entry.getValue());
+
             model.initialize(attributesList, topography, attributesAgent, random);
-            typeModelMap.put(assosiatedType, model);
-            modelCallbacks.add(model);
+			typeModelMap.put(associatedType, model);
+			modelCallbacks.add(model);
         }
     }
+
+	@Override
+	public AttributesDynamicElement getAttributesAgent() {
+		return attributesAgent;
+	}
 }

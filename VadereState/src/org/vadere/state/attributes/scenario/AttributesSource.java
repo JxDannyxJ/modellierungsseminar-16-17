@@ -1,7 +1,7 @@
 package org.vadere.state.attributes.scenario;
 
 import org.vadere.state.scenario.ConstantDistribution;
-import org.vadere.state.types.DynamicElementType;
+import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VShape;
 
 import java.util.Collections;
@@ -54,7 +54,7 @@ public class AttributesSource extends AttributesScenarioElement {
 	 * The type of dynamicelements elements this source creates.
 	 */
 	//TODO: Make this type dynamicelements to be able to spawn different dynamicelements types
-	private DynamicElementType dynamicElementType = DynamicElementType.PEDESTRIAN;
+	private ScenarioElementType dynamicElementType = ScenarioElementType.PEDESTRIAN;
 
 	/**
 	 * This (private) default constructor is used by Gson. Without it, the initial field assignments
@@ -137,11 +137,11 @@ public class AttributesSource extends AttributesScenarioElement {
 		return targetIds;
 	}
 
-	public DynamicElementType getDynamicElementType() {
+	public ScenarioElementType getDynamicElementType() {
 		return dynamicElementType;
 	}
 
-	public void setDynamicElementType(DynamicElementType dynamicElementType) {
+	public void setDynamicElementType(ScenarioElementType dynamicElementType) {
 		this.dynamicElementType = dynamicElementType;
 	}
 

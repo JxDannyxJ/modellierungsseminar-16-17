@@ -26,6 +26,44 @@
   },
   "scenario" : {
     "mainModel" : "org.vadere.simulator.models.osm.OptimalStepsModel",
+    "subModels" : {
+      "org.vadere.simulator.models.ovm.OptimalVelocityModel" : {
+        "elementAttributes" : {
+          "id" : -1,
+          "shape" : null,
+          "radius" : 0.195,
+          "densityDependentSpeed" : false,
+          "speedDistributionMean" : 1.34,
+          "speedDistributionStandardDeviation" : 0.0,
+          "minimumSpeed" : 0.3,
+          "maximumSpeed" : 3.0,
+          "acceleration" : 2.0,
+          "length" : 4.5,
+          "width" : 1.7,
+          "direction" : {
+            "x" : 1.0,
+            "y" : 0.0
+          }
+        },
+        "attributesOVM" : {
+          "attributesODEIntegrator" : {
+            "solverType" : "DORMAND_PRINCE_45",
+            "stepSizeMin" : 1.0E-4,
+            "stepSizeMax" : 1.0,
+            "toleranceAbsolute" : 1.0E-5,
+            "toleranceRelative" : 1.0E-4
+          },
+          "sensitivity" : 1.0,
+          "sightDistance" : 5.0,
+          "sightDistanceFactor" : 1.0,
+          "firstDistanceRandom" : {
+            "x" : 5.0,
+            "y" : 15.0
+          },
+          "ignoreOtherCars" : false
+        }
+      }
+    },
     "attributesModel" : {
       "org.vadere.state.attributes.models.AttributesPotentialCompact" : {
         "pedPotentialWidth" : 0.5,
@@ -54,23 +92,6 @@
         "pedestrianPotentialModel" : "org.vadere.simulator.models.potential.PotentialFieldPedestrianCompact",
         "obstaclePotentialModel" : "org.vadere.simulator.models.potential.PotentialFieldObstacleCompact",
         "submodels" : [ "org.vadere.simulator.models.ovm.OptimalVelocityModel" ]
-      },
-      "org.vadere.state.attributes.models.AttributesOVM" : {
-        "attributesODEIntegrator" : {
-          "solverType" : "DORMAND_PRINCE_45",
-          "stepSizeMin" : 1.0E-4,
-          "stepSizeMax" : 1.0,
-          "toleranceAbsolute" : 1.0E-5,
-          "toleranceRelative" : 1.0E-4
-        },
-        "sensitivity" : 1.0,
-        "sightDistance" : 10.0,
-        "sightDistanceFactor" : 1.0,
-        "firstDistanceRandom" : {
-          "x" : 5.0,
-          "y" : 15.0
-        },
-        "ignoreOtherCars" : false
       },
       "org.vadere.state.attributes.models.AttributesFloorField" : {
         "createMethod" : "HIGH_ACCURACY_FAST_MARCHING",
@@ -365,7 +386,7 @@
         "dynamicElementType" : "PEDESTRIAN"
       } ],
       "dynamicElements" : [ ],
-      "attributesAgent" : {
+      "attributesPedestrian" : {
         "shape" : null,
         "radius" : 0.195,
         "densityDependentSpeed" : false,
@@ -377,6 +398,29 @@
       },
       "attributesHorse" : {
         "id" : -1,
+        "shape" : {
+          "height" : 1.2,
+          "width" : 0.7,
+          "center" : {
+            "x" : 26.6,
+            "y" : 69.7
+          },
+          "type" : "ELLIPSE"
+        },
+        "radius" : 0.195,
+        "densityDependentSpeed" : false,
+        "speedDistributionMean" : 1.34,
+        "speedDistributionStandardDeviation" : 0.0,
+        "minimumSpeed" : 0.3,
+        "maximumSpeed" : 3.0,
+        "acceleration" : 2.0,
+        "direction" : {
+          "x" : 1.0,
+          "y" : 0.0
+        }
+      },
+      "attributesCar" : {
+        "id" : -1,
         "shape" : null,
         "radius" : 0.195,
         "densityDependentSpeed" : false,
@@ -385,8 +429,8 @@
         "minimumSpeed" : 0.3,
         "maximumSpeed" : 3.0,
         "acceleration" : 2.0,
-        "height" : 0.7,
-        "width" : 0.3,
+        "length" : 4.5,
+        "width" : 1.7,
         "direction" : {
           "x" : 1.0,
           "y" : 0.0

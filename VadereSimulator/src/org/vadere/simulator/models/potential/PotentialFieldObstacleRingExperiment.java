@@ -1,16 +1,16 @@
 package org.vadere.simulator.models.potential;
 
-import java.util.List;
-import java.util.Random;
-
 import org.vadere.simulator.models.potential.fields.PotentialFieldObstacle;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.AttributesPotentialRingExperiment;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.Topography;
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VPoint;
+
+import java.util.List;
+import java.util.Random;
 
 /**
  * A potential field forming a ring.
@@ -80,7 +80,7 @@ public class PotentialFieldObstacleRingExperiment implements PotentialFieldObsta
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesAgent, Random random) {
 		// TODO should be used to initialize the Model
 	}
 

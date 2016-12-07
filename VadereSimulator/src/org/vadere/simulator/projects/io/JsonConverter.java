@@ -33,6 +33,7 @@ import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
+import org.vadere.state.attributes.scenario.AttributesPedestrian;
 import org.vadere.state.attributes.scenario.AttributesScenarioElement;
 import org.vadere.state.attributes.scenario.AttributesSource;
 import org.vadere.state.attributes.scenario.AttributesStairs;
@@ -74,6 +75,8 @@ public abstract class JsonConverter {
 	public static final String SCENARIO_KEY = "scenario";
 
 	public static final String MAIN_MODEL_KEY = "mainModel";
+
+	public static final String SUB_MODEL_KEY = "subModels";
 
 	private static Logger logger = LogManager.getLogger(JsonConverter.class);
 
@@ -173,6 +176,8 @@ public abstract class JsonConverter {
 						return mapper.convertValue(node, Pedestrian.class);
 					case HORSE:
 						return mapper.convertValue(node, Horse.class);
+					case CAR:
+						return mapper.convertValue(node, Car.class);
 					// ... ?
 				}
 				return null;
@@ -204,7 +209,7 @@ public abstract class JsonConverter {
 
 	private static class TopographyStore {
 		AttributesTopography attributes = new AttributesTopography();
-		AttributesAgent attributesAgent = new AttributesAgent();
+		AttributesPedestrian attributesPedestrian = new AttributesPedestrian();
 		AttributesCar attributesCar = new AttributesCar();
 		AttributesHorse attributesHorse = new AttributesHorse();
 		Collection<AttributesObstacle> obstacles = new LinkedList<>();
@@ -306,16 +311,29 @@ public abstract class JsonConverter {
 		AttributesSimulation attributesSimulation = deserializeAttributesSimulationFromNode(scenarioNode.get("attributesSimulation"));
 		JsonNode attributesModelNode = scenarioNode.get("attributesModel");
 		String mainModel = scenarioNode.get(MAIN_MODEL_KEY).isNull() ? null : scenarioNode.get(MAIN_MODEL_KEY).asText();
+		List<MainModel> subModelNames = deserializeSubModels(scenarioNode.get(SUB_MODEL_KEY));
 		List<Attributes> attributesModel = deserializeAttributesListFromNode(attributesModelNode);
 		Topography topography = deserializeTopographyFromNode(scenarioNode.get("topography"));
 		String description = rootNode.get("description").asText();
-		ScenarioStore scenarioStore = new ScenarioStore(name, description, mainModel, attributesModel, attributesSimulation, topography);
+		ScenarioStore scenarioStore = new ScenarioStore(name, description, mainModel, attributesModel, attributesSimulation, topography, subModelNames);
 		ScenarioRunManager scenarioRunManager = new ScenarioRunManager(scenarioStore);
 
 		scenarioRunManager.setDataProcessingJsonManager(DataProcessingJsonManager.deserializeFromNode(rootNode.get(DataProcessingJsonManager.DATAPROCCESSING_KEY)));
 		scenarioRunManager.saveChanges();
 
 		return scenarioRunManager;
+	}
+
+	public static List<MainModel> deserializeSubModels(JsonNode node) throws JsonProcessingException {
+		List<MainModel> subModels = new LinkedList<>();
+		DynamicClassInstantiator<MainModel> instantiator = new DynamicClassInstantiator<>();
+		Iterator<Map.Entry<String, JsonNode>> it = node.fields();
+		while (it.hasNext()) {
+			Map.Entry<String, JsonNode> entry = it.next();
+			MainModel subModel = mapper.treeToValue(entry.getValue(), instantiator.getClassFromName(entry.getKey()));
+			subModels.add(subModel);
+		}
+		return subModels;
 	}
 
 	public static AttributesSimulation deserializeAttributesSimulation(String json)
@@ -364,7 +382,7 @@ public abstract class JsonConverter {
 
 	private static Topography deserializeTopographyFromNode(JsonNode node) {
 		TopographyStore store = mapper.convertValue(node, TopographyStore.class);
-		Topography topography = new Topography(store.attributes, store.attributesAgent, store.attributesCar, store.attributesHorse);
+		Topography topography = new Topography(store.attributes, store.attributesPedestrian, store.attributesCar, store.attributesHorse);
 		store.obstacles.forEach(obstacle -> topography.addObstacle(new Obstacle(obstacle)));
 		store.stairs.forEach(stairs -> topography.addStairs(new Stairs(stairs)));
 		store.targets.forEach(target -> topography.addTarget(new Target(target)));
@@ -487,6 +505,9 @@ public abstract class JsonConverter {
 
 		vadereNode.put(MAIN_MODEL_KEY, scenarioStore.mainModel);
 
+		ObjectNode subModelNode = serializeSubModels(scenarioStore.subModels);
+		vadereNode.set("subModels", subModelNode);
+
 		// vadere > attributesModel
 		ObjectNode attributesModelNode = serializeAttributesModelToNode(scenarioStore.attributesList);
 		vadereNode.set("attributesModel", attributesModelNode);
@@ -499,6 +520,16 @@ public abstract class JsonConverter {
 		vadereNode.set("topography", topographyNode);
 
 		return vadereNode;
+	}
+
+	private static ObjectNode serializeSubModels(final List<MainModel> subModels) {
+
+		ObjectNode subModelsNode = mapper.createObjectNode();
+		for (MainModel subModel : subModels) {
+			JsonNode node = mapper.valueToTree(subModel);
+			subModelsNode.set(subModel.getClass().getName(), node);
+		}
+		return subModelsNode;
 	}
 
 	private static ObjectNode serializeAttributesModelToNode(final List<Attributes> attributesList) {
@@ -555,7 +586,7 @@ public abstract class JsonConverter {
 		topographyNode.set("dynamicElements", dynamicElementNodes);
 
 		JsonNode attributesPedestrianNode = mapper.convertValue(topography.getAttributesPedestrian(), JsonNode.class);
-		topographyNode.set("attributesAgent", attributesPedestrianNode);
+		topographyNode.set("attributesPedestrian", attributesPedestrianNode);
 		if (attributesPedestrianNode != null)
 			((ObjectNode) attributesPedestrianNode).remove("id");
 
@@ -569,6 +600,8 @@ public abstract class JsonConverter {
 		JsonNode attributesHorseNode = mapper.convertValue(topography.getAttributesHorse(), JsonNode.class);
 		topographyNode.set("attributesHorse", attributesHorseNode);
 
+		JsonNode attributesCarNode = mapper.convertValue(topography.getAttributesCar(), JsonNode.class);
+		topographyNode.set("attributesCar", attributesCarNode);
 
 		return topographyNode;
 	}
@@ -582,10 +615,11 @@ public abstract class JsonConverter {
 		return writer.writeValueAsString(serializeTopographyToNode(topography));
 	}
 
-	public static String serializeMainModelAttributesModelBundle(List<Attributes> attributesList, String mainModel)
+	public static String serializeMainModelAttributesModelBundle(List<Attributes> attributesList, ScenarioStore scenarioStore)
 			throws JsonProcessingException {
 		ObjectNode node = mapper.createObjectNode();
-		node.put(MAIN_MODEL_KEY, mainModel);
+		node.put(MAIN_MODEL_KEY, scenarioStore.mainModel);
+		node.set("subModels", serializeSubModels(scenarioStore.subModels));
 		node.set("attributesModel", serializeAttributesModelToNode(attributesList));
 		return writer.writeValueAsString(node);
 	}
@@ -616,7 +650,7 @@ public abstract class JsonConverter {
 		return new ScenarioStore(scenarioStore.name, scenarioStore.description, scenarioStore.mainModel,
 				deserializeAttributesListFromNode(attributesModelNode),
 				deserializeAttributesSimulationFromNode(attributesSimulationNode),
-				deserializeTopographyFromNode(topographyNode));
+				deserializeTopographyFromNode(topographyNode), scenarioStore.subModels);
 	}
 
 	// MANIPULATE JSON

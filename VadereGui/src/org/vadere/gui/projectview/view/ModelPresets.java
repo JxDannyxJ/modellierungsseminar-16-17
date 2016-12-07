@@ -1,9 +1,5 @@
 package org.vadere.gui.projectview.view;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.vadere.simulator.models.MainModel;
 import org.vadere.simulator.models.osm.OptimalStepsModel;
 import org.vadere.state.attributes.Attributes;
@@ -11,7 +7,10 @@ import org.vadere.state.attributes.ModelDefinition;
 import org.vadere.state.attributes.models.AttributesFloorField;
 import org.vadere.state.attributes.models.AttributesOSM;
 import org.vadere.state.attributes.models.AttributesPotentialCompact;
-import org.vadere.state.attributes.models.AttributesPotentialOSM;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Singleton for model presets.

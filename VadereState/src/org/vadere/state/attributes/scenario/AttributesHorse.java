@@ -1,6 +1,8 @@
 package org.vadere.state.attributes.scenario;
 
 import org.vadere.util.geometry.Vector2D;
+import org.vadere.util.geometry.shapes.VEllipse;
+import org.vadere.util.geometry.shapes.VShape;
 
 /**
  * This class defines properties of a horse. These are the height,
@@ -9,8 +11,8 @@ import org.vadere.util.geometry.Vector2D;
  */
 public class AttributesHorse extends AttributesAgent {
 
-	private double height = 0.7;
-	private double width = 1.2;
+	//	private double height = 1.2;
+//	private double width = 0.7;
 	private Vector2D direction = new Vector2D(1, 0);
 
 	/**
@@ -22,8 +24,6 @@ public class AttributesHorse extends AttributesAgent {
 	 */
 	public AttributesHorse(final AttributesHorse other, final int id) {
 		super(other, id);
-		this.height = other.height;
-		this.width = other.width;
 		this.direction = other.direction;
 		this.setShape(other.getShape());
 	}
@@ -32,24 +32,25 @@ public class AttributesHorse extends AttributesAgent {
 	 * Constructor for a new attributes object with invalid id and no set properties
 	 */
 	public AttributesHorse() {
-		super(-1);
+		this(-1, new VEllipse(1.2, 0.7));
 	}
 
 	/**
 	 * Constructor for a new attributes object with a given id and no properties
 	 */
-	public AttributesHorse(final int id) {
+	public AttributesHorse(final int id, VShape shape) {
 		super(id);
+		super.setShape(shape);
 	}
 
 	// Getters
 
 	public double getHeight() {
-		return height;
+		return ((VEllipse) getShape()).getHeight();
 	}
 
 	public double getWidth() {
-		return width;
+		return ((VEllipse) getShape()).getWidth();
 	}
 
 	public Vector2D getDirection() {
@@ -61,10 +62,6 @@ public class AttributesHorse extends AttributesAgent {
 	}
 
 	public double getRadius() {
-		if (width >= height) {
-			return width;
-		} else {
-			return height;
-		}
+		return getShape().getRadius();
 	}
 }

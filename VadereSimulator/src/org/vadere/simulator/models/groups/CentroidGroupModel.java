@@ -6,9 +6,9 @@ import org.vadere.simulator.models.potential.fields.PotentialFieldTarget;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.AttributesCGM;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.scenario.ScenarioElement;
 import org.vadere.state.scenario.Topography;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.util.data.Table;
 
 import java.util.HashMap;
@@ -43,7 +43,7 @@ public class CentroidGroupModel implements GroupModel, ActiveCallback {
 	
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesAgent, Random random) {
 		this.attributesCGM = Model.findAttributes(attributesList, AttributesCGM.class);
 		this.groupSizeDeterminator = new GroupSizeDeterminatorRandom(
 				attributesCGM.getGroupSizeDistribution(), random);

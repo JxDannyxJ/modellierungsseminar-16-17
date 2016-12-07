@@ -11,10 +11,10 @@ import org.vadere.simulator.models.potential.fields.PotentialFieldObstacle;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.AttributesGNM;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.DynamicElement;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.scenario.staticelements.Target;
-import org.vadere.state.scenario.Topography;
 import org.vadere.state.types.GradientProviderType;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.parallel.ParallelWorkerUtil;
@@ -68,17 +68,17 @@ public class GradientNavigationModel extends ODEModel<Pedestrian, AttributesAgen
 
 	@Override
 	public void initialize(List<Attributes> modelAttributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesAgent, Random random) {
 
 		this.attributes = Model.findAttributes(modelAttributesList, AttributesGNM.class);
 
 		super.initializeODEModel(Pedestrian.class,
 				IntegratorFactory.createFirstOrderIntegrator(
 						attributes.getAttributesODEIntegrator()),
-				new GNMEquations(), attributesPedestrian, topography, random);
+				new GNMEquations(), attributesAgent, topography, random);
 
 		IPotentialTargetGrid iPotentialTargetGrid = IPotentialTargetGrid.createPotentialField(
-				modelAttributesList, topography, attributesPedestrian, attributes.getTargetPotentialModel());
+				modelAttributesList, topography, attributesAgent, attributes.getTargetPotentialModel());
 
 		this.potentialFieldTarget = iPotentialTargetGrid;
 		activeCallbacks.add(iPotentialTargetGrid);

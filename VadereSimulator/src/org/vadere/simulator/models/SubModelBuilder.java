@@ -35,7 +35,7 @@ public class SubModelBuilder {
 		for (String submodelName : subModelClassNames) {
 			final DynamicClassInstantiator<Model> modelInstantiator = new DynamicClassInstantiator<>();
 			final Model submodel = modelInstantiator.createObject(submodelName);
-			submodel.initialize(modelAttributesList, topography, attributesAgent, random);
+			submodel.initialize(modelAttributesList, topography, topography.getAttributesCar(), random);
 			subModels.add(submodel);
 		}
 	}

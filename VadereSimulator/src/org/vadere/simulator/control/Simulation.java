@@ -2,36 +2,40 @@ package org.vadere.simulator.control;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.vadere.simulator.models.DynamicElementFactory;
 import org.vadere.simulator.models.MainModel;
-import org.vadere.simulator.models.ovm.OptimalVelocityModel;
+import org.vadere.simulator.models.MotionModelBuilder;
 import org.vadere.simulator.projects.ScenarioStore;
 import org.vadere.simulator.projects.dataprocessing.ProcessorManager;
 import org.vadere.state.attributes.AttributesSimulation;
-import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesCar;
+import org.vadere.state.attributes.scenario.AttributesHorse;
+import org.vadere.state.attributes.scenario.AttributesPedestrian;
 import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.staticelements.Source;
 import org.vadere.state.scenario.staticelements.Target;
 import org.vadere.state.types.ScenarioElementType;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 
 public class Simulation {
 
 	private static Logger logger = LogManager.getLogger(Simulation.class);
 
 	private final AttributesSimulation attributesSimulation;
-	private final AttributesAgent attributesAgent;
+	private final AttributesPedestrian attributesPedestrian;
+	private final AttributesHorse attributesHorse;
+	private final AttributesCar attributesCar;
 
 	private final Collection<SourceController> sourceControllers;
 	private final Collection<TargetController> targetControllers;
 	private TeleporterController teleporterController;
 	private TopographyController topographyController;
-	private DynamicElementFactory dynamicElementFactory;
+	private Map<ScenarioElementType, MainModel> typeModel;
 
 	private final List<PassiveCallback> passiveCallbacks;
 	private List<ActiveCallback> activeCallbacks;
@@ -60,15 +64,18 @@ public class Simulation {
 	private String name;
 	private MainModel mainModel;
 
-	public Simulation(MainModel mainModel, double startTimeInSec, final String name, ScenarioStore scenarioStore,
+	public Simulation(MotionModelBuilder modelBuilder, double startTimeInSec, ScenarioStore scenarioStore,
 					  List<PassiveCallback> passiveCallbacks, Random random, ProcessorManager processorManager) {
-		this.name = name;
-		this.mainModel = mainModel;
+		this.name = scenarioStore.name;
+		this.mainModel = modelBuilder.getMainModel();
 		this.scenarioStore = scenarioStore;
 		this.attributesSimulation = scenarioStore.attributesSimulation;
-		this.attributesAgent = scenarioStore.topography.getAttributesPedestrian();
+		this.attributesPedestrian = scenarioStore.topography.getAttributesPedestrian();
+		this.attributesHorse = scenarioStore.topography.getAttributesHorse();
+		this.attributesCar = scenarioStore.topography.getAttributesCar();
 		this.sourceControllers = new LinkedList<>();
 		this.targetControllers = new LinkedList<>();
+		this.typeModel = new TreeMap<>();
 		this.topography = scenarioStore.topography;
 
 		this.runTimeInSec = attributesSimulation.getFinishTime();
@@ -76,20 +83,20 @@ public class Simulation {
 		this.simTimeInSec = startTimeInSec;
 
 		this.activeCallbacks = mainModel.getActiveCallbacks();
-
-		// TODO [priority=normal] [task=bugfix] - the attributesCar are missing in initialize' parameters
-		this.dynamicElementFactory = mainModel;
-
 		this.processorManager = processorManager;
 		this.passiveCallbacks = passiveCallbacks;
 
-		this.topographyController = new TopographyController(topography, dynamicElementFactory);
+
+		typeModel.put(ScenarioElementType.PEDESTRIAN, mainModel);
+		typeModel.put(ScenarioElementType.HORSE, mainModel);
+		typeModel.put(ScenarioElementType.CAR, modelBuilder.getSubModels().get(0));
+
+		// All the initial agents run with the main model and are created by dynamicElementFactory
+		this.topographyController = new TopographyController(topography, typeModel);
 
 		for (PassiveCallback pc : this.passiveCallbacks) {
 			pc.setTopography(topography);
 		}
-		ArrayList<ActiveCallback> subModels = new ArrayList<>();
-		activeCallbacks.stream().filter(p -> p instanceof OptimalVelocityModel).forEach(subModels::add);
 
 		/**
 		 *	Here the sourceControllers get their dynamicElementFactory
@@ -97,15 +104,12 @@ public class Simulation {
 		 */
 		// create source and target controllers
 		for (Source source : topography.getSources()) {
-			SourceController sourceController;
 			//TODO: Try to get the dynamicElementFactory type from the json file or as an attribute from source which can be placed
-			if (ScenarioElementType.CAR.name().equals(source.getAttributes().getDynamicElementType().name())) {
-				sourceController = new SourceController(topography, source, (OptimalVelocityModel) subModels.get(0), attributesAgent, random);
-			} else {
-				sourceController = new SourceController(topography, source, dynamicElementFactory, attributesAgent, random);
-			}
+			MainModel dynamicFactory = typeModel.get(source.getAttributes().getDynamicElementType());
+			SourceController sourceController = new SourceController(topography, source, dynamicFactory, dynamicFactory.getAttributesAgent(), random);
 			sourceControllers.add(sourceController);
 		}
+
 		for (Target target : topography.getTargets()) {
 			targetControllers.add(new TargetController(topography, target));
 		}

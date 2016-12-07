@@ -26,6 +26,44 @@
   },
   "scenario" : {
     "mainModel" : "org.vadere.simulator.models.osm.OptimalStepsModel",
+    "subModels" : {
+      "org.vadere.simulator.models.ovm.OptimalVelocityModel" : {
+        "elementAttributes" : {
+          "id" : -1,
+          "shape" : null,
+          "radius" : 0.195,
+          "densityDependentSpeed" : false,
+          "speedDistributionMean" : 1.34,
+          "speedDistributionStandardDeviation" : 0.0,
+          "minimumSpeed" : 0.3,
+          "maximumSpeed" : 3.0,
+          "acceleration" : 2.0,
+          "length" : 4.5,
+          "width" : 1.7,
+          "direction" : {
+            "x" : 1.0,
+            "y" : 0.0
+          }
+        },
+        "attributesOVM" : {
+          "attributesODEIntegrator" : {
+            "solverType" : "DORMAND_PRINCE_45",
+            "stepSizeMin" : 1.0E-4,
+            "stepSizeMax" : 1.0,
+            "toleranceAbsolute" : 1.0E-5,
+            "toleranceRelative" : 1.0E-4
+          },
+          "sensitivity" : 1.0,
+          "sightDistance" : 5.0,
+          "sightDistanceFactor" : 1.0,
+          "firstDistanceRandom" : {
+            "x" : 5.0,
+            "y" : 15.0
+          },
+          "ignoreOtherCars" : false
+        }
+      }
+    },
     "attributesModel" : {
       "org.vadere.state.attributes.models.AttributesPotentialCompact" : {
         "pedPotentialWidth" : 0.5,
@@ -54,23 +92,6 @@
         "pedestrianPotentialModel" : "org.vadere.simulator.models.potential.PotentialFieldPedestrianCompact",
         "obstaclePotentialModel" : "org.vadere.simulator.models.potential.PotentialFieldObstacleCompact",
         "submodels" : [ "org.vadere.simulator.models.ovm.OptimalVelocityModel" ]
-      },
-      "org.vadere.state.attributes.models.AttributesOVM" : {
-        "attributesODEIntegrator" : {
-          "solverType" : "DORMAND_PRINCE_45",
-          "stepSizeMin" : 1.0E-4,
-          "stepSizeMax" : 1.0,
-          "toleranceAbsolute" : 1.0E-5,
-          "toleranceRelative" : 1.0E-4
-        },
-        "sensitivity" : 1.0,
-        "sightDistance" : 5.0,
-        "sightDistanceFactor" : 1.0,
-        "firstDistanceRandom" : {
-          "x" : 5.0,
-          "y" : 15.0
-        },
-        "ignoreOtherCars" : false
       },
       "org.vadere.state.attributes.models.AttributesFloorField" : {
         "createMethod" : "HIGH_ACCURACY_FAST_MARCHING",
@@ -308,11 +329,11 @@
       } ],
       "dynamicElements" : [ {
         "source" : null,
-        "targetIds" : [ ],
+        "targetIds" : [ 1 ],
         "nextTargetListIndex" : 0,
         "position" : {
-          "x" : 23.8,
-          "y" : 80.4
+          "x" : 24.2002855,
+          "y" : 83.90028550000001
         },
         "velocity" : {
           "x" : 0.0,
@@ -320,128 +341,24 @@
         },
         "freeFlowSpeed" : 1.34,
         "idAsTarget" : -1,
-        "modelPedestrianMap" : { },
-        "isChild" : false,
-        "isLikelyInjured" : false,
-        "attributesPed" : {
+        "type" : "CAR",
+        "attributesCar" : {
           "id" : -1,
           "shape" : {
-            "radius" : 0.195,
-            "center" : {
-              "x" : 23.8,
-              "y" : 80.4
-            },
-            "type" : "CIRCLE"
-          },
-          "radius" : 0.195,
-          "densityDependentSpeed" : false,
-          "speedDistributionMean" : 1.34,
-          "speedDistributionStandardDeviation" : 0.0,
-          "minimumSpeed" : 0.3,
-          "maximumSpeed" : 3.0,
-          "acceleration" : 2.0
-        },
-        "groupIds" : [ ],
-        "type" : "PEDESTRIAN"
-      }, {
-        "source" : null,
-        "targetIds" : [ ],
-        "nextTargetListIndex" : 0,
-        "position" : {
-          "x" : 26.1,
-          "y" : 92.1
-        },
-        "velocity" : {
-          "x" : 0.0,
-          "y" : 0.0
-        },
-        "freeFlowSpeed" : 1.34,
-        "idAsTarget" : -1,
-        "modelPedestrianMap" : { },
-        "isChild" : false,
-        "isLikelyInjured" : false,
-        "attributesPed" : {
-          "id" : -1,
-          "shape" : {
-            "radius" : 0.195,
-            "center" : {
-              "x" : 26.1,
-              "y" : 92.1
-            },
-            "type" : "CIRCLE"
-          },
-          "radius" : 0.195,
-          "densityDependentSpeed" : false,
-          "speedDistributionMean" : 1.34,
-          "speedDistributionStandardDeviation" : 0.0,
-          "minimumSpeed" : 0.3,
-          "maximumSpeed" : 3.0,
-          "acceleration" : 2.0
-        },
-        "groupIds" : [ ],
-        "type" : "PEDESTRIAN"
-      }, {
-        "source" : null,
-        "targetIds" : [ ],
-        "nextTargetListIndex" : 0,
-        "position" : {
-          "x" : 22.6,
-          "y" : 86.2
-        },
-        "velocity" : {
-          "x" : 0.0,
-          "y" : 0.0
-        },
-        "freeFlowSpeed" : 1.34,
-        "idAsTarget" : -1,
-        "modelPedestrianMap" : { },
-        "isChild" : false,
-        "isLikelyInjured" : false,
-        "attributesPed" : {
-          "id" : -1,
-          "shape" : {
-            "radius" : 0.195,
-            "center" : {
-              "x" : 22.6,
-              "y" : 86.2
-            },
-            "type" : "CIRCLE"
-          },
-          "radius" : 0.195,
-          "densityDependentSpeed" : false,
-          "speedDistributionMean" : 1.34,
-          "speedDistributionStandardDeviation" : 0.0,
-          "minimumSpeed" : 0.3,
-          "maximumSpeed" : 3.0,
-          "acceleration" : 2.0
-        },
-        "groupIds" : [ ],
-        "type" : "PEDESTRIAN"
-      }, {
-        "source" : null,
-        "targetIds" : [ ],
-        "nextTargetListIndex" : 0,
-        "position" : {
-          "x" : 26.6,
-          "y" : 69.7
-        },
-        "velocity" : {
-          "x" : 0.0,
-          "y" : 0.0
-        },
-        "freeFlowSpeed" : 1.34,
-        "idAsTarget" : -1,
-        "type" : "HORSE",
-        "attributesHorse" : {
-          "id" : -1,
-          "shape" : {
-            "height" : 0.7,
-            "width" : 1.2,
-            "center" : {
-              "x" : 26.6,
-              "y" : 69.7
-            },
-            "type" : "ELLIPSE"
+            "type" : "POLYGON",
+            "points" : [ {
+              "x" : 21.4002855,
+              "y" : 83.05028550000002
+            }, {
+              "x" : 21.4002855,
+              "y" : 87.55028550000002
+            }, {
+              "x" : 19.7002855,
+              "y" : 87.55028550000002
+            }, {
+              "x" : 19.7002855,
+              "y" : 83.05028550000002
+            } ]
           },
           "radius" : 0.195,
           "densityDependentSpeed" : false,
@@ -450,8 +367,8 @@
           "minimumSpeed" : 0.3,
           "maximumSpeed" : 3.0,
           "acceleration" : 2.0,
-          "height" : 0.7,
-          "width" : 1.2,
+          "length" : 4.5,
+          "width" : 1.7,
           "direction" : {
             "x" : 1.0,
             "y" : 0.0
@@ -462,8 +379,8 @@
         "targetIds" : [ ],
         "nextTargetListIndex" : 0,
         "position" : {
-          "x" : 30.3,
-          "y" : 84.2
+          "x" : 21.3,
+          "y" : 74.8
         },
         "velocity" : {
           "x" : 0.0,
@@ -475,11 +392,11 @@
         "attributesHorse" : {
           "id" : -1,
           "shape" : {
-            "height" : 0.7,
-            "width" : 1.2,
+            "height" : 1.2,
+            "width" : 0.7,
             "center" : {
-              "x" : 30.3,
-              "y" : 84.2
+              "x" : 21.3,
+              "y" : 74.8
             },
             "type" : "ELLIPSE"
           },
@@ -490,15 +407,51 @@
           "minimumSpeed" : 0.3,
           "maximumSpeed" : 3.0,
           "acceleration" : 2.0,
-          "height" : 0.7,
-          "width" : 1.2,
+          "direction" : {
+            "x" : 1.0,
+            "y" : 0.0
+          }
+        }
+      }, {
+        "source" : null,
+        "targetIds" : [ ],
+        "nextTargetListIndex" : 0,
+        "position" : {
+          "x" : 32.2,
+          "y" : 74.4
+        },
+        "velocity" : {
+          "x" : 0.0,
+          "y" : 0.0
+        },
+        "freeFlowSpeed" : 1.34,
+        "idAsTarget" : -1,
+        "type" : "HORSE",
+        "attributesHorse" : {
+          "id" : -1,
+          "shape" : {
+            "height" : 1.2,
+            "width" : 0.7,
+            "center" : {
+              "x" : 32.2,
+              "y" : 74.4
+            },
+            "type" : "ELLIPSE"
+          },
+          "radius" : 0.195,
+          "densityDependentSpeed" : false,
+          "speedDistributionMean" : 1.34,
+          "speedDistributionStandardDeviation" : 0.0,
+          "minimumSpeed" : 0.3,
+          "maximumSpeed" : 3.0,
+          "acceleration" : 2.0,
           "direction" : {
             "x" : 1.0,
             "y" : 0.0
           }
         }
       } ],
-      "attributesAgent" : {
+      "attributesPedestrian" : {
         "shape" : null,
         "radius" : 0.195,
         "densityDependentSpeed" : false,
@@ -510,6 +463,29 @@
       },
       "attributesHorse" : {
         "id" : -1,
+        "shape" : {
+          "height" : 1.2,
+          "width" : 0.7,
+          "center" : {
+            "x" : 26.6,
+            "y" : 69.7
+          },
+          "type" : "ELLIPSE"
+        },
+        "radius" : 0.195,
+        "densityDependentSpeed" : false,
+        "speedDistributionMean" : 1.34,
+        "speedDistributionStandardDeviation" : 0.0,
+        "minimumSpeed" : 0.3,
+        "maximumSpeed" : 3.0,
+        "acceleration" : 2.0,
+        "direction" : {
+          "x" : 1.0,
+          "y" : 0.0
+        }
+      },
+      "attributesCar" : {
+        "id" : -1,
         "shape" : null,
         "radius" : 0.195,
         "densityDependentSpeed" : false,
@@ -518,8 +494,8 @@
         "minimumSpeed" : 0.3,
         "maximumSpeed" : 3.0,
         "acceleration" : 2.0,
-        "height" : 0.7,
-        "width" : 0.3,
+        "length" : 4.5,
+        "width" : 1.7,
         "direction" : {
           "x" : 1.0,
           "y" : 0.0

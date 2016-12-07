@@ -1,15 +1,18 @@
 package org.vadere.simulator.control;
 
-import org.vadere.simulator.models.DynamicElementFactory;
+import org.vadere.simulator.models.MainModel;
 import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.Car;
 import org.vadere.state.scenario.dynamicelements.Horse;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.scenario.staticelements.TargetPedestrian;
+import org.vadere.state.types.ScenarioElementType;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * This Class handles a {@link Topography} Object.
@@ -17,12 +20,12 @@ import java.util.LinkedList;
 public class TopographyController extends OfflineTopographyController {
 
 	private final Topography topography;
-	private final DynamicElementFactory dynamicElementFactory;
+	private Map<ScenarioElementType, MainModel> dynamicElementFactories;
 
-	public TopographyController(Topography topography, DynamicElementFactory dynamicElementFactory) {
+	public TopographyController(Topography topography, Map<ScenarioElementType, MainModel> dynamicElementFactories) {
 		super(topography);
 		this.topography = topography;
-		this.dynamicElementFactory = dynamicElementFactory;
+		this.dynamicElementFactories = dynamicElementFactories;
 	}
 
 	public Topography getTopography() {
@@ -39,15 +42,18 @@ public class TopographyController extends OfflineTopographyController {
 		prepareTopography();
 
 		// get initial elements for each implementation of Agent from topography
+		Collection<Agent> agents = new ArrayList<>();
 		Collection<Pedestrian> pedestrians = topography.getInitialElements(Pedestrian.class);
 		Collection<Car> cars = topography.getInitialElements(Car.class);
 		Collection<Horse> horses = topography.getInitialElements(Horse.class);
+
+		agents.addAll(pedestrians);
+		agents.addAll(cars);
+		agents.addAll(horses);
 		
 		// do preLoop stuff for each collection
-		this.preLoopForAgentType(pedestrians);
-		this.preLoopForAgentType(cars);
-		this.preLoopForAgentType(horses);
-		
+		this.preLoopForAgentType(agents);
+
 		// TODO [priority=medium] [task=feature] create initial cars
 
 		// create initial pedestrians
@@ -98,7 +104,7 @@ public class TopographyController extends OfflineTopographyController {
 	@SuppressWarnings("unchecked")
 	private <T extends Agent> void preLoopForAgentType(Collection<T> agents) {
 		for (T initialAgent : agents) {
-			T realAgent = (T) dynamicElementFactory.createElement(initialAgent.getPosition(), 
+			T realAgent = (T) dynamicElementFactories.get(initialAgent.getType()).createElement(initialAgent.getPosition(),
 					initialAgent.getId(), initialAgent.getClass());
 			
 			// specific settings for agents
@@ -115,7 +121,7 @@ public class TopographyController extends OfflineTopographyController {
 			else {
 				continue;
 			}
-			
+
 			// general settings for agents
 			
 			if (initialAgent.getFreeFlowSpeed() > 0) {
@@ -127,7 +133,7 @@ public class TopographyController extends OfflineTopographyController {
 			topography.addElement(realAgent);
 		}
 	}
-	
+
 	/**
 	 * Called by {@link #preLoopForAgentType(Collection)}.
 	 * Sets {@link Pedestrian} specific fields.

@@ -1,9 +1,9 @@
 package org.vadere.state.scenario;
 
-import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesDynamicElement;
 import org.vadere.state.attributes.scenario.AttributesHorse;
+import org.vadere.state.attributes.scenario.AttributesPedestrian;
 import org.vadere.state.attributes.scenario.AttributesTopography;
 import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.Car;
@@ -65,7 +65,7 @@ public class Topography {
 	private transient final DynamicElementContainer<Car> cars;
 	private transient final DynamicElementContainer<Horse> horses;
 
-	private AttributesAgent attributesPedestrian;
+	private AttributesPedestrian attributesPedestrian;
 	private AttributesCar attributesCar;
 	private AttributesHorse attributesHorse;
 
@@ -76,14 +76,14 @@ public class Topography {
 
 	private final List<Stairs> stairs;
 
-	public Topography(AttributesTopography attributes, AttributesAgent attributesPedestrian,
+	public Topography(AttributesTopography attributes, AttributesPedestrian attributesPedestrian,
 					  AttributesCar attributesCar, AttributesHorse attributesHorse) {
 		this(attributes, attributesPedestrian);
 		this.setAttributesCar(attributesCar);
 		this.setAttributesHorse(attributesHorse);
 	}
 
-	public Topography(AttributesTopography attributes, AttributesAgent attributesPedestrian) {
+	public Topography(AttributesTopography attributes, AttributesPedestrian attributesPedestrian) {
 		this.attributes = attributes;
 		this.attributesPedestrian = attributesPedestrian;
 		this.obstacles = new LinkedList<>();
@@ -103,7 +103,7 @@ public class Topography {
 	 * Creates an empty scenario where bounds and finishTime are empty / zero.
 	 */
 	public Topography() {
-		this(new AttributesTopography(), new AttributesAgent(), new AttributesCar(), new AttributesHorse());
+		this(new AttributesTopography(), new AttributesPedestrian(), new AttributesCar(), new AttributesHorse());
 	}
 
 	public boolean containsTarget(final Predicate<Target> targetPredicate) {
@@ -304,7 +304,7 @@ public class Topography {
 		return attributes;
 	}
 
-	public AttributesAgent getAttributesPedestrian() {
+	public AttributesPedestrian getAttributesPedestrian() {
 		return attributesPedestrian;
 	}
 
@@ -316,7 +316,7 @@ public class Topography {
 		return attributesHorse;
 	}
 
-	public void setAttributesPedestrian(AttributesAgent attributesPedestrian) {
+	public void setAttributesPedestrian(AttributesPedestrian attributesPedestrian) {
 		this.attributesPedestrian = attributesPedestrian;
 	}
 

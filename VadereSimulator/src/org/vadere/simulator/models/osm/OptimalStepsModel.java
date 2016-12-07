@@ -4,7 +4,6 @@ import org.vadere.simulator.control.ActiveCallback;
 import org.vadere.simulator.models.MainModel;
 import org.vadere.simulator.models.Model;
 import org.vadere.simulator.models.SpeedAdjuster;
-import org.vadere.simulator.models.SubModelBuilder;
 import org.vadere.simulator.models.groups.CentroidGroupModel;
 import org.vadere.simulator.models.groups.CentroidGroupPotential;
 import org.vadere.simulator.models.groups.CentroidGroupSpeedAdjuster;
@@ -24,6 +23,7 @@ import org.vadere.simulator.models.potential.fields.PotentialFieldTarget;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.AttributesOSM;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesDynamicElement;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesPedestrian;
 import org.vadere.state.scenario.Topography;
@@ -104,7 +104,7 @@ public class OptimalStepsModel implements MainModel {
 	private PriorityQueue<AgentOSM> agentEventsQueue;
 
 	private ExecutorService executorService;
-	private List<ActiveCallback> activeCallbacks = new LinkedList<>();
+	private transient List<ActiveCallback> activeCallbacks = new LinkedList<>();
 
 	@Deprecated
 	public OptimalStepsModel(final Topography topography, final AttributesOSM attributes,
@@ -154,10 +154,11 @@ public class OptimalStepsModel implements MainModel {
 		this.random = random;
 		this.attributesAgent = attributesAgent;
 
-		final SubModelBuilder subModelBuilder = new SubModelBuilder(modelAttributesList, topography,
-				attributesAgent, random);
-		subModelBuilder.buildSubModels(attributesOSM.getSubmodels());
-		subModelBuilder.addSubModelsToActiveCallbacks(activeCallbacks);
+		//TODO: Shifted to Simulation to provide building sub models independent from osm
+//		final SubModelBuilder subModelBuilder = new SubModelBuilder(modelAttributesList, topography,
+//				attributesAgent, random);
+//		subModelBuilder.buildSubModels(attributesOSM.getSubmodels());
+//		subModelBuilder.addSubModelsToActiveCallbacks(activeCallbacks);
 
 		IPotentialTargetGrid iPotentialTargetGrid = IPotentialTargetGrid.createPotentialField(
 				modelAttributesList, topography, attributesAgent, attributesOSM.getTargetPotentialModel());
@@ -338,12 +339,13 @@ public class OptimalStepsModel implements MainModel {
 
 		agentIdCounter++;
 		AgentOSM agentOSM = null;
+
 		if (type == Horse.class) {
 			agentOSM = new HorseOSM(attributesOSM, new AttributesHorse(topography.getAttributesHorse(),
 					id > 0 ? id : agentIdCounter), topography, random, potentialFieldTarget,
 					potentialFieldObstacle.copy(), potentialFieldPedestrian,
 					speedAdjusters, stepCircleOptimizer.clone());
-		} else if (type == Pedestrian.class) {
+		} else {
 			agentOSM = new PedestrianOSM(attributesOSM, new AttributesPedestrian(this.attributesAgent, id > 0 ? id : agentIdCounter),
 					topography, random, potentialFieldTarget,
 					potentialFieldObstacle.copy(), potentialFieldPedestrian,
@@ -363,6 +365,11 @@ public class OptimalStepsModel implements MainModel {
 	@Override
 	public List<ActiveCallback> getActiveCallbacks() {
 		return activeCallbacks;
+	}
+
+	@Override
+	public AttributesDynamicElement getAttributesAgent() {
+		return attributesAgent;
 	}
 
 }

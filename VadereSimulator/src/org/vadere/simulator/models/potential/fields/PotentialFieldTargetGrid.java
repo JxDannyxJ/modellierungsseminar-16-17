@@ -1,15 +1,17 @@
 package org.vadere.simulator.models.potential.fields;
 
-import java.util.*;
-
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.AttributesFloorField;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.*;
+import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * The default IPotentialTargetGrid, that creates for each target the same floor field type
@@ -83,7 +85,7 @@ public class PotentialFieldTargetGrid<T extends Agent> extends AbstractPotential
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesAgent, Random random) {
 		// TODO should be used to initialize the Model
 	}
 }

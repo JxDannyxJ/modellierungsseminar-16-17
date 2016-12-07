@@ -5,14 +5,15 @@ import org.apache.log4j.Logger;
 import org.vadere.simulator.control.PassiveCallback;
 import org.vadere.simulator.control.Simulation;
 import org.vadere.simulator.models.MainModel;
-import org.vadere.simulator.models.MainModelBuilder;
-import org.vadere.simulator.projects.dataprocessing.ModelTest;
+import org.vadere.simulator.models.MotionModelBuilder;
 import org.vadere.simulator.projects.dataprocessing.DataProcessingJsonManager;
+import org.vadere.simulator.projects.dataprocessing.ModelTest;
 import org.vadere.simulator.projects.dataprocessing.ProcessorManager;
 import org.vadere.simulator.projects.io.JsonConverter;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.AttributesSimulation;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesPedestrian;
 import org.vadere.state.scenario.Topography;
 import org.vadere.util.io.IOUtils;
 import org.vadere.util.reflection.VadereClassNotFoundException;
@@ -120,12 +121,12 @@ public class ScenarioRunManager implements Runnable {
 		doBeforeSimulation();
 
 		try {
-			MainModelBuilder modelBuilder = new MainModelBuilder(scenarioStore);
+			MotionModelBuilder modelBuilder = new MotionModelBuilder(scenarioStore);
 			modelBuilder.createModelAndRandom();
 
-			final MainModel mainModel = modelBuilder.getModel();
+			final MainModel mainModel = modelBuilder.getMainModel();
 			final Random random = modelBuilder.getRandom();
-			
+
 			// prepare processors and simulation data writer
 			this.processorManager = this.dataProcessingJsonManager.createProcessorManager(mainModel);
 
@@ -136,7 +137,7 @@ public class ScenarioRunManager implements Runnable {
 			}
 
 			// Run simulation main loop from start time = 0 seconds
-			simulation = new Simulation(mainModel, 0, scenarioStore.name, scenarioStore, passiveCallbacks, random, processorManager);
+			simulation = new Simulation(modelBuilder, 0, scenarioStore, passiveCallbacks, random, processorManager);
 			simulation.run();
 
 		} catch (Exception e) {
@@ -242,7 +243,7 @@ public class ScenarioRunManager implements Runnable {
 		this.scenarioStore.attributesList = attributesList;
 	}
 
-	public void setAttributesPedestrian(AttributesAgent attributesPedestrian) {
+	public void setAttributesPedestrian(AttributesPedestrian attributesPedestrian) {
 		scenarioStore.topography.setAttributesPedestrian(attributesPedestrian);
 	}
 

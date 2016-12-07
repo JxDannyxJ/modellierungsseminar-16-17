@@ -109,7 +109,7 @@ public class PotentialFieldPedestrianGNM implements PotentialFieldAgent {
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesAgent, Random random) {
 		// TODO should be used to initialize the Model
 	}
 }

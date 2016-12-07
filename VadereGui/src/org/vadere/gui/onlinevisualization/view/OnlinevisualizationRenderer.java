@@ -1,6 +1,7 @@
 package org.vadere.gui.onlinevisualization.view;
 
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -9,7 +10,10 @@ import org.vadere.gui.components.view.DefaultRenderer;
 import org.vadere.gui.components.view.SimulationRenderer;
 import org.vadere.gui.onlinevisualization.model.OnlineVisualizationModel;
 import org.vadere.state.scenario.dynamicelements.Agent;
+import org.vadere.state.scenario.dynamicelements.Horse;
+import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
+import org.vadere.util.geometry.shapes.VShape;
 
 public class OnlinevisualizationRenderer extends SimulationRenderer {
 
@@ -53,7 +57,9 @@ public class OnlinevisualizationRenderer extends SimulationRenderer {
 		g.setColor(model.config.getPedestrianDefaultColor());
 		for (Agent ped : model.getAgents()) {
 			VPoint position = ped.getPosition();
-			g.fill(ped.getShape());
+			VShape shape = ped.getShape();
+			AffineTransform oldTransform = g.getTransform();
+			double theta = 0.0;
 
 			if (!pedestrianPositions.containsKey(ped.getId())) {
 				pedestrianPositions.put(ped.getId(), new LinkedList());
@@ -66,7 +72,7 @@ public class OnlinevisualizationRenderer extends SimulationRenderer {
 				renderTrajectory(g, pedestrianPositions.get(ped.getId()), ped);
 			}
 
-			if (model.config.isShowWalkdirection()) {
+			if (model.config.isShowWalkdirection() || !(shape instanceof VCircle) ) { //For performance matters no rotatin for circles
 				int pedestrianId = ped.getId();
 				VPoint lastPosition = lastPedestrianPositions.get(pedestrianId);
 				lastPedestrianPositions.put(pedestrianId, position);
@@ -86,12 +92,27 @@ public class OnlinevisualizationRenderer extends SimulationRenderer {
 						pedestrianDirections.put(pedestrianId, direction);
 					}
 					if (direction != null) {
-						double theta = Math.atan2(-direction.getY(), -direction.getX());
+						theta = Math.atan2(-direction.getY(), -direction.getX());
+						if(model.config.isShowWalkdirection())
 						DefaultRenderer.drawArrow(g, theta, position.getX() - ped.getRadius() * 2 * direction.getX(),
 								position.getY() - ped.getRadius() * 2 * direction.getY());
 					}
+					if(!(shape instanceof VCircle)) { // No rotation for circles
+						AffineTransform rotation = new AffineTransform(g.getTransform());
+						rotation.rotate(theta-Math.PI/2,ped.getPosition().getX(), ped.getPosition().getY());
+						g.setTransform(rotation);
+					}
 				}
 			}
+			if (ped instanceof Horse) {
+				g.setColor(model.config.getHorseColor());
+			}else {
+				g.setColor(model.config.getPedestrianColor());
+			}
+			
+			g.fill(ped.getShape());
+			g.setTransform(oldTransform);
+			
 		}
 	}
 }

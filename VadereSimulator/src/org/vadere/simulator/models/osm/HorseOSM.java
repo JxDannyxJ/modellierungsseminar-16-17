@@ -1,43 +1,38 @@
 package org.vadere.simulator.models.osm;
 
+import java.util.*;
+
+import java.util.Random;
 import org.vadere.simulator.models.SpeedAdjuster;
 import org.vadere.simulator.models.osm.optimization.StepCircleOptimizer;
-import org.vadere.simulator.models.osm.optimization.StepOptimizer;
 import org.vadere.simulator.models.osm.stairOptimization.StairStepOptimizer;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeEventDriven;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM;
-import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM.CallMethod;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeSequential;
+import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM.CallMethod;
 import org.vadere.simulator.models.potential.fields.PotentialFieldAgent;
 import org.vadere.simulator.models.potential.fields.PotentialFieldObstacle;
 import org.vadere.simulator.models.potential.fields.PotentialFieldTarget;
 import org.vadere.simulator.models.potential.fields.PotentialFieldTargetRingExperiment;
 import org.vadere.state.attributes.models.AttributesOSM;
 import org.vadere.state.attributes.scenario.AttributesHorse;
-import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.Horse;
 import org.vadere.state.scenario.staticelements.Stairs;
+import org.vadere.state.scenario.Topography;
 import org.vadere.state.types.MovementType;
 import org.vadere.state.types.UpdateType;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VEllipse;
 import org.vadere.util.geometry.shapes.VPoint;
-import org.vadere.util.geometry.shapes.VShape;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
 
 /**
  *
  */
 public class HorseOSM extends Horse implements AgentOSM {
 
+	
 	/**
 	 * transient fields will not be serialized by Gson.
 	 */
@@ -51,11 +46,9 @@ public class HorseOSM extends Horse implements AgentOSM {
 	/** {@link UpdateSchemeOSM} defining how to update agent.**/
 	private final transient UpdateSchemeOSM updateScheme;
 
-	/**
-	 * Potentialfield for {@link org.vadere.state.scenario.staticelements.Target Target}.
-	 **/
+	/** Potentialfield for {@link Target}.**/
 	private transient PotentialFieldTarget potentialFieldTarget;
-	/** Potentialfield for {@link org.vadere.state.scenario.staticelements.Obstacle Obstacle}.**/
+	/** Potentialfield for {@link Obstacle}.**/
 	private transient PotentialFieldObstacle potentialFieldObstacle;
 	/** Potentialfield for {@link Agent}.**/
 	private transient PotentialFieldAgent potentialFieldAgent;
@@ -100,8 +93,8 @@ public class HorseOSM extends Horse implements AgentOSM {
 	 * @param attributesAgent attributes of {@link AttributesHorse}.
 	 * @param topography the {@link Topography}.
 	 * @param random just random instance.
-	 * @param potentialFieldTarget the {@link org.vadere.state.scenario.staticelements.Target Target} potential field.
-	 * @param potentialFieldObstacle the {@link org.vadere.state.scenario.staticelements.Obstacle Obstacle} potential field.
+	 * @param potentialFieldTarget the {@link Target} potential field.
+	 * @param potentialFieldObstacle the {@link Obstacle} potential field.
 	 * @param potentialFieldAgent {@link Agent} potential field.
 	 * @param speedAdjusters list of {@link SpeedAdjuster}.
 	 * @param stepOptimizer the {@link StepOptimizer}.
@@ -113,7 +106,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 			PotentialFieldObstacle potentialFieldObstacle,
 			PotentialFieldAgent potentialFieldAgent,
 			List<SpeedAdjuster> speedAdjusters,
-			 StepCircleOptimizer stepOptimizer) {
+			StepCircleOptimizer stepOptimizer) {
 
 		super(attributesAgent, random);
 
@@ -194,7 +187,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 	public void updateNextPosition() {
 
 		if (PotentialFieldTargetRingExperiment.class.equals(potentialFieldTarget.getClass())) {
-			VShape reachableArea = new VEllipse(getPosition(), getStepSize() * getShape().getBounds().getX(), getStepSize() * getShape().getBounds().getY());
+			VCircle reachableArea = new VCircle(getPosition(), getStepSize());
 			this.relevantAgents = potentialFieldAgent
 					.getRelevantAgents(reachableArea, this, topography);
 
@@ -486,7 +479,17 @@ public class HorseOSM extends Horse implements AgentOSM {
 	 */
 	@Override
 	public double getDesiredSpeed() {
-		return super.getFreeFlowSpeed();
+		
+		double desiredSpeed = super.getFreeFlowSpeed();
+		double epsilon = 0.0;
+		
+		if (super.isSaddled()) {
+			double lambda = 0.5;
+			double rand = new Random().nextDouble();
+			epsilon = Math.log(1 - rand) / (-lambda);
+		}
+
+		return desiredSpeed - epsilon;
 	}
 
 	/**
@@ -507,6 +510,17 @@ public class HorseOSM extends Horse implements AgentOSM {
 		int numberOfEllipses = 1;
 		double angle;
 		double anchorAngle;
+		
+		if (super.isHasEyepatch()) {
+			if (attributesOSM.getMovementType() == MovementType.DIRECTIONAL) {
+				angle = Math.PI / 2.0 - AttributesHorse.getEYEPATCHED();
+				anchorAngle = Math.PI / 4.0 + AttributesHorse.getEYEPATCHED();
+			}
+			else {
+				angle = Math.PI / 4.0 - AttributesHorse.getEYEPATCHED();
+				anchorAngle = 2 * Math.PI - (Math.PI / 4.0) + AttributesHorse.getEYEPATCHED();
+			}
+		}
 		if (attributesOSM.getMovementType() == MovementType.DIRECTIONAL) {
 			angle = Math.PI / 2.0;
 			anchorAngle = Math.PI / 4.0;

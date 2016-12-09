@@ -1,6 +1,9 @@
 package org.vadere.util.geometry.shapes;
 
 import org.vadere.util.geometry.ShapeType;
+import org.vadere.util.geometry.Vector2D;
+
+import com.vividsolutions.jts.awt.PointShapeFactory.X;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -31,7 +34,7 @@ public class VEllipse implements VShape {
 	public VEllipse(double x, double y, double height, double width) {
 		this(new VPoint(x, y), height, width);
 	}
-	
+
 	/**
 	 * Ellipse at 0|0
 	 * @param height: length of the vertical radius of the ellipse
@@ -65,14 +68,14 @@ public class VEllipse implements VShape {
 	public double getWidth() {
 		return width;
 	}
-	
+
 	/*
 	 * getter for height
 	 */
 	public double getHeight() {
 		return height;
 	}
-	
+
 	/**
 	 * getter for the center
 	 * @return VPoint center
@@ -80,7 +83,7 @@ public class VEllipse implements VShape {
 	public VPoint getCenter() {
 		return this.center;
 	}
-	
+
 	/**
 	 * Equals Method for an Ellipse
 	 */
@@ -95,7 +98,7 @@ public class VEllipse implements VShape {
 		if (!(obj instanceof VEllipse)) {
 			return false;
 		}
-		
+
 		VEllipse other = (VEllipse) obj;
 
 		if (this.height != other.height) {
@@ -110,12 +113,15 @@ public class VEllipse implements VShape {
 
 		return true;
 	}
-	
+
 	@Override
 	/**
 	 * Computes the distance between a point and the nearest point of the ellipse
 	 */
 	public double distance(VPoint point) {
+		if (contains(point)) {
+			return 0;
+		} 
 		return closestPoint(point).distance(point);
 	}
 
@@ -129,14 +135,15 @@ public class VEllipse implements VShape {
 	 * Computes the nearest point of the ellipse to a given VPoint point
 	 */
 	public VPoint closestPoint(VPoint point) {
-//		(x/a)^2+(y/b)^2=1
-		
-		double dx = point.getX() - center.getX();
-		double dy = point.getY() - center.getY();
-		double theta = Math.atan2(dy, dx);
-		double r = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)) - ((width*height) / 
-				Math.sqrt(Math.pow(height * Math.cos(theta), 2) + Math.pow(width * Math.sin(theta), 2)));
-		return new VPoint(point.getX() + r * Math.cos(theta), point.getY() + r * Math.sin(theta));
+		//		(x/a)^2+(y/b)^2=1
+
+		Vector2D direction = new Vector2D(point.getX() - center.getX(), point.getY()
+				- center.getY());
+		double theta = direction.angleToZero();
+
+		double r = (width*height) / 
+				Math.sqrt(Math.pow(height * Math.cos(theta), 2) + Math.pow(width * Math.sin(theta), 2));
+		return new VPoint(Math.round((center.getX() + r * Math.cos(theta)*1000))/1000.0, Math.round((center.getY() + r * Math.sin(theta))*1000)/1000.0);
 	}
 
 	@Override
@@ -149,7 +156,7 @@ public class VEllipse implements VShape {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public boolean intersects(Rectangle2D r) {
 		return intersects(r.getX(), r.getY(), r.getWidth(), r.getHeight());
@@ -157,12 +164,10 @@ public class VEllipse implements VShape {
 
 	@Override
 	public boolean intersects(VLine intersectingLine) {
-//		//TODO
-//		Math.pow(center.x - intersectingLine.x, 2)/Math.pow(getWidth(), 2) + 
-//		Math.pow(center.y - y, 2)/Math.pow(getHeight(), 2) <= 1;
-//				if (intersectingLine.ptSegDist(this.getCenter()) <= this.getRadius())
-//					return true;
-//				return false;
+		// TODO
+		if (intersectingLine.ptSegDist(this.getCenter()) <= this.getRadius()) {
+			return true;
+		}
 		return false;
 	}
 
@@ -173,8 +178,8 @@ public class VEllipse implements VShape {
 	public boolean contains(VPoint point) {
 		return contains(point.getX(),point.getY());
 	}
-	
-	
+
+
 	@Override
 	/**
 	 * Generates a new ellipse with more precise center.
@@ -182,7 +187,7 @@ public class VEllipse implements VShape {
 	public VShape translate(VPoint vector) {
 		return new VEllipse(getCenter().addPrecise(vector), getHeight(), getWidth());
 	}
-	
+
 	@Override
 	/**
 	 * Same as translate
@@ -190,7 +195,7 @@ public class VEllipse implements VShape {
 	public VShape translatePrecise(VPoint vector) {
 		return new VEllipse(getCenter().addPrecise(vector), getHeight(), getWidth());
 	}
-	
+
 	@Override
 	/**
 	 * Scales the ellipse to an factor of scalar
@@ -198,7 +203,7 @@ public class VEllipse implements VShape {
 	public VShape scale(double scalar) {
 		return new VEllipse(getCenter().scalarMultiply(scalar), getHeight() * scalar, getWidth() * scalar);
 	}
-	
+
 	/**
 	 * getter for center
 	 */
@@ -222,7 +227,7 @@ public class VEllipse implements VShape {
 	public Rectangle getBounds() {
 		int diameterW = (int) Math.ceil(2 * width);
 		int diameterH = (int) Math.ceil(2 * height);
-		
+
 		return new Rectangle((int) Math.floor(center.getX() - width),
 				(int) Math.floor(center.getY() - height), diameterW, diameterH);
 	}
@@ -284,5 +289,5 @@ public class VEllipse implements VShape {
 	public PathIterator getPathIterator(AffineTransform at, double flatness) {
 		return null;
 	}
-	
+
 }

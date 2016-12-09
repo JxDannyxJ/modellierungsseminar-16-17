@@ -1,0 +1,58 @@
+% handout in [] ignores uncovered and pause, so its much nicer to use pdf if not used in a presentation
+%\pdfcompresslevel=1
+\pdfminorversion=4
+\documentclass{beamer}
+
+\usepackage[ngerman,english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{pifont}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage[hang,nooneline,scriptsize]{subfigure}
+\usepackage{wasysym} % for smileys using \smiley :) and \frownie :(
+%\usepackage{wrapfig} % for text wrapped around pictures
+\usepackage{mdframed}
+\usepackage{changepage} % to use adjustwidth for reducing margins on frames (wider content area)
+\usepackage{beamerthemeHM}
+\usepackage{customtheme}
+\usepackage{gensymb} % for degree symbol
+
+\graphicspath{{appendix/images/}{appendix/images/logos/}}
+
+
+\title{\textcolor{hmorange}{Projektstudium Modellierungsseminar}\\Landshuter Hochzeit:\\Simulation und 3D-Visualisierung}
+\subtitle{WS2016/17 Teamvorträge Sprint 2:\\\textcolor{hmgray}{Personenstromsimulation mit Pferd}}
+\author{A. Gerum, H. Hager, D. Jadanec, A. Knoll, A. Yauseyenka}
+\date{\hspace{2.0em}\includegraphics[height=1.2cm]{LH-logo.png} \hspace{2.0em} 15 Dezember 2016 \hspace{1.5em} \includegraphics[height=1.2cm]{vcsystems-logo.png}}
+\institute{Department of  Computer Science and Mathematics\\\includegraphics[height=1.2cm]{HMLogo_transp.png} \hfill \includegraphics[height=0.8cm]{accurateLogo.png} \hfill \includegraphics[height=0.6cm]{VadereLogo.pdf} \hfill \includegraphics[height=0.8cm]{unityLogo.png}}
+
+\begin{document}
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{Background2.jpg}}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	\usebackgroundtemplate{} % to remove the background picture from the start slide
+
+
+	\include{presentations/intro}
+	%\include{presentations/andi}
+	%\include{presentations/daniel}
+	\include{presentations/andrei}
+	%\include{presentations/alex}
+	%\include{presentations/hubert}
+	
+
+	%\include{presentations/outro}
+
+
+	\begin{frame}[allowframebreaks]{Quellen}
+		\setbeamertemplate{bibliography item}[text]
+		\bibliographystyle{plain}
+		\bibliography{Literature}
+	\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

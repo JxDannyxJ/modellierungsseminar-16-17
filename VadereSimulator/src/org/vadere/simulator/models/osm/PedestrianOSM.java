@@ -2,6 +2,7 @@ package org.vadere.simulator.models.osm;
 
 import org.vadere.simulator.models.SpeedAdjuster;
 import org.vadere.simulator.models.osm.optimization.StepCircleOptimizer;
+import org.vadere.simulator.models.osm.optimization.StepOptimizer;
 import org.vadere.simulator.models.osm.stairOptimization.StairStepOptimizer;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeEventDriven;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM;
@@ -23,12 +24,7 @@ import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class PedestrianOSM extends Pedestrian implements AgentOSM {
 
@@ -42,7 +38,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 
 	private transient PotentialFieldTarget potentialFieldTarget;
 	private transient PotentialFieldObstacle potentialFieldObstacle;
-	private transient PotentialFieldAgent potentialFieldAgent;
+	private transient PotentialFieldAgent potentialFieldPedestrian;
 
 	private final transient Topography topography;
 
@@ -70,12 +66,12 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 
 	@SuppressWarnings("unchecked")
 	PedestrianOSM(AttributesOSM attributesOSM,
-				  AttributesAgent attributesPedestrian, Topography topography,
-				  Random random, PotentialFieldTarget potentialFieldTarget,
-				  PotentialFieldObstacle potentialFieldObstacle,
-				  PotentialFieldAgent potentialFieldAgent,
-				  List<SpeedAdjuster> speedAdjusters,
-				  StepCircleOptimizer stepCircleOptimizer) {
+			AttributesAgent attributesPedestrian, Topography topography,
+			Random random, PotentialFieldTarget potentialFieldTarget,
+			PotentialFieldObstacle potentialFieldObstacle,
+			PotentialFieldAgent potentialFieldPedestrian,
+			List<SpeedAdjuster> speedAdjusters,
+			StepCircleOptimizer stepCircleOptimizer) {
 
 		super(attributesPedestrian, random);
 
@@ -83,7 +79,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 		this.topography = topography;
 		this.potentialFieldTarget = potentialFieldTarget;
 		this.potentialFieldObstacle = potentialFieldObstacle;
-		this.potentialFieldAgent = potentialFieldAgent;
+		this.potentialFieldPedestrian = potentialFieldPedestrian;
 		this.stepCircleOptimizer = stepCircleOptimizer;
 		this.updateScheme = createUpdateScheme(attributesOSM.getUpdateType(), this);
 
@@ -128,7 +124,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 
 		return result;
 	}
-
+	
 	@Override
 	public void update(double timeStepInSec, double currentTimeInSec, CallMethod callMethod) {
 
@@ -140,7 +136,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 
 		if (PotentialFieldTargetRingExperiment.class.equals(potentialFieldTarget.getClass())) {
 			VCircle reachableArea = new VCircle(getPosition(), getStepSize());
-			this.relevantAgents = potentialFieldAgent
+			this.relevantAgents = potentialFieldPedestrian
 					.getRelevantAgents(reachableArea, this, topography);
 
 			nextPosition = stepCircleOptimizer.getNextPosition(this, reachableArea);
@@ -154,7 +150,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 		} else {
 			VCircle reachableArea = new VCircle(getPosition(), getStepSize());
 
-			this.relevantAgents = potentialFieldAgent
+			this.relevantAgents = potentialFieldPedestrian
 					.getRelevantAgents(reachableArea, this, topography);
 
 
@@ -204,7 +200,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 		if (attributesOSM.isDynamicStepLength()) {
 			return attributesOSM.getStepLengthIntercept()
 					+ attributesOSM.getStepLengthSlopeSpeed()
-					* getDesiredSpeed()
+							* getDesiredSpeed()
 					+ stepDeviation;
 		} else {
 			return stepLength;
@@ -225,7 +221,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 
 		double targetPotential = potentialFieldTarget.getTargetPotential(newPos, this);
 
-		double pedestrianPotential = potentialFieldAgent
+		double pedestrianPotential = potentialFieldPedestrian
 				.getAgentPotential(newPos, this, relevantAgents);
 		double obstacleRepulsionPotential = potentialFieldObstacle
 				.getObstaclePotential(newPos, this);
@@ -257,7 +253,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 	}
 
 	public Vector2D getAgentGradient(VPoint pos) {
-		return potentialFieldAgent.getAgentPotentialGradient(pos,
+		return potentialFieldPedestrian.getAgentPotentialGradient(pos,
 				new Vector2D(0, 0), this, relevantAgents);
 	}
 
@@ -323,7 +319,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 	public double getMinStepLength() {
 		return minStepLength;
 	}
-
+	
 	@Override
 	public VPoint getPosition() {
 		return super.getPosition();
@@ -408,7 +404,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 	/**
 	 * Computes new position to given angle and step size.
 	 *
-	 * @param angle    the angle.
+	 * @param angle the angle.
 	 * @param stepSize the step size.
 	 * @return new {@link VPoint} instance.
 	 */

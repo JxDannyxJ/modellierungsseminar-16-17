@@ -1,18 +1,19 @@
 package org.vadere.simulator.models.potential;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
+
 import org.vadere.simulator.models.potential.fields.PotentialFieldAgent;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.AttributesPotentialOSM;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.Agent;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
+import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.Vector2D;
+import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
-import org.vadere.util.geometry.shapes.VShape;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
 
 public class PotentialFieldPedestrianOSM implements PotentialFieldAgent {
 
@@ -37,30 +38,31 @@ public class PotentialFieldPedestrianOSM implements PotentialFieldAgent {
 	}
 
 	@Override
-	public double getAgentPotential(VPoint pos, Agent pedestrian,
+	public double getAgentPotential(VPoint pos, Agent agent,
 			Agent otherPedestrian) {
+		// type = PedOSM oder HorseOSM
 		// Note: Only works for Circle and not for other shapes
 		double distance = otherPedestrian.getPosition().distance(pos)
-				- pedestrian.getRadius() - otherPedestrian.getRadius();
+				- agent.getRadius() - otherPedestrian.getRadius();
 
 		double potential = 0;
 
 		if (distance <= 0) {
-			potential = attributes.getPedestrianBodyPotential();
-		} else if (distance < attributes.getPedestrianRepulsionWidth()) {
-			potential = Math.exp(-attributes.getAPedOSM()
-					* Math.pow(distance, attributes.getBPedOSM()))
-					* attributes.getPedestrianRepulsionStrength();
+			potential = attributes.getBodyPotential(agent.getClass());
+		} else if (distance < attributes.getRepulsionWidth(agent.getClass())) {
+			potential = Math.exp(-attributes.getA(agent.getClass())
+					* Math.pow(distance, attributes.getB(agent.getClass())))
+					* attributes.getRepulsionStrength(agent.getClass());
 		}
 		return potential;
 	}
 
 	@Override
-	public Collection<Agent> getRelevantAgents(VShape relevantArea,
-											   Agent pedestrian, Topography scenario) {
+	public Collection<Agent> getRelevantAgents(VCircle relevantArea,
+			Agent pedestrian, Topography scenario) {
 		List<Agent> closePedestrians = scenario.getSpatialMap(Agent.class)
-				.getObjects(relevantArea.getCentroid(),
-						attributes.getPedestrianRecognitionDistance());
+				.getObjects(relevantArea.getCenter(),
+						attributes.getRecognitionDistance(pedestrian.getClass()));
 
 		return closePedestrians;
 	}
@@ -84,15 +86,15 @@ public class PotentialFieldPedestrianOSM implements PotentialFieldAgent {
 	}
 
 	public Vector2D getPedestrianPotentialGradient(VPoint pos,
-			Agent pedestrian, Agent otherPedestrian) {
+			Agent agent, Agent otherPedestrian) {
 		Vector2D result;
 
 		VPoint positionOther = otherPedestrian.getPosition();
-		double distance = positionOther.distance(pos) - pedestrian.getRadius()
+		double distance = positionOther.distance(pos) - agent.getRadius()
 				- otherPedestrian.getRadius();
 
 		if (distance >= 0
-				&& distance < attributes.getPedestrianRepulsionWidth()) {
+				&& distance < attributes.getRepulsionWidth(agent.getClass())) {
 
 			Vector2D direction = new Vector2D(pos.getX() - positionOther.getX(), pos.getY()
 					- positionOther.getY());
@@ -104,7 +106,7 @@ public class PotentialFieldPedestrianOSM implements PotentialFieldAgent {
 					* Math.pow(distance, attributes.getBPedOSM() / 2.0 - 1.0)
 					* Math.exp(-attributes.getAPedOSM()
 							* Math.pow(distance, attributes.getBPedOSM() / 2.0))
-					* attributes.getPedestrianRepulsionStrength();
+					* attributes.getRepulsionStrength(agent.getClass());
 
 			result = new Vector2D(vu * direction.getX(), vu * direction.getY());
 		} else {
@@ -116,7 +118,7 @@ public class PotentialFieldPedestrianOSM implements PotentialFieldAgent {
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-						   AttributesAgent attributesAgent, Random random) {
+			AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 }

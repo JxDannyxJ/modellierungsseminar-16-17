@@ -9,7 +9,7 @@ public class DefaultConfig {
 	private Color densityColor = Color.RED;
 	private Color stairColor = Color.PINK;
 	private Color pedestrianColor = Color.BLUE;
-	private Color horseColor = Color.CYAN;
+	private Color horseColor = Color.MAGENTA;
 	private boolean changed = false;
 
 	public DefaultConfig() {}

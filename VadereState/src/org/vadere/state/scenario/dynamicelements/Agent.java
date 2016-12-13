@@ -105,7 +105,7 @@ public abstract class Agent implements DynamicElement {
 	public Agent(Agent other) {
 
 		setIdAsTarget(other.getIdAsTarget());
-		this.setAttributes(other.getAttributes());
+		this.setAttributes(other.getAttributes().clone());
 		this.setTargets(new LinkedList<>(other.targetIds));
 		this.setNextTargetListIndex(other.nextTargetListIndex);
 

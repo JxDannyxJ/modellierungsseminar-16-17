@@ -83,9 +83,6 @@ public class SelectElementMode extends DefaultSelectionMode {
 			VShape newShape =
 					panelModel.translate(new Point(e.getPoint().x - startPoint.x, e.getPoint().y - startPoint.y));
 
-			//Scenario element attributes always contain a shape
-			//TODO: Craft an attributes class which is the super class for scenario element attributes and contains shape
-
 			AttributesScenarioElement attributes = element.getAttributes();
 			attributes.setShape(newShape);
 

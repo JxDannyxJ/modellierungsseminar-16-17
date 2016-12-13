@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.vadere.simulator.projects.ScenarioRunManager;
 import org.vadere.simulator.projects.dataprocessing.processor.PedestrianPositionProcessor;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesPedestrian;
 import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.simulation.Step;
@@ -43,7 +44,7 @@ public class TrajectoryReader {
 
 	public TrajectoryReader(final Path trajectoryFilePath) {
 		this.trajectoryFilePath = trajectoryFilePath;
-		this.attributesAgent = new AttributesAgent();
+		this.attributesAgent = new AttributesPedestrian();
 	}
 
 	public Map<Step, List<Agent>> readFile() throws IOException {
@@ -58,7 +59,7 @@ public class TrajectoryReader {
 						
 						// also should read type and then call dynamicelements instantiation for type.
 
-						Pedestrian ped = new Pedestrian(new AttributesAgent(this.attributesAgent, pedestrianId), new Random());
+						Pedestrian ped = new Pedestrian(new AttributesPedestrian(this.attributesAgent, pedestrianId), new Random());
 						ped.setPosition(pos);
 						LinkedList<Integer> targets = new LinkedList<Integer>();
 						targets.addFirst(targetId);

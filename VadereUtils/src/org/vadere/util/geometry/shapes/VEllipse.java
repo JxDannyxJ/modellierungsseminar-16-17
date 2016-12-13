@@ -3,8 +3,6 @@ package org.vadere.util.geometry.shapes;
 import org.vadere.util.geometry.ShapeType;
 import org.vadere.util.geometry.Vector2D;
 
-import com.vividsolutions.jts.awt.PointShapeFactory.X;
-
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
@@ -288,6 +286,10 @@ public class VEllipse implements VShape {
 	@Override
 	public PathIterator getPathIterator(AffineTransform at, double flatness) {
 		return null;
+	}
+
+	public VShape deepCopy() {
+		return new VEllipse(getCentroid(), getHeight(), getWidth());
 	}
 
 }

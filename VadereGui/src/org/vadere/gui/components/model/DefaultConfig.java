@@ -1,15 +1,17 @@
 package org.vadere.gui.components.model;
 
+import org.vadere.state.types.ScenarioElementType;
+
 import java.awt.*;
 
 public class DefaultConfig {
-	private Color obstacleColor = Color.BLACK;
-	private Color sourceColor = Color.GREEN;
-	private Color targetColor = Color.ORANGE;
+	private Color obstacleColor = ScenarioElementType.OBSTACLE.getColor();
+	private Color sourceColor = ScenarioElementType.SOURCE.getColor();
+	private Color targetColor = ScenarioElementType.TARGET.getColor();
 	private Color densityColor = Color.RED;
-	private Color stairColor = Color.PINK;
-	private Color pedestrianColor = Color.BLUE;
-	private Color horseColor = Color.MAGENTA;
+	private Color stairColor = ScenarioElementType.STAIRS.getColor();
+	private Color pedestrianColor = ScenarioElementType.PEDESTRIAN.getColor();
+	private Color horseColor = ScenarioElementType.HORSE.getColor();
 	private boolean changed = false;
 
 	public DefaultConfig() {}

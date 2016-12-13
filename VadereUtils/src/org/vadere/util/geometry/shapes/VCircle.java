@@ -1,15 +1,14 @@
 package org.vadere.util.geometry.shapes;
 
-import java.awt.Rectangle;
+import org.vadere.util.geometry.ShapeType;
+import org.vadere.util.geometry.Vector2D;
+
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.math.BigDecimal;
-
-import org.vadere.util.geometry.ShapeType;
-import org.vadere.util.geometry.Vector2D;
 
 public class VCircle implements VShape {
 
@@ -188,5 +187,9 @@ public class VCircle implements VShape {
 	@Override
 	public ShapeType getType() {
 		return ShapeType.CIRCLE;
+	}
+
+	public VShape deepCopy() {
+		return new VCircle(getCentroid(), getRadius());
 	}
 }

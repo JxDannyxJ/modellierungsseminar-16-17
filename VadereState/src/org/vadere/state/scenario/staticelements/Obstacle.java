@@ -27,7 +27,7 @@ public class Obstacle implements ScenarioElement {
 	 */
 	@Override
 	public Obstacle clone() {
-		return new Obstacle(attributes);
+		return new Obstacle((AttributesObstacle) attributes.clone());
 	}
 
 	@Override

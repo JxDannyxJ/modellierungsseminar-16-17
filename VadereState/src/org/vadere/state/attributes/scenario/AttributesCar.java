@@ -20,16 +20,12 @@ public class AttributesCar extends AttributesAgent {
 		super(id);
 	}
 
-	public AttributesCar(final AttributesAgent other, final int id) {
+	public AttributesCar(final AttributesCar other, final int id) {
 		super(other, id);
 
-		if (other instanceof AttributesCar) {
-			AttributesCar car = (AttributesCar) other;
-			this.length = car.length;
-			this.width = car.width;
-			this.direction = car.direction;
-			this.setShape(other.getShape());
-		}
+		this.length = other.length;
+		this.width = other.width;
+		this.direction = other.direction;
 
 	}
 
@@ -57,6 +53,11 @@ public class AttributesCar extends AttributesAgent {
 		} else {
 			return length;
 		}
+	}
+
+	@Override
+	public AttributesScenarioElement clone() {
+		return new AttributesCar(this, getId());
 	}
 }
 

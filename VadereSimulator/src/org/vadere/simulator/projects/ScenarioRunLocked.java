@@ -6,7 +6,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.simulator.control.Simulation;
 import org.vadere.simulator.models.MotionModelBuilder;
-import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesPedestrian;
 import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.util.geometry.Vector2D;
@@ -221,7 +221,7 @@ public class ScenarioRunLocked extends ScenarioRunManager {
 				pedRemoveMap.remove(id);
 			} else {
 				// TODO [priority=low] [task=feature] set sourceId
-				Pedestrian p = new Pedestrian(new AttributesAgent(id), new Random());
+				Pedestrian p = new Pedestrian(new AttributesPedestrian(id), new Random());
 				p.setPosition(new VPoint(x, y));
 				p.setVelocity(new Vector2D(dx, dy));
 				LinkedList<Integer> targets = new LinkedList<>();

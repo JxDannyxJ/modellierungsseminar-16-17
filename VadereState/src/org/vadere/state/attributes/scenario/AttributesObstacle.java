@@ -16,4 +16,9 @@ public class AttributesObstacle extends AttributesScenarioElement {
 	public AttributesObstacle(int id, VShape shape) {
 		super(id, shape);
 	}
+
+	@Override
+	public AttributesScenarioElement clone() {
+		return new AttributesObstacle(getId(), getShape().deepCopy());
+	}
 }

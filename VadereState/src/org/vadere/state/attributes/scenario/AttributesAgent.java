@@ -8,7 +8,7 @@ package org.vadere.state.attributes.scenario;
  * 
  * 
  */
-public class AttributesAgent extends AttributesDynamicElement {
+public abstract class AttributesAgent extends AttributesDynamicElement {
 
 	private double radius = 0.195;
 	private boolean densityDependentSpeed = false;
@@ -38,7 +38,10 @@ public class AttributesAgent extends AttributesDynamicElement {
 		this.minimumSpeed = other.minimumSpeed;
 		this.maximumSpeed = other.maximumSpeed;
 		this.acceleration = other.acceleration;
-		setShape(other.getShape());
+
+		if (other.getShape() != null) {
+			setShape(other.getShape().deepCopy());
+		}
 	}
 
 	// Getters...
@@ -70,5 +73,8 @@ public class AttributesAgent extends AttributesDynamicElement {
 	public double getAcceleration() {
 		return acceleration;
 	}
+
+	@Override
+	public abstract AttributesScenarioElement clone();
 
 }

@@ -123,4 +123,8 @@ public class VRectangle extends Rectangle2D.Double implements VShape {
 	public ShapeType getType() {
 		return ShapeType.RECTANGLE;
 	}
+
+	public VShape deepCopy() {
+		return (VShape) clone();
+	}
 }

@@ -31,7 +31,6 @@ public class AttributesHorse extends AttributesAgent {
 	public AttributesHorse(final AttributesHorse other, final int id) {
 		super(other, id);
 		this.direction = other.direction;
-		this.setShape(other.getShape());
 	}
 
 	/**
@@ -70,6 +69,12 @@ public class AttributesHorse extends AttributesAgent {
 	public double getRadius() {
 		return getShape().getRadius();
 	}
+
+	@Override
+	public AttributesScenarioElement clone() {
+		return new AttributesHorse(this, getId());
+	}
+
 	public static double getEYEPATCHED() {
 		return EYEPATCHED;
 	}

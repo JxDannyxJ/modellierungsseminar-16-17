@@ -29,4 +29,6 @@ public interface VShape extends Shape {
 	VPoint getCentroid();
 
 	ShapeType getType();
+
+	VShape deepCopy();
 }

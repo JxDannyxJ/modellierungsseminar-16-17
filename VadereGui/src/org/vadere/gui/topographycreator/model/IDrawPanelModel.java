@@ -1,22 +1,19 @@
 package org.vadere.gui.topographycreator.model;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
-import java.awt.Point;
-import java.util.Observer;
-
 import org.vadere.gui.components.control.IMode;
 import org.vadere.gui.components.model.DefaultConfig;
 import org.vadere.gui.components.model.IDefaultModel;
 import org.vadere.simulator.projects.ScenarioRunManager;
 import org.vadere.state.scenario.ScenarioElement;
-import org.vadere.state.scenario.staticelements.Teleporter;
 import org.vadere.state.scenario.Topography;
+import org.vadere.state.scenario.staticelements.Teleporter;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VRectangle;
 import org.vadere.util.geometry.shapes.VShape;
+
+import java.awt.*;
+import java.util.Observer;
 
 public interface IDrawPanelModel<T extends DefaultConfig> extends IDefaultModel<T>, Iterable<ScenarioElement> {
 
@@ -163,5 +160,5 @@ public interface IDrawPanelModel<T extends DefaultConfig> extends IDefaultModel<
 
 	void setCopiedElement(ScenarioElement copiedElement);
 
-	VShape translate(VPoint vector);
+	VShape translate(ScenarioElement element, VPoint vector);
 }

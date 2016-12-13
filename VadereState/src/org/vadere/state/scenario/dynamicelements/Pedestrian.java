@@ -1,6 +1,7 @@
 package org.vadere.state.scenario.dynamicelements;
 
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesPedestrian;
 import org.vadere.state.attributes.scenario.AttributesScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VCircle;
@@ -18,7 +19,7 @@ public class Pedestrian extends Agent {
 
 	private boolean isChild;
 	private boolean isLikelyInjured;
-	private AttributesAgent attributesPed;
+	private AttributesPedestrian attributesPed;
 
 	private LinkedList<Integer> groupIds;
 
@@ -31,7 +32,7 @@ public class Pedestrian extends Agent {
 	 */
 	@SuppressWarnings("unused")
 	private Pedestrian() {
-		this(new AttributesAgent());
+		this(new AttributesPedestrian());
 	}
 
 	private Pedestrian(AttributesAgent attributesPedestrian) {
@@ -86,7 +87,7 @@ public class Pedestrian extends Agent {
 
 	@Override
 	public void setAttributes(AttributesScenarioElement attributes) {
-		attributesPed = (AttributesAgent) attributes;
+		attributesPed = (AttributesPedestrian) attributes;
 	}
 
 	@Override

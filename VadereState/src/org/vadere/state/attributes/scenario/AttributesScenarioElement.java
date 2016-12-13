@@ -36,4 +36,6 @@ public abstract class AttributesScenarioElement extends Attributes {
 		return shape;
 	}
 
+	public abstract AttributesScenarioElement clone();
+
 }

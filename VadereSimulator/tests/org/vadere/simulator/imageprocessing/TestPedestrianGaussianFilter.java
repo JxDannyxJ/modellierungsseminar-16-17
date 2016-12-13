@@ -3,6 +3,7 @@ package org.vadere.simulator.imageprocessing;
 import org.junit.Before;
 import org.vadere.simulator.dataprocessing.CreatePoints;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesPedestrian;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VRectangle;
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -27,7 +27,7 @@ public class TestPedestrianGaussianFilter {
 		List<VPoint> pedestrianPositions = new ArrayList<>();
 		pedestriansMaxPacked = new ArrayList<>();
 
-		double pedestrianRadius = new AttributesAgent().getRadius();
+		double pedestrianRadius = new AttributesPedestrian().getRadius();
 		/*
 		 * Based on http://en.wikipedia.org/wiki/Circle_packing we create a high density
 		 * environment.
@@ -41,7 +41,7 @@ public class TestPedestrianGaussianFilter {
 		 * hexagon-pattern pedestrian around the the existing pedestrian until it reaches the
 		 * bounds.
 		 */
-		double hexagonAmbitRadius = new AttributesAgent().getRadius() * 2;
+		double hexagonAmbitRadius = new AttributesPedestrian().getRadius() * 2;
 		while (CreatePoints.addHexagonPoints(pedestrianPositions, topographyBounds, hexagonAmbitRadius)) {
 		}
 
@@ -103,7 +103,7 @@ public class TestPedestrianGaussianFilter {
 	private static double calculateExactDensity(final VPoint point, final Collection<Pedestrian> pedestrians,
 			final double standardDerivation) {
 		return pedestrians.stream().map(ped -> ped.getPosition())
-				.map(p -> calculatePartialDensity(p, point, standardDerivation, new AttributesAgent(-1)))
+				.map(p -> calculatePartialDensity(p, point, standardDerivation, new AttributesPedestrian(-1)))
 				.reduce(0.0, (d1, d2) -> d1 + d2);
 	}
 

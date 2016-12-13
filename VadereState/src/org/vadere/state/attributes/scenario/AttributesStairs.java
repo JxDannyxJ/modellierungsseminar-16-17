@@ -30,6 +30,11 @@ public class AttributesStairs extends AttributesScenarioElement {
 		upwardDirection = new Vector2D(1.0, 0.0);
 	}
 
+	@Override
+	public AttributesScenarioElement clone() {
+		return new AttributesStairs(getId(), getShape().deepCopy(), getTreadCount(), getUpwardDirection());
+	}
+
 	public AttributesStairs(int id, VShape shape, int treadCount, Vector2D upwardDirection) {
 		super(id, shape);
 		this.treadCount = Math.max(1, treadCount);

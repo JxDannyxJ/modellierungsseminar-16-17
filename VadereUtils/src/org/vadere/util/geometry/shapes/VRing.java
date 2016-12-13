@@ -230,4 +230,8 @@ public class VRing implements VShape {
 		return ShapeType.RING;
 	}
 
+	public VShape deepCopy() {
+		return new VRing(getCentroid(), getRadiusInnerCircle(), getRadiusOuterCircle());
+	}
+
 }

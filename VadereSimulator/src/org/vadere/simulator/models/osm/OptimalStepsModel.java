@@ -152,6 +152,11 @@ public class OptimalStepsModel implements MainModel {
 		this.attributesOSM = Model.findAttributes(modelAttributesList, AttributesOSM.class);
 		this.topography = topography;
 		this.random = random;
+
+		if (attributesAgent == null) {
+			attributesAgent = new AttributesPedestrian();
+		}
+
 		this.attributesAgent = attributesAgent;
 
 		//TODO: Shifted to Simulation to provide building sub models independent from osm
@@ -161,7 +166,7 @@ public class OptimalStepsModel implements MainModel {
 //		subModelBuilder.addSubModelsToActiveCallbacks(activeCallbacks);
 
 		IPotentialTargetGrid iPotentialTargetGrid = IPotentialTargetGrid.createPotentialField(
-				modelAttributesList, topography, attributesAgent, attributesOSM.getTargetPotentialModel());
+				modelAttributesList, topography, this.attributesAgent, attributesOSM.getTargetPotentialModel());
 
 		this.potentialFieldTarget = iPotentialTargetGrid;
 		activeCallbacks.add(iPotentialTargetGrid);

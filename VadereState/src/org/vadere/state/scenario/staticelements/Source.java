@@ -23,7 +23,7 @@ public class Source implements ScenarioElement {
 	 */
 	@Override
 	public Source clone() {
-		return new Source(attributes);
+		return new Source((AttributesSource) attributes.clone());
 	}
 
 	@Override

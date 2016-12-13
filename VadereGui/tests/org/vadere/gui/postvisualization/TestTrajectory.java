@@ -1,5 +1,15 @@
 package org.vadere.gui.postvisualization;
 
+import junit.framework.TestCase;
+
+import org.junit.Test;
+import org.vadere.state.attributes.scenario.AttributesPedestrian;
+import org.vadere.state.scenario.dynamicelements.Agent;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
+import org.vadere.state.simulation.Step;
+import org.vadere.state.simulation.Trajectory;
+import org.vadere.util.geometry.shapes.VPoint;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -7,16 +17,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import org.junit.Test;
-import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.dynamicelements.Agent;
-import org.vadere.state.scenario.dynamicelements.Pedestrian;
-import org.vadere.state.simulation.Step;
-import org.vadere.state.simulation.Trajectory;
-import org.vadere.util.geometry.shapes.VPoint;
-
-import junit.framework.TestCase;
 
 /**
  * Unit test for {@link org.vadere.state.simulation.Trajectory}
@@ -31,12 +31,12 @@ public class TestTrajectory extends TestCase {
 		pedestriansByStep = new HashMap<>();
 		List<Step> steps = Arrays.asList(new Step(2), new Step(4), new Step(5), new Step(7));
 		List<Pedestrian> pedestrians = Arrays.asList(
-				new Pedestrian(new AttributesAgent(1), new Random()),
-				new Pedestrian(new AttributesAgent(2), new Random()),
-				new Pedestrian(new AttributesAgent(3), new Random()),
-				new Pedestrian(new AttributesAgent(5), new Random()),
-				new Pedestrian(new AttributesAgent(6), new Random()),
-				new Pedestrian(new AttributesAgent(-1), new Random()));
+				new Pedestrian(new AttributesPedestrian(1), new Random()),
+				new Pedestrian(new AttributesPedestrian(2), new Random()),
+				new Pedestrian(new AttributesPedestrian(3), new Random()),
+				new Pedestrian(new AttributesPedestrian(5), new Random()),
+				new Pedestrian(new AttributesPedestrian(6), new Random()),
+				new Pedestrian(new AttributesPedestrian(-1), new Random()));
 
 		steps.forEach(step -> pedestriansByStep.put(step,
 				pedestrians.stream().map(ped -> ped.clone())

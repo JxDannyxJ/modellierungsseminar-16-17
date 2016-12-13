@@ -1,10 +1,7 @@
 package org.vadere.gui.topographycreator.control;
 
 import org.vadere.gui.topographycreator.model.IDrawPanelModel;
-import org.vadere.state.attributes.Attributes;
-import org.vadere.state.attributes.AttributesBuilder;
 import org.vadere.state.scenario.ScenarioElement;
-import org.vadere.state.scenario.ScenarioElementBuilder;
 import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -48,22 +45,23 @@ public class ActionInsertCopiedElement extends TopographyAction {
 			} else {
 				elementPos = new VPoint(rect.getX(), rect.getY());
 			}
-
 			VPoint diff = model.getMousePosition().subtract(elementPos);
-			VShape newShape = model.translate(diff);
-			ScenarioElement newElement = null;
+			ScenarioElement newElement = element.clone();
+			VShape newShape = model.translate(newElement, diff);
 
 			if (element instanceof Agent) {
 				VPoint position = new VPoint(newShape.getBounds2D().getCenterX(), newShape.getBounds2D().getCenterY());
-				newElement = element.clone();
 				((Agent) newElement).setPosition(position);
+				((Agent) newElement).copy((Agent) element);
 			} else {
 				// change attributes with reflection!
-				ScenarioElementBuilder<ScenarioElement> elBuilder = new ScenarioElementBuilder<>(element);
-				AttributesBuilder<Attributes> attBuilder = new AttributesBuilder<Attributes>(element.getAttributes());
-				attBuilder.setField("shape", newShape);
-				elBuilder.setAttributes(attBuilder.build());
-				newElement = elBuilder.build();
+//				ScenarioElementBuilder<ScenarioElement> elBuilder = new ScenarioElementBuilder<>(element);
+//				AttributesBuilder<Attributes> attBuilder = new AttributesBuilder<Attributes>(element.getAttributes());
+//				attBuilder.setField("shape", newShape);
+//				elBuilder.setAttributes(attBuilder.build());
+//				newElement = elBuilder.build();
+
+				newElement.getAttributes().setShape(newShape);
 			}
 
 			// 2. add the copy

@@ -1,19 +1,20 @@
 package org.vadere.simulator.control;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Random;
-
 import org.junit.Test;
 import org.vadere.simulator.models.DynamicElementFactory;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesPedestrian;
 import org.vadere.state.attributes.scenario.AttributesSource;
 import org.vadere.state.attributes.scenario.SourceTestAttributesBuilder;
+import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.DynamicElement;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.scenario.staticelements.Source;
-import org.vadere.state.scenario.Topography;
 import org.vadere.util.geometry.shapes.VPoint;
+
+import java.util.Random;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestSourceControllerUsingConstantSpawnRate {
 
@@ -29,7 +30,7 @@ public class TestSourceControllerUsingConstantSpawnRate {
 	public void initialize(SourceTestAttributesBuilder builder) {
 
 		attributesSource = builder.getResult();
-		attributesPedestrian = new AttributesAgent();
+		attributesPedestrian = new AttributesPedestrian();
 
 		random = new Random(randomSeed);
 
@@ -39,7 +40,7 @@ public class TestSourceControllerUsingConstantSpawnRate {
 
 			@Override
 			public <T extends DynamicElement> DynamicElement createElement(VPoint position, int id, Class<T> type) {
-				AttributesAgent att = new AttributesAgent(
+				AttributesAgent att = new AttributesPedestrian(
 						attributesPedestrian, id > 0 ? id : ++pedestrianIdCounter);
 				Pedestrian ped = new Pedestrian(att, random);
 				ped.setPosition(position);

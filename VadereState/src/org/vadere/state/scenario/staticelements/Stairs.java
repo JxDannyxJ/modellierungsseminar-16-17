@@ -71,7 +71,7 @@ public class Stairs implements ScenarioElement {
 	 */
 	@Override
 	public Stairs clone() {
-		return this;
+		return new Stairs((AttributesStairs) attributes.clone());
 	}
 
 	@Override

@@ -29,7 +29,6 @@ import org.vadere.simulator.projects.dataprocessing.DataProcessingJsonManager;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.AttributesSimulation;
 import org.vadere.state.attributes.ModelDefinition;
-import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
@@ -306,12 +305,17 @@ public abstract class JsonConverter {
 
 	public static ScenarioRunManager deserializeScenarioRunManagerFromNode(JsonNode node) throws IOException {
 		JsonNode rootNode = node;
+		List<MainModel> subModelNames = new LinkedList<>();
 		String name = rootNode.get("name").asText();
 		JsonNode scenarioNode = rootNode.get(SCENARIO_KEY);
 		AttributesSimulation attributesSimulation = deserializeAttributesSimulationFromNode(scenarioNode.get("attributesSimulation"));
 		JsonNode attributesModelNode = scenarioNode.get("attributesModel");
 		String mainModel = scenarioNode.get(MAIN_MODEL_KEY).isNull() ? null : scenarioNode.get(MAIN_MODEL_KEY).asText();
-		List<MainModel> subModelNames = deserializeSubModels(scenarioNode.get(SUB_MODEL_KEY));
+
+		if (scenarioNode.get(SUB_MODEL_KEY) != null) {
+			subModelNames = deserializeSubModels(scenarioNode.get(SUB_MODEL_KEY));
+		}
+
 		List<Attributes> attributesModel = deserializeAttributesListFromNode(attributesModelNode);
 		Topography topography = deserializeTopographyFromNode(scenarioNode.get("topography"));
 		String description = rootNode.get("description").asText();
@@ -430,7 +434,7 @@ public abstract class JsonConverter {
 		// TODO [priority=low] [task=refactoring] find a better way!
 		switch (type) {
 			case PEDESTRIAN:
-				return mapper.readValue(json, AttributesAgent.class);
+				return mapper.readValue(json, AttributesPedestrian.class);
 			case HORSE:
 				return mapper.readValue(json, AttributesHorse.class);
 			case CAR:

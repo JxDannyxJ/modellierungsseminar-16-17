@@ -1,19 +1,18 @@
 package org.vadere.simulator.models.potential;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
-
 import org.vadere.simulator.models.potential.fields.PotentialFieldAgent;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.AttributesPotentialOSM;
 import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.dynamicelements.Agent;
-import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.scenario.Topography;
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.util.geometry.Vector2D;
-import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
+import org.vadere.util.geometry.shapes.VShape;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 
 public class PotentialFieldPedestrianOSM implements PotentialFieldAgent {
 
@@ -58,11 +57,11 @@ public class PotentialFieldPedestrianOSM implements PotentialFieldAgent {
 	}
 
 	@Override
-	public Collection<Agent> getRelevantAgents(VCircle relevantArea,
-			Agent pedestrian, Topography scenario) {
-		List<Agent> closePedestrians = scenario.getSpatialMap(Agent.class)
-				.getObjects(relevantArea.getCenter(),
-						attributes.getRecognitionDistance(pedestrian.getClass()));
+	public Collection<Agent> getRelevantAgents(VShape relevantArea,
+											   Agent agents, Topography topography) {
+		List<Agent> closePedestrians = topography.getSpatialMap(Agent.class)
+				.getObjects(relevantArea.getCentroid(),
+						attributes.getRecognitionDistance(agents.getClass()));
 
 		return closePedestrians;
 	}

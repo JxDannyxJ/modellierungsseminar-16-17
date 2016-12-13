@@ -322,13 +322,13 @@ public class TopographyCreatorModel extends DefaultModel implements IDrawPanelMo
 	public VShape translate(final Point vector) {
 		// double factor = Math.max(10,1/getGridResulution());
 		VPoint worldVector = new VPoint(vector.x / getScaleFactor(), -vector.y / getScaleFactor());
-		return translate(worldVector);
+		return translate(getSelectedElement(), worldVector);
 	}
 
 	@Override
-	public VShape translate(final VPoint vector) {
+	public VShape translate(final ScenarioElement element, VPoint vector) {
 		// double factor = Math.max(10,1/getGridResulution());
-		return getSelectedElement().getShape().translatePrecise(alignToGrid(vector));
+		return element.getShape().translatePrecise(alignToGrid(vector));
 	}
 
 	// can return null!

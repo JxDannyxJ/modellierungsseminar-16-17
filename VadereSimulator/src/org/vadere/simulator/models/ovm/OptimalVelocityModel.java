@@ -5,6 +5,7 @@
 package org.vadere.simulator.models.ovm;
 
 import org.vadere.simulator.control.ActiveCallback;
+import org.vadere.simulator.models.Model;
 import org.vadere.simulator.models.ode.IntegratorFactory;
 import org.vadere.simulator.models.ode.ODEModel;
 import org.vadere.state.attributes.Attributes;
@@ -71,8 +72,16 @@ public class OptimalVelocityModel extends ODEModel<Car, AttributesCar> {
 	public void initialize(List<Attributes> modelAttributesList, Topography topography,
 						   AttributesAgent attributesAgent, Random random) {
 
-		// Those are set now in the json file
-//		this.attributesOVM = Model.findAttributes(modelAttributesList, AttributesOVM.class);
+		// Those are set now in the json file, but in case they aren't try to find them in the model attributes list
+		if (attributesOVM == null) {
+			this.attributesOVM = Model.findAttributes(modelAttributesList, AttributesOVM.class);
+		}
+
+		//In case the attributes are not set in the new submodel node try to find them in the model attributes list
+		if (attributesAgent == null) {
+			attributesAgent = Model.findAttributes(modelAttributesList, AttributesCar.class);
+		}
+
 		this.ovmEquations = new OVMEquations();
 
 		super.initializeODEModel(Car.class,

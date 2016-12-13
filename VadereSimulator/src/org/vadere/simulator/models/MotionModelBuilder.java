@@ -62,7 +62,7 @@ public class MotionModelBuilder {
 		DynamicClassInstantiator<MainModel> instantiator = new DynamicClassInstantiator<>();
 		MainModel mainModel = instantiator.createObject(mainModelName);
 		mainModel.initialize(scenarioStore.attributesList, scenarioStore.topography,
-				scenarioStore.topography.getAttributesPedestrian(), random);
+				(AttributesAgent) mainModel.getAttributesAgent(), random);
 		return mainModel;
 	}
 

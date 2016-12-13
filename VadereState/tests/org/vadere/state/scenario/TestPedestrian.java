@@ -1,13 +1,15 @@
 package org.vadere.state.scenario;
 
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+import org.vadere.state.attributes.scenario.AttributesPedestrian;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
 
 import java.util.Random;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.dynamicelements.Pedestrian;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class TestPedestrian {
 	protected Pedestrian pedestrian;
@@ -55,7 +57,7 @@ public class TestPedestrian {
 	}
 
 	protected Pedestrian createPedestrian() {
-		return new Pedestrian(new AttributesAgent(), new Random(0));
+		return new Pedestrian(new AttributesPedestrian(), new Random(0));
 	}
 
 }

@@ -9,7 +9,7 @@
       "processors" : [ 1, 2 ]
     }, {
       "type" : "org.vadere.simulator.projects.dataprocessing.outputfile.TimestepPedestrianIdOutputFile",
-      "filename" : "vr.trajectories",
+      "filename" : "trajectories.vr",
       "processors" : [ 1, 3 ]
     } ],
     "processors" : [ {
@@ -53,8 +53,8 @@
             "toleranceAbsolute" : 1.0E-5,
             "toleranceRelative" : 1.0E-4
           },
-          "sensitivity" : 1.0,
-          "sightDistance" : 5.0,
+          "sensitivity" : 5.0,
+          "sightDistance" : 10.0,
           "sightDistanceFactor" : 1.0,
           "firstDistanceRandom" : {
             "x" : 5.0,
@@ -236,15 +236,6 @@
       }, {
         "id" : -1,
         "shape" : {
-          "x" : 35.0,
-          "y" : 80.0,
-          "width" : 10.0,
-          "height" : 15.0,
-          "type" : "RECTANGLE"
-        }
-      }, {
-        "id" : -1,
-        "shape" : {
           "x" : 40.3,
           "y" : 67.2,
           "width" : 5.18E-4,
@@ -287,6 +278,15 @@
           "height" : 15.0,
           "type" : "RECTANGLE"
         }
+      }, {
+        "id" : -1,
+        "shape" : {
+          "x" : 35.0,
+          "y" : 80.0,
+          "width" : 10.0,
+          "height" : 15.0,
+          "type" : "RECTANGLE"
+        }
       } ],
       "stairs" : [ ],
       "targets" : [ {
@@ -296,6 +296,23 @@
           "y" : 95.0,
           "width" : 10.0,
           "height" : 5.0,
+          "type" : "RECTANGLE"
+        },
+        "absorbing" : true,
+        "waitingTime" : 0.0,
+        "waitingTimeYellowPhase" : 0.0,
+        "parallelWaiters" : 0,
+        "individualWaiting" : true,
+        "deletionDistance" : 0.1,
+        "startingWithRedLight" : false,
+        "nextSpeed" : -1.0
+      }, {
+        "id" : 2,
+        "shape" : {
+          "x" : 41.9,
+          "y" : 46.4,
+          "width" : 4.4,
+          "height" : 6.1,
           "type" : "RECTANGLE"
         },
         "absorbing" : true,
@@ -329,11 +346,11 @@
       } ],
       "dynamicElements" : [ {
         "source" : null,
-        "targetIds" : [ 1 ],
+        "targetIds" : [ ],
         "nextTargetListIndex" : 0,
         "position" : {
-          "x" : 24.2002855,
-          "y" : 83.90028550000001
+          "x" : 26.700285499999996,
+          "y" : 84.60028550000003
         },
         "velocity" : {
           "x" : 0.0,
@@ -347,17 +364,17 @@
           "shape" : {
             "type" : "POLYGON",
             "points" : [ {
-              "x" : 21.4002855,
-              "y" : 83.05028550000002
+              "x" : 23.900285499999995,
+              "y" : 83.75028550000003
             }, {
-              "x" : 21.4002855,
-              "y" : 87.55028550000002
+              "x" : 23.900285499999995,
+              "y" : 88.25028550000003
             }, {
-              "x" : 19.7002855,
-              "y" : 87.55028550000002
+              "x" : 22.200285499999996,
+              "y" : 88.25028550000003
             }, {
-              "x" : 19.7002855,
-              "y" : 83.05028550000002
+              "x" : 22.200285499999996,
+              "y" : 83.75028550000003
             } ]
           },
           "radius" : 0.195,
@@ -379,44 +396,6 @@
         "targetIds" : [ ],
         "nextTargetListIndex" : 0,
         "position" : {
-          "x" : 21.3,
-          "y" : 74.8
-        },
-        "velocity" : {
-          "x" : 0.0,
-          "y" : 0.0
-        },
-        "freeFlowSpeed" : 1.34,
-        "idAsTarget" : -1,
-        "type" : "HORSE",
-        "attributesHorse" : {
-          "id" : -1,
-          "shape" : {
-            "height" : 1.2,
-            "width" : 0.7,
-            "center" : {
-              "x" : 21.3,
-              "y" : 74.8
-            },
-            "type" : "ELLIPSE"
-          },
-          "radius" : 0.195,
-          "densityDependentSpeed" : false,
-          "speedDistributionMean" : 1.34,
-          "speedDistributionStandardDeviation" : 0.0,
-          "minimumSpeed" : 0.3,
-          "maximumSpeed" : 3.0,
-          "acceleration" : 2.0,
-          "direction" : {
-            "x" : 1.0,
-            "y" : 0.0
-          }
-        }
-      }, {
-        "source" : null,
-        "targetIds" : [ ],
-        "nextTargetListIndex" : 0,
-        "position" : {
           "x" : 32.2,
           "y" : 74.4
         },
@@ -427,6 +406,8 @@
         "freeFlowSpeed" : 1.34,
         "idAsTarget" : -1,
         "type" : "HORSE",
+        "hasEyepatch" : false,
+        "isSaddled" : false,
         "attributesHorse" : {
           "id" : -1,
           "shape" : {

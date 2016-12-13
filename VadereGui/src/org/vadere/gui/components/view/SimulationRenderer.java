@@ -7,6 +7,7 @@ import org.vadere.gui.components.utils.CLGaussianCalculator;
 import org.vadere.gui.components.utils.ColorHelper;
 import org.vadere.gui.components.utils.Resources;
 import org.vadere.state.scenario.dynamicelements.Agent;
+import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VPoint;
 
 import java.awt.*;
@@ -67,24 +68,20 @@ public abstract class SimulationRenderer extends DefaultRenderer {
 		}
 
 		if (model.config.isShowObstacles()) {
-			renderScenarioElement(model.getTopography().getObstacles(), graphics, model.config.getObstacleColor());
+			renderStaticElements(model.getTopography().getObstacles(), graphics, ScenarioElementType.OBSTACLE.getColor());
 		}
 
 		if (model.config.isShowStairs()) {
-			renderScenarioElement(model.getTopography().getStairs(), graphics, model.config.getStairColor());
+			renderStaticElements(model.getTopography().getStairs(), graphics, ScenarioElementType.STAIRS.getColor());
 		}
 
 		if (model.config.isShowTargets()) {
-			renderScenarioElement(model.getTopography().getTargets(), graphics, model.config.getTargetColor());
+			renderStaticElements(model.getTopography().getTargets(), graphics, ScenarioElementType.TARGET.getColor());
 		}
 
 		if (model.config.isShowSources()) {
-			renderScenarioElement(model.getTopography().getSources(), graphics, model.config.getSourceColor());
+			renderStaticElements(model.getTopography().getSources(), graphics, ScenarioElementType.SOURCE.getColor());
 		}
-
-//		if (model.config.isShowHorses()) {
-//			renderScenarioElement(model.getTopography().getHorses(), graphics, model.config.getHorseColor());
-//		}
 
 		if (model.isVoronoiDiagramAvailable() && model.isVoronoiDiagramVisible()) {
 			renderVoronoiDiagram(graphics, model.getVoronoiDiagram());

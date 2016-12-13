@@ -86,10 +86,14 @@ public class Simulation {
 		this.processorManager = processorManager;
 		this.passiveCallbacks = passiveCallbacks;
 
-
-		typeModel.put(ScenarioElementType.PEDESTRIAN, mainModel);
+		//Assign to every type the corresponding motion model
+		typeModel.put(ScenarioElementType.getTypeFromAttribute(mainModel.getAttributesAgent()), mainModel);
+		if (!modelBuilder.getSubModels().isEmpty()) {
+			for (MainModel subModel : modelBuilder.getSubModels()) {
+				typeModel.put(ScenarioElementType.getTypeFromAttribute(subModel.getAttributesAgent()), subModel);
+			}
+		}
 		typeModel.put(ScenarioElementType.HORSE, mainModel);
-		typeModel.put(ScenarioElementType.CAR, modelBuilder.getSubModels().get(0));
 
 		// All the initial agents run with the main model and are created by dynamicElementFactory
 		this.topographyController = new TopographyController(topography, typeModel);

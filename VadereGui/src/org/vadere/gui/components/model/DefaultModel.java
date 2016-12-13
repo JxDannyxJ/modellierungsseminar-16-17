@@ -82,29 +82,30 @@ public abstract class DefaultModel<T extends DefaultConfig> extends Observable i
 
 	@Override
 	public Color getScenarioElementColor(final ScenarioElementType elementType) {
-		Color c;
-		switch (elementType) {
-			case OBSTACLE:
-				c = getConfig().getObstacleColor();
-				break;
-			case PEDESTRIAN:
-				c = getConfig().getPedestrianColor();
-				break;
-			case SOURCE:
-				c = getConfig().getSourceColor();
-				break;
-			case STAIRS:
-				c = getConfig().getStairColor();
-				break;
-			case TARGET:
-				c = getConfig().getTargetColor();
-				break;
-			case HORSE: //CHANGED AG
-				c = getConfig().getHorseColor();
-				break;
-			default:
-				c = Color.RED;
-		}
+		Color c = elementType.getColor();
+//		switch (elementType) {
+//			case OBSTACLE:
+//				c = getConfig().getObstacleColor();
+//				break;
+//			case PEDESTRIAN:
+//				c = getConfig().getPedestrianColor();
+//				break;
+//			case SOURCE:
+//				c = getConfig().getSourceColor();
+//				break;
+//			case STAIRS:
+//				c = getConfig().getStairColor();
+//				break;
+//			case TARGET:
+//				c = getConfig().getTargetColor();
+//				break;
+//			case HORSE: //CHANGED AG
+//				c = elementType.getColor();
+//				c = getConfig().getHorseColor();
+//				break;
+//			default:
+//				c = Color.RED;
+//		}
 		return c;
 	}
 

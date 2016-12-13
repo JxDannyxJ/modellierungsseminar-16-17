@@ -1,10 +1,10 @@
 package org.vadere.gui.topographycreator.model;
 
 import org.vadere.state.attributes.Attributes;
-import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.attributes.scenario.AttributesCar;
 import org.vadere.state.attributes.scenario.AttributesHorse;
 import org.vadere.state.attributes.scenario.AttributesObstacle;
+import org.vadere.state.attributes.scenario.AttributesPedestrian;
 import org.vadere.state.attributes.scenario.AttributesSource;
 import org.vadere.state.attributes.scenario.AttributesStairs;
 import org.vadere.state.attributes.scenario.AttributesTarget;
@@ -18,8 +18,6 @@ import org.vadere.state.scenario.staticelements.Stairs;
 import org.vadere.state.scenario.staticelements.Target;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.Vector2D;
-import org.vadere.util.geometry.shapes.VCircle;
-import org.vadere.util.geometry.shapes.VEllipse;
 import org.vadere.util.geometry.shapes.VShape;
 
 /**
@@ -47,17 +45,17 @@ public class TopographyElementFactory {
 			case TARGET:
 				return new Target(new AttributesTarget(shape));
 			case PEDESTRIAN:
-				return new Pedestrian(new AttributesAgent(), ((VCircle) shape).getCenter());
+				return new Pedestrian(new AttributesPedestrian(), shape.getCentroid());
 			case CAR:
 				return new Car(new AttributesCar(), shape.getCentroid());
 			case HORSE:
-				return new Horse(new AttributesHorse(), ((VEllipse) shape).getCenter()); //CHANGED AG
+				return new Horse(new AttributesHorse(), shape.getCentroid()); //CHANGED AG
 			default:
 				throw new IllegalArgumentException("unsupported ScenarioElementType.");
 		}
 	}
 
-	public <T extends Attributes> ScenarioElement createScenarioShape(final T attributes) {
+	public <T extends Attributes> ScenarioElement createStaticAttributes(final T attributes) {
 		if (attributes instanceof AttributesObstacle) {
 			return new Obstacle((AttributesObstacle) attributes);
 		} else if (attributes instanceof AttributesStairs) {

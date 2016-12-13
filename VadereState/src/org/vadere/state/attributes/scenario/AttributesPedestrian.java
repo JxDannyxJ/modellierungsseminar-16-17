@@ -19,4 +19,9 @@ public class AttributesPedestrian extends AttributesAgent {
 	public AttributesPedestrian(final AttributesAgent other, final int id) {
 		super(other, id);
 	}
+
+	@Override
+	public AttributesScenarioElement clone() {
+		return new AttributesPedestrian(this, getId());
+	}
 }

@@ -73,6 +73,11 @@ public class AttributesSource extends AttributesScenarioElement {
 		super(id, shape);
 	}
 
+	@Override
+	public AttributesScenarioElement clone() {
+		return new AttributesSource(getId(), getShape().deepCopy());
+	}
+
 	// Getters...
 
 	/**

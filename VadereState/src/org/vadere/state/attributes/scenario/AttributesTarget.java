@@ -59,6 +59,11 @@ public class AttributesTarget extends AttributesScenarioElement {
 
 	public AttributesTarget() {}
 
+	@Override
+	public AttributesScenarioElement clone() {
+		return new AttributesTarget(this, getShape().deepCopy());
+	}
+
 	public AttributesTarget(final AttributesTarget attributes, final VShape shape) {
 		super(attributes.getId(), shape);
 		this.absorbing = attributes.absorbing;
@@ -66,7 +71,7 @@ public class AttributesTarget extends AttributesScenarioElement {
 		this.waitingTimeYellowPhase = attributes.waitingTimeYellowPhase;
 		this.parallelWaiters = attributes.parallelWaiters;
 		this.individualWaiting = attributes.individualWaiting;
-		this.individualWaiting = attributes.startingWithRedLight;
+		this.startingWithRedLight = attributes.startingWithRedLight;
 		this.nextSpeed = attributes.nextSpeed;
 	}
 

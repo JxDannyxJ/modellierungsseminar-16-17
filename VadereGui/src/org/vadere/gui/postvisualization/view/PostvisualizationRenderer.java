@@ -1,12 +1,5 @@
 package org.vadere.gui.postvisualization.view;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Stream;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.gui.components.utils.ColorHelper;
@@ -17,6 +10,12 @@ import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.simulation.Step;
 import org.vadere.state.simulation.Trajectory;
 import org.vadere.util.geometry.shapes.VPoint;
+
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public class PostvisualizationRenderer extends SimulationRenderer {
 
@@ -45,10 +44,10 @@ public class PostvisualizationRenderer extends SimulationRenderer {
 	@Override
 	protected void renderSimulationContent(final Graphics2D g) {
 		this.colorHelper = new ColorHelper(model.getStepCount());
-		renderPedestrians(g, null);
+		renderAgents(g, null);
 	}
 
-	private void renderPedestrians(final Graphics2D g, final Color color) {
+	private void renderAgents(final Graphics2D g, final Color color) {
 
 		if (!model.isEmpty()) {
 
@@ -83,7 +82,7 @@ public class PostvisualizationRenderer extends SimulationRenderer {
 			g.setColor(model.getColor(pedestrian)
 					.orElse(model.config.getColorByTargetId(targetId)
 							.orElse(c
-								.orElseGet(model.config::getPedestrianDefaultColor))));
+									.orElseGet(pedestrian.getType()::getColor))));
 
 			// renderImage the pedestrian
 			if (model.config.isShowPedestrians()) {

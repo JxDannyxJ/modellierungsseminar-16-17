@@ -113,10 +113,10 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 			Car currentAgent, int carIdInArray, double t,
 			double[] x, double[] xdot) {
 
-		int fCI = -1;
-		Agent nearestCar = null;
+		Agent nearestAgent = null;
 
-		List<Car> neighbors = topography.getSpatialMap(Car.class).getObjects(currentAgent.getPosition(), sightDistance);
+		//Takes all agents to be part of the neighbors of a car
+		List<Agent> neighbors = topography.getSpatialMap(Agent.class).getObjects(currentAgent.getPosition(), sightDistance);
 		if (topography.hasTeleporter()) {
 			Vector2D tpoint = topography.getTeleporter().getTeleporterShift();
 			List<Car> ghostCars =
@@ -130,36 +130,43 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 			}
 		}
 
-		for (int j = 0; j < neighbors.size(); j++) {
-			Car car = neighbors.get(j);
-
-			if (nearestCar == null) {
-				if (car != currentAgent && isInFront(car, currentAgent)) {
-					nearestCar = car;
-					fCI = j;
-				}
-			} else {
-				if (car != currentAgent &&
-						isInFront(car, currentAgent) &&
-						isInFront(nearestCar, car)) {
-					nearestCar = car;
-					fCI = j;
-				}
+		for (Agent agent : neighbors) {
+			if (nearestAgent == null && agent != currentAgent && isInFront(agent, currentAgent)) {
+				nearestAgent = agent;
+			} else if (agent != currentAgent && isInFront(agent, currentAgent) && isInFront(nearestAgent, agent)) {
+				nearestAgent = agent;
 			}
 		}
+
+
+//		for (int j = 0; j < neighbors.size(); j++) {
+//			Agent car = neighbors.get(j);
+//
+//			if (nearestAgent == null) {
+//				if (car != currentAgent && isInFront(car, currentAgent)) {
+//					nearestAgent = car;
+//				}
+//			} else {
+//				if (car != currentAgent &&
+//						isInFront(car, currentAgent) &&
+//						isInFront(nearestAgent, car)) {
+//					nearestAgent = car;
+//				}
+//			}
+//		}
 
 		// Check Pedestrians if pedestrianInteraction is turned on
-		if (pedestrianInteraction) {
-			// TODO [priority=medium] [task=bugfix] [Error?]
-			List<Agent> agents = topography.getSpatialMap(Agent.class).getObjects(currentAgent.getPosition(), sightDistance);
-
-			for (Agent agent : agents) {
-				if (isInFront(agent, currentAgent)) {
-					nearestCar = agent;
-				}
-			}
-
-		}
+//		if (pedestrianInteraction) {
+//			// TODO [priority=medium] [task=bugfix] [Error?]
+//			List<Agent> agents = topography.getSpatialMap(Agent.class).getObjects(currentAgent.getPosition(), sightDistance);
+//			Agent nearestAgent = null;
+//			for (Agent agent : agents) {
+//				if (isInFront(agent, currentAgent)) {
+//					nearestAgent = agent;
+//				}
+//			}
+//
+//		}
 
 		// evaluate the front car with respect to a limited sight distance
 		/*
@@ -176,7 +183,7 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 		 * }
 		 * }
 		 */
-		computeSingleCar(currentAgent, nearestCar, t, x, xdot, carIdInArray, fCI);
+		computeSingleCar(currentAgent, nearestAgent, t, x, xdot, carIdInArray);
 
 	}
 
@@ -205,15 +212,15 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 			double distanceToOther = target.getShape().distance(agent.getPosition());
 			return distanceToOther < distanceToThis;
 		} else {
-			return agent.getPosition().getX() >= currentAgent.getPosition().getX();
+			//TODO: This is not a real computation of being in front of another agent. Use the direction!
+			return agent.getPosition().getY() >= currentAgent.getPosition().getY();
 		}
 	}
 
 	/**
 	 * Computation of speed and position of a single car for one time step
 	 */
-	private void computeSingleCar(Agent currentAgent, Agent frontAgent, double t, double[] x, double[] xdot, int index,
-								  int fCI) {
+	private void computeSingleCar(Agent currentAgent, Agent frontAgent, double t, double[] x, double[] xdot, int index) {
 
 		double[] position = new double[2];
 		double[] speed = new double[2];

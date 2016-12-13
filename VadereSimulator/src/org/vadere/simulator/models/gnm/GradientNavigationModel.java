@@ -11,6 +11,7 @@ import org.vadere.simulator.models.potential.fields.PotentialFieldObstacle;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.models.AttributesGNM;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesPedestrian;
 import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.DynamicElement;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
@@ -156,7 +157,7 @@ public class GradientNavigationModel extends ODEModel<Pedestrian, AttributesAgen
 		if (!Pedestrian.class.isAssignableFrom(type))
 			throw new IllegalArgumentException("GNM cannot initialize " + type.getCanonicalName());
 		this.pedestrianIdCounter++;
-		AttributesAgent pedAttributes = new AttributesAgent(elementAttributes, id > 0 ? id : pedestrianIdCounter);
+		AttributesAgent pedAttributes = new AttributesPedestrian(elementAttributes, id > 0 ? id : pedestrianIdCounter);
 		Pedestrian result = new Pedestrian(pedAttributes, random);
 		result.setPosition(position);
 		return result;

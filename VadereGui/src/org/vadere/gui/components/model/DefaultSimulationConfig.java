@@ -1,8 +1,8 @@
 package org.vadere.gui.components.model;
 
-import java.awt.*;
-
 import org.vadere.gui.components.utils.Resources;
+
+import java.awt.*;
 
 public class DefaultSimulationConfig extends DefaultConfig {
 	private static Resources resources = Resources.getInstance("global");
@@ -24,8 +24,6 @@ public class DefaultSimulationConfig extends DefaultConfig {
 	private boolean showTrajectories = false;
 	private boolean showGrid = false;
 	private boolean showDensity = false;
-	protected final Color pedestrianDefaultColor = Color.BLUE;
-	protected final Color horseDefaultColor = Color.CYAN; //CHANGED AG
 
 	public DefaultSimulationConfig() {
 		super();
@@ -70,16 +68,12 @@ public class DefaultSimulationConfig extends DefaultConfig {
 	}
 
 	public Color getPedestrianDefaultColor() {
-		return pedestrianDefaultColor;
+		return getPedestrianColor();
 	}
 
 	public void setShowPedestrians(boolean showPedestrians) {
 		this.showPedestrians = showPedestrians;
 		setChanged();
-	}
-	
-	public Color getHorseDefaultColor() {  //CHANGED AG
-		return horseDefaultColor;
 	}
 	
 	public void setShowHorses(boolean showHorses) { //CHANGED AG

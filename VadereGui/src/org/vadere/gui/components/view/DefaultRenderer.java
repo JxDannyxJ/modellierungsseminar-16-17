@@ -1,8 +1,8 @@
 package org.vadere.gui.components.view;
 
 import org.vadere.gui.components.model.IDefaultModel;
-import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.ScenarioElement;
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.util.geometry.shapes.VRectangle;
 import org.vadere.util.math.MathUtil;
 import org.vadere.util.potential.CellGrid;
@@ -117,8 +117,8 @@ public abstract class DefaultRenderer {
 	 * @param g the graphics object representing the screen
 	 * @param color of the scenario element list
 	 */
-	protected void renderScenarioElement(final Iterable<? extends ScenarioElement> elements, final Graphics2D g,
-			final Color color) {
+	protected void renderStaticElements(final Iterable<? extends ScenarioElement> elements, final Graphics2D g,
+										final Color color) {
 		final Color tmpColor = g.getColor();
 		g.setColor(color);
 

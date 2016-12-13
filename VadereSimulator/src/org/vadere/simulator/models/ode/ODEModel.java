@@ -7,10 +7,8 @@ import org.apache.log4j.Logger;
 import org.vadere.simulator.models.MainModel;
 import org.vadere.state.attributes.scenario.AttributesDynamicElement;
 import org.vadere.state.scenario.Topography;
-import org.vadere.state.scenario.dynamicelements.Car;
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.DynamicElement;
-import org.vadere.state.scenario.dynamicelements.Pedestrian;
-import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VPoint;
 
@@ -172,41 +170,33 @@ public abstract class ODEModel<T extends DynamicElement, TAttributes extends Att
 	}
 
 	private VPoint getVelocity(DynamicElement element) {
-		if (element.getType() == ScenarioElementType.PEDESTRIAN) {
-			return ((Pedestrian) element).getVelocity();
+		if (element instanceof Agent) {
+			return ((Agent) element).getVelocity();
 		}
-		if (element.getType() == ScenarioElementType.CAR) {
-			return ((Car) element).getVelocity();
-		}
-		throw new IllegalArgumentException("Element is neither a car nor a pedestrian.");
+		throw new IllegalArgumentException("Element " + element.getType() + " is not deriving from an agent!");
 	}
 
 	private VPoint getPosition(DynamicElement element) {
-		if (element.getType() == ScenarioElementType.PEDESTRIAN) {
-			return ((Pedestrian) element).getPosition();
+		if (element instanceof Agent) {
+			return element.getPosition();
 		}
-		if (element.getType() == ScenarioElementType.CAR) {
-			return ((Car) element).getPosition();
-		}
-		throw new IllegalArgumentException("Element is neither a car nor a pedestrian.");
+		throw new IllegalArgumentException("Element " + element.getType() + " is not deriving from an agent!");
 	}
 
 	private static void setVelocity(DynamicElement element, Vector2D vector2d) {
-		if (element.getType() == ScenarioElementType.PEDESTRIAN) {
-			((Pedestrian) element).setVelocity(vector2d);
-		} else if (element.getType() == ScenarioElementType.CAR) {
-			((Car) element).setVelocity(vector2d);
-		} else
-			throw new IllegalArgumentException("Element is neither a car nor a pedestrian.");
+		if (element instanceof Agent) {
+			((Agent) element).setVelocity(vector2d);
+		} else {
+			throw new IllegalArgumentException("Element " + element.getType() + " is not deriving from an agent!");
+		}
 	}
 
 	private static void setPosition(DynamicElement element, VPoint newPos) {
-		if (element.getType() == ScenarioElementType.PEDESTRIAN) {
-			((Pedestrian) element).setPosition(newPos);
-		} else if (element.getType() == ScenarioElementType.CAR) {
-			((Car) element).setPosition(newPos);
-		} else
-			throw new IllegalArgumentException("Element is neither a car nor a pedestrian.");
+		if (element instanceof Agent) {
+			((Agent) element).setPosition(newPos);
+		} else {
+			throw new IllegalArgumentException("Element " + element.getType() + " is not deriving from an agent!");
+		}
 	}
 
 	@Override

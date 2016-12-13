@@ -1,14 +1,14 @@
 package org.vadere.simulator.dataprocessing;
 
+import org.vadere.state.attributes.scenario.AttributesPedestrian;
+import org.vadere.state.scenario.dynamicelements.Agent;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
+import org.vadere.util.geometry.shapes.VPoint;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
-
-import org.vadere.state.attributes.scenario.AttributesAgent;
-import org.vadere.state.scenario.dynamicelements.Agent;
-import org.vadere.state.scenario.dynamicelements.Pedestrian;
-import org.vadere.util.geometry.shapes.VPoint;
 
 /**
  * This class helps to generate specific sets of positions and sets of pedestrians.
@@ -39,7 +39,7 @@ public class PointToPedestrianConverter {
 	public static List<Agent> getPedestriansAt(final VPoint... points) {
 		List<Agent> pedestrianList = new ArrayList<>();
 		for (VPoint point : points) {
-			Pedestrian pedestrian = new Pedestrian(new AttributesAgent(), new Random());
+			Pedestrian pedestrian = new Pedestrian(new AttributesPedestrian(), new Random());
 			pedestrian.setPosition(point);
 			pedestrianList.add(pedestrian);
 		}

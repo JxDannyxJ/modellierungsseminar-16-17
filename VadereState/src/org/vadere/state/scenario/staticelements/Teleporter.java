@@ -26,7 +26,7 @@ public class Teleporter implements ScenarioElement {
 
 	@Override
 	public Teleporter clone() {
-		return new Teleporter(this.attributes);
+		return new Teleporter((AttributesTeleporter) attributes.clone());
 	}
 
 	@Override

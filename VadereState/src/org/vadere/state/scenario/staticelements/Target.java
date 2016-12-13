@@ -74,7 +74,7 @@ public class Target implements ScenarioElement, Comparable<Target> {
 	 */
 	@Override
 	public Target clone() {
-		return new Target(attributes);
+		return new Target((AttributesTarget) attributes.clone());
 	}
 
 	@Override

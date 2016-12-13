@@ -9,17 +9,27 @@ import org.vadere.gui.components.utils.Messages;
 import org.vadere.gui.components.utils.Resources;
 import org.vadere.gui.components.utils.SwingUtils;
 import org.vadere.gui.postvisualization.PostVisualisation;
-import org.vadere.gui.postvisualization.control.*;
+import org.vadere.gui.postvisualization.control.ActionCloseSettingDialog;
+import org.vadere.gui.postvisualization.control.ActionSetDensityColor;
+import org.vadere.gui.postvisualization.control.ActionSetObstacleColor;
+import org.vadere.gui.postvisualization.control.ActionSetPedestrianColor;
+import org.vadere.gui.postvisualization.control.ActionSetPedestrianWithoutTargetColor;
+import org.vadere.gui.postvisualization.control.ActionSetSnapshotDirectory;
+import org.vadere.gui.postvisualization.control.ActionSetSourceColor;
+import org.vadere.gui.postvisualization.control.ActionSetStairsColor;
+import org.vadere.gui.postvisualization.control.ActionSetTargetColor;
 import org.vadere.gui.postvisualization.model.PostvisualizationConfig;
 import org.vadere.gui.postvisualization.model.PostvisualizationModel;
+import org.vadere.state.types.ScenarioElementType;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 import java.util.Optional;
 import java.util.prefs.Preferences;
+
+import javax.swing.*;
 
 /**
  * @author Benedikt Zoennchen
@@ -163,14 +173,14 @@ public class SettingsDialog extends JDialog {
 		final JButton bChange = new JButton(Messages.getString("SettingsDialog.btnEditColor.text"));
 		final JPanel pPedestrian = new JPanel();
 		Optional<Color> c = model.config.getColorByTargetId(1);
-		pPedestrian.setBackground(c.orElseGet(model.config::getPedestrianDefaultColor));
+		pPedestrian.setBackground(c.orElseGet(model.config::getPedestrianColor));
 		pPedestrian.setPreferredSize(new Dimension(130, 20));
 		bChange.addActionListener(new ActionSetPedestrianColor("Set Pedestrian Color", model, pPedestrian,
 				jComoboTargetIds));
 
 		jComoboTargetIds.addActionListener(e -> {
 			Optional<Color> c1 = config.getColorByTargetId(jComoboTargetIds.getSelectedIndex() + 1);
-			pPedestrian.setBackground(c1.orElseGet(model.config::getPedestrianDefaultColor));
+			pPedestrian.setBackground(c1.orElseGet(model.config::getPedestrianColor));
 		});
 
 		colorLayeredPane.add(new JLabel(Messages.getString("SettingsDialog.lblObstacle.text") + ":"), cc.xy(2, 2));
@@ -183,7 +193,7 @@ public class SettingsDialog extends JDialog {
 
 		final JButton bObstColor = new JButton(Messages.getString("SettingsDialog.btnEditColor.text"));
 		final JPanel pObstacleColor = new JPanel();
-		pObstacleColor.setBackground(model.config.getObstacleColor());
+		pObstacleColor.setBackground(ScenarioElementType.OBSTACLE.getColor());
 		pObstacleColor.setPreferredSize(new Dimension(130, 20));
 		bObstColor.addActionListener(new ActionSetObstacleColor("Set Obstacle Color", model, pObstacleColor));
 		colorLayeredPane.add(pObstacleColor, cc.xy(4, 2));
@@ -191,7 +201,7 @@ public class SettingsDialog extends JDialog {
 
 		final JButton bTarColor = new JButton(Messages.getString("SettingsDialog.btnEditColor.text"));
 		final JPanel pTargetColor = new JPanel();
-		pTargetColor.setBackground(model.config.getTargetColor());
+		pTargetColor.setBackground(ScenarioElementType.TARGET.getColor());
 		pTargetColor.setPreferredSize(new Dimension(130, 20));
 		bTarColor.addActionListener(new ActionSetTargetColor("Set Target Color", model, pTargetColor));
 		colorLayeredPane.add(pTargetColor, cc.xy(4, 4));
@@ -199,7 +209,7 @@ public class SettingsDialog extends JDialog {
 
 		final JButton bSrcColor = new JButton(Messages.getString("SettingsDialog.btnEditColor.text"));
 		final JPanel pSourceColor = new JPanel();
-		pSourceColor.setBackground(model.config.getSourceColor());
+		pSourceColor.setBackground(ScenarioElementType.SOURCE.getColor());
 		pSourceColor.setPreferredSize(new Dimension(130, 20));
 		bSrcColor.addActionListener(new ActionSetSourceColor("Set Source Color", model, pSourceColor));
 		colorLayeredPane.add(pSourceColor, cc.xy(4, 6));
@@ -207,7 +217,7 @@ public class SettingsDialog extends JDialog {
 
 		final JButton bStairsColor = new JButton(Messages.getString("SettingsDialog.btnEditColor.text"));
 		final JPanel pStairsColor = new JPanel();
-		pStairsColor.setBackground(model.config.getStairColor());
+		pStairsColor.setBackground(ScenarioElementType.STAIRS.getColor());
 		pStairsColor.setPreferredSize(new Dimension(130, 20));
 		bStairsColor.addActionListener(new ActionSetStairsColor("Set Stairs Color", model, pStairsColor));
 		colorLayeredPane.add(pStairsColor, cc.xy(4, 8));
@@ -231,7 +241,7 @@ public class SettingsDialog extends JDialog {
 		final JButton bPedestrianNoTarget = new JButton(Messages.getString("SettingsDialog.btnEditColor.text"));
 		final JPanel pPedestrianNoTarget = new JPanel();
 		Optional<Color> notTargetPedCol = config.getColorByTargetId((-1));
-		pPedestrianNoTarget.setBackground(notTargetPedCol.orElseGet(model.config::getPedestrianDefaultColor));
+		pPedestrianNoTarget.setBackground(notTargetPedCol.orElseGet(model.config::getPedestrianColor));
 		pPedestrianNoTarget.setPreferredSize(new Dimension(130, 20));
 		bPedestrianNoTarget.addActionListener(new ActionSetPedestrianWithoutTargetColor(
 				"Set Pedestrian without Target Color", model, pPedestrianNoTarget));

@@ -448,4 +448,8 @@ public class VPolygon extends Path2D.Double implements VShape {
 	public ShapeType getType() {
 		return ShapeType.POLYGON;
 	}
+
+	public VShape deepCopy() {
+		return new VPolygon(this);
+	}
 }

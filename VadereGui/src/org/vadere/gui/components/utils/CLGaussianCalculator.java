@@ -1,13 +1,12 @@
 package org.vadere.gui.components.utils;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
 import org.vadere.gui.components.model.DefaultSimulationConfig;
 import org.vadere.gui.components.model.SimulationModel;
-import org.vadere.gui.components.utils.ColorHelper;
 import org.vadere.simulator.models.density.IGaussianFilter;
-import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesPedestrian;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class CLGaussianCalculator {
 
@@ -39,7 +38,7 @@ public class CLGaussianCalculator {
 				model.getAgents(),
 				scale,
 				0.7f,
-				new AttributesAgent(-1),
+				new AttributesPedestrian(-1),
 				(ped) -> 1.0,
 				IGaussianFilter.Type.OpenCL);
 		filterPedestrians.filterImage();

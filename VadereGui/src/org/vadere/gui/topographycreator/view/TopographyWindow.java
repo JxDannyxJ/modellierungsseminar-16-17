@@ -220,7 +220,7 @@ public class TopographyWindow extends JPanel {
 				TopographyAction selectDotModeAction = new ActionSwitchSelectionMode("dot selection mode", panelModel,
 						new DrawDotMode(panelModel, undoSupport), basicAction);
 
-				/* select ellipse action DJ*/
+				/* select ellipse action*/
 				TopographyAction selectEllipseAction = new ActionSwitchSelectionMode("ellipse selection mode", panelModel, new DrawEllipseMode(panelModel, undoSupport), basicAction);
 
 				/* select rect action */
@@ -255,14 +255,35 @@ public class TopographyWindow extends JPanel {
 						undoSupport),
 						basicAction);
 
+				TopographyAction switchToPedestrianAction = new ActionSwitchCategory("switch to pedestrian", panelModel,
+						ScenarioElementType.PEDESTRIAN, selectDotModeAction);
+				TopographyAction closeDialogAction = new ActionCloseDrawOptionPanel("Pedestrian", new ImageIcon(
+						Resources.class.getResource("/icons/pedestrian_icon.png")), panelModel,
+						switchToPedestrianAction);
+
+				TopographyAction switchToHorseAction = new ActionSwitchCategory("switch to horse", panelModel,
+						ScenarioElementType.HORSE, selectEllipseAction);
+				TopographyAction closeDialogAction2 = new ActionCloseDrawOptionPanel("Horse", new ImageIcon(
+						Resources.class.getResource("/icons/horse_icon.png")), panelModel, switchToHorseAction);
+
+				TopographyAction switchToCarriageAction = new ActionSwitchCategory("switch to carriage", panelModel,
+						ScenarioElementType.CAR, selectRectangleAction);
+				TopographyAction closeDialogAction3 = new ActionCloseDrawOptionPanel("Carriage", new ImageIcon(
+						Resources.class.getResource("/icons/carriage_icon.png")), panelModel, switchToCarriageAction);
+
 				List<Action> obstacleAndTargetDrawModes = new ArrayList<Action>();
 				List<Action> sourceDrawModes = new ArrayList<Action>();
+				List<Action> agentDrawModes = new ArrayList<Action>();
 
 				obstacleAndTargetDrawModes.add(rectangle);
 				obstacleAndTargetDrawModes.add(pen);
 
 				sourceDrawModes.add(rectangle);
 				sourceDrawModes.add(dot);
+
+				agentDrawModes.add(closeDialogAction);
+				agentDrawModes.add(closeDialogAction2);
+//				agentDrawModes.add(closeDialogAction3);
 
 				/* open obstacle paint method dialog action */
 				JButton obsButton = new JButton();
@@ -282,19 +303,19 @@ public class TopographyWindow extends JPanel {
 						.getResource("/icons/stairs_icon.png")), panelModel, switchToStairsAction, stairsButton,
 						obstacleAndTargetDrawModes);
 
-				/* pedestrians */
-				TopographyAction switchToPedestrianAction = new ActionSwitchCategory("switch to pedestrian", panelModel,
-						ScenarioElementType.PEDESTRIAN, selectDotModeAction);
-				TopographyAction closeDialogAction = new ActionCloseDrawOptionPanel("Pedestrain", new ImageIcon(
-						Resources.class.getResource("/icons/pedestrians_icon.png")), panelModel,
-						switchToPedestrianAction);
-
-				/* horses */
-				TopographyAction switchToHorseAction = new ActionSwitchCategory("switch to horse", panelModel,  //CHANGED AG NOT WORKING
-						ScenarioElementType.HORSE, selectEllipseAction);
-				TopographyAction closeDialogAction2 = new ActionCloseDrawOptionPanel("Horse", new ImageIcon(
-						Resources.class.getResource("/icons/horse.png")), panelModel, switchToHorseAction);
-				
+//				/* pedestrians */
+//				TopographyAction switchToPedestrianAction = new ActionSwitchCategory("switch to pedestrian", panelModel,
+//						ScenarioElementType.PEDESTRIAN, selectDotModeAction);
+//				TopographyAction closeDialogAction = new ActionCloseDrawOptionPanel("Pedestrain", new ImageIcon(
+//						Resources.class.getResource("/icons/pedestrians_icon.png")), panelModel,
+//						switchToPedestrianAction);
+//
+//				/* horses */
+//				TopographyAction switchToHorseAction = new ActionSwitchCategory("switch to horse", panelModel,  //CHANGED AG NOT WORKING
+//						ScenarioElementType.HORSE, selectEllipseAction);
+//				TopographyAction closeDialogAction2 = new ActionCloseDrawOptionPanel("Horse", new ImageIcon(
+//						Resources.class.getResource("/icons/horse.png")), panelModel, switchToHorseAction);
+//
 
 				/* switch category to source action */
 				TopographyAction switchToSourceAction = new ActionSwitchCategory("switch to source", panelModel,
@@ -305,6 +326,13 @@ public class TopographyWindow extends JPanel {
 				TopographyAction openSourceDialog = new ActionOpenDrawOptionMenu("Source", new ImageIcon(Resources.class
 						.getResource("/icons/source_icon.png")), panelModel, switchToSourceAction, sourceButton,
 						sourceDrawModes);
+
+				/* agent */
+				JButton agentButton = new JButton();
+				TopographyAction openAgentDialog = new ActionOpenDrawOptionMenu("Pedestrian", new ImageIcon(Resources.class
+						.getResource("/icons/agent_icon.png")), panelModel, switchToPedestrianAction, agentButton,
+						agentDrawModes);
+
 
 				addActionToToolbar(toolbar, new ActionSelectSelectShape("select shape mode", new ImageIcon(
 								Resources.class.getResource("/icons/select_shapes_icon.png")), panelModel, undoSupport),
@@ -324,10 +352,10 @@ public class TopographyWindow extends JPanel {
 				toolbar.addSeparator(new Dimension(5, 50));
 				addActionToToolbar(toolbar, openObstacleDialog, "TopographyCreator.btnInsertObstacle.tooltip",
 						obsButton);
-				addActionToToolbar(toolbar, closeDialogAction, "TopographyCreator.btnInsertPedestrian.tooltip");
-				addActionToToolbar(toolbar, closeDialogAction2, "TopographyCreator.btnInsertHorse.tooltip");
-				/*addActionToToolbar(toolbar, openStairsDialog, "TopographyCreator.btnInsertStairs.tooltip",
-						stairsButton);*/
+				addActionToToolbar(toolbar, openAgentDialog, "TopographyCreator.btnInsertAgent.tooltip",
+						agentButton);
+				addActionToToolbar(toolbar, openStairsDialog, "TopographyCreator.btnInsertStairs.tooltip",
+						stairsButton);
 				toolbar.addSeparator(new Dimension(5, 50));
 				// addActionToToolbar(toolbar, scrollAction, "TopographyCreator.btnScroll.tooltip");
 				addActionToToolbar(toolbar, zoomInAction, "TopographyCreator.btnZoomIn.tooltip");
@@ -377,8 +405,8 @@ public class TopographyWindow extends JPanel {
 
 				// redo
 				getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-						KeyStroke.getKeyStroke(KeyEvent.VK_Z,
-								Toolkit.getDefaultToolkit().getMenuShortcutKeyMask() | KeyEvent.SHIFT_DOWN_MASK),
+						KeyStroke.getKeyStroke(KeyEvent.VK_Y,
+								Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()),
 						"redo");
 				getActionMap().put("redo", redoAction);
 

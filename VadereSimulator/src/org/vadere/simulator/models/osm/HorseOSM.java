@@ -127,8 +127,9 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 		this.stepDeviation = random.nextGaussian() * attributesOSM.getStepLengthSD();
 
-		this.stepLength = attributesOSM.getStepLengthIntercept() + this.stepDeviation
-				+ attributesOSM.getStepLengthSlopeSpeed() * getFreeFlowSpeed();
+		//this.stepLength = attributesOSM.getStepLengthIntercept() + this.stepDeviation
+		//		+ attributesOSM.getStepLengthSlopeSpeed() * getFreeFlowSpeed();
+		this.stepLength = 1.0;
 		if (attributesOSM.isMinimumStepLength()) {
 			this.minStepLength = attributesOSM.getStepLengthIntercept();
 		} else {
@@ -187,7 +188,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 	public void updateNextPosition() {
 
 		if (PotentialFieldTargetRingExperiment.class.equals(potentialFieldTarget.getClass())) {
-			VCircle reachableArea = new VCircle(getPosition(), getStepSize());
+			VCircle reachableArea = new VCircle(getPosition(), ((VEllipse) getShape()).getRadius() + stepLength);
 			this.relevantAgents = potentialFieldAgent
 					.getRelevantAgents(reachableArea, this, topography);
 
@@ -340,7 +341,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 	 */
 	public Vector2D getAgentGradient(VPoint pos) {
 		return potentialFieldAgent.getAgentPotentialGradient(pos,
-				new Vector2D(0, 0), this, relevantAgents);
+				new Vector2D(0, 1), this, relevantAgents);
 	}
 
 	/**
@@ -499,18 +500,14 @@ public class HorseOSM extends Horse implements AgentOSM {
 	 */
 	@Override
 	public LinkedList<VPoint> getReachablePositions(Random random) {
-
-		LinkedList<VPoint> reachablePositions = new LinkedList<>();
-		double height = stepLength;//((VEllipse) getShape()).getWidth();
-		double width = ((VEllipse) getShape()).getHeight();
-		double randOffset = attributesOSM.isVaryStepDirection() ? random.nextDouble() : 0;
-		//double randOffset = 0;
-
-		int numberOfGridPoints;
-		int numberOfEllipses = 1;
+		double stepLength = getStepSize();
+		int numberOfGridPoints = getAttributesOSM().getStepCircleResolution();
+		int numberOfEllipses = getAttributesOSM().getNumberOfCircles();
+		double stepDelta = stepLength / numberOfEllipses;
+		double angles[] = new double[numberOfGridPoints];
+		LinkedList<VPoint> ellipsePoints = new LinkedList<>();
 		double angle;
 		double anchorAngle;
-		
 		if (super.isHasEyepatch()) {
 			if (attributesOSM.getMovementType() == MovementType.DIRECTIONAL) {
 				angle = Math.PI / 2.0 - AttributesHorse.getEYEPATCHED();
@@ -521,43 +518,53 @@ public class HorseOSM extends Horse implements AgentOSM {
 				anchorAngle = 2 * Math.PI - (Math.PI / 4.0) + AttributesHorse.getEYEPATCHED();
 			}
 		}
-		if (attributesOSM.getMovementType() == MovementType.DIRECTIONAL) {
-			angle = Math.PI / 2.0;
-			anchorAngle = Math.PI / 4.0;
+		else if (attributesOSM.getMovementType() == MovementType.DIRECTIONAL) {
+			angle = Math.PI / 8.0;
+			anchorAngle = 2 * Math.PI - Math.PI / 8.0;
+		} else {
+			angle = Math.PI / 8.0;
+			anchorAngle = 2 * Math.PI - Math.PI / 8.0;
 		}
-		else {
-			angle = Math.PI / 4.0;
-			anchorAngle = 2 * Math.PI - (Math.PI / 4.0);
+		for (int i = 0; i < numberOfGridPoints; i++) {
+			angles[i] = i * ((anchorAngle - angle) / numberOfGridPoints) + anchorAngle;
 		}
-
-		numberOfGridPoints = 4;
-		double angleDelta = (Math.PI / 2.0) / numberOfGridPoints;
-		double angles[] = new double[numberOfGridPoints+1];
-		for(int i = 0; i <= numberOfGridPoints; i++) {
-			angles[i] = anchorAngle + i * angleDelta + randOffset * 0.1;
-		}
-
-		// compute all discrete ellipse points
-		VPoint ellipsePoints[] = new VPoint[numberOfGridPoints+1];
-		double x, y = 0;
-		for(int i = 0; i <= numberOfGridPoints; i++) {
-			int factor = angles[i] % (2 * Math.PI) <= Math.PI / 4.0 ? 1 : -1;
-			x = (height * width)/(Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2) * Math.pow(Math.tan(angles[i]), 2) ));
-			y = factor * width * Math.sqrt(1 - (Math.pow(x, 2)/Math.pow(height, 2)));
-			ellipsePoints[i] = new VPoint(x, y);
+		for (int i = 0; i < numberOfEllipses; i++) {
+			double height = stepLength - i * stepDelta;
+			double width = ((VEllipse) getShape()).getHeight() - i * stepDelta;
+			ellipsePoints.addAll(discretize(height, width, angles, random));
 		}
 
-		// rotate each point
-		LinkedList<VPoint> rotatedEllipsePoints = new LinkedList<>();
+		return ellipsePoints;
+	}
+
+	/**
+	 *
+	 * @param ellipseLenght
+	 * @param ellipseWidth
+	 * @param angles
+	 * @return
+	 */
+	private LinkedList<VPoint> discretize(double ellipseLenght, double ellipseWidth, double[] angles, Random random) {
+		LinkedList<VPoint> ellipsePoints = new LinkedList<>();
+		int iteratioinCount = angles.length;
 		double rotationAngle = getVelocity().angleToZero();
-		for(int i = 0; i <= numberOfGridPoints; i++) {
-			VPoint ellipsePoint = ellipsePoints[i];
-			Vector2D pointVector = new Vector2D(ellipsePoint.getX(), ellipsePoint.getY());
-			Vector2D newPoint = new Vector2D(pointVector.rotate(rotationAngle));
-			newPoint = newPoint.add(getPosition());
-			rotatedEllipsePoints.add(newPoint.clone());
+		double x, y, angleShifted = 0;
+		int sign = 1;
+		for (int i = 0; i < iteratioinCount; i++) {
+			double randOffset = attributesOSM.isVaryStepDirection() ? random.nextDouble() : 0;
+			sign = angles[i] % (2 * Math.PI) <= Math.PI / 4.0 ? 1 : -1;
+			angleShifted = sign * randOffset + angles[i];
+			if (getVelocity().angleToZero() == 0 && getVelocity().getLength() == 0) {
+				angleShifted = (new Vector2D(new Vector2D(random.nextDouble(), random.nextDouble())).angleToZero());
+			}
+			x = (ellipseLenght * ellipseWidth)/(Math.sqrt(Math.pow(ellipseWidth, 2) + Math.pow(ellipseLenght, 2) * Math.pow(Math.tan(angleShifted), 2) ));
+			y = sign * ellipseWidth * Math.sqrt(1 - (Math.pow(x, 2)/Math.pow(ellipseLenght, 2)));
+			Vector2D point = new Vector2D(x, y);
+			Vector2D rotatedPoint = new Vector2D(point.rotate(rotationAngle));
+			rotatedPoint = new Vector2D(rotatedPoint.addPrecise(getPosition()));
+			ellipsePoints.add(rotatedPoint);
 		}
-		return rotatedEllipsePoints;
+		return ellipsePoints;
 	}
 
 	/**
@@ -569,7 +576,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 	 */
 	@Override
 	public VPoint angleToPosition(double angle, double stepSize) {
-		double height = ((VEllipse) getShape()).getWidth();
+		double height = ((VEllipse) getShape()).getWidth() + stepLength;
 		double width = ((VEllipse) getShape()).getHeight();
 		int factor = angle % (2 * Math.PI) <= Math.PI / 4.0 ? 1 : -1;
 		double x = (height * width)/(Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2) * Math.pow(Math.tan(angle), 2) ));

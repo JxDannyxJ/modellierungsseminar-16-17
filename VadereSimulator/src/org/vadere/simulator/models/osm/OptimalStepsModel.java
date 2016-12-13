@@ -8,13 +8,7 @@ import org.vadere.simulator.models.SubModelBuilder;
 import org.vadere.simulator.models.groups.CentroidGroupModel;
 import org.vadere.simulator.models.groups.CentroidGroupPotential;
 import org.vadere.simulator.models.groups.CentroidGroupSpeedAdjuster;
-import org.vadere.simulator.models.osm.optimization.StepCircleOptimizer;
-import org.vadere.simulator.models.osm.optimization.StepCircleOptimizerBrent;
-import org.vadere.simulator.models.osm.optimization.StepCircleOptimizerDiscrete;
-import org.vadere.simulator.models.osm.optimization.StepCircleOptimizerEvolStrat;
-import org.vadere.simulator.models.osm.optimization.StepCircleOptimizerGradient;
-import org.vadere.simulator.models.osm.optimization.StepCircleOptimizerNelderMead;
-import org.vadere.simulator.models.osm.optimization.StepCircleOptimizerPowell;
+import org.vadere.simulator.models.osm.optimization.*;
 import org.vadere.simulator.models.osm.updateScheme.ParallelWorkerOSM;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM.CallMethod;
 import org.vadere.simulator.models.potential.fields.IPotentialTargetGrid;
@@ -91,14 +85,14 @@ public class OptimalStepsModel implements MainModel {
 	private AttributesOSM attributesOSM;
 	private AttributesAgent attributesPedestrian;
 	private Random random;
-	private StepCircleOptimizer stepCircleOptimizer;
+	private StepOptimizer stepOptimizer;
 	private PotentialFieldTarget potentialFieldTarget;
 	private PotentialFieldObstacle potentialFieldObstacle;
 	private PotentialFieldAgent potentialFieldPedestrian;
 	private List<SpeedAdjuster> speedAdjusters;
 	private Topography topography;
 	private double lastSimTimeInSec;
-	private int agentIdCounter;
+	private int pedestrianIdCounter;
 //	private PriorityQueue<PedestrianOSM> pedestrianEventsQueue;
 	private PriorityQueue<AgentOSM> agentEventsQueue;
 
@@ -107,12 +101,12 @@ public class OptimalStepsModel implements MainModel {
 
 	@Deprecated
 	public OptimalStepsModel(final Topography topography, final AttributesOSM attributes,
-			final AttributesAgent attributesPedestrian,
-			final PotentialFieldTarget potentialFieldTarget,
-			final PotentialFieldObstacle potentialFieldObstacle,
-			final PotentialFieldAgent potentialFieldPedestrian,
-			final List<SpeedAdjuster> speedAdjusters,
-			final StepCircleOptimizer stepCircleOptimizer, Random random) {
+							 final AttributesAgent attributesPedestrian,
+							 final PotentialFieldTarget potentialFieldTarget,
+							 final PotentialFieldObstacle potentialFieldObstacle,
+							 final PotentialFieldAgent potentialFieldPedestrian,
+							 final List<SpeedAdjuster> speedAdjusters,
+							 final StepOptimizer stepOptimizer, Random random) {
 		this.attributesOSM = attributes;
 		this.attributesPedestrian = attributesPedestrian;
 		this.topography = topography;
@@ -120,8 +114,8 @@ public class OptimalStepsModel implements MainModel {
 		this.potentialFieldTarget = potentialFieldTarget;
 		this.potentialFieldObstacle = potentialFieldObstacle;
 		this.potentialFieldPedestrian = potentialFieldPedestrian;
-		this.stepCircleOptimizer = stepCircleOptimizer;
-		this.agentIdCounter = 0;
+		this.stepOptimizer = stepOptimizer;
+		this.pedestrianIdCounter = 0;
 		this.speedAdjusters = speedAdjusters;
 
 		if (attributesOSM.getUpdateType() == UpdateType.EVENT_DRIVEN) {
@@ -140,7 +134,7 @@ public class OptimalStepsModel implements MainModel {
 	}
 
 	public OptimalStepsModel() {
-		this.agentIdCounter = 0;
+		this.pedestrianIdCounter = 0;
 		this.speedAdjusters = new LinkedList<>();
 	}
 
@@ -186,7 +180,7 @@ public class OptimalStepsModel implements MainModel {
 			this.speedAdjusters.add(speedAdjusterCGM);
 		}
 
-		this.stepCircleOptimizer = createStepCircleOptimizer(
+		this.stepOptimizer = createStepOptimizer(
 				attributesOSM, random, topography, iPotentialTargetGrid);
 
 		if (attributesPedestrian.isDensityDependentSpeed()) {
@@ -210,11 +204,11 @@ public class OptimalStepsModel implements MainModel {
 		activeCallbacks.add(this);
 	}
 
-	private StepCircleOptimizer createStepCircleOptimizer(
+	private StepOptimizer createStepOptimizer(
 			AttributesOSM attributesOSM, Random random, Topography topography,
 			IPotentialTargetGrid potentialFieldTarget) {
 
-		StepCircleOptimizer result;
+		StepOptimizer result;
 		double movementThreshold = attributesOSM.getMovementThreshold();
 
 		OptimizationType type = attributesOSM.getOptimizationType();
@@ -224,25 +218,24 @@ public class OptimalStepsModel implements MainModel {
 
 		switch (type) {
 			case BRENT:
-				result = new StepCircleOptimizerBrent(random);
+				result = new StepOptimizerBrent(random);
 				break;
 			case EVOLUTION_STRATEGY:
-				result = new StepCircleOptimizerEvolStrat();
+				result = new StepOptimizerEvolStrat();
 				break;
 			case NELDER_MEAD:
-				result = new StepCircleOptimizerNelderMead(random);
+				result = new StepOptimizerNelderMead(random);
 				break;
 			case POWELL:
-				result = new StepCircleOptimizerPowell(random);
+				result = new StepOptimizerPowell(random);
 				break;
 			case GRADIENT:
-				result = new StepCircleOptimizerGradient(topography,
-						potentialFieldTarget, attributesOSM);
+				result = new StepOptimizerGradient(topography, attributesOSM);
 				break;
 			case DISCRETE:
 			case NONE:
 			default:
-				result = new StepCircleOptimizerDiscrete(movementThreshold, random);
+				result = new StepOptimizerDiscrete(movementThreshold, random);
 				break;
 		}
 
@@ -298,13 +291,13 @@ public class OptimalStepsModel implements MainModel {
 
 	private void parallelCall(double timeStepInSec) {
 		CallMethod[] callMethods = {CallMethod.SEEK, CallMethod.MOVE, CallMethod.CONFLICTS, CallMethod.STEPS};
-		List<Future<?>> futures; // result list of asynchronus computations
+		List<Future<?>> futures;
 
 		for (CallMethod callMethod : callMethods) {
 			futures = new LinkedList<>();
-			for (final AgentOSM agent : ListUtils.select(
-					topography.getElements(AgentOSM.class), AgentOSM.class)) {
-				Runnable worker = new ParallelWorkerOSM(callMethod, agent,
+			for (final PedestrianOSM pedestrian : ListUtils.select(
+					topography.getElements(Pedestrian.class), PedestrianOSM.class)) {
+				Runnable worker = new ParallelWorkerOSM(callMethod, pedestrian,
 						timeStepInSec);
 				futures.add(executorService.submit(worker));
 			}
@@ -334,21 +327,21 @@ public class OptimalStepsModel implements MainModel {
 //		if (!Pedestrian.class.isAssignableFrom(type))
 //			throw new IllegalArgumentException("OSM cannot initialize " + type.getCanonicalName());
 
-		agentIdCounter++;
+		pedestrianIdCounter++;
 		AttributesAgent pedAttributes = new AttributesAgent(
-				this.attributesPedestrian, id > 0 ? id : agentIdCounter);
+				this.attributesPedestrian, id > 0 ? id : pedestrianIdCounter);
 
 		AgentOSM agentOSM = null;
 		if (type == Horse.class) {
 			agentOSM = new HorseOSM(attributesOSM,new AttributesHorse(topography.getAttributesHorse(), 
-					id > 0 ? id : agentIdCounter), topography, random, potentialFieldTarget,
+					id > 0 ? id : pedestrianIdCounter), topography, random, potentialFieldTarget,
 					potentialFieldObstacle.copy(), potentialFieldPedestrian,
-					speedAdjusters, stepCircleOptimizer.clone());
+					speedAdjusters, stepOptimizer.clone());
 		} else if (type == Pedestrian.class) {
 			agentOSM = new PedestrianOSM(attributesOSM,
 					pedAttributes, topography, random, potentialFieldTarget,
 					potentialFieldObstacle.copy(), potentialFieldPedestrian,
-					speedAdjusters, stepCircleOptimizer.clone());
+					speedAdjusters, stepOptimizer.clone());
 		}
 
 		agentOSM.setPosition(position);

@@ -33,7 +33,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 	 */
 
 	private final AttributesOSM attributesOSM;
-	private final transient StepCircleOptimizer stepCircleOptimizer;
+	private final transient StepOptimizer stepCircleOptimizer;
 	private final transient UpdateSchemeOSM updateScheme;
 
 	private transient PotentialFieldTarget potentialFieldTarget;
@@ -71,7 +71,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 			PotentialFieldObstacle potentialFieldObstacle,
 			PotentialFieldAgent potentialFieldPedestrian,
 			List<SpeedAdjuster> speedAdjusters,
-			StepCircleOptimizer stepCircleOptimizer) {
+			StepOptimizer stepCircleOptimizer) {
 
 		super(attributesPedestrian, random);
 

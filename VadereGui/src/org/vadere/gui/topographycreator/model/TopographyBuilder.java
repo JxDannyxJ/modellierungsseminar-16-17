@@ -177,6 +177,8 @@ public class TopographyBuilder implements Iterable<ScenarioElement> {
 				return pedestrians.remove(element);
 			case HORSE:
 				return horses.remove(element);
+			case CAR:
+				return cars.remove(element);
 			case TARGET:
 				return targets.remove(element);
 			case SOURCE:

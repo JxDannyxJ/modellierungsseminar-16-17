@@ -11,13 +11,13 @@ import org.vadere.state.scenario.dynamicelements.Pedestrian;
  */
 public class AttributesPotentialOSM extends Attributes {
 
-    private double horseBodyPotential = 2000;
-    private double horseRepulsionWidth = 2.0;
-    private double horseRepulsionStrength = 0.8;
-    private double horseRecognitionDistance = 3.0;
-    private double aHorseOSM = 7;
-    private double bHorseOSM = 1.2;
-    private double horseDensityFactor = 2.4;
+    private double horseBodyPotential = 1000;
+    private double horseRepulsionWidth = 1.0;
+    private double horseRepulsionStrength = 0.4;
+    private double horseRecognitionDistance = 1.5;
+    private double aHorseOSM = 3.5;
+    private double bHorseOSM = 0.6;
+    private double horseDensityFactor = 1.2;
 
 	private double pedestrianBodyPotential = 1000;
 	private double pedestrianRepulsionWidth = 1.0;

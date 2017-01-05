@@ -15,27 +15,50 @@ import org.vadere.util.geometry.shapes.VPolygon;
  */
 public class OfflineTopographyController {
 
+	/** The scenario topography */
 	private final Topography topography;
 
+	/**
+	 * Constructor.
+	 * @param topography the scenario.
+	 */
 	public OfflineTopographyController(final Topography topography) {
 		this.topography = topography;
 	}
 
+	/**
+	 * Update call. Calls {@link #recomputeCells()}
+	 * @param simTimeInSec current simulation time.
+	 */
 	protected void update(double simTimeInSec) {
 		recomputeCells();
 	}
 
+	/** Getter for the {@link Topography}**/
 	public Topography getTopography() {
 		return topography;
 	}
 
-	// add bounding box
+	/**
+	 * Prepares scenarios {@link Topography} by adding bounding boxes.
+	 */
 	protected void prepareTopography() {
+		// only do once if topography is bounded but does not has boundaries yet.
 		if (this.topography.isBounded() && !this.topography.hasBoundary()) {
+
+			// create boundary
 			VPolygon boundary = new VPolygon(this.topography.getBounds());
 			double width = this.topography.getBoundingBoxWidth();
+
+			// get polygons out of boundary
 			Collection<VPolygon> boundingBoxObstacleShapes = boundary
 					.borderAsShapes(width, width / 2.0, 0.0001);
+
+			/*
+				Iterate over polygon.
+				For each one create new obstacle
+				and add it to the topography.
+			 */
 			for (VPolygon obstacleShape : boundingBoxObstacleShapes) {
 				AttributesObstacle obstacleAttributes = new AttributesObstacle(
 						-1, obstacleShape);

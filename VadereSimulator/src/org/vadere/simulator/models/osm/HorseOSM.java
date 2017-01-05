@@ -510,8 +510,8 @@ public class HorseOSM extends Horse implements AgentOSM {
 		double anchorAngle;
 		if (super.isHasEyepatch()) {
 			if (attributesOSM.getMovementType() == MovementType.DIRECTIONAL) {
-				angle = Math.PI / 2.0 - AttributesHorse.getEYEPATCHED();
-				anchorAngle = Math.PI / 4.0 + AttributesHorse.getEYEPATCHED();
+				angle = Math.PI / 4.0 - AttributesHorse.getEYEPATCHED();
+				anchorAngle = 2 * Math.PI - (Math.PI / 4.0) + AttributesHorse.getEYEPATCHED();
 			}
 			else {
 				angle = Math.PI / 4.0 - AttributesHorse.getEYEPATCHED();
@@ -519,11 +519,11 @@ public class HorseOSM extends Horse implements AgentOSM {
 			}
 		}
 		else if (attributesOSM.getMovementType() == MovementType.DIRECTIONAL) {
-			angle = Math.PI / 8.0;
-			anchorAngle = 2 * Math.PI - Math.PI / 8.0;
+			angle = Math.PI / 4.0;
+			anchorAngle = 2 * Math.PI - Math.PI / 4.0;
 		} else {
-			angle = Math.PI / 8.0;
-			anchorAngle = 2 * Math.PI - Math.PI / 8.0;
+			angle = Math.PI / 4.0;
+			anchorAngle = 2 * Math.PI - Math.PI / 4.0;
 		}
 		for (int i = 0; i < numberOfGridPoints; i++) {
 			angles[i] = i * ((anchorAngle - angle) / numberOfGridPoints) + anchorAngle;
@@ -555,7 +555,9 @@ public class HorseOSM extends Horse implements AgentOSM {
 			sign = angles[i] % (2 * Math.PI) <= Math.PI / 4.0 ? 1 : -1;
 			angleShifted = sign * randOffset + angles[i];
 			if (getVelocity().angleToZero() == 0 && getVelocity().getLength() == 0) {
-				angleShifted = (new Vector2D(new Vector2D(random.nextDouble(), random.nextDouble())).angleToZero());
+				double randomX = random.nextInt(2) - 1;
+				double randomY = random.nextInt(2) - 1;
+				angleShifted = (new Vector2D(new Vector2D(randomX, randomY)).angleToZero());
 			}
 			x = (ellipseLenght * ellipseWidth)/(Math.sqrt(Math.pow(ellipseWidth, 2) + Math.pow(ellipseLenght, 2) * Math.pow(Math.tan(angleShifted), 2) ));
 			y = sign * ellipseWidth * Math.sqrt(1 - (Math.pow(x, 2)/Math.pow(ellipseLenght, 2)));

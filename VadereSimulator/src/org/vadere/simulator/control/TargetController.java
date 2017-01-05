@@ -24,13 +24,20 @@ import java.util.Map;
  */
 public class TargetController {
 
+	/** Logger instance.*/
 	private static final Logger log = Logger.getLogger(TargetController.class);
-
+	/** The {@link Target} managed by this instance.*/
 	public final Target target;
+	/** The scenarios {@link Topography}.*/
 	private Topography topography;
-
+	/** {@link TrafficLightPhase}.*/
 	public TrafficLightPhase phase = TrafficLightPhase.GREEN;
 
+	/**
+	 * Constructor.
+	 * @param scenario the scenarios {@link Topography}.
+	 * @param target the {@link Target} to manage.
+	 */
 	public TargetController(Topography scenario, Target target) {
 		this.target = target;
 		this.topography = scenario;
@@ -48,6 +55,7 @@ public class TargetController {
 	 * @param simTimeInSec the simulation time.
 	 */
 	public void update(double simTimeInSec) {
+		// if the target is a pedestrian
 		if (target.isTargetPedestrian()) {
 			return;
 		}
@@ -92,13 +100,18 @@ public class TargetController {
 		final Collection<DynamicElement> elementsInRange = new LinkedList<>();
 		
 		// add all Agents which are inside the target.
-		elementsInRange.addAll(getObjectsInCircle(Pedestrian.class, center, radius));
-		elementsInRange.addAll(getObjectsInCircle(Car.class, center, radius));
-		elementsInRange.addAll(getObjectsInCircle(Horse.class, center, radius));
-		
+		elementsInRange.addAll(getObjectsInCircle(Agent.class, center, radius));
+		//elementsInRange.addAll(getObjectsInCircle(Pedestrian.class, center, radius));
+		//elementsInRange.addAll(getObjectsInCircle(Car.class, center, radius));
+		//elementsInRange.addAll(getObjectsInCircle(Horse.class, center, radius));
 		return elementsInRange;
 	}
 
+	/**
+	 * Define waiting behavior for {@link Agent} at given time.
+	 * @param simTimeInSec the current simulation time (seconds).
+	 * @param agent the {@link Agent}.
+	 */
 	private void waitingBehavior(double simTimeInSec, final Agent agent) {
 		final int agentId = agent.getId();
 		// individual waiting behaviour, as opposed to waiting at a traffic light
@@ -127,10 +140,25 @@ public class TargetController {
 		}
 	}
 
+	/**
+	 * Collects all objects with given class instance inside a defined area
+	 * on the {@link Topography}. Calls {@link Topography#getSpatialMap(Class).getObjects(....)}.
+	 * @param clazz The class instances to look for.
+	 * @param center the position from where to start looking.
+	 * @param radius the radius defining the area.
+	 * @param <T> the type parameter.
+	 * @return List of found objects.
+	 */
 	private <T extends DynamicElement> List<T> getObjectsInCircle(final Class<T> clazz, final VPoint center, final double radius) {
 		return topography.getSpatialMap(clazz).getObjects(center, radius);
 	}
 
+
+	/**
+	 * Check if {@link Agent} reached the {@link Target}.
+	 * @param agent the {@link Agent} to check.
+	 * @return True if the {@link Agent} reached its {@link Target}, else False.
+	 */
 	private boolean hasAgentReachedThisTarget(Agent agent) {
 		final double reachedDistance = target.getAttributes().getDeletionDistance();
 		final VPoint agentPosition = agent.getPosition();
@@ -140,6 +168,11 @@ public class TargetController {
 				|| targetShape.distance(agentPosition) < reachedDistance;
 	}
 
+	/**
+	 * Getter for the current {@link TrafficLightPhase}.
+	 * @param simTimeInSec the current simulation time (seconds).
+	 * @return {@link TrafficLightPhase}.
+	 */
 	private TrafficLightPhase getCurrentTrafficLightPhase(double simTimeInSec) {
 		double phaseSecond = simTimeInSec % (target.getWaitingTime() * 2 + target.getWaitingTimeYellowPhase() * 2);
 
@@ -164,6 +197,12 @@ public class TargetController {
 		}
 	}
 
+	/**
+	 * Checks if {@link Target} of this controller is
+	 * the next one for given {@link Agent}.
+	 * @param agent the {@link Agent} to check for.
+	 * @return True if is next {@link Target}, else False.
+	 */
 	private boolean isNextTargetForAgent(Agent agent) {
 		if (agent.hasNextTarget()) {
 			return agent.getNextTargetId() == target.getId();
@@ -171,11 +210,23 @@ public class TargetController {
 		return false;
 	}
 
-	// TODO [priority=high] [task=deprecation] removing the target from the list is deprecated, but still very frequently used everywhere.
+
+	/**
+	 * Updates target on given {@link Agent}.
+	 * If the current {@link Target} is absorbing
+	 * the {@link Agent} is removed from teh {@link Topography}.
+	 * @param agent the {@link Agent} to update.
+	 */
 	private void checkRemove(Agent agent) {
+
+		// TODO [priority=high] [task=deprecation] removing the target from the list is deprecated, but still very frequently used everywhere.
+
+		// remove agent if target is absorbing
 		if (target.isAbsorbing()) {
 			topography.removeElement(agent);
-		} else {
+		}
+		// else update its target
+		else {
 			final int nextTargetListIndex = agent.getNextTargetListIndex();
 
 			// Deprecated target list usage
@@ -198,6 +249,10 @@ public class TargetController {
 		}
 	}
 
+	/**
+	 * Notify target listeners {@link TargetListener}.
+	 * @param agent the {@link Agent} used to notify the listeners.
+	 */
 	private void notifyListenersTargetReached(final Agent agent) {
 		for (TargetListener l : target.getTargetListeners()) {
 			l.reachedTarget(target, agent);

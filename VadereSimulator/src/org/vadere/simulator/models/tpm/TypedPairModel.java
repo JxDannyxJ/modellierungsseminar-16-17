@@ -82,10 +82,10 @@ public class TypedPairModel implements MainModel {
         Map<String, String> typePairs = attributesTPM.getTypePairs();
         for (Map.Entry<String, String> entry : typePairs.entrySet()) {
             DynamicClassInstantiator<MainModel> instantiator = new DynamicClassInstantiator<>();
-            DynamicElementType assosiatedType = DynamicElementType.valueOf(entry.getKey());
+            DynamicElementType associatedType = DynamicElementType.valueOf(entry.getKey());
             MainModel model = instantiator.createObject(entry.getValue());
             model.initialize(attributesList, topography, attributesAgent, random);
-            typeModelMap.put(assosiatedType, model);
+            typeModelMap.put(associatedType, model);
             modelCallbacks.add(model);
         }
     }

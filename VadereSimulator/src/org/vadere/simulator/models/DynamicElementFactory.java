@@ -3,6 +3,9 @@ package org.vadere.simulator.models;
 import org.vadere.state.scenario.dynamicelements.DynamicElement;
 import org.vadere.util.geometry.shapes.VPoint;
 
+/**
+ * Interface to abstract creation of {@link DynamicElement} objects.
+ */
 public interface DynamicElementFactory {
 
 	/**

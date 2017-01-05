@@ -17,11 +17,11 @@ import org.vadere.util.geometry.shapes.VPoint;
  * 
  * The ring consists of two circles and is used to simulate the experiment described in jelic-2012
  * and jelic-2012b:
- * ____
- * / __ \
- * / / \ \
- * \ \__/ /
- * \____/
+ *   _____
+ *  / _   \
+ * / / \  \
+ * \ \_/  /
+ *  \____/
  */
 public class PotentialFieldObstacleRingExperiment implements PotentialFieldObstacle {
 

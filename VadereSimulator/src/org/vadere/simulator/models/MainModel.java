@@ -11,6 +11,10 @@ import org.vadere.simulator.control.ActiveCallback;
 public interface MainModel
 		extends Model, ActiveCallback, DynamicElementFactory {
 
+	/**
+	 * Functionality to retrieve {@link ActiveCallback} from model.
+	 * @return List of {@link ActiveCallback}.
+	 */
 	List<ActiveCallback> getActiveCallbacks();
 
 }

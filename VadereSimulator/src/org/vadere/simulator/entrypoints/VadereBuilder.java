@@ -74,7 +74,6 @@ public class VadereBuilder {
 		store.attributesList = model;
 	}
 
-	// change topography
 	/**
 	 * Assign the {@link value} to the field identified by {@link fieldName} of the first source,
 	 * identified by {@link sourceId}.
@@ -160,7 +159,6 @@ public class VadereBuilder {
 	}
 
 
-	// private helpers
 	/**
 	 * Sets the value of the field, identified by fieldName, of the i-th element in the list to the
 	 * i-th value.

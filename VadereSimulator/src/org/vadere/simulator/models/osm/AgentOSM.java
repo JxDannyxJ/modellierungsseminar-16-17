@@ -10,41 +10,74 @@ import org.vadere.util.geometry.shapes.VPoint;
 import java.util.LinkedList;
 import java.util.Random;
 
+/**
+ * Representation of an {@link org.vadere.state.scenario.dynamicelements.Agent} inside of the
+ * {@link OptimalStepsModel}. Only classes implementing this
+ * Interface can be used with the {@link OptimalStepsModel}.
+ */
 public interface AgentOSM extends DynamicElement {
-	
-	public double getTimeOfNextStep();
-	public double getStepSize();
-	public double getDesiredSpeed();
-	public double getDurationNextStep();
-	
-	public void setTimeOfNextStep(double d);
-	public void setDurationNextStep(double d);
-	public void makeStep(double d);
-	public void updateNextPosition();
-	public double getTimeCredit();
-	public void setTimeCredit(double d);
-	public VPoint getNextPosition();
-	public void setPosition(VPoint nextPosition);
-	public void setLastPosition(VPoint position);
-	public int getId();
-	public VPoint getLastPosition();
-	public void setVelocity(Vector2D vector2d);
-	public double getRadius();
-//	public Object getRelevantHorses();
-	public double getPotential(VPoint reachPoint);
-	public VPoint getPosition();
-	public double getMinStepLength();
-	public double getTargetPotential(VPoint newPos);
-	public Topography getTopography();
-	public AttributesOSM getAttributesOSM();
-	public Vector2D getVelocity();
-	public int getNextTargetId();
-	public Vector2D getObstacleGradient(VPoint position);
-	public Vector2D getAgentGradient(VPoint position);
-	public Vector2D getTargetGradient(VPoint position);
-	public VPoint angleToPosition(double angle, double stepSize);
-	public void update(double i, double simTimeInSec, CallMethod eventDriven);
 
+	/** Return the time (seconds) of next step.*/
+	double getTimeOfNextStep();
+	/** Return the step size.*/
+	double getStepSize();
+	/** Return the desired speed.*/
+	double getDesiredSpeed();
+	/** Return the duration of the next step (seconds).*/
+	double getDurationNextStep();
+
+	/** Set time of next step (seconds).*/
+	void setTimeOfNextStep(double d);
+	/** Set duration of next step (seconds).*/
+	void setDurationNextStep(double d);
+	/** Make a step with given duration (seconds).*/
+	void makeStep(double d);
+	/** Update agent next position.*/
+	void updateNextPosition();
+	/** Return the time credit (seconds).*/
+	double getTimeCredit();
+	/** Set the time credit.*/
+	void setTimeCredit(double d);
+	/** Return the next position of the agent.*/
+	VPoint getNextPosition();
+	/** Set current position of the agent.*/
+	void setPosition(VPoint nextPosition);
+	//void setLastPosition(VPoint position);
+	/** Return the id of the agent.*/
+	int getId();
+	//VPoint getLastPosition();
+	/** Set the agents velocity vector.*/
+	void setVelocity(Vector2D vector2d);
+	/** Return the radius of the agent.*/
+	double getRadius();
+	/** Return the potential for this agent at given position.*/
+	double getPotential(VPoint reachPoint);
+	/** Return the current position of the agent.*/
+	VPoint getPosition();
+	/** Return the minimal step length of the agent.*/
+	double getMinStepLength();
+	/** Return the targets potential influence at given position.*/
+	double getTargetPotential(VPoint newPos);
+	/** Return the topography the agent is on.*/
+	Topography getTopography();
+	/** Return the model attributes.*/
+	AttributesOSM getAttributesOSM();
+	/** Return the agents velocity vector.*/
+	Vector2D getVelocity();
+	/** Return the agents target id.*/
+	int getNextTargetId();
+	/** Return the gradient vector for obstacles.*/
+	Vector2D getObstacleGradient(VPoint position);
+	/** Return the gradient vector for agents.*/
+	Vector2D getAgentGradient(VPoint position);
+	/** Return the gradient vector for targets.*/
+	Vector2D getTargetGradient(VPoint position);
+	/** Return new position depending on rotation angle and step size.*/
+	VPoint angleToPosition(double angle, double stepSize);
+	/** Update routine. Called by the model. Absolute necessary.*/
+	void update(double i, double simTimeInSec, CallMethod eventDriven);
+
+	/** Return list of reachable positions for this agent.*/
 	LinkedList<VPoint> getReachablePositions(Random random);
 
 }

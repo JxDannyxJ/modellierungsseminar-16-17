@@ -32,24 +32,41 @@ import java.util.Random;
  */
 public class SourceController {
 
+	/** {@link Source} controlled by this {@link SourceController} instance.*/
 	protected final Source source;
+	/** {@link DynamicElementFactory} used to spawn {@link DynamicElement}.*/
 	protected DynamicElementFactory dynamicElementFactory;
+	/** The scenarios {@link Topography}.*/
 	protected final Topography topography;
+	/** Random instance.*/
 	protected final Random random;
+	/** The attributes of the used source {@link SourceController#source}.*/
 	private final AttributesSource sourceAttributes;
+	/** The attributes of the dynamic element associated with the source {@link SourceController#source}.*/
 	private AttributesDynamicElement attributesDynamicElement;
 
 	// TODO [priority=high] [task=refactoring] remove this from the SourceController and add a new attribute.
 	// This is ONLY used for "useFreeSpaceOnly".
+	/** Shape to check are when spawning elements.*/
 	private VShape dynamicElementShape;
-
+	/** Number of elements to create.*/
 	private int dynamicElementsToCreate;
+	/** Number of already created elements.*/
 	private int dynamicElementsCreatedTotal;
 
 	/** <code>null</code>, if there is no next event. */
 	private Double timeOfNextEvent;
+	/** {@link RealDistribution} used for spawning.*/
 	private RealDistribution distribution;
 
+	/**
+	 * Constructor for this class.
+	 * @param scenario the current scenarios {@link Topography}.
+	 * @param source the {@link Source} to manage.
+	 * @param dynamicElementFactory the {@link DynamicElementFactory} factory used for spawning.
+	 * @param attributesDynamicElement the {@link AttributesDynamicElement} attributes for the spawned elements.
+	 * @param random random instance.
+	 */
 	public SourceController(Topography scenario, Source source,
 			DynamicElementFactory dynamicElementFactory,
 			AttributesDynamicElement attributesDynamicElement, Random random) {
@@ -76,10 +93,20 @@ public class SourceController {
 		}
 	}
 
+	/**
+	 * Update routine for the Source controller.
+	 * Calls {@link SourceController#useDistributionSpawnAlgorithm(double)}.
+	 * @param simTimeInSec the current simulation time (seconds).
+	 */
 	public void update(double simTimeInSec) {
 		useDistributionSpawnAlgorithm(simTimeInSec);
 	}
 
+	/**
+	 * Checks if position is suited to spawn a {@link DynamicElement}.
+	 * @param position {@link VPoint} position to check.
+	 * @return True if suited, else false.
+	 */
 	private boolean isPositionWorkingForSpawn(VPoint position) {
 		if (sourceAttributes.isUseFreeSpaceOnly()) {
 			// Verify if position is obstructed by other pedestrian.
@@ -93,58 +120,105 @@ public class SourceController {
 		return true;
 	}
 
+	/**
+	 * Getter for the {@link VShape} of the {@link DynamicElement}.
+	 * @return {@link VShape} of the {@link DynamicElement}.
+	 */
 	private VShape getDynamicElementShape() {
+		// if element is a horse
 		if (attributesDynamicElement instanceof AttributesHorse) {
 			AttributesHorse attrHorse = ((AttributesHorse) attributesDynamicElement);
 			return new VEllipse(attrHorse.getHeight(), attrHorse.getWidth());
 		}
-		if (attributesDynamicElement instanceof AttributesAgent) {
+		// otherwise
+		else if (attributesDynamicElement instanceof AttributesAgent) {
 			return new VCircle(((AttributesAgent) attributesDynamicElement).getRadius());
 		}
-
-		return new VCircle(0.2);
+		else {
+			return new VCircle(0.2);
+		}
 	}
 
+	/**
+	 * Collects all {@link DynamicElement} instances inside {@link VShape} at a given position {@link VPoint}.
+	 * @param sourcePosition the position from where to start looking.
+	 * @param dynElementShape the area {@link VShape} where to look.
+	 * @return list of all found {@link DynamicElement}.
+	 */
 	private List<DynamicElement> getDynElementsAtPosition(VPoint sourcePosition, VShape dynElementShape) {
 		LinkedCellsGrid<DynamicElement> dynElements = topography.getSpatialMap(DynamicElement.class);
 		return dynElements.getObjects(sourcePosition, dynElementShape.getRadius() * 3);
 	}
 
+	/**
+	 * Calls spawning routines as long as {@link Source} is not finished.
+	 * Calls {@link SourceController#tryToSpawnOutstandingDynamicElements()}
+	 * and {@link SourceController#processNextEventWhenItIsTime(double)} when event available
+	 * (which means {@link SourceController#timeOfNextEvent} is not null).
+	 * @param simTimeInSec the current simulation time (seconds).
+	 */
 	private void useDistributionSpawnAlgorithm(double simTimeInSec) {
+		// if not finished
 		if (!isSourceFinished(simTimeInSec)) {
+			// called when events available and the time is right
 			if (hasNextEvent()) {
 				processNextEventWhenItIsTime(simTimeInSec);
 			}
+			// spawning
 			tryToSpawnOutstandingDynamicElements();
 		}
 	}
 
+	/**
+	 * Check if {@link Source} is finished.
+	 * @param simTimeInSec the simulation time in (seconds).
+	 * @return True if finished, else False.
+	 */
 	private boolean isSourceFinished(double simTimeInSec) {
+		// if max number reached return true
 		if (isMaximumNumberOfSpawnedElementsReached()) {
 			return true;
 		}
 		if (isSourceWithOneSingleSpawnEvent()) {
 			return dynamicElementsCreatedTotal == sourceAttributes.getSpawnNumber();
 		}
+		// if time is up
 		return isAfterSourceEndTime(simTimeInSec) && dynamicElementsToCreate == 0;
 	}
 
+	/**
+	 * Check if max number of spawns is reached.
+	 * @return True if max number is reached, else False.
+	 */
 	private boolean isMaximumNumberOfSpawnedElementsReached() {
 		final int maxNumber = sourceAttributes.getMaxSpawnNumberTotal();
 		return maxNumber != AttributesSource.NO_MAX_SPAWN_NUMBER_TOTAL
 				&& dynamicElementsCreatedTotal >= maxNumber;
 	}
 
+	/**
+	 * Check if only one spawn event is available.
+	 * @return True if yes, else False.
+	 */
 	private boolean isSourceWithOneSingleSpawnEvent() {
 		return sourceAttributes.getStartTime() == sourceAttributes.getEndTime();
 	}
 
+	/**
+	 * If current simulation time surpasses {@link SourceController#timeOfNextEvent}
+	 * call {@link SourceController#determineNumberOfSpawnsAndNextEvent(double)}.
+	 * @param simTimeInSec
+	 */
 	private void processNextEventWhenItIsTime(double simTimeInSec) {
 		if (simTimeInSec >= timeOfNextEvent) {
 			determineNumberOfSpawnsAndNextEvent(simTimeInSec);
 		}
 	}
 
+	/**
+	 * Determine number of spawns and time of next event.
+	 * @param simTimeInSec the current simulation time (seconds).
+	 */
 	private void determineNumberOfSpawnsAndNextEvent(double simTimeInSec) {
 		dynamicElementsToCreate += sourceAttributes.getSpawnNumber();
 
@@ -165,15 +239,29 @@ public class SourceController {
 		processNextEventWhenItIsTime(simTimeInSec);
 	}
 
+	/**
+	 * Check if next event is available.
+	 * @return True if it does, else False.
+	 */
 	private boolean hasNextEvent() {
 		return timeOfNextEvent != null;
 	}
 
+	/**
+	 * Check if spawn time is over.
+	 * @param time the current time (seconds).
+	 * @return True if yes, else False.
+	 */
 	private boolean isAfterSourceEndTime(double time) {
 		return time > sourceAttributes.getEndTime();
 	}
 
+	/**
+	 * Try to spawn new {@link Agent} to the scenario.
+	 * Calls {@link SourceController#addNewAgentToScenario(VPoint)}.
+	 */
 	private void tryToSpawnOutstandingDynamicElements() {
+		// try to spawn a new agent at each position
 		for (VPoint position : getDynamicElementPositions(dynamicElementsToCreate)) {
 			if (!isMaximumNumberOfSpawnedElementsReached() && isPositionWorkingForSpawn(position)) {
 				addNewAgentToScenario(position);
@@ -233,6 +321,11 @@ public class SourceController {
 		return result;
 	}
 
+	/**
+	 * Compute List of {@link VPoint} positions.
+	 * @param numDynamicElements number of positions to compute.
+	 * @return List of {@link VPoint}.
+	 */
 	private LinkedList<VPoint> getDynamicElementPositions(int numDynamicElements) {
 
 		LinkedList<VPoint> positions = new LinkedList<>();
@@ -241,8 +334,7 @@ public class SourceController {
 		double ds = 0;
 
 		if (rect.getHeight() == 0 && rect.getWidth() == 0) {
-			rect = new Rectangle2D.Double(rect.getMinX(), rect.getMinY(), 0.2,
-					0.2);
+			rect = new Rectangle2D.Double(rect.getMinX(), rect.getMinY(), 0.2, 0.2);
 		}
 
 		ds = Math.sqrt((rect.getWidth() * rect.getHeight()) / numDynamicElements);

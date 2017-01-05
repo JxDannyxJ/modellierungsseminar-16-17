@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ *
+ */
 public class OfflineSimulation {
 
 	private final Map<Step, List<Agent>> pedestriansByStep;

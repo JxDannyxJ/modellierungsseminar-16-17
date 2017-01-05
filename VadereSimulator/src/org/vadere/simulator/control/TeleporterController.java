@@ -67,7 +67,8 @@ public class TeleporterController {
 			
 			if (position.getX() > teleporter.getTeleporterPosition().getX()) {
 				VPoint newPos = new VPoint(position.getX()
-						+ teleporter.getTeleporterShift().getX(), position.getY());	
+						+ teleporter.getTeleporterShift().getX(), position.getY());
+				agent.setPosition(newPos);
 			}
 			if (position.getX() < teleporter.getTeleporterPosition().getX()
 					+ teleporter.getTeleporterShift().getX()) {

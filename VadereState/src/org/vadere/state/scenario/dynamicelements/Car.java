@@ -26,6 +26,10 @@ public class Car extends Agent implements Comparable<Car> {
 		this(new AttributesCar());
 	}
 
+	/**
+	 * Class constructor which instantiates a car object with given attributes
+	 * @param attributesCar
+	 */
 	private Car(AttributesCar attributesCar) {
 		this(attributesCar, new Random());
 	}
@@ -41,7 +45,7 @@ public class Car extends Agent implements Comparable<Car> {
 	}
 
 	/**
-	 * Constructor for cloning
+	 * Class copy constructor
 	 *
 	 * @param other: Car to clone
 	 */

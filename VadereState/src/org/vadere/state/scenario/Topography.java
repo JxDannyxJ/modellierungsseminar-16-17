@@ -74,8 +74,19 @@ public class Topography {
 	 */
 	private List<Obstacle> boundaryObstacles;
 
+	/**
+	 * List of stairs used in the simulation
+	 */
 	private final List<Stairs> stairs;
 
+	/**
+	 * Class constructor creates a new topography with given attributes for the scenario
+	 * elements and the topography itself
+	 * @param attributes the attributes for the topography
+	 * @param attributesPedestrian the attributes for the pedestrians
+	 * @param attributesCar the attributes for the cars
+	 * @param attributesHorse the attributes for the horses
+	 */
 	public Topography(AttributesTopography attributes, AttributesAgent attributesPedestrian,
 					  AttributesCar attributesCar, AttributesHorse attributesHorse) {
 		this(attributes, attributesPedestrian);
@@ -83,6 +94,12 @@ public class Topography {
 		this.setAttributesHorse(attributesHorse);
 	}
 
+	/**
+	 * Class constructor which instantiates a new topography with the appropriate attributes
+	 * for it and for the pedestrians
+	 * @param attributes the attributes for the topography
+	 * @param attributesPedestrian the attributes for the pedestrians
+	 */
 	public Topography(AttributesTopography attributes, AttributesAgent attributesPedestrian) {
 		this.attributes = attributes;
 		this.attributesPedestrian = attributesPedestrian;
@@ -106,56 +123,117 @@ public class Topography {
 		this(new AttributesTopography(), new AttributesAgent(), new AttributesCar(), new AttributesHorse());
 	}
 
+	/**
+	 * Checks whether the topography contains any of the given targets in the list
+	 * @param targetPredicate the list of targets which will checked against the topography target list
+	 * @return true if one of the targets in the list is contained in the topography
+	 */
 	public boolean containsTarget(final Predicate<Target> targetPredicate) {
 		return getTargets().stream().anyMatch(targetPredicate);
 	}
 
+	/**
+	 * Overloaded method {@link #containsTarget(Predicate)}, which checks furthermore
+	 * if the targets has the same target id.
+	 * @param targetPredicate the list of targets which will checked against the topography target list
+	 * @param targetId
+	 * @return true if one of the targets in the list is contained in the topography
+	 */
 	public boolean containsTarget(final Predicate<Target> targetPredicate, final int targetId) {
 		return getTargets().stream().filter(t -> t.getId() == targetId).anyMatch(targetPredicate);
 	}
 
+	/**
+	 * Adds a dynamic element to the specified container
+	 * @param element the dynamic element to add
+	 * @param <T> the type of the dynamic element
+	 */
 	public <T extends DynamicElement> void addElement(T element) {
 		((DynamicElementContainer<T>) getContainer(element.getClass())).addElement(element);
 	}
 
+	/**
+	 * Removes a dynamic element from the specified container
+	 * @param element the dynamic element to remove
+	 * @param <T> the type of the dynamic element
+	 */
 	public <T extends DynamicElement> void removeElement(T element) {
 		((DynamicElementContainer<T>) getContainer(element.getClass())).removeElement(element);
 	}
 
+	/**
+	 * Adds a new source to the topography
+	 * @param source a new source, where scenario elements spawn on
+	 */
 	public void addSource(Source source) {
 		this.sources.add(source);
 	}
 
+	/**
+	 * Adds a target to the list of targets
+	 * @param target the target which shall be added
+	 */
 	public void addTarget(Target target) {
 		this.targets.add(target);
 	}
 
+	/**
+	 * Adds an obstacle to the list of obstacles
+	 * @param obstacle the obstacle which shall be added
+	 */
 	public void addObstacle(Obstacle obstacle) {
 		this.obstacles.add(obstacle);
 	}
 
+	/**
+	 * Adds a stair to the list of stairs
+	 * @param stairs the stair which shall be added
+	 */
 	public void addStairs(Stairs stairs) {
 		this.stairs.add(stairs);
 	}
 
+	/**
+	 * Setter for the teleporter
+	 * @param teleporter teleporter which shall be replaced
+	 */
 	public void setTeleporter(Teleporter teleporter) {
 		this.teleporter = teleporter;
 	}
 
+	/**
+	 * Add an element to the container of initial elements with the specified type
+	 * @param element the dynamic element which shall be added
+	 * @param <T> the type of the dynamic element
+	 */
 	public <T extends DynamicElement> void addInitialElement(T element) {
 		((DynamicElementContainer<T>) this.getContainer(element.getClass())).addInitialElement(element);
 	}
 
+	/**
+	 * Adds an element add listener for a dynamic element.
+	 * @param elementType the type of the element
+	 * @param addListener the listener for this element
+	 */
 	public <T extends DynamicElement> void addElementAddedListener(Class<T> elementType,
 																   DynamicElementAddListener<T> addListener) {
 		getContainer(elementType).addElementAddedListener(addListener);
 	}
 
+	/**
+	 * Adds an element remove listener for a dynamic element.
+	 * @param elementType the type of the element
+	 * @param listener the listener for this element
+	 */
 	public <T extends DynamicElement> void addElementRemovedListener(Class<T> elementType,
 																	 DynamicElementRemoveListener<T> listener) {
 		getContainer(elementType).addElementRemovedListener(listener);
 	}
 
+	/**
+	 * Removes all listener from the element type
+	 * @param elementType the type of the element
+	 */
 	public <T extends DynamicElement> void clearListeners(Class<T> elementType) {
 		getContainer(elementType).clearListeners();
 	}

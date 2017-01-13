@@ -1,6 +1,7 @@
 package org.vadere.state.attributes.processor;
 
 /**
+ * Attributes class for the start evacuation time processor
  * @author Mario Teixeira Parente
  *
  */

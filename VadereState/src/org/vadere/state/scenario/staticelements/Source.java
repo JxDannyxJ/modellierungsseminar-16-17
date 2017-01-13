@@ -46,6 +46,11 @@ public class Source implements ScenarioElement {
 		this.attributes = (AttributesSource)attributes;
 	}
 
+	/**
+	 * Getter for the start time of the source spawning elements
+	 * @return the start time
+	 */
+	@SuppressWarnings("unused")
 	public double getStartTime() {
 		return attributes.getStartTime();
 	}

@@ -4,6 +4,13 @@ import org.vadere.state.attributes.scenario.AttributesScenarioElement;
 import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VShape;
 
+/**
+ * The simulation scenario element is a brick in the simulation
+ * which may serve as a dynamic or static object. All scenario elements
+ * have a shape, which can be drawn in the simulation, an id which makes
+ * them addressable uniquely, a type which is yet limited to the types defined
+ * in {@link org.vadere.state.types.ScenarioElementType ScenarioElementType} and attributes.
+ */
 public interface ScenarioElement extends Cloneable {
 	/**
 	 * Getter for the shape of the scenario element

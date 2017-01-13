@@ -18,7 +18,7 @@ public class AttributesOVM extends Attributes {
 	private boolean ignoreOtherCars = true;
 
 	/**
-	 * Class constructor
+	 * Class default constructor for JSON
 	 */
 	public AttributesOVM() {
 		attributesODEIntegrator = new AttributesODEIntegrator();

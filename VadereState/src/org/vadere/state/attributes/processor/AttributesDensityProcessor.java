@@ -1,6 +1,7 @@
 package org.vadere.state.attributes.processor;
 
 /**
+ * Attributes class for the density processor
  * @author Mario Teixeira Parente
  *
  */

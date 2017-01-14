@@ -66,6 +66,11 @@ public abstract class Agent implements DynamicElement {
 		setAttributes(attributesAgent);
 	}
 
+	/**
+	 * Class constructor for a new agent with given attributes and position
+	 * @param attributes the attributes for the new agent
+	 * @param position the position of the agent on the map
+	 */
 	public Agent(AttributesAgent attributes, VPoint position) {
 		this(attributes, new Random());
 		setPosition(position);
@@ -113,6 +118,36 @@ public abstract class Agent implements DynamicElement {
 		this.setVelocity(other.getVelocity());
 		this.setFreeFlowSpeed(other.getFreeFlowSpeed());
 	}
+
+	@Override
+	public abstract Agent clone();
+
+	public void copy(Agent element) {
+		this.source = element.getSource();
+		this.targetIds = new LinkedList<>(element.getTargets());
+		this.freeFlowSpeed = element.getFreeFlowSpeed();
+		this.idAsTarget = element.getIdAsTarget();
+		this.nextTargetListIndex = element.getNextTargetListIndex();
+		this.velocity = element.getVelocity();
+		setAttributes(element.getAttributes());
+	}
+
+	/**
+	 * Increments the target list index counter
+	 */
+	public void incrementNextTargetListIndex() {
+		// Deprecated target list usage
+		if (nextTargetListIndex == -1) {
+			throw new IllegalStateException("nextTargetListIndex is -1. this indicates the deprecated usage of "
+					+ "the target list. you have to set the index to 0 before you can start incrementing.");
+		}
+
+		nextTargetListIndex++;
+	}
+
+	/*****************************
+	 * 			Getter			 *
+	 *****************************/
 
 	/**
 	 * Getter for the list of targets for this class
@@ -202,18 +237,6 @@ public abstract class Agent implements DynamicElement {
 	}
 
 	/**
-	 * Setter for the idAsTarget variable
-	 *
-	 * @param id which will treat the agent as a target, if it is unequals -1
-	 */
-	public void setIdAsTarget(int id) {
-		this.idAsTarget = id;
-	}
-
-	@Override
-	public abstract Agent clone();
-
-	/**
 	 * Converts a Iterable of Agent to a List of VPoint positions.
 	 *
 	 * @return a List of VPoint positions of the agents
@@ -228,8 +251,6 @@ public abstract class Agent implements DynamicElement {
 
 		return agentPositions;
 	}
-
-	// Getters...
 
 	/**
 	 * Get the index pointing to the next target in the target list.
@@ -282,6 +303,10 @@ public abstract class Agent implements DynamicElement {
 	@Override
 	public abstract AttributesAgent getAttributes();
 
+	/*****************************
+	 * 			Setter			 *
+	 *****************************/
+
 	/**
 	 * Abstract Setter for the attributes object, which has to be implemented by the subclass
 	 * to provide the attributes information for the other classes. An attributes object shouldn't be
@@ -291,7 +316,14 @@ public abstract class Agent implements DynamicElement {
 	@Override
 	public abstract void setAttributes(AttributesScenarioElement attributes);
 
-	// Setters...
+	/**
+	 * Setter for the idAsTarget variable
+	 *
+	 * @param id which will treat the agent as a target, if it is unequals -1
+	 */
+	public void setIdAsTarget(int id) {
+		this.idAsTarget = id;
+	}
 
 
 	/**
@@ -314,19 +346,6 @@ public abstract class Agent implements DynamicElement {
 	 */
 	public void setSource(Source source) {
 		this.source = source;
-	}
-
-	/**
-	 * Increments the target list index counter
-	 */
-	public void incrementNextTargetListIndex() {
-		// Deprecated target list usage
-		if (nextTargetListIndex == -1) {
-			throw new IllegalStateException("nextTargetListIndex is -1. this indicates the deprecated usage of "
-					+ "the target list. you have to set the index to 0 before you can start incrementing.");
-		}
-
-		nextTargetListIndex++;
 	}
 
 	/**
@@ -356,16 +375,6 @@ public abstract class Agent implements DynamicElement {
 	// TODO [task=refactoring] remove again!
 	public void setFreeFlowSpeed(double freeFlowSpeed) {
 		this.freeFlowSpeed = freeFlowSpeed;
-	}
-
-	public void copy(Agent element) {
-		this.source = element.getSource();
-		this.targetIds = new LinkedList<>(element.getTargets());
-		this.freeFlowSpeed = element.getFreeFlowSpeed();
-		this.idAsTarget = element.getIdAsTarget();
-		this.nextTargetListIndex = element.getNextTargetListIndex();
-		this.velocity = element.getVelocity();
-		setAttributes(element.getAttributes());
 	}
 
 }

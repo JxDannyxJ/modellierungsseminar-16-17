@@ -12,24 +12,37 @@ import org.vadere.util.geometry.shapes.VShape;
  * Upward direction specifies in which direction the treads should head toward. This way a polygon
  * can also be used.
  * Upward direction must not be normalized (it will be normalized to 1.0 in the constructor).
- * 
- *
  */
 public class AttributesStairs extends AttributesScenarioElement {
 
 	private int treadCount = 1;
 	private Vector2D upwardDirection = new Vector2D(1.0, 0.0);
 
-	public AttributesStairs() {
-		// needs to be present for GSON
-	}
+	/**
+	 * Class default constructor used for GSON
+	 */
+	@SuppressWarnings("unused")
+	public AttributesStairs() {}
 
+	/**
+	 * Class constructor which creates an attributes object for stairs with a given id
+	 * @param id the unique identifier of this object
+	 */
+	@SuppressWarnings("unused")
 	public AttributesStairs(int id) {
 		super(id);
 		this.treadCount = 1;
 		upwardDirection = new Vector2D(1.0, 0.0);
 	}
 
+	/**
+	 * Class constructor for an attributes stairs object with a given id, shape, step amount
+	 * and running direction
+	 * @param id the unique identifier of the attributes object
+	 * @param shape the shape
+	 * @param treadCount the amount steps for the stairs
+	 * @param upwardDirection the direction of movement
+	 */
 	public AttributesStairs(int id, VShape shape, int treadCount, Vector2D upwardDirection) {
 		super(id, shape);
 		this.treadCount = Math.max(1, treadCount);
@@ -40,10 +53,18 @@ public class AttributesStairs extends AttributesScenarioElement {
 		}
 	}
 
+	/**
+	 * Getter for the step count
+	 * @return tread count
+	 */
 	public int getTreadCount() {
 		return treadCount;
 	}
 
+	/**
+	 * Getter for the direction of movement
+	 * @return stairs running direction
+	 */
 	public Vector2D getUpwardDirection() {
 		return upwardDirection;
 	}

@@ -15,11 +15,17 @@ public class AttributesFloorField extends Attributes {
 	private double targetAttractionStrength = 1.0;
 	private AttributesTimeCost timeCostAttributes;
 
+	/**
+	 * Class constructor initializing the time cost attributes for a new attributes floor field
+	 */
 	public AttributesFloorField() {
 		timeCostAttributes = new AttributesTimeCost();
 	}
 
-	// Getters...
+	/*****************************
+	 * 			Getter			 *
+	 *****************************/
+
 	public EikonalSolverType getCreateMethod() {
 		return createMethod;
 	}

@@ -18,9 +18,15 @@ public class AttributesODEIntegrator extends Attributes {
 	private double toleranceAbsolute = 1e-5;
 	private double toleranceRelative = 1e-4;
 
+	/**
+	 * Class default constructor for JSON
+	 */
 	public AttributesODEIntegrator() {}
 
-	// Getters...
+	/*****************************
+	 * 			Getter			 *
+	 *****************************/
+
 	public IntegratorType getSolverType() {
 		return solverType;
 	}

@@ -14,11 +14,17 @@ public class AttributesGNM extends Attributes {
 	private String pedestrianPotentialModel = "org.vadere.simulator.models.gnm.PotentialFieldPedestrianGNM";
 	private String obstaclePotentialModel = "org.vadere.simulator.models.gnm.PotentialFieldObstacleGNM";
 
+	/**
+	 * Class constructor initializing attributes of the ode integrator
+	 */
 	public AttributesGNM() {
 		attributesODEIntegrator = new AttributesODEIntegrator();
 	}
 
-	// Getters...
+	/*****************************
+	 * 			Getter			 *
+	 *****************************/
+
 	public AttributesODEIntegrator getAttributesODEIntegrator() {
 		return attributesODEIntegrator;
 	}

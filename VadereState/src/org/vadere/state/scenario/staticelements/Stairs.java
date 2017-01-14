@@ -14,6 +14,12 @@ import java.awt.geom.Path2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 
+/**
+ * Static scenario element for stairs. These type of scenario element manipulates
+ * the common movement of the dynamic scenario elements when entering a stairs object
+ * in the simulation. Stairs will then shift the element to a specific position and thus
+ * the element will cover a greater distance.
+ */
 public class Stairs implements ScenarioElement {
 
 	public static class Tread {
@@ -28,12 +34,20 @@ public class Stairs implements ScenarioElement {
 	private final Tread[] treads;
 	private double treadDepth;
 
+	/**
+	 * Class constructor for creating a new stairs object with a preset of attributes
+	 * @param attributes the attributes for the new object
+	 */
 	public Stairs(AttributesStairs attributes) {
 		this.attributes = attributes;
 
 		treads = initializeTreads();
 	}
 
+	/**
+	 * Initializes the amount of treads a stair object has.
+	 * @return an array of tread objects which represent the stairs treads
+	 */
 	private Tread[] initializeTreads() {
 		// tread count + 2 since the first and last treads must be placed outside of the shape and
 		// on the next floor.

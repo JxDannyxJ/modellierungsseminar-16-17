@@ -1,38 +1,89 @@
 \newcommand\tab[1][1cm]{\hspace*{#1}}
 \graphicspath{{images/}{images/logos/}}
 \begin{frame}{Unsere Aufgabe}
-	Simulation des Festzuges in der Landshuter Innenstadt.
-	Dabei sollen Menschen, Pferde und Kutschen in die Simulation eingebunden werden.
-	Die Ergebnisse sollen schlussendlich für visuelle Darstellungen weiter gegeben werden.
-	\newline \newline
-	\underline{Simulations Tool:} \newline \tab OpenVadere (open source projekt) $\underline{}$
+	\begin{center}
+		\begin{itemize}
+			\item Simulation des Festzuges in der Landshuter Innenstadt
+			\item Menschen, Pferde und Kutschen sollen eingebunden werden
+			\item Weitergabe der Ergebnisse
+		\end{itemize}
+	
+\end{center}
+	\underline{Simulations Tool:} $\underline{}$
+	\begin{itemize}
+		\item OpenVadere (Open Source Projekt) 
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Sprint Ziele}
 	\begin{center}
-		%\includegraphics[width=260,height=240]{./sprint_goals.png}
+		\begin{itemize}
+			\item US-2: Horse Modell:
+			\begin{itemize}
+				\item Unabhängiges Bewegungsmodell für das Pferd festlegen
+			\end{itemize}
+			\item US-7: Schnittstelle:
+			\begin{itemize}
+				\item Datenweitergabe an die Unity Gruppe
+				\item Weitergabe der Rechenergebnisse an die CityGML Gruppe
+			\end{itemize} 
+			\item US-8: Landshuter Hochzeit (Teilszenario):
+			\begin{itemize}
+				\item Realität nah ein Teilszenario der Landshuter Hochzeit abbilden
+			\end{itemize}
+			\item US-5: Kutsche (Optional): 
+				\begin{itemize}
+				\item Erstellung einer Kutsche
+			\end{itemize}
+		\end{itemize}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Erreichte Ziele}
+	\begin{center}
+		\begin{itemize}
+			\item \colorbox{green} {US-2: Horse Modell:}
+			\begin{itemize}
+				\item \colorbox{green} {Unabhängiges Bewegungsmodell für das Pferd fetlegen}
+			\end{itemize}
+			\item \colorbox{yellow} {US-7: Schnittstelle:}
+			\begin{itemize}
+				\item \colorbox{green} {Datenweitergabe an die Unity Gruppe}
+				\item \colorbox{red}{Weitergabe der Rechenergebnis an die CityGML Gruppe}
+			\end{itemize} 
+		
+			\item \colorbox{green} {US-8: Landshuter Hochzeit (Teilszenario):}
+			\begin{itemize}
+				\item \colorbox{green}{Realität nah ein Teilszenario der Landshuter Hochzeit abbilden}
+			\end{itemize}
+			\item \colorbox{green}{US-5: Kutsche (Optional):} 
+			\begin{itemize}
+				\item \colorbox{green}{Erstellung einer Kutsche}
+			\end{itemize}
+		\end{itemize}
 	\end{center}
 \end{frame}
 
 \begin{frame}{Schwierigkeiten und Lösungen}
 	\begin{itemize}
-		\item Verstreutes Team \newline \tab Trello und Skype Calls
-		\item Großes Projekt \& Wo anfangen?
-			 \newline \tab Aufteilen des Teams auf die einzelnen Bereiche
-			 \newline \tab Einarbeiten im Kontext eines neuen Agenten (Pferd)
+		\item Viele mögliche Ideen, wenig Kapazitäten
+		 \begin{itemize}
+			\item Festlegen fester User Stories, als Ziel 
+			\item Leitung durch Scrum Master welche Task Priorität haben
+		\end{itemize} 
+		\item Verstreutes Team
+			 \newline Treffen:
+			 \begin{itemize}
+			 	\item Donnerstags (Vorlesung)
+			 	\item Sonntags(Online)
+			 	\item Dienstags (Freiwillig HM)
+			 \end{itemize} 
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Ausblick}
 	\begin{itemize}
-		\item Bewegungsmodel für Pferde einbinden.
-		\item Schnittstelle zu den anderen Teams erweitern.
-		\item Weitere Agententypes.
-		\item Gui fertigstellen.
-		\item Team:
-			\begin{itemize}
-				\item Code dojo
-				\item Pair programming
-			\end{itemize}
+		\item Komplette Simulation der Landshuter Hochzeit in viele Teilszenarien
+		\item Weitergabe der Daten an die CityGML Gruppe
 	\end{itemize}
 \end{frame}

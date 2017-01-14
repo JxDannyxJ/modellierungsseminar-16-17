@@ -1,6 +1,7 @@
 package org.vadere.state.attributes.processor;
 
 /**
+ * Attributes class for the area speed processor
  * @author Mario Teixeira Parente
  *
  */

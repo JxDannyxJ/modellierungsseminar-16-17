@@ -1,15 +1,15 @@
 package org.vadere.state.scenario;
 
+import org.apache.commons.math3.distribution.RealDistribution;
+import org.apache.commons.math3.random.JDKRandomGenerator;
+import org.apache.commons.math3.random.RandomGenerator;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-
-import org.apache.commons.math3.distribution.RealDistribution;
-import org.apache.commons.math3.random.JDKRandomGenerator;
-import org.apache.commons.math3.random.RandomGenerator;
 
 public class DistributionFactory {
 
@@ -28,6 +28,18 @@ public class DistributionFactory {
 		return new DistributionFactory(distributionClass);
 	}
 
+	/**
+	 * Method which accepts a random class and a list of arguments which will be used to
+	 * create a real distribution
+	 * @param random a random inherited class
+	 * @param parameters a list of arguments used for instantiating a real distribution
+	 * @return a real distribution
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 */
 	public RealDistribution createDistribution(Random random, List<Double> parameters)
 			throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException,
 			SecurityException {
@@ -46,6 +58,17 @@ public class DistributionFactory {
 		return (RealDistribution) constructor.newInstance(args);
 	}
 
+	/**
+	 * Method which accepts a random class and a vaarg of arguments for the real distribution
+	 * @param random
+	 * @param parameters
+	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 */
 	public RealDistribution createDistribution(Random random, Double... parameters)
 			throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException,
 			SecurityException {

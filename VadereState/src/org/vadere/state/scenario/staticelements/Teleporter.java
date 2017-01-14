@@ -8,6 +8,10 @@ import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VShape;
 
+/**
+ * Teleporter of a simulation have the property of shifting an agent over a greater
+ * distance to specified location.
+ */
 public class Teleporter implements ScenarioElement {
 
 	private AttributesTeleporter attributes;

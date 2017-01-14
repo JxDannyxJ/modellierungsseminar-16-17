@@ -3,6 +3,9 @@ package org.vadere.state.attributes.models;
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.types.GradientProviderType;
 
+/**
+ * Attributes class for the social force model
+ */
 public class AttributesSFM extends Attributes {
 	private AttributesODEIntegrator attributesODEIntegrator;
 	private GradientProviderType floorGradientProviderType = GradientProviderType.FLOOR_EIKONAL_DISCRETE;
@@ -11,11 +14,17 @@ public class AttributesSFM extends Attributes {
 	private String pedestrianPotentialModel = "org.vadere.simulator.models.sfm.PotentialFieldPedestrianSFM";
 	private String obstaclePotentialModel = "org.vadere.simulator.models.sfm.PotentialFieldObstacleSFM";
 
+	/**
+	 * Class default constructor for JSON
+	 */
 	public AttributesSFM() {
 		attributesODEIntegrator = new AttributesODEIntegrator();
 	}
 
-	// Getter...
+	/*****************************
+	 * 			Getter			 *
+	 *****************************/
+
 	public AttributesODEIntegrator getAttributesODEIntegrator() {
 		return attributesODEIntegrator;
 	}

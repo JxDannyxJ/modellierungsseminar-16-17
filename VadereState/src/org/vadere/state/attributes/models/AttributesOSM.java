@@ -1,13 +1,13 @@
 package org.vadere.state.attributes.models;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.types.MovementType;
 import org.vadere.state.types.OptimizationType;
 import org.vadere.state.types.UpdateType;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Simulation attributes for the optimal steps model
@@ -32,9 +32,15 @@ public class AttributesOSM extends Attributes {
 	private String obstaclePotentialModel = "org.vadere.simulator.models.potential.PotentialFieldObstacleCompact";
 	private List<String> submodels = new LinkedList<>();
 
+	/**
+	 * Class default constructor for JSON
+	 */
 	public AttributesOSM() {}
 
-	// Getters...
+	/*****************************
+	 * 			Getter			 *
+	 *****************************/
+
 	public int getStepCircleResolution() {
 		return stepCircleResolution;
 	}

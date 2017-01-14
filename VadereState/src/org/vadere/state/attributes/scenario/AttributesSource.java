@@ -65,10 +65,19 @@ public class AttributesSource extends AttributesScenarioElement {
 	private AttributesSource() {
 	}
 
+	/**
+	 * Class constructor for a new attributes source object with given identifier
+	 * @param id the unique identifier for the object
+	 */
 	public AttributesSource(int id) {
 		super(id);
 	}
 
+	/**
+	 * Class constructor which creates a new attributes source object with a given id and shape
+	 * @param id
+	 * @param shape
+	 */
 	public AttributesSource(int id, VShape shape) {
 		super(id, shape);
 	}

@@ -12,7 +12,8 @@ import org.vadere.util.geometry.shapes.VShape;
 import java.util.Random;
 
 /**
- * Simulation Model of a Horse.
+ * Represents a horse in the simulation. The attributes object contained in the class
+ * determine the properties of the horse.
  * @author Daniel Jadanec
  */
 public class Horse extends Agent implements Comparable<Horse> {
@@ -40,6 +41,10 @@ public class Horse extends Agent implements Comparable<Horse> {
 		this(new AttributesHorse());
 	}
 
+	/**
+	 * Class constructor which creates a new horse object with given attributes
+	 * @param attributesHorse the attributes for the horse
+	 */
 	private Horse(AttributesHorse attributesHorse) {
 		this(attributesHorse, new Random());
 	}
@@ -56,17 +61,27 @@ public class Horse extends Agent implements Comparable<Horse> {
 		super(attributesHorse, random);
 	}
 
+	/**
+	 * Class constructor which creates a horse object with given attributes and a initial position
+	 * @param attributesHorse the attributes for the horse
+	 * @param position the initial position
+	 */
 	public Horse(AttributesHorse attributesHorse, VPoint position) {
 		super(attributesHorse, position);
 	}
 
 	/**
-	 * Copy constructor
+	 * Class copy constructor
 	 *
 	 * @param other: Horse to clone
 	 */
 	private Horse(Horse other) {
 		super(other);
+	}
+
+	@Override
+	public Horse clone() {
+		return new Horse(this);
 	}
 
 	@Override
@@ -81,6 +96,10 @@ public class Horse extends Agent implements Comparable<Horse> {
 		}
 	}
 
+	/*****************************
+	 * 			Getter			 *
+	 *****************************/
+
 	@Override
 	public VShape getShape() {
 		getAttributes().setShape(new VEllipse(this.getPosition(), ((AttributesHorse) getAttributes()).getHeight(), ((AttributesHorse) getAttributes()).getWidth()));
@@ -93,32 +112,41 @@ public class Horse extends Agent implements Comparable<Horse> {
 	}
 
 	@Override
-	public Horse clone() {
-		return new Horse(this);
-	}
-
-	@Override
 	public AttributesAgent getAttributes() {
 		return attributesHorse;
 	}
+
+	public boolean isSaddled() {
+		return isSaddled;
+	}
+
+	public boolean isHasEyepatch() {
+		return hasEyepatch;
+	}
+
+	/*****************************
+	 * 			Setter			 *
+	 *****************************/
 
 	@Override
 	public void setAttributes(AttributesScenarioElement attributes) {
 		attributesHorse = (AttributesHorse) attributes;
 	}
 
-	public boolean isHasEyepatch() {
-		return hasEyepatch;
-	}
-	
+	/**
+	 * Setter for the eye patch property
+	 * @param hasEyepatch true if the horse shall wear an eye patch, false otherwise
+	 */
+	@SuppressWarnings("unused")
 	public void setHasEyepatch(boolean hasEyepatch) {
 		this.hasEyepatch = hasEyepatch;
 	}
-	
-	public boolean isSaddled() {
-		return isSaddled;
-	}
-	
+
+	/**
+	 * Setter for having a saddled horse
+	 * @param isSaddled true if the horse shall be saddled, false otherwise
+	 */
+	@SuppressWarnings("unused")
 	public void setSaddled(boolean isSaddled) {
 		this.isSaddled = isSaddled;
 	}

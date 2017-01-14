@@ -1,12 +1,17 @@
 package org.vadere.state.deserializers;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+
+import org.vadere.state.attributes.models.AttributesTimeCost;
 
 import java.lang.reflect.Type;
 
-import org.vadere.state.attributes.models.AttributesTimeCost;
-import org.vadere.util.io.IOUtils;
-
+@SuppressWarnings("unused")
 public class AttributesTimeCostDeserializer implements JsonDeserializer<AttributesTimeCost> {
 
 	@Override

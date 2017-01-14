@@ -1,9 +1,9 @@
 package org.vadere.state.attributes;
 
-import java.lang.reflect.Field;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+
+import java.lang.reflect.Field;
 
 /**
  * Abstract class for all static simulation attributes. Provides reflection
@@ -12,6 +12,9 @@ import com.google.gson.JsonElement;
  */
 public abstract class Attributes {
 
+	/**
+	 * Class default constructor for GSON
+	 */
 	public Attributes() {
 	}
 

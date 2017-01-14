@@ -1,6 +1,7 @@
 package org.vadere.state.attributes.processor;
 
 /**
+ * Attributes for the overlap processor
  * @author Mario Teixeira Parente
  *
  */

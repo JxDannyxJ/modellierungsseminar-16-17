@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Provides attribute structure for {@link TypedPairModel}.
- * Maps models to {@link DynamicElementTypes}.
+ * Provides attribute structure for TypedPairModel.
+ * Maps models to {@link org.vadere.state.types.DynamicElementType DynamicElementTypes}.
  * So it is possible to assign movement behavior to specific agent types.
  * Created by alex on 16.11.16.
  */
@@ -27,7 +27,7 @@ public class AttributesTPM extends Attributes{
     private List<String> modelAttributes = new LinkedList<>();
 
     /**
-     *  Default constructor.
+     *  Class default constructor for JSON
      */
     public AttributesTPM() {
 

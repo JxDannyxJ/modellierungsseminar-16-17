@@ -3,6 +3,7 @@ package org.vadere.state.attributes.processor;
 import org.vadere.util.geometry.shapes.VRectangle;
 
 /**
+ * Attributes for the waiting end time processor
  * @author Mario Teixeira Parente
  *
  */

@@ -69,17 +69,26 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *
+ */
 public abstract class JsonConverter {
 
+	/** */
 	public static final String SCENARIO_KEY = "scenario";
 
+	/** */
 	public static final String MAIN_MODEL_KEY = "mainModel";
 
+	/** */
 	private static Logger logger = LogManager.getLogger(JsonConverter.class);
 
+	/** */
 	private static ObjectMapper mapper = new ObjectMapper();
+	/** */
 	private static ObjectWriter writer = mapper.writerWithDefaultPrettyPrinter();
 
+	/** */
 	static {
 		mapper.configure(DeserializationFeature.ACCEPT_FLOAT_AS_INT, false); // otherwise 4.7 will automatically be casted to 4 for integers, with this it throws an error
 		mapper.enable(JsonParser.Feature.STRICT_DUPLICATE_DETECTION); // forbids duplicate keys
@@ -182,10 +191,24 @@ public abstract class JsonConverter {
 		mapper.registerModule(sm);
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public static ObjectMapper getMapper() {
 		return mapper;
 	}
 
+	/**
+	 *
+	 * @param json
+	 * @param objectClass
+	 * @param <T>
+	 * @return
+	 * @throws JsonProcessingException
+	 * @throws IOException
+	 * @throws TextOutOfNodeException
+	 */
 	public static <T> T deserializeObjectFromJson(String json, Class<T> objectClass) throws JsonProcessingException, IOException, TextOutOfNodeException {
 		final JsonNode node = mapper.readTree(json);
 		checkForTextOutOfNode(json);
@@ -194,14 +217,28 @@ public abstract class JsonConverter {
 
 	// - - - - DESERIALIZING - - - -
 
+	/**
+	 *
+	 * @param dev
+	 * @return
+	 * @throws IOException
+	 */
 	public static JsonNode deserializeToNode(String dev) throws IOException {
 		return mapper.readTree(dev);
 	}
 
+	/**
+	 *
+	 * @param node
+	 * @return
+	 */
 	private static VRectangle deserializeVRectangle(JsonNode node) {
 		return mapper.convertValue(node, VRectangleStore.class).newVRectangle();
 	}
 
+	/**
+	 *
+	 */
 	private static class TopographyStore {
 		AttributesTopography attributes = new AttributesTopography();
 		AttributesAgent attributesPedestrian = new AttributesAgent();
@@ -215,6 +252,9 @@ public abstract class JsonConverter {
 		AttributesTeleporter teleporter = null;
 	}
 
+	/**
+	 *
+	 */
 	private static class VRectangleStore {
 		public double x;
 		public double y;
@@ -237,6 +277,9 @@ public abstract class JsonConverter {
 		}
 	}
 
+	/**
+	 *
+	 */
 	private static class Polygon2DStore {
 		public ShapeType type = ShapeType.POLYGON;
 		public List<VPoint> points;
@@ -253,6 +296,9 @@ public abstract class JsonConverter {
 		}
 	}
 
+	/**
+	 *
+	 */
 	private static class CircleStore {
 		public double radius;
 		public VPoint center;
@@ -295,10 +341,22 @@ public abstract class JsonConverter {
 		}
 	}
 
+	/**
+	 *
+	 * @param json
+	 * @return
+	 * @throws IOException
+	 */
 	public static ScenarioRunManager deserializeScenarioRunManager(String json) throws IOException {
 		return deserializeScenarioRunManagerFromNode(mapper.readTree(json));
 	}
 
+	/**
+	 *
+	 * @param node
+	 * @return
+	 * @throws IOException
+	 */
 	public static ScenarioRunManager deserializeScenarioRunManagerFromNode(JsonNode node) throws IOException {
 		JsonNode rootNode = node;
 		String name = rootNode.get("name").asText();
@@ -318,16 +376,35 @@ public abstract class JsonConverter {
 		return scenarioRunManager;
 	}
 
+	/**
+	 *
+	 * @param json
+	 * @return
+	 * @throws IOException
+	 * @throws TextOutOfNodeException
+	 */
 	public static AttributesSimulation deserializeAttributesSimulation(String json)
 			throws IOException, TextOutOfNodeException {
 		return deserializeObjectFromJson(json, AttributesSimulation.class);
 	}
 
+	/**
+	 *
+	 * @param node
+	 * @return
+	 * @throws JsonProcessingException
+	 */
 	private static AttributesSimulation deserializeAttributesSimulationFromNode(JsonNode node)
 			throws JsonProcessingException {
 		return mapper.treeToValue(node, AttributesSimulation.class);
 	}
 
+	/**
+	 *
+	 * @param json
+	 * @return
+	 * @throws Exception
+	 */
 	public static ModelDefinition deserializeModelDefinition(String json) throws Exception {
 		JsonNode node = mapper.readTree(json);
 		checkForTextOutOfNode(json);
@@ -345,6 +422,12 @@ public abstract class JsonConverter {
 		return new ModelDefinition(mainModelString, deserializeAttributesListFromNode(node.get("attributesModel")));
 	}
 
+	/**
+	 *
+	 * @param node
+	 * @return
+	 * @throws JsonProcessingException
+	 */
 	public static List<Attributes> deserializeAttributesListFromNode(JsonNode node) throws JsonProcessingException {
 		DynamicClassInstantiator<Attributes> instantiator = new DynamicClassInstantiator<>();
 		List<Attributes> attributesList = new LinkedList<>();
@@ -357,11 +440,23 @@ public abstract class JsonConverter {
 		return attributesList;
 	}
 
+	/**
+	 *
+	 * @param json
+	 * @return
+	 * @throws IOException
+	 * @throws TextOutOfNodeException
+	 */
 	public static Topography deserializeTopography(String json) throws IOException, TextOutOfNodeException {
 		checkForTextOutOfNode(json);
 		return deserializeTopographyFromNode(mapper.readTree(json));
 	}
 
+	/**
+	 *
+	 * @param node
+	 * @return
+	 */
 	private static Topography deserializeTopographyFromNode(JsonNode node) {
 		TopographyStore store = mapper.convertValue(node, TopographyStore.class);
 		Topography topography = new Topography(store.attributes, store.attributesPedestrian, store.attributesCar, store.attributesHorse);
@@ -375,6 +470,12 @@ public abstract class JsonConverter {
 		return topography;
 	}
 
+	/**
+	 *
+	 * @param json
+	 * @throws TextOutOfNodeException
+	 * @throws IOException
+	 */
 	private static void checkForTextOutOfNode(String json) throws TextOutOfNodeException, IOException { // via stackoverflow.com/a/26026359
 		JsonParser jp = mapper.getFactory().createParser(json);
 		mapper.readValue(jp, JsonNode.class);
@@ -388,6 +489,13 @@ public abstract class JsonConverter {
 		}
 	}
 
+	/**
+	 *
+	 * @param json
+	 * @param type
+	 * @return
+	 * @throws IOException
+	 */
 	public static Agent deserializeDynamicElement(String json, ScenarioElementType type) throws IOException {
 		switch (type) {
 			case PEDESTRIAN:
@@ -434,12 +542,24 @@ public abstract class JsonConverter {
 
 	// - - - - SERIALIZING - - - -
 
+	/**
+	 *
+	 * @param vRect
+	 * @return
+	 */
 	private static JsonNode serializeVRectangle(VRectangle vRect) {
 		return mapper.convertValue(new VRectangleStore(vRect), JsonNode.class);
 	}
 
 	// could also serialize each ModelType individually and add the strings with comma and brackets
 	// in between - but building a proper mini-Json-ObjectNode seems a more stable and elegant solution
+
+	/**
+	 *
+	 * @param modelDefinition
+	 * @return
+	 * @throws JsonProcessingException
+	 */
 	public static String serializeModelPreset(ModelDefinition modelDefinition)
 			throws JsonProcessingException { // may also throw one of the instantiator's exceptions
 
@@ -450,6 +570,12 @@ public abstract class JsonConverter {
 	}
 
 	// used in hasUnsavedChanges, TODO [priority=high] [task=bugfix] check if commitHashIncluded can always be false
+
+	/**
+	 *
+	 * @param scenarioRunManager
+	 * @return
+	 */
 	public static String serializeScenarioRunManager(ScenarioRunManager scenarioRunManager) {
 		try {
 			return serializeScenarioRunManager(scenarioRunManager, false);
@@ -459,11 +585,25 @@ public abstract class JsonConverter {
 		return null;
 	}
 
+	/**
+	 *
+	 * @param scenarioRunManager
+	 * @param commitHashIncluded
+	 * @return
+	 * @throws IOException
+	 */
 	public static String serializeScenarioRunManager(ScenarioRunManager scenarioRunManager, boolean commitHashIncluded)
 			throws IOException {
 		return writer.writeValueAsString(serializeScenarioRunManagerToNode(scenarioRunManager, commitHashIncluded));
 	}
 
+	/**
+	 *
+	 * @param scenarioRunManager
+	 * @param commitHashIncluded
+	 * @return
+	 * @throws IOException
+	 */
 	public static JsonNode serializeScenarioRunManagerToNode(ScenarioRunManager scenarioRunManager,
 															 boolean commitHashIncluded) throws IOException {
 		ScenarioStore scenarioStore = scenarioRunManager.getScenarioStore();
@@ -474,6 +614,12 @@ public abstract class JsonConverter {
 		return rootNode;
 	}
 
+	/**
+	 *
+	 * @param node
+	 * @param commitHashIncluded
+	 * @param scenarioStore
+	 */
 	private static void serializeMeta(ObjectNode node, boolean commitHashIncluded, ScenarioStore scenarioStore) {
 		node.put("name", scenarioStore.name);
 		node.put("description", scenarioStore.description);
@@ -482,6 +628,11 @@ public abstract class JsonConverter {
 			node.put("commithash", HashGenerator.commitHash());
 	}
 
+	/**
+	 *
+	 * @param scenarioStore
+	 * @return
+	 */
 	private static ObjectNode serializeVadereNode(ScenarioStore scenarioStore) {
 		ObjectNode vadereNode = mapper.createObjectNode();
 
@@ -501,6 +652,11 @@ public abstract class JsonConverter {
 		return vadereNode;
 	}
 
+	/**
+	 *
+	 * @param attributesList
+	 * @return
+	 */
 	private static ObjectNode serializeAttributesModelToNode(final List<Attributes> attributesList) {
 		List<Pair<String, Attributes>> attributePairList = attributesListToNameObjectPairList(attributesList);
 
@@ -511,6 +667,11 @@ public abstract class JsonConverter {
 		return attributesModelNode;
 	}
 
+	/**
+	 *
+	 * @param attributesList
+	 * @return
+	 */
 	private static List<Pair<String, Attributes>> attributesListToNameObjectPairList(List<Attributes> attributesList) {
 		List<Pair<String, Attributes>> list = new ArrayList<>(attributesList.size());
 		for (Attributes a : attributesList)
@@ -518,6 +679,11 @@ public abstract class JsonConverter {
 		return list;
 	}
 
+	/**
+	 *
+	 * @param topography
+	 * @return
+	 */
 	private static ObjectNode serializeTopographyToNode(Topography topography) {
 		ObjectNode topographyNode = mapper.createObjectNode();
 
@@ -573,15 +739,34 @@ public abstract class JsonConverter {
 		return topographyNode;
 	}
 
+	/**
+	 *
+	 * @param attributesSimulation
+	 * @return
+	 * @throws JsonProcessingException
+	 */
 	public static String serializeAttributesSimulation(AttributesSimulation attributesSimulation)
 			throws JsonProcessingException {
 		return writer.writeValueAsString(mapper.convertValue(attributesSimulation, JsonNode.class));
 	}
 
+	/**
+	 *
+	 * @param topography
+	 * @return
+	 * @throws JsonProcessingException
+	 */
 	public static String serializeTopography(Topography topography) throws JsonProcessingException {
 		return writer.writeValueAsString(serializeTopographyToNode(topography));
 	}
 
+	/**
+	 *
+	 * @param attributesList
+	 * @param mainModel
+	 * @return
+	 * @throws JsonProcessingException
+	 */
 	public static String serializeMainModelAttributesModelBundle(List<Attributes> attributesList, String mainModel)
 			throws JsonProcessingException {
 		ObjectNode node = mapper.createObjectNode();
@@ -590,25 +775,54 @@ public abstract class JsonConverter {
 		return writer.writeValueAsString(node);
 	}
 
+	/**
+	 *
+	 * @param object
+	 * @return
+	 * @throws JsonProcessingException
+	 */
 	public static String serializeObject(Object object) throws JsonProcessingException {
 		return writer.writeValueAsString(mapper.convertValue(object, JsonNode.class));
 	}
 
+	/**
+	 *
+	 * @param object
+	 * @return
+	 */
 	public static JsonNode toJsonNode(final Object object) {
 		return mapper.convertValue(object, JsonNode.class);
 	}
 
+	/**
+	 *
+	 * @param node
+	 * @return
+	 * @throws JsonProcessingException
+	 */
 	public static String serializeJsonNode(JsonNode node) throws JsonProcessingException {
 		return writer.writeValueAsString(node);
 	}
 
 	// CLONE VIA SERIALIZE -> DESERIALIZE
 
+	/**
+	 *
+	 * @param original
+	 * @return
+	 * @throws IOException
+	 */
 	public static ScenarioRunManager cloneScenarioRunManager(ScenarioRunManager original) throws IOException {
 		JsonNode clone = serializeScenarioRunManagerToNode(original, false);
 		return deserializeScenarioRunManagerFromNode(clone);
 	}
 
+	/**
+	 *
+	 * @param scenarioStore
+	 * @return
+	 * @throws IOException
+	 */
 	public static ScenarioStore cloneScenarioStore(ScenarioStore scenarioStore) throws IOException {
 		JsonNode attributesSimulationNode = mapper.convertValue(scenarioStore.attributesSimulation, JsonNode.class);
 		ObjectNode attributesModelNode = serializeAttributesModelToNode(scenarioStore.attributesList);
@@ -621,6 +835,13 @@ public abstract class JsonConverter {
 
 	// MANIPULATE JSON
 
+	/**
+	 *
+	 * @param attributesClassName
+	 * @param json
+	 * @return
+	 * @throws IOException
+	 */
 	public static String addAttributesModel(String attributesClassName, String json) throws IOException {
 		JsonNode node = mapper.readTree(json);
 		JsonNode attributesModelNode = node.get("attributesModel");

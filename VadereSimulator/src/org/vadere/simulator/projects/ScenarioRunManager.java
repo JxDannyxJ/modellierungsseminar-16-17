@@ -39,22 +39,34 @@ import difflib.DiffUtils;
  */
 public class ScenarioRunManager implements Runnable {
 
+	/** The Logger instance.*/
 	private static Logger logger = LogManager.getLogger(ScenarioRunManager.class);
 
+	/** The {@link ScenarioStore} containing all data needed for simulation.*/
 	protected ScenarioStore scenarioStore;
+	/** The path for output files.*/
 	protected Path outputPath;
 
+	/** List of {@link ModelTest}.*/
 	private List<ModelTest> modelTests;
+	/** List of {@link PassiveCallback}.*/
 	protected final List<PassiveCallback> passiveCallbacks;
 
+	/** {@link DataProcessingJsonManager} instance.*/
 	private DataProcessingJsonManager dataProcessingJsonManager;
+	/** {@link ProcessorManager} to handle output.*/
 	protected ProcessorManager processorManager;
 
+	/** {@link ScenarioFinishedListener}.*/
 	private ScenarioFinishedListener finishedListener;
+	/** The {@link Simulation} which actually runs the simulation.*/
 	protected Simulation simulation;
+	/** */
 	private boolean simpleOutputProcessorName = false;
 
+	/** */
 	private String savedStateSerialized;
+	/** */
 	private String currentStateSerialized;
 
 	/**
@@ -65,10 +77,19 @@ public class ScenarioRunManager implements Runnable {
 		this(name, new ScenarioStore(name));
 	}
 
+	/**
+	 * Create a new scenario run manager with the given {@link ScenarioStore}.
+	 * @param store the scenario store.
+	 */
 	public ScenarioRunManager(final ScenarioStore store) {
 		this(store.name, store);
 	}
 
+	/**
+	 * Create a new scenario run manager with name and given {@link ScenarioStore}.
+	 * @param name the name of the new scenario.
+	 * @param store the scenario store.
+	 */
 	public ScenarioRunManager(final String name, final ScenarioStore store) {
 		this.passiveCallbacks = new LinkedList<>();
 		this.modelTests = new LinkedList<>();
@@ -80,7 +101,11 @@ public class ScenarioRunManager implements Runnable {
 		this.saveChanges();
 	}
 
-	public void saveChanges() { // get's called by VadereProject.saveChanges on init
+	/**
+	 * Gets called by {@link VadereProject#saveChanges()}.
+	 */
+	public void saveChanges() {
+		// get's called by VadereProject.saveChanges on init
 		savedStateSerialized = JsonConverter.serializeScenarioRunManager(this);
 		currentStateSerialized = savedStateSerialized;
 	}
@@ -93,6 +118,10 @@ public class ScenarioRunManager implements Runnable {
 		currentStateSerialized = JsonConverter.serializeScenarioRunManager(this);
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public String getDiff() {
 		String currentStateSerialized = JsonConverter.serializeScenarioRunManager(this);
 		if (!savedStateSerialized.equals(currentStateSerialized)) {
@@ -145,7 +174,11 @@ public class ScenarioRunManager implements Runnable {
 			doAfterSimulation();
 		}
 	}
-	
+
+	/**
+	 *
+	 * @param e
+	 */
 	public void simulationFailed(Throwable e) {
 			e.printStackTrace();
 			logger.error(e);
@@ -153,6 +186,10 @@ public class ScenarioRunManager implements Runnable {
 				finishedListener.scenarioRunThrewException(this, new Throwable(e));
 	}
 
+	/**
+	 * Invokes {@link ScenarioFinishedListener#scenarioFinished(ScenarioRunManager)} if possible.
+	 *
+	 */
 	protected void doAfterSimulation() {
 		if (finishedListener != null)
 			this.finishedListener.scenarioFinished(this);
@@ -165,6 +202,10 @@ public class ScenarioRunManager implements Runnable {
 				(isSuccessful() ? "SUCCESSFUL" : "FAILURE")));
 	}
 
+	/**
+	 * Invokes {@link ScenarioFinishedListener#scenarioStarted(ScenarioRunManager)} if possible.
+	 * Also resets the {@link Topography}.
+	 */
 	protected void doBeforeSimulation() {
 		if (finishedListener != null)
 			this.finishedListener.scenarioStarted(this);
@@ -212,6 +253,10 @@ public class ScenarioRunManager implements Runnable {
 		return scenarioStore.topography;
 	}
 
+	/**
+	 * Adds {@link PassiveCallback} to {@link ScenarioRunManager#passiveCallbacks}.
+	 * @param pc
+	 */
 	public void addPassiveCallback(final PassiveCallback pc) {
 		this.passiveCallbacks.add(pc);
 	}
@@ -229,6 +274,10 @@ public class ScenarioRunManager implements Runnable {
 		this.scenarioStore.name = name;
 	}
 
+	/**
+	 * Checks if {@link ModelTest} succeed.
+	 * @return False if some tests failed.
+	 */
 	public boolean isSuccessful() {
 		for (ModelTest modelTest : modelTests) {
 			if (!modelTest.isSucceeded()) {
@@ -254,10 +303,16 @@ public class ScenarioRunManager implements Runnable {
 		scenarioStore.topography = topography;
 	}
 
+
 	public void setScenarioFinishedListener(ScenarioFinishedListener finishedListener) {
 		this.finishedListener = finishedListener;
 	}
 
+	/**
+	 * Pause the simulation.
+	 * Calls {@link Simulation#pause()}.
+	 * @return False if simulation was not paused.
+	 */
 	public boolean pause() {
 		if (simulation != null) {
 			simulation.pause();
@@ -266,13 +321,17 @@ public class ScenarioRunManager implements Runnable {
 		return false;
 	}
 
+	/**
+	 * Resumes simulation by calling {@link Simulation#resume()}.
+	 */
 	public void resume() {
 		if (simulation != null)
 			simulation.resume();
 	}
 
-
-	// Output stuff...
+	/**
+	 * Create directory and sets them in the {@link ScenarioRunManager#processorManager}.
+	 */
 	private void createAndSetOutputDirectory() {
 		try {
 			// Create output directory
@@ -283,6 +342,10 @@ public class ScenarioRunManager implements Runnable {
 		}
 	}
 
+	/**
+	 * Cloning method. Creates copy of this instance.
+	 * @return new instance of {@link ScenarioRunManager}.
+	 */
 	@Override
 	public ScenarioRunManager clone() {
 		ScenarioRunManager clonedScenario = null;
@@ -295,10 +358,15 @@ public class ScenarioRunManager implements Runnable {
 		return clonedScenario;
 	}
 
+	/**
+	 * String is scenario name.
+	 * @return the name of the scenario.
+	 */
 	@Override
 	public String toString() {
 		return getName();
 	}
+
 
 	public void setSimpleOutputProcessorName(boolean simpleOutputProcessorName) {
 		this.simpleOutputProcessorName = simpleOutputProcessorName;
@@ -308,6 +376,9 @@ public class ScenarioRunManager implements Runnable {
 		return scenarioStore.name + (hasUnsavedChanges() ? "*" : "");
 	}
 
+	/**
+	 * Reset all information.
+	 */
 	public void discardChanges() {
 		try {
 			ScenarioRunManager srm = JsonConverter.deserializeScenarioRunManager(savedStateSerialized);
@@ -329,9 +400,11 @@ public class ScenarioRunManager implements Runnable {
 		return scenarioStore.description;
 	}
 
+
 	public void setDescription(String description) {
 		scenarioStore.description = description;
 	}
+
 
 	public String readyToRunResponse() { // TODO [priority=medium] [task=check] add more conditions
 		if (scenarioStore.mainModel == null) {
@@ -340,9 +413,11 @@ public class ScenarioRunManager implements Runnable {
 		return null;
 	}
 
+
 	public ProcessorManager getProcessorManager() {
 		return this.processorManager;
 	}
+
 
 	public DataProcessingJsonManager getDataProcessingJsonManager() {
 		return this.dataProcessingJsonManager;

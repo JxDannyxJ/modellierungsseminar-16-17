@@ -501,13 +501,21 @@ public class HorseOSM extends Horse implements AgentOSM {
 	@Override
 	public LinkedList<VPoint> getReachablePositions(Random random) {
 		double stepLength = getStepSize();
+		// the resolution defining how many descrete points to compute
 		int numberOfGridPoints = getAttributesOSM().getStepCircleResolution();
+		// number of layers of ellipses
 		int numberOfEllipses = getAttributesOSM().getNumberOfCircles();
+		// angle delta step
 		double stepDelta = stepLength / numberOfEllipses;
+		// list of angles used to compute discretization
 		double angles[] = new double[numberOfGridPoints];
+		// stores ellipse points
 		LinkedList<VPoint> ellipsePoints = new LinkedList<>();
+		// max angle
 		double angle;
+		// min angle
 		double anchorAngle;
+		// [TODO] differentiate between settings for eyepatched horse and directional movement
 		if (super.isHasEyepatch()) {
 			if (attributesOSM.getMovementType() == MovementType.DIRECTIONAL) {
 				angle = Math.PI / 4.0 - AttributesHorse.getEYEPATCHED();
@@ -525,9 +533,11 @@ public class HorseOSM extends Horse implements AgentOSM {
 			angle = Math.PI / 4.0;
 			anchorAngle = 2 * Math.PI - Math.PI / 4.0;
 		}
+		// create list of angles
 		for (int i = 0; i < numberOfGridPoints; i++) {
 			angles[i] = i * ((anchorAngle - angle) / numberOfGridPoints) + anchorAngle;
 		}
+		// iterate over number of ellipses and create discretization. Add results to list of ellipse point
 		for (int i = 0; i < numberOfEllipses; i++) {
 			double height = stepLength - i * stepDelta;
 			double width = ((VEllipse) getShape()).getHeight() - i * stepDelta;
@@ -538,32 +548,45 @@ public class HorseOSM extends Horse implements AgentOSM {
 	}
 
 	/**
-	 *
-	 * @param ellipseLenght
-	 * @param ellipseWidth
-	 * @param angles
-	 * @return
+	 * Discretize ellipse points.
+	 * Using random offset to add variations to steps.
+	 * @param ellipseLenght the length of the ellipse.
+	 * @param ellipseWidth the width of the ellipse.
+	 * @param angles list of angles to use in order to compute points on the ellipse.
+	 * @return list of {@link VPoint} on the defined ellipse.
 	 */
 	private LinkedList<VPoint> discretize(double ellipseLenght, double ellipseWidth, double[] angles, Random random) {
+		// holds ellipse points
 		LinkedList<VPoint> ellipsePoints = new LinkedList<>();
+		// number of times to iterate
 		int iteratioinCount = angles.length;
+		// the direction angle of horse
 		double rotationAngle = getVelocity().angleToZero();
+		// x, y hold position values which will be computed
+		// angleShifted is a random offset to add variations
 		double x, y, angleShifted = 0;
+		// used to indicate whether ellipse point has positive sign or negative
 		int sign = 1;
 		for (int i = 0; i < iteratioinCount; i++) {
+			// calculate random offset
 			double randOffset = attributesOSM.isVaryStepDirection() ? random.nextDouble() : 0;
+			// compute sign with given angle
 			sign = angles[i] % (2 * Math.PI) <= Math.PI / 4.0 ? 1 : -1;
+			// compute shift
 			angleShifted = sign * randOffset + angles[i];
 			if (getVelocity().angleToZero() == 0 && getVelocity().getLength() == 0) {
 				double randomX = random.nextInt(2) - 1;
 				double randomY = random.nextInt(2) - 1;
 				angleShifted = (new Vector2D(new Vector2D(randomX, randomY)).angleToZero());
 			}
+			// compute x and y values on default ellipse
 			x = (ellipseLenght * ellipseWidth)/(Math.sqrt(Math.pow(ellipseWidth, 2) + Math.pow(ellipseLenght, 2) * Math.pow(Math.tan(angleShifted), 2) ));
 			y = sign * ellipseWidth * Math.sqrt(1 - (Math.pow(x, 2)/Math.pow(ellipseLenght, 2)));
+			// transform to actual points and rotate according to rotationAngle
 			Vector2D point = new Vector2D(x, y);
 			Vector2D rotatedPoint = new Vector2D(point.rotate(rotationAngle));
 			rotatedPoint = new Vector2D(rotatedPoint.addPrecise(getPosition()));
+			// add to List
 			ellipsePoints.add(rotatedPoint);
 		}
 		return ellipsePoints;

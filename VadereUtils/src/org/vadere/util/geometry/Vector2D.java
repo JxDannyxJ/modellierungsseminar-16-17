@@ -94,6 +94,7 @@ public class Vector2D extends VPoint {
 		return atan2;
 	}
 
+
 	public Vector2D add(VPoint p) {
 		return new Vector2D(this.getX() + p.getX(), this.getY() + p.getY());
 	}

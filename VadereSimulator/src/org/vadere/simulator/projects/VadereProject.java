@@ -25,32 +25,55 @@ import java.util.stream.Collectors;
  */
 public class VadereProject implements ScenarioFinishedListener {
 
+	/** The Logger instance.*/
 	private static Logger logger = LogManager.getLogger(VadereProject.class);
 
+	/** The project name.*/
 	private String name;
+	/** The current scenario thread.*/
 	private Thread currentScenarioThread;
+	/** The {@link ScenarioRunManager}.*/
 	private ScenarioRunManager currentScenario;
+	/** List of {@link PassiveCallback}.*/
 	private final List<PassiveCallback> visualization = new LinkedList<>();
+	/** Concurrent map to run scenarios.*/
 	private final ConcurrentMap<String, ScenarioRunManager> scenarios = new ConcurrentHashMap<>();
+	/** Blocking queue with {@link ProjectFinishedListener}.*/
 	private final BlockingQueue<ProjectFinishedListener> projectFinishedListener = new LinkedBlockingQueue<>();
+	/** Blocking queue with {@link SingleScenarioFinishedListener}.*/
 	private final BlockingQueue<SingleScenarioFinishedListener> singleScenarioFinishedListener =
 			new LinkedBlockingQueue<>();
+	/** LinkedBlockingDeque with {@link ScenarioRunManager}.*/
 	private LinkedBlockingDeque<ScenarioRunManager> scenariosLeft;
+	/** The output directory.*/
 	private Path outputDirectory;
-	private int[] migrationStats; // scenarios: [0] total, [1] legacy'ed, [2] nonmigratable
+	/** scenarios: [0] total, [1] legacy'ed, [2] nonmigratable*/
+	private int[] migrationStats;
 
+	/**
+	 * Constructor for a vadere project.
+	 * @param name the project name.
+	 * @param scenarios iteration over {@link ScenarioRunManager}.
+	 */
 	public VadereProject(final String name, final Iterable<ScenarioRunManager> scenarios) {
 		this.name = name;
 		scenarios.forEach(scenario -> addScenario(scenario));
 		this.outputDirectory = Paths.get("output");
 	}
 
+	/**
+	 * Calls {@link ScenarioRunManager#saveChanges()} on each scenario run manager.
+	 */
 	public void saveChanges() {
 		scenarios.forEach((Id, scenarioRunManager) -> {
 			scenarioRunManager.saveChanges();
 		});
 	}
 
+	/**
+	 * Check if any scenario run manager has unsaved changes.
+	 * @return True if some changes where not saved.
+	 */
 	public boolean hasUnsavedChanges() {
 		Set<String> currentScenarioIds = new HashSet<>();
 		for (ScenarioRunManager srm : getScenarios()) {
@@ -61,6 +84,10 @@ public class VadereProject implements ScenarioFinishedListener {
 		return false;
 	}
 
+	/**
+	 * Get diffs.
+	 * @return String diffs.
+	 */
 	public String getDiffs() {
 		String eol = "\n---------------\n";
 		Set<String> currentScenarioIds = new HashSet<>();
@@ -95,6 +122,9 @@ public class VadereProject implements ScenarioFinishedListener {
 		}
 	}
 
+	/**
+	 * Prepares {@link VadereProject#currentScenario} and starts {@link VadereProject#currentScenarioThread}.
+	 */
 	private void prepareAndStartScenarioRunThread() {
 		currentScenario = prepareNextScenario();
 		currentScenarioThread = new Thread(currentScenario);
@@ -106,6 +136,10 @@ public class VadereProject implements ScenarioFinishedListener {
 		currentScenarioThread.start();
 	}
 
+	/**
+	 * Calls {@link VadereProject#runScenario(ScenarioRunManager)}.
+	 * @param scenario the scenario to run.
+	 */
 	public void runScenario(final ScenarioRunManager scenario) {
 		runScenarios(Collections.singleton(scenario));
 	}
@@ -126,18 +160,30 @@ public class VadereProject implements ScenarioFinishedListener {
 		}
 	}
 
+	/**
+	 * Calls {@link ProjectFinishedListener#preProjectRun(VadereProject)}.
+	 */
 	private void notifyProjectListenerAboutPreRun() {
 		for (ProjectFinishedListener l : projectFinishedListener) {
 			l.preProjectRun(this);
 		}
 	}
 
+	/**
+	 * Calls {@link SingleScenarioFinishedListener#postScenarioRun(ScenarioRunManager, int)}.
+	 * @param scenario the scenario to use.
+	 */
 	private void notifyScenarioRMListenerAboutPostRun(final ScenarioRunManager scenario) {
 		for (SingleScenarioFinishedListener l : singleScenarioFinishedListener) {
 			l.postScenarioRun(scenario, scenariosLeft.size());
 		}
 	}
 
+	/**
+	 * Calls {@link SingleScenarioFinishedListener#error(ScenarioRunManager, int, Throwable)}.
+	 * @param scenario the scenario.
+	 * @param ex the error.
+	 */
 	@Override
 	public void scenarioRunThrewException(final ScenarioRunManager scenario, final Throwable ex) {
 		for (SingleScenarioFinishedListener l : singleScenarioFinishedListener) {
@@ -145,6 +191,10 @@ public class VadereProject implements ScenarioFinishedListener {
 		}
 	}
 
+	/**
+	 * Calls {@link SingleScenarioFinishedListener#scenarioStarted(ScenarioRunManager, int)}.
+	 * @param scenario
+	 */
 	@Override
 	public void scenarioStarted(final ScenarioRunManager scenario) {
 		for (SingleScenarioFinishedListener l : singleScenarioFinishedListener) {
@@ -152,6 +202,12 @@ public class VadereProject implements ScenarioFinishedListener {
 		}
 	}
 
+	/**
+	 * Prepares the next scenario run manager
+	 * by calling {@link SingleScenarioFinishedListener#preScenarioRun(ScenarioRunManager, int)}.
+	 * The list of {@link PassiveCallback} will be added to the run manager.
+	 * @return the next scenario run manager.
+	 */
 	private ScenarioRunManager prepareNextScenario() {
 		ScenarioRunManager nextScenario = scenariosLeft.remove().clone();
 		nextScenario.setScenarioFinishedListener(this);
@@ -166,10 +222,16 @@ public class VadereProject implements ScenarioFinishedListener {
 		return nextScenario;
 	}
 
+	/**
+	 * Calls {@link VadereProject#runScenario(ScenarioRunManager)} with all scenario run managers.
+	 */
 	public void runAllScenarios() {
 		runScenarios(getScenarios());
 	}
 
+	/**
+	 * Calls {@link SingleScenarioFinishedListener#scenarioPaused(ScenarioRunManager, int)}.
+	 */
 	public void pauseRunnningScenario() {
 		if (currentScenario.pause()) {
 			for (SingleScenarioFinishedListener listener : singleScenarioFinishedListener) {
@@ -178,14 +240,24 @@ public class VadereProject implements ScenarioFinishedListener {
 		}
 	}
 
+	/**
+	 * Check if current scenario is paused.
+	 * @return True if paused.
+	 */
 	public boolean isScenarioPaused() {
 		return !currentScenario.isRunning();
 	}
 
+	/**
+	 * Resumes current scenario.
+	 */
 	public void resumePausedScenarios() {
 		currentScenario.resume();
 	}
 
+	/**
+	 * Interrupt current scenario.
+	 */
 	public void interruptRunningScenarios() {
 		currentScenarioThread.interrupt();
 		scenariosLeft.clear();
@@ -206,16 +278,26 @@ public class VadereProject implements ScenarioFinishedListener {
 		}
 	}
 
-	// Adder...
-
+	/**
+	 * Adds {@link ProjectFinishedListener} to this project.
+	 * @param listener the listener to add.
+	 */
 	public void addProjectFinishedListener(ProjectFinishedListener listener) {
 		projectFinishedListener.add(listener);
 	}
 
+	/**
+	 * Adds {@link SingleScenarioFinishedListener} to this project.
+	 * @param listener the listener to add.
+	 */
 	public void addSingleScenarioFinishedListener(SingleScenarioFinishedListener listener) {
 		singleScenarioFinishedListener.add(listener);
 	}
 
+	/**
+	 * Adds {@link PassiveCallback} to this project.
+	 * @param pc the callback to add.
+	 */
 	public void addVisualization(PassiveCallback pc) {
 		visualization.clear();
 		visualization.add(pc);

@@ -8,6 +8,7 @@ import org.vadere.simulator.control.Simulation;
 import org.vadere.simulator.models.MainModelBuilder;
 import org.vadere.state.attributes.scenario.AttributesAgent;
 import org.vadere.state.scenario.Topography;
+import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.util.geometry.Vector2D;
 import org.vadere.util.geometry.shapes.VPoint;
@@ -35,19 +36,34 @@ import java.util.Random;
  */
 public class ScenarioRunLocked extends ScenarioRunManager {
 
+	/** The logger instance.*/
 	private static Logger logger = LogManager.getLogger(ScenarioRunLocked.class);
 
+	/** The {@link LockFileHandler} instance.*/
 	private LockFileHandler lockFileHandler = null;
 
+	/** The name of the time step file.*/
 	private String timeStepFile;
 
+	/** The name of the lock directory.*/
 	private String lockDirectory;
 
+	/**
+	 * Constructor for locked scenario run.
+	 * Calls constructor of super class {@link ScenarioRunManager}.
+	 * @param name name of the scenario.
+	 * @param store the {@link ScenarioStore} containing all information for the simulation.
+	 */
 	public ScenarioRunLocked(String name, ScenarioStore store) {
 		super(name, store);
 		this.lockDirectory = null;
 	}
 
+	/**
+	 * Run method.
+	 * Initializes run by calling {@link ScenarioRunLocked#doBeforeSimulation()}.
+	 * Calls lock handling routine {@link ScenarioRunLocked#handleLock(Path)}.
+	 */
 	@Override
 	public void run() {
 		doBeforeSimulation();
@@ -118,8 +134,10 @@ public class ScenarioRunLocked extends ScenarioRunManager {
 					logger.error(e);
 				}
 
+				// run the simulation
 				simulation.run();
 				scenarioStore.topography.getInitialElements(Pedestrian.class).clear(); // so that they are created only once
+				// post process results
 				doAfterSimulation();
 				logger.info(String.format("Finished '%s'.", thisVadere.getName()));
 
@@ -137,6 +155,12 @@ public class ScenarioRunLocked extends ScenarioRunManager {
 		}
 	}
 
+	/**
+	 * Creates new {@link LockFileHandler}.
+	 * @param lockDirectory the lock directory.
+	 * @param timeStepFile the time stemp file name.
+	 * @param outputAll not used.
+	 */
 	public void setWaitOnLockData(String lockDirectory, String timeStepFile, Boolean outputAll) {
 		this.lockDirectory = lockDirectory;
 		this.timeStepFile = timeStepFile;
@@ -149,10 +173,10 @@ public class ScenarioRunLocked extends ScenarioRunManager {
 	}
 
 	/**
-	 *
-	 * @param topography
-	 * @return
-	 * @throws IOException
+	 * Prepares {@link Topography} so it can be used for simulation.
+	 * @param topography the {@link Topography} to prepare.
+	 * @return prepared {@link Topography}.
+	 * @throws IOException if files not found.
 	 */
 	private Topography prepareTopographyWithTSF(Topography topography) throws IOException {
 		final char separator = ';';// TODO [task=feature] [priority=low] add config for this separator
@@ -161,15 +185,15 @@ public class ScenarioRunLocked extends ScenarioRunManager {
 		CSVReader reader = new CSVReader(new FileReader(timeStepFile), separator);
 		List<String[]> myEntries = reader.readAll();
 
-		Collection<Pedestrian> pedestrians = topography.getElements(Pedestrian.class);
+		Collection<Agent> agents = topography.getElements(Agent.class);
 		// form a map to easily search for a pedestrian
-		Map<Integer, Pedestrian> pedMap = new HashMap<>();
-		for (Pedestrian pedestrian : pedestrians) {
-			pedMap.put(pedestrian.getId(), pedestrian);
+		Map<Integer, Agent> agentMap = new HashMap<>();
+		for (Agent pedestrian : agents) {
+			agentMap.put(pedestrian.getId(), pedestrian);
 		}
 		// this will contain all pedestrians that should be removed (i.e. present in the topography
 		// but not in the TSF)
-		Map<Integer, Pedestrian> pedRemoveMap = new HashMap<>(pedMap);
+		Map<Integer, Agent> agentRemoveMap = new HashMap<>(agentMap);
 
 		// create the pedestrians stated in the TSF file. If they already exist, just move them and
 		// set their next target.
@@ -205,20 +229,20 @@ public class ScenarioRunLocked extends ScenarioRunManager {
 								line.toString(), separator));
 			}
 
-			if (pedMap.containsKey(id)) {
-				pedMap.get(id).setPosition(new VPoint(x, y));
+			if (agentMap.containsKey(id)) {
+				agentMap.get(id).setPosition(new VPoint(x, y));
 
 				LinkedList<Integer> targetIds = new LinkedList<>();
 				targetIds.add(nextTarget);
-				pedMap.get(id).setTargets(targetIds);
+				agentMap.get(id).setTargets(targetIds);
 
 				// if we have a velocity given, set it
 				if (strings.length == 8 && !Double.isNaN(dx) && !Double.isNaN(dy)) {
-					pedMap.get(id).setVelocity(new Vector2D(dx, dy));
-					pedMap.get(id).setFreeFlowSpeed(desiredSpeed);
+					agentMap.get(id).setVelocity(new Vector2D(dx, dy));
+					agentMap.get(id).setFreeFlowSpeed(desiredSpeed);
 				}
 
-				pedRemoveMap.remove(id);
+				agentRemoveMap.remove(id);
 			} else {
 				// TODO [priority=low] [task=feature] set sourceId
 				Pedestrian p = new Pedestrian(new AttributesAgent(id), new Random());
@@ -233,8 +257,8 @@ public class ScenarioRunLocked extends ScenarioRunManager {
 			}
 		}
 
-		for (Pedestrian pedestrian : pedRemoveMap.values()) {
-			topography.removeElement(pedestrian);
+		for (Agent agent : agentRemoveMap.values()) {
+			topography.removeElement(agent);
 		}
 
 		reader.close();

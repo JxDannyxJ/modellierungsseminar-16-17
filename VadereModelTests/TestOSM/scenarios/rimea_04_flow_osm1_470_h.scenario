@@ -2,10 +2,8 @@
   "name" : "rimea_04_flow_osm1_470_h",
   "description" : "",
   "release" : "0.1",
-  "topographyhash" : "bcf2c6fd48ac2381bd9b5a24f65b99c7a90dcf3f",
-  "attributeshash" : "2a80e801318ee7a6bcaab6f940f91597d1030037",
   "processWriters" : [ ],
-  "vadere" : {
+  "scenario" : {
     "mainModel" : "org.vadere.simulator.models.osm.OptimalStepsModel",
     "attributesModel" : {
       "org.vadere.state.attributes.models.AttributesPotentialCompact" : {
@@ -106,7 +104,6 @@
           "height" : 3.0,
           "type" : "RECTANGLE"
         },
-        "spawnDelay" : 1.0,
         "interSpawnTimeDistribution" : "org.vadere.state.scenario.ConstantDistribution",
         "distributionParameters" : [ 1.0 ],
         "spawnNumber" : 470,

@@ -2,8 +2,6 @@
   "name" : "basic_4_1_wall_osm2",
   "description" : "",
   "release" : "0.1",
-  "topographyhash" : "7f8cdb8eeae20e229965a735dbfcf43fcc8a59c5",
-  "attributeshash" : "11f23188904a63299660b4f130823226b79f240b",
   "processWriters" : [ {
     "formatString" : "%s",
     "columnNames" : [ "waitingTimeTest" ],
@@ -54,7 +52,7 @@
       "clazz" : "PedestrianEvacuationTimeTest"
     }
   } ],
-  "vadere" : {
+  "scenario" : {
     "mainModel" : "org.vadere.simulator.models.osm.OptimalStepsModel",
     "attributesModel" : {
       "org.vadere.state.attributes.models.AttributesPotentialCompact" : {
@@ -164,7 +162,6 @@
           "height" : 5.0,
           "type" : "RECTANGLE"
         },
-        "spawnDelay" : 1.0,
         "interSpawnTimeDistribution" : "org.vadere.state.scenario.ConstantDistribution",
         "distributionParameters" : [ 1.0 ],
         "spawnNumber" : 200,

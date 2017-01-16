@@ -2,8 +2,6 @@
   "name" : "rimea_01_pathway_osm2",
   "description" : "",
   "release" : "0.1",
-  "topographyhash" : "5a4523766dd5c78246918cda6671c9ef2bdcc4f3",
-  "attributeshash" : "1eeee57e3b49c6171e87f2b9ce6307c2a9f528b4",
   "processWriters" : [ {
     "formatString" : "%s",
     "columnNames" : [ "evacuationTimeTest" ],
@@ -24,7 +22,7 @@
       "clazz" : "PedestrianEvacuationTimeTest"
     }
   } ],
-  "vadere" : {
+  "scenario" : {
     "mainModel" : "org.vadere.simulator.models.osm.OptimalStepsModel",
     "attributesModel" : {
       "org.vadere.state.attributes.models.AttributesPotentialCompact" : {
@@ -125,9 +123,8 @@
           "height" : 1.0,
           "type" : "RECTANGLE"
         },
-        "spawnDelay" : 30.0,
         "interSpawnTimeDistribution" : "org.vadere.state.scenario.ConstantDistribution",
-        "distributionParameters" : [ 1.0 ],
+        "distributionParameters" : [ 30.0 ],
         "spawnNumber" : 1,
         "startTime" : 0.0,
         "endTime" : 1200.0,

@@ -10,8 +10,6 @@ import org.vadere.state.types.ScenarioElementType;
 
 /**
  * Part of the command pattern to re- and undo setRemoveScenarioElement.
- * 
- *
  */
 public class EditDeleteShape extends AbstractUndoableEdit {
 

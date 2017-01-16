@@ -19,7 +19,7 @@ import org.vadere.util.geometry.shapes.VShape;
  * based on the the Map<Integer, AttributesFloorField>.
  *
  *
- *         Not finiehsed!
+ * Not finiehsed!
  */
 public class PotentialFieldMultiTargetGrid<T extends Agent> extends AbstractPotentialFieldTarget {
 
@@ -31,7 +31,7 @@ public class PotentialFieldMultiTargetGrid<T extends Agent> extends AbstractPote
 	private final AttributesAgent attributesPedestrian;
 
 	public PotentialFieldMultiTargetGrid(final Topography topography, final AttributesAgent attributesPedestrian,
-			final Map<Integer, AttributesFloorField> attributesByTarget) {
+										 final Map<Integer, AttributesFloorField> attributesByTarget) {
 		super(topography);
 		this.attributesByTarget = attributesByTarget;
 		this.lastUpdateTimestamp = 0;
@@ -42,7 +42,7 @@ public class PotentialFieldMultiTargetGrid<T extends Agent> extends AbstractPote
 
 	@Override
 	protected void updatePotentialField(final double simTimeInSec, final Target target,
-			final List<VShape> targetShapes) {
+										final List<VShape> targetShapes) {
 		lastUpdateTimestamp = simTimeInSec;
 		targetPotentialFields.get(target.getId()).eikonalSolver.update();
 	}
@@ -84,11 +84,12 @@ public class PotentialFieldMultiTargetGrid<T extends Agent> extends AbstractPote
 	}
 
 	@Override
-	public void postLoop(double simTimeInSec) {}
+	public void postLoop(double simTimeInSec) {
+	}
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 

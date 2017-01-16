@@ -7,8 +7,6 @@ import javax.swing.undo.UndoableEdit;
 
 /**
  * Part of the command-pattern (undo/redo-logic)
- * 
- * 
  */
 public class UndoAdaptor implements UndoableEditListener {
 	private final UndoManager undoManager;

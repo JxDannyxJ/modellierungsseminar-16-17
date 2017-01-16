@@ -17,7 +17,6 @@ import org.vadere.util.potential.gradients.GradientProvider;
  * Abstract model equations for an ODE based model of pedestrian motion.
  * Implements the apache {@link FirstOrderDifferentialEquations} interface and
  * can thus be used with their integrator methods.
- * 
  */
 public abstract class AbstractModelEquations<T extends DynamicElement> implements
 		FirstOrderDifferentialEquations {
@@ -35,9 +34,9 @@ public abstract class AbstractModelEquations<T extends DynamicElement> implement
 	protected abstract int dimensionPerPerson();
 
 	public void setGradients(GradientProvider staticGradientProvider,
-			PotentialFieldObstacle potentialFieldObstacle,
-			PotentialFieldAgent potentialFieldPedestrian,
-			Topography scenario) {
+							 PotentialFieldObstacle potentialFieldObstacle,
+							 PotentialFieldAgent potentialFieldPedestrian,
+							 Topography scenario) {
 		this.staticGradientProvider = staticGradientProvider;
 		this.obstacleGradientProvider = potentialFieldObstacle;
 		this.pedestrianGradientProvider = potentialFieldPedestrian;
@@ -67,10 +66,6 @@ public abstract class AbstractModelEquations<T extends DynamicElement> implement
 	/**
 	 * Stores the 2-dimensional position of the given person p in the given
 	 * array x.
-	 * 
-	 * @param personID
-	 * @param solution
-	 * @param position
 	 */
 	public void getPosition(int personID, double[] solution, double[] position) {
 		position[0] = solution[personID * dimensionPerPerson() + 0];
@@ -80,14 +75,10 @@ public abstract class AbstractModelEquations<T extends DynamicElement> implement
 	/**
 	 * Stores the 2-dimensional position of the given person "personID" in the
 	 * given array "position".
-	 * 
-	 * @param personID
-	 *        ID of the pedestrian.
-	 * @param solution
-	 *        the solution of the ODE system, containing the positions of
-	 *        all pedestrians.
-	 * @param position
-	 *        the result is stored here.
+	 *
+	 * @param personID ID of the pedestrian.
+	 * @param solution the solution of the ODE system, containing the positions of all pedestrians.
+	 * @param position the result is stored here.
 	 */
 	public void setPosition(int personID, double[] solution, double[] position) {
 		solution[personID * dimensionPerPerson() + 0] = position[0];
@@ -95,10 +86,10 @@ public abstract class AbstractModelEquations<T extends DynamicElement> implement
 	}
 
 	public abstract void getVelocity(int personID, double[] solution,
-			double[] velocity);
+									 double[] velocity);
 
 	public abstract void setVelocity(int personID, double[] solution,
-			double[] velocity);
+									 double[] velocity);
 
 	public int ID2Counter(int id) {
 		return this.IDmapping.get(id);

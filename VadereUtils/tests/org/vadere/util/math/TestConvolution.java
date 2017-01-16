@@ -20,17 +20,18 @@ public class TestConvolution {
 	private static Logger logger = LogManager.getLogger(TestConvolution.class);
 
 	@Before
-	public void setUp() throws Exception {}
+	public void setUp() throws Exception {
+	}
 
 	@Test
 	public void testSingleStepConvolution() {
-		float[] kernel = new float[] {
+		float[] kernel = new float[]{
 				1, 2, 3,
 				4, 5, 6,
 				7, 8, 9
 		};
 
-		float[] inMatrix = new float[] {
+		float[] inMatrix = new float[]{
 				2, 1, 1, 1,
 				1, 1, 1, -1,
 				1, 1, 1, 1,
@@ -64,9 +65,9 @@ public class TestConvolution {
 		int inputHeight = 1;
 		int kernelWidth = 3;
 
-		float[] rowVector = new float[] {0.5f, 0.2f, 0.3f};
-		float[] input = new float[] {1f, 1f, 1f, 0f, 0f, 0f};
-		float[] result = new float[] {0.5f, 1.0f, 0.7f, 0.5f, 0f, 0f};
+		float[] rowVector = new float[]{0.5f, 0.2f, 0.3f};
+		float[] input = new float[]{1f, 1f, 1f, 0f, 0f, 0f};
+		float[] result = new float[]{0.5f, 1.0f, 0.7f, 0.5f, 0f, 0f};
 
 		float[] output = Convolution.convolveCol(input, rowVector, inputWidth, inputHeight, kernelWidth);
 
@@ -83,9 +84,9 @@ public class TestConvolution {
 		int inputHeight = 6;
 		int kernelWidth = 3;
 
-		float[] rowVector = new float[] {0.5f, 0.2f, 0.3f};
-		float[] input = new float[] {1f, 1f, 1f, 0f, 0f, 0f};
-		float[] result = new float[] {0.5f, 1.0f, 0.7f, 0.5f, 0f, 0f};
+		float[] rowVector = new float[]{0.5f, 0.2f, 0.3f};
+		float[] input = new float[]{1f, 1f, 1f, 0f, 0f, 0f};
+		float[] result = new float[]{0.5f, 1.0f, 0.7f, 0.5f, 0f, 0f};
 
 		float[] output = Convolution.convolveRow(input, rowVector, inputWidth, inputHeight, kernelWidth);
 

@@ -26,7 +26,8 @@ public class AttributesGFM extends Attributes {
 	private double momOfInertia = 1;
 	private double startOmega = 0;
 
-	public AttributesGFM() {}
+	public AttributesGFM() {
+	}
 
 
 	public double getGravityFactor() {

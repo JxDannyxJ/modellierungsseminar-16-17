@@ -30,8 +30,6 @@ import java.util.Observer;
 
 /**
  * The data of the DrawPanel. Its holds the whole data of one scenario.
- * 
- * 
  */
 public class TopographyCreatorModel extends DefaultModel implements IDrawPanelModel {
 
@@ -48,19 +46,29 @@ public class TopographyCreatorModel extends DefaultModel implements IDrawPanelMo
 	 */
 	private double scalingFactor = 1.0;
 
-	/** a copy of the topography element that will be moved, can be null. */
+	/**
+	 * a copy of the topography element that will be moved, can be null.
+	 */
 	private VShape prototypeShape;
 
-	/** the last copied element, can be null. */
+	/**
+	 * the last copied element, can be null.
+	 */
 	private ScenarioElement copiedElement;
 
-	/** indicate that the prototype is availible != null and visible. */
+	/**
+	 * indicate that the prototype is availible != null and visible.
+	 */
 	private boolean prototypeVisble;
 
-	/** Font to be used to display statistical informations. */
+	/**
+	 * Font to be used to display statistical informations.
+	 */
 	private final Font font;
 
-	/** the stack of accessed categories */
+	/**
+	 * the stack of accessed categories
+	 */
 	private LinkedList<ScenarioElementType> typeAccessStack;
 
 	private ScenarioElementType currentType;
@@ -265,7 +273,7 @@ public class TopographyCreatorModel extends DefaultModel implements IDrawPanelMo
 				topographyBuilder.addStairs((Stairs) shape);
 				break;
 			case PEDESTRIAN:
-				topographyBuilder.addPedestrian( (Pedestrian) shape);
+				topographyBuilder.addPedestrian((Pedestrian) shape);
 				break;
 			case SOURCE:
 				topographyBuilder.addSource((Source) shape);
@@ -276,7 +284,7 @@ public class TopographyCreatorModel extends DefaultModel implements IDrawPanelMo
 			case TELEPORTER:
 				topographyBuilder.setTeleporter((Teleporter) shape);
 				break;
-			case HORSE :  //CHANGED AG
+			case HORSE:  //CHANGED AG
 				topographyBuilder.addHorse((Horse) shape);
 				break;
 			default:

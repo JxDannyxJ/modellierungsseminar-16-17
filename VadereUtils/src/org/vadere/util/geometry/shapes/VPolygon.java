@@ -33,9 +33,7 @@ public class VPolygon extends Path2D.Double implements VShape {
 	/**
 	 * Check whether the given polygon intersects with the open ball around
 	 * "center" with given radius.
-	 * 
-	 * @param center
-	 * @param radius
+	 *
 	 * @return true if any point of the polygon lies within the open ball.
 	 */
 	public boolean intersects(VPoint center, double radius) {
@@ -71,7 +69,7 @@ public class VPolygon extends Path2D.Double implements VShape {
 
 	/**
 	 * Returns a list of all points of this geometry.
-	 * 
+	 *
 	 * @return A list of points.
 	 */
 	public List<VPoint> getPoints() {
@@ -116,9 +114,6 @@ public class VPolygon extends Path2D.Double implements VShape {
 	/**
 	 * Check whether all lines of this polygon intersect somewhere with the
 	 * given polygon.
-	 * 
-	 * @param intersectingPolygon
-	 * @return
 	 */
 	public boolean intersects(final VPolygon intersectingPolygon) {
 
@@ -227,7 +222,7 @@ public class VPolygon extends Path2D.Double implements VShape {
 	}
 
 	public LinkedList<VPolygon> borderAsShapes(double borderWidth,
-			double shapeShrinkOffset, double segmentGrowOffset) {
+											   double shapeShrinkOffset, double segmentGrowOffset) {
 		LinkedList<VPolygon> border = new LinkedList<VPolygon>();
 		PathIterator vertexItr = getPathIterator(null);
 		double lastVertex[] = null;
@@ -257,61 +252,61 @@ public class VPolygon extends Path2D.Double implements VShape {
 
 			segmentVertices
 					.moveTo(lastVertex[0]
-							- delta[0]
+									- delta[0]
 									* segmentGrowOffset
-							- delta[1]
+									- delta[1]
 									* (borderOffset + shapeShrinkOffset + segmentGrowOffset),
 							lastVertex[1]
 									- delta[1]
-											* segmentGrowOffset
+									* segmentGrowOffset
 									+ delta[0]
-											* (borderOffset + shapeShrinkOffset + segmentGrowOffset));
+									* (borderOffset + shapeShrinkOffset + segmentGrowOffset));
 			segmentVertices
 					.lineTo(lastVertex[0]
-							- delta[0]
+									- delta[0]
 									* segmentGrowOffset
-							+ delta[1]
+									+ delta[1]
 									* (borderOffset - shapeShrinkOffset + segmentGrowOffset),
 							lastVertex[1]
 									- delta[1]
-											* segmentGrowOffset
+									* segmentGrowOffset
 									- delta[0]
-											* (borderOffset - shapeShrinkOffset + segmentGrowOffset));
+									* (borderOffset - shapeShrinkOffset + segmentGrowOffset));
 			segmentVertices
 					.lineTo(curVertex[0]
-							+ delta[0]
+									+ delta[0]
 									* segmentGrowOffset
-							+ delta[1]
+									+ delta[1]
 									* (borderOffset - shapeShrinkOffset + segmentGrowOffset),
 							curVertex[1]
 									+ delta[1]
-											* segmentGrowOffset
+									* segmentGrowOffset
 									- delta[0]
-											* (borderOffset - shapeShrinkOffset + segmentGrowOffset));
+									* (borderOffset - shapeShrinkOffset + segmentGrowOffset));
 			segmentVertices
 					.lineTo(curVertex[0]
-							+ delta[0]
+									+ delta[0]
 									* segmentGrowOffset
-							- delta[1]
+									- delta[1]
 									* (borderOffset + shapeShrinkOffset + segmentGrowOffset),
 							curVertex[1]
 									+ delta[1]
-											* segmentGrowOffset
+									* segmentGrowOffset
 									+ delta[0]
-											* (borderOffset + shapeShrinkOffset + segmentGrowOffset));
+									* (borderOffset + shapeShrinkOffset + segmentGrowOffset));
 
 			/* Insert first vertex as last too. */
 			segmentVertices
 					.lineTo(lastVertex[0]
-							- delta[0]
+									- delta[0]
 									* segmentGrowOffset
-							- delta[1]
+									- delta[1]
 									* (borderOffset + shapeShrinkOffset + segmentGrowOffset),
 							lastVertex[1]
 									- delta[1]
-											* segmentGrowOffset
+									* segmentGrowOffset
 									+ delta[0]
-											* (borderOffset + shapeShrinkOffset + segmentGrowOffset));
+									* (borderOffset + shapeShrinkOffset + segmentGrowOffset));
 
 			border.add(new VPolygon(segmentVertices));
 
@@ -426,10 +421,10 @@ public class VPolygon extends Path2D.Double implements VShape {
 					- pointList.get(i).getY() * pointList.get(i + 1).getX();
 			xValue += (pointList.get(i).getX() + pointList.get(i + 1).getX())
 					* (pointList.get(i).getX() * pointList.get(i + 1).getY()
-							- pointList.get(i).getY() * pointList.get(i + 1).getX());
+					- pointList.get(i).getY() * pointList.get(i + 1).getX());
 			yValue += (pointList.get(i).getY() + pointList.get(i + 1).getY())
 					* (pointList.get(i).getX() * pointList.get(i + 1).getY()
-							- pointList.get(i).getY() * pointList.get(i + 1).getX());
+					- pointList.get(i).getY() * pointList.get(i + 1).getX());
 		}
 		area /= 2;
 		xValue /= (6 * area);

@@ -16,8 +16,6 @@ import org.vadere.state.scenario.ScenarioElement;
 
 /**
  * In this mode the user is able to remove ScenarioElements with his mouse.
- * 
- *
  */
 public class EraserMode extends DefaultSelectionMode {
 	private static Resources resources = Resources.getInstance("topologycreator");

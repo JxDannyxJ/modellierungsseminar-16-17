@@ -10,9 +10,8 @@ import junit.framework.TestSuite;
 public class TestApp extends TestCase {
 	/**
 	 * Create the test case
-	 * 
-	 * @param testName
-	 *        name of the test case
+	 *
+	 * @param testName name of the test case
 	 */
 	public TestApp(String testName) {
 		super(testName);

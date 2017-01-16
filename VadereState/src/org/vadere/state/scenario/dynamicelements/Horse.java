@@ -14,23 +14,24 @@ import java.util.Random;
 /**
  * Represents a horse in the simulation. The attributes object contained in the class
  * determine the properties of the horse.
+ *
  * @author Daniel Jadanec
  */
 public class Horse extends Agent implements Comparable<Horse> {
 
 	private transient Random random;
 	private ScenarioElementType type = ScenarioElementType.HORSE;
-	
+
 	/**
 	 * Attribute that affects the moving angle of a horse
 	 */
 	private boolean hasEyepatch;
-	
+
 	/**
 	 * Attribute that effects the moving speed of a horse
 	 */
 	private boolean isSaddled;
-	
+
 	private AttributesHorse attributesHorse;
 
 	/**
@@ -43,6 +44,7 @@ public class Horse extends Agent implements Comparable<Horse> {
 
 	/**
 	 * Class constructor which creates a new horse object with given attributes
+	 *
 	 * @param attributesHorse the attributes for the horse
 	 */
 	private Horse(AttributesHorse attributesHorse) {
@@ -63,8 +65,9 @@ public class Horse extends Agent implements Comparable<Horse> {
 
 	/**
 	 * Class constructor which creates a horse object with given attributes and a initial position
+	 *
 	 * @param attributesHorse the attributes for the horse
-	 * @param position the initial position
+	 * @param position        the initial position
 	 */
 	public Horse(AttributesHorse attributesHorse, VPoint position) {
 		super(attributesHorse, position);
@@ -89,7 +92,7 @@ public class Horse extends Agent implements Comparable<Horse> {
 		Double thisPos = new Double(this.getPosition().getX());
 		Double othPos = new Double(o.getPosition().getX());
 
-		if (((AttributesHorse)getAttributes()).getDirection().getX() >= 0) {
+		if (((AttributesHorse) getAttributes()).getDirection().getX() >= 0) {
 			return -1 * thisPos.compareTo(othPos);
 		} else {
 			return thisPos.compareTo(othPos);
@@ -135,6 +138,7 @@ public class Horse extends Agent implements Comparable<Horse> {
 
 	/**
 	 * Setter for the eye patch property
+	 *
 	 * @param hasEyepatch true if the horse shall wear an eye patch, false otherwise
 	 */
 	@SuppressWarnings("unused")
@@ -144,6 +148,7 @@ public class Horse extends Agent implements Comparable<Horse> {
 
 	/**
 	 * Setter for having a saddled horse
+	 *
 	 * @param isSaddled true if the horse shall be saddled, false otherwise
 	 */
 	@SuppressWarnings("unused")

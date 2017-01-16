@@ -28,7 +28,6 @@ public class Car extends Agent implements Comparable<Car> {
 
 	/**
 	 * Class constructor which instantiates a car object with given attributes
-	 * @param attributesCar
 	 */
 	private Car(AttributesCar attributesCar) {
 		this(attributesCar, new Random());

@@ -67,6 +67,7 @@ public class AttributesSource extends AttributesScenarioElement {
 
 	/**
 	 * Class constructor for a new attributes source object with given identifier
+	 *
 	 * @param id the unique identifier for the object
 	 */
 	public AttributesSource(int id) {
@@ -75,8 +76,6 @@ public class AttributesSource extends AttributesScenarioElement {
 
 	/**
 	 * Class constructor which creates a new attributes source object with a given id and shape
-	 * @param id
-	 * @param shape
 	 */
 	public AttributesSource(int id, VShape shape) {
 		super(id, shape);
@@ -85,14 +84,15 @@ public class AttributesSource extends AttributesScenarioElement {
 	// Getters...
 
 	/**
-	 * Class name of distribution for inter-spawn times. The name must point to a subclass of
-	 * {@link org.apache.commons.math3.distribution.RealDistribution RealDistribution}. This subclass must have at
-	 * least one public constructor with the following arguments: 1.
-	 * {@link org.apache.commons.math3.random.RandomGenerator RandomGenerator},
-	 * 2. one or more arguments of type <code>double</code> for distribution parameters.
+	 * Class name of distribution for inter-spawn times. The name must point to a subclass of {@link
+	 * org.apache.commons.math3.distribution.RealDistribution RealDistribution}. This subclass must
+	 * have at least one public constructor with the following arguments: 1. {@link
+	 * org.apache.commons.math3.random.RandomGenerator RandomGenerator}, 2. one or more arguments of
+	 * type <code>double</code> for distribution parameters.
 	 *
 	 * @see Class#getName()
-	 * @see <a href="https://commons.apache.org/proper/commons-math/apidocs/org/apache/commons/math3/distribution/package-summary.html">Apache Math3</a>
+	 * @see <a href="https://commons.apache.org/proper/commons-math/apidocs/org/apache/commons/math3/distribution/package-summary.html">Apache
+	 * Math3</a>
 	 */
 	public String getInterSpawnTimeDistribution() {
 		return interSpawnTimeDistribution;

@@ -235,8 +235,8 @@ public class ProjectViewModel {
 	public boolean isScenarioNameInConflict(final String name) {
 		return isProjectAvailable()
 				&& project.getScenarios().stream()
-						.filter(scenario -> scenario.getName().equals(name))
-						.findAny().isPresent();
+				.filter(scenario -> scenario.getName().equals(name))
+				.findAny().isPresent();
 	}
 
 	public void fireRefreshOutputStarted() {
@@ -287,7 +287,7 @@ public class ProjectViewModel {
 		private final Collection<String> outputDirectories;
 
 		public ScenarioBundle(final VadereProject project, final ScenarioRunManager scenarioRM,
-				final Collection<String> outputDirectories) {
+							  final Collection<String> outputDirectories) {
 			this.project = project;
 			this.scenarioRM = scenarioRM;
 			this.outputDirectories = outputDirectories;
@@ -312,7 +312,7 @@ public class ProjectViewModel {
 		private final Collection<File> outputDirectories;
 
 		public OutputBundle(final File directory, final VadereProject project,
-				final Collection<File> outputDirectories) {
+							final Collection<File> outputDirectories) {
 			this.directory = directory;
 			this.project = project;
 			this.outputDirectories = outputDirectories;
@@ -353,7 +353,9 @@ public class ProjectViewModel {
 			scenarioTable.getSelectionModel().setSelectionInterval(rowIndex, rowIndex);
 	}
 
-	/** Set selection in scenario JTable. */
+	/**
+	 * Set selection in scenario JTable.
+	 */
 	public void selectScenario(ScenarioRunManager scenarioRM) {
 		int i = scenarioTableModel.indexOfRow(scenarioRM);
 		setSelectedRowIndexInScenarioTable(i);

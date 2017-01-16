@@ -14,8 +14,6 @@ import org.vadere.state.scenario.Topography;
  * IGaussianFilter is a refershable image processing calculator that can be used
  * to solve a discrete convolution or other calculations that can be done by a
  * image processing filter.
- * 
- * 
  */
 public interface IGaussianFilter {
 
@@ -28,13 +26,9 @@ public interface IGaussianFilter {
 	/**
 	 * Returns the value of a specified coordinate. This coordinate will be
 	 * converted to natural numbers of the image.
-	 * 
-	 * @param x
-	 *        the x-coordinate (for example the x-coordinate of a place on
-	 *        the floor)
-	 * @param y
-	 *        the y-coordinate (for example the y-coordinate of a place on
-	 *        the floor)
+	 *
+	 * @param x the x-coordinate (for example the x-coordinate of a place on the floor)
+	 * @param y the y-coordinate (for example the y-coordinate of a place on the floor)
 	 * @return the value of a specified coordinate
 	 */
 	double getFilteredValue(final double x, final double y);
@@ -47,7 +41,9 @@ public interface IGaussianFilter {
 
 	void setInputValue(final int x, final int y, final double value);
 
-	/** refresh or update the values of the image that contains all values. */
+	/**
+	 * refresh or update the values of the image that contains all values.
+	 */
 	void filterImage();
 
 	void clear();
@@ -63,10 +59,10 @@ public interface IGaussianFilter {
 	double getMinFilteredValue();
 
 	static <E extends Agent> IGaussianFilter create(final Rectangle2D scenarioBounds,
-			Collection<E> pedestrians, final double scale,
-			final double standardDerivation,
-			final AttributesAgent attributesPedestrian,
-			final IPedestrianLoadingStrategy loadingStrategy) {
+													Collection<E> pedestrians, final double scale,
+													final double standardDerivation,
+													final AttributesAgent attributesPedestrian,
+													final IPedestrianLoadingStrategy loadingStrategy) {
 		return create(scenarioBounds, pedestrians, scale, standardDerivation, attributesPedestrian, loadingStrategy,
 				Type.OpenCL);
 	}
@@ -75,10 +71,10 @@ public interface IGaussianFilter {
 	 * Factory-methods
 	 */
 	static <E extends Agent> IGaussianFilter create(final Rectangle2D scenarioBounds,
-			Collection<E> pedestrians, final double scale,
-			final double standardDerivation,
-			final AttributesAgent attributesPedestrian,
-			final IPedestrianLoadingStrategy loadingStrategy, final Type type) {
+													Collection<E> pedestrians, final double scale,
+													final double standardDerivation,
+													final AttributesAgent attributesPedestrian,
+													final IPedestrianLoadingStrategy loadingStrategy, final Type type) {
 
 		double scaleFactor = attributesPedestrian.getRadius() * 2
 				* attributesPedestrian.getRadius() * 2

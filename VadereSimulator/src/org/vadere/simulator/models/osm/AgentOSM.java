@@ -17,67 +17,151 @@ import java.util.Random;
  */
 public interface AgentOSM extends DynamicElement {
 
-	/** Return the time (seconds) of next step.*/
+	/**
+	 * Return the time (seconds) of next step.
+	 */
 	double getTimeOfNextStep();
-	/** Return the step size.*/
+
+	/**
+	 * Return the step size.
+	 */
 	double getStepSize();
-	/** Return the desired speed.*/
+
+	/**
+	 * Return the desired speed.
+	 */
 	double getDesiredSpeed();
-	/** Return the duration of the next step (seconds).*/
+
+	/**
+	 * Return the duration of the next step (seconds).
+	 */
 	double getDurationNextStep();
 
-	/** Set time of next step (seconds).*/
+	/**
+	 * Set time of next step (seconds).
+	 */
 	void setTimeOfNextStep(double d);
-	/** Set duration of next step (seconds).*/
+
+	/**
+	 * Set duration of next step (seconds).
+	 */
 	void setDurationNextStep(double d);
-	/** Make a step with given duration (seconds).*/
+
+	/**
+	 * Make a step with given duration (seconds).
+	 */
 	void makeStep(double d);
-	/** Update agent next position.*/
+
+	/**
+	 * Update agent next position.
+	 */
 	void updateNextPosition();
-	/** Return the time credit (seconds).*/
+
+	/**
+	 * Return the time credit (seconds).
+	 */
 	double getTimeCredit();
-	/** Set the time credit.*/
+
+	/**
+	 * Set the time credit.
+	 */
 	void setTimeCredit(double d);
-	/** Return the next position of the agent.*/
+
+	/**
+	 * Return the next position of the agent.
+	 */
 	VPoint getNextPosition();
-	/** Set current position of the agent.*/
+
+	/**
+	 * Set current position of the agent.
+	 */
 	void setPosition(VPoint nextPosition);
 	//void setLastPosition(VPoint position);
-	/** Return the id of the agent.*/
+
+	/**
+	 * Return the id of the agent.
+	 */
 	int getId();
 	//VPoint getLastPosition();
-	/** Set the agents velocity vector.*/
+
+	/**
+	 * Set the agents velocity vector.
+	 */
 	void setVelocity(Vector2D vector2d);
-	/** Return the radius of the agent.*/
+
+	/**
+	 * Return the radius of the agent.
+	 */
 	double getRadius();
-	/** Return the potential for this agent at given position.*/
+
+	/**
+	 * Return the potential for this agent at given position.
+	 */
 	double getPotential(VPoint reachPoint);
-	/** Return the current position of the agent.*/
+
+	/**
+	 * Return the current position of the agent.
+	 */
 	VPoint getPosition();
-	/** Return the minimal step length of the agent.*/
+
+	/**
+	 * Return the minimal step length of the agent.
+	 */
 	double getMinStepLength();
-	/** Return the targets potential influence at given position.*/
+
+	/**
+	 * Return the targets potential influence at given position.
+	 */
 	double getTargetPotential(VPoint newPos);
-	/** Return the topography the agent is on.*/
+
+	/**
+	 * Return the topography the agent is on.
+	 */
 	Topography getTopography();
-	/** Return the model attributes.*/
+
+	/**
+	 * Return the model attributes.
+	 */
 	AttributesOSM getAttributesOSM();
-	/** Return the agents velocity vector.*/
+
+	/**
+	 * Return the agents velocity vector.
+	 */
 	Vector2D getVelocity();
-	/** Return the agents target id.*/
+
+	/**
+	 * Return the agents target id.
+	 */
 	int getNextTargetId();
-	/** Return the gradient vector for obstacles.*/
+
+	/**
+	 * Return the gradient vector for obstacles.
+	 */
 	Vector2D getObstacleGradient(VPoint position);
-	/** Return the gradient vector for agents.*/
+
+	/**
+	 * Return the gradient vector for agents.
+	 */
 	Vector2D getAgentGradient(VPoint position);
-	/** Return the gradient vector for targets.*/
+
+	/**
+	 * Return the gradient vector for targets.
+	 */
 	Vector2D getTargetGradient(VPoint position);
-	/** Return new position depending on rotation angle and step size.*/
+
+	/**
+	 * Return new position depending on rotation angle and step size.
+	 */
 	VPoint angleToPosition(double angle, double stepSize);
-	/** Update routine. Called by the model. Absolute necessary.*/
+
+	/**
+	 * Update routine. Called by the model. Absolute necessary.
+	 */
 	void update(double i, double simTimeInSec, CallMethod eventDriven);
 
-	/** Return list of reachable positions for this agent.*/
+	/**
+	 * Return list of reachable positions for this agent.
+	 */
 	LinkedList<VPoint> getReachablePositions(Random random);
 
 }

@@ -23,8 +23,8 @@ public class StepCircleOptimizerGradient implements StepCircleOptimizer {
 	private final Topography topography;
 
 	public StepCircleOptimizerGradient(Topography topography,
-			IPotentialTargetGrid potentialFieldTarget,
-			AttributesOSM attributesOSM) {
+									   IPotentialTargetGrid potentialFieldTarget,
+									   AttributesOSM attributesOSM) {
 
 		this.attributesOSM = attributesOSM;
 		this.topography = topography;

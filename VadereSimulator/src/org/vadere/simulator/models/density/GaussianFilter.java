@@ -16,10 +16,14 @@ abstract class GaussianFilter implements IGaussianFilter {
 	 */
 	protected final double scale;
 
-	/** the width of the scenario. */
+	/**
+	 * the width of the scenario.
+	 */
 	protected final int scenarioWidth;
 
-	/** the height of the scenario. */
+	/**
+	 * the height of the scenario.
+	 */
 	protected final int scenarioHeight;
 
 	protected float[] inputMatrix;
@@ -37,7 +41,7 @@ abstract class GaussianFilter implements IGaussianFilter {
 	private static Logger logger = LogManager.getLogger(GaussianFilter.class);
 
 	GaussianFilter(final Rectangle2D scenarioBounds, final double scale, final BiFunction<Integer, Integer, Float> f,
-			final boolean noramized) {
+				   final boolean noramized) {
 		this.scale = scale;
 		this.scenarioWidth = (int) (Math.ceil(scenarioBounds.getWidth())) + 1;
 		this.scenarioHeight = (int) (Math.ceil(scenarioBounds.getHeight())) + 1;

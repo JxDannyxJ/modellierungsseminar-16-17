@@ -11,7 +11,6 @@ import java.awt.geom.Rectangle2D;
 
 /**
  * Updates the viewport in the model if the viewport of the JScrollpane changes (pixel coordinates).
- * 
  */
 public class JViewportChangeListener implements ChangeListener {
 

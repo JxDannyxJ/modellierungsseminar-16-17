@@ -11,27 +11,20 @@ import org.vadere.util.geometry.shapes.VPolygon;
 /**
  * Prints a {@link Geometry} or a double array in a MATLAB friendly format to
  * the console.
- * 
  */
 public class GeometryPrinter {
 
 	/**
 	 * Print the given geometry in a MATLAB friendly format to the console.
-	 * 
-	 * @param toVisualize
-	 * @param gridSideLen
-	 *        Side length of the grid for MATLABs mesh(...) function.
-	 * @param minX
-	 *        minimum x value of the geometry
-	 * @param minY
-	 *        minimum y value of the geometry
-	 * @param width
-	 *        width of the geometry
-	 * @param height
-	 *        height of the geometry
+	 *
+	 * @param gridSideLen Side length of the grid for MATLABs mesh(...) function.
+	 * @param minX        minimum x value of the geometry
+	 * @param minY        minimum y value of the geometry
+	 * @param width       width of the geometry
+	 * @param height      height of the geometry
 	 */
 	public static String geometry2string(Geometry toVisualize, int gridSideLen,
-			double minX, double minY, double width, double height) {
+										 double minX, double minY, double width, double height) {
 		// units per grid side
 		double gridBinSideLen = Math.sqrt(height * width) / gridSideLen;
 
@@ -92,9 +85,6 @@ public class GeometryPrinter {
 
 	/**
 	 * Prints a given double grid to a string.
-	 * 
-	 * @param grid
-	 * @return
 	 */
 	public static String grid2string(double[][] grid) {
 
@@ -117,9 +107,6 @@ public class GeometryPrinter {
 
 	/**
 	 * Prints a given double grid to a string.
-	 * 
-	 * @param grid
-	 * @return
 	 */
 	public static String grid2string(double[][][] grid) {
 

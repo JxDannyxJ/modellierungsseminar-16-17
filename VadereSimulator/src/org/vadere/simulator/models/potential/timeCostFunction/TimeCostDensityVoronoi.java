@@ -15,48 +15,57 @@ import org.vadere.util.voronoi.RectangleLimits;
 import org.vadere.util.voronoi.VoronoiDiagram;
 
 /**
- * 
  * This class is no longer in use.
- * 
+ *
  * The TimeCostDensityVoronoi measures the density by generating an
  * jts-diagram for the whole area of the scenario. This has a complexity of
  * O(N*log(N)) for each computation. We count the pedestrians and the area size
  * of all jts-regions in an specific area. D = N * (min possilbe jts
  * area) /(sum of all jts cell areas) for those jts cell who's site is
  * inside the measurement area (a square).
- * 
+ *
  * This is only working if no obstacles inside the area of the
  * jts-diagram!!!
- * 
- * 
  */
 @Deprecated
 public class TimeCostDensityVoronoi implements ITimeCostFunction {
-	/** the jts-diagram which has to be recomputed in every step. */
+	/**
+	 * the jts-diagram which has to be recomputed in every step.
+	 */
 	private final VoronoiDiagram voronoiDiagram;
 
-	/** the width and height of the measurement area (a square). */
+	/**
+	 * the width and height of the measurement area (a square).
+	 */
 	private final double measurementAreaRadius;
 
-	/** the cached voronoiAreas, to avoid recomputing. */
+	/**
+	 * the cached voronoiAreas, to avoid recomputing.
+	 */
 	private Map<Integer, Double> voronoiAreas;
 
-	/** the weight of the density. */
+	/**
+	 * the weight of the density.
+	 */
 	private double sameTargetWeight;
 
 	private double otherTargetWeight;
 
-	/** S_p (as supposed in Seitz paper). */
+	/**
+	 * S_p (as supposed in Seitz paper).
+	 */
 	private final double scaleFactor;
 
 	private final Topography floor;
 
-	/** the time cost function for the decorator-pattern. */
+	/**
+	 * the time cost function for the decorator-pattern.
+	 */
 	private ITimeCostFunction timeCostFunction;
 
 	public TimeCostDensityVoronoi(final ITimeCostFunction timeCostFunction,
-			final AttributesTimeCost attributes, final AttributesAgent attributesPedestrian, final int floorId,
-			final Topography floor) {
+								  final AttributesTimeCost attributes, final AttributesAgent attributesPedestrian, final int floorId,
+								  final Topography floor) {
 		this.timeCostFunction = timeCostFunction;
 		this.floor = floor;
 		this.sameTargetWeight = attributes

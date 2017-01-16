@@ -16,6 +16,7 @@ public class Obstacle implements ScenarioElement {
 
 	/**
 	 * Constructor which initializes the obstacle with given attributes
+	 *
 	 * @param attributes the shape and id of the obstacle bundled in an object
 	 */
 	public Obstacle(AttributesObstacle attributes) {

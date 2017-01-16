@@ -14,12 +14,13 @@ import org.vadere.util.geometry.shapes.VShape;
 /**
  * The default IPotentialTargetGrid, that creates for each target the same floor field type
  * based on the AttributesFloorField.
- *
  */
 public class PotentialFieldTargetGrid<T extends Agent> extends AbstractPotentialFieldTarget {
 
 	// private HashMap<Integer, PotentialFieldAndInitializer> staticPotentialFields;
-	/** The topography the floor fields are generated for. */
+	/**
+	 * The topography the floor fields are generated for.
+	 */
 	private Topography topography;
 
 	/* Optimization */
@@ -79,11 +80,12 @@ public class PotentialFieldTargetGrid<T extends Agent> extends AbstractPotential
 	}
 
 	@Override
-	public void postLoop(final double simTimeInSec) {}
+	public void postLoop(final double simTimeInSec) {
+	}
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 }

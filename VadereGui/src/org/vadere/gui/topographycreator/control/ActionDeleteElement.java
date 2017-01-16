@@ -18,7 +18,7 @@ public class ActionDeleteElement extends TopographyAction {
 	}
 
 	public ActionDeleteElement(final String name, final IDrawPanelModel model, final UndoableEditSupport undoSupport,
-			final TopographyAction basicAction) {
+							   final TopographyAction basicAction) {
 		super(name, model);
 		this.undoSupport = undoSupport;
 		this.basicAction = basicAction;

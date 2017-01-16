@@ -9,8 +9,6 @@ import org.vadere.util.geometry.shapes.VRectangle;
 
 /**
  * Part of the command pattern to re- and undo cutTopography.
- * 
- *
  */
 public class EditCutScenario extends AbstractUndoableEdit {
 	private static final long serialVersionUID = -15649157884176273L;

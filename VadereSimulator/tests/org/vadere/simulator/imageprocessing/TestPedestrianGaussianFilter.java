@@ -99,16 +99,15 @@ public class TestPedestrianGaussianFilter {
 		 * System.out.println("rel. cv-error:" + maxRelErrorCV);
 		 */
 //	}
-
 	private static double calculateExactDensity(final VPoint point, final Collection<Pedestrian> pedestrians,
-			final double standardDerivation) {
+												final double standardDerivation) {
 		return pedestrians.stream().map(ped -> ped.getPosition())
 				.map(p -> calculatePartialDensity(p, point, standardDerivation, new AttributesAgent(-1)))
 				.reduce(0.0, (d1, d2) -> d1 + d2);
 	}
 
 	private static double calculatePartialDensity(final VPoint p1, final VPoint p2, final double standardDerivation,
-			final AttributesAgent attributesPedestrian) {
+												  final AttributesAgent attributesPedestrian) {
 		double varianz = standardDerivation * standardDerivation;
 
 		double scaleFactor = attributesPedestrian.getRadius() * 2

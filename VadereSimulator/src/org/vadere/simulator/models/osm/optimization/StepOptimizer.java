@@ -9,8 +9,8 @@ import org.vadere.util.geometry.shapes.VShape;
  */
 public interface StepOptimizer {
 
-    VPoint getNextPosition(AgentOSM agentOSM, VShape reachableArea);
+	VPoint getNextPosition(AgentOSM agentOSM, VShape reachableArea);
 
 
-    StepOptimizer clone();
+	StepOptimizer clone();
 }

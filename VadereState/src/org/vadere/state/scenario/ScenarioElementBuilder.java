@@ -18,7 +18,7 @@ public class ScenarioElementBuilder<T extends ScenarioElement> {
 	/**
 	 * Sets the attribute to the topography element. This method is not type save.
 	 * The attributes.getClass() has to fit to element.getClass();
-	 * 
+	 *
 	 * @param attributes the attributes
 	 */
 	public void setAttributes(final Attributes attributes) {

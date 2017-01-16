@@ -7,10 +7,12 @@ import org.vadere.util.potential.CellState;
 public class PotentialFieldCalculatorNone implements EikonalSolver {
 
 	@Override
-	public void initialize() {}
+	public void initialize() {
+	}
 
 	@Override
-	public void update() {}
+	public void update() {
+	}
 
 	@Override
 	public boolean needsUpdate() {

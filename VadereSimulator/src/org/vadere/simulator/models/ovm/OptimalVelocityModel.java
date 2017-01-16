@@ -1,6 +1,5 @@
 /**
  * This class implements the optimal velocity model for car traffic
- * 
  */
 package org.vadere.simulator.models.ovm;
 
@@ -36,7 +35,7 @@ public class OptimalVelocityModel extends ODEModel<Car, AttributesCar> {
 
 	/**
 	 * Constructor for OptimalVelocityModel used in the ModelCreator
-	 * 
+	 *
 	 * @param scenario
 	 * @param ovmEquations
 	 * @param attributesOVM
@@ -45,11 +44,11 @@ public class OptimalVelocityModel extends ODEModel<Car, AttributesCar> {
 	 */
 	@Deprecated
 	public OptimalVelocityModel(Topography scenario,
-			OVMEquations ovmEquations,
-			AttributesOVM attributesOVM,
-			AttributesCar elementAttributes,
-			boolean pedestrianInteraction,
-			Random random) {
+								OVMEquations ovmEquations,
+								AttributesOVM attributesOVM,
+								AttributesCar elementAttributes,
+								boolean pedestrianInteraction,
+								Random random) {
 
 		super(Car.class, scenario,
 				IntegratorFactory.createFirstOrderIntegrator(attributesOVM.getAttributesODEIntegrator()),
@@ -66,11 +65,12 @@ public class OptimalVelocityModel extends ODEModel<Car, AttributesCar> {
 		ovmEquations.setGradients(null, null, null, scenario);
 	}
 
-	public OptimalVelocityModel() {}
+	public OptimalVelocityModel() {
+	}
 
 	@Override
 	public void initialize(List<Attributes> modelAttributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 
 		this.attributesOVM = Model.findAttributes(modelAttributesList, AttributesOVM.class);
 		AttributesCar elementAttributes = Model.findAttributes(modelAttributesList, AttributesCar.class);
@@ -93,7 +93,7 @@ public class OptimalVelocityModel extends ODEModel<Car, AttributesCar> {
 	@Override
 	/**
 	 * Creates a single car with given attributes
-	 * 
+	 *
 	 * @param store
 	 * @return single Car-Object
 	 */

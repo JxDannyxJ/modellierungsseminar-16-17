@@ -41,12 +41,12 @@ public class SocialForceModel extends ODEModel<Pedestrian, AttributesAgent> {
 
 	@Deprecated
 	public SocialForceModel(Topography scenario, AttributesSFM attributes,
-			PotentialFieldObstacle potentialFieldObstacle,
-			PotentialFieldAgent potentialFieldPedestrian,
-			IPotentialTargetGrid potentialFieldTarget,
-			AttributesAgent attributesPedestrian, Random random) {
+							PotentialFieldObstacle potentialFieldObstacle,
+							PotentialFieldAgent potentialFieldPedestrian,
+							IPotentialTargetGrid potentialFieldTarget,
+							AttributesAgent attributesPedestrian, Random random) {
 		super(Pedestrian.class, scenario, IntegratorFactory.createFirstOrderIntegrator(attributes
-				.getAttributesODEIntegrator()), new SFMEquations(),
+						.getAttributesODEIntegrator()), new SFMEquations(),
 				attributesPedestrian, random);
 		this.attributes = attributes;
 		this.targets = new TreeMap<>();
@@ -66,7 +66,7 @@ public class SocialForceModel extends ODEModel<Pedestrian, AttributesAgent> {
 
 	@Override
 	public void initialize(List<Attributes> modelAttributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 
 		this.attributes = Model.findAttributes(modelAttributesList, AttributesSFM.class);
 

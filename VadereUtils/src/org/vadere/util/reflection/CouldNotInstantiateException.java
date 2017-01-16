@@ -8,6 +8,7 @@ public class CouldNotInstantiateException extends RuntimeException {
 		super(cause);
 	}
 
-	public CouldNotInstantiateException() {}
+	public CouldNotInstantiateException() {
+	}
 
 }

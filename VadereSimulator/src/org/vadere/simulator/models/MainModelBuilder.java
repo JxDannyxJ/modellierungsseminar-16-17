@@ -11,21 +11,28 @@ import org.vadere.util.reflection.DynamicClassInstantiator;
 
 /**
  * This class encapsulates the creation of MainModel.
- * 
+ *
  * For creation of submodels, see {@link SubModelBuilder}! The SubModelBuilder
  * should be used in the {@link MainModel#initialize} method.
  */
 public class MainModelBuilder {
 
-	/** Holding simulation parameters and attributes {@link ScenarioStore}.*/
+	/**
+	 * Holding simulation parameters and attributes {@link ScenarioStore}.
+	 */
 	private ScenarioStore scenarioStore;
-	/** The {@link MainModel}*/
+	/**
+	 * The {@link MainModel}
+	 */
 	private MainModel model;
-	/** Random instance.*/
+	/**
+	 * Random instance.
+	 */
 	private Random random;
 
 	/**
 	 * Constructor.
+	 *
 	 * @param scenarioStore the {@link ScenarioStore} for the {@link MainModel}.
 	 */
 	public MainModelBuilder(ScenarioStore scenarioStore) {
@@ -35,8 +42,10 @@ public class MainModelBuilder {
 	/**
 	 * Creates a new {@link MainModel} instance.
 	 * Calls {@link MainModelBuilder#instantiateMainModel(Random)} to create this instance
+	 *
 	 * @throws ClassNotFoundException Thrown if {@link MainModel} instantiation class is not found.
-	 * @throws InstantiationException Thrown if {@link MainModel} instantiation class could not be instantiated.
+	 * @throws InstantiationException Thrown if {@link MainModel} instantiation class could not be
+	 *                                instantiated.
 	 * @throws IllegalAccessException Thrown by illegal access.
 	 */
 	public void createModelAndRandom()
@@ -56,6 +65,7 @@ public class MainModelBuilder {
 
 	/**
 	 * Getter for the {@link MainModel}.
+	 *
 	 * @return the instantiated {@link MainModel}.
 	 */
 	public MainModel getModel() {
@@ -64,6 +74,7 @@ public class MainModelBuilder {
 
 	/**
 	 * Getter for the {@link Random} instance.
+	 *
 	 * @return a {@link Random} instance
 	 */
 	public Random getRandom() {
@@ -71,10 +82,11 @@ public class MainModelBuilder {
 	}
 
 	/**
-	 * Creates a new {@link MainModel instance}.
-	 * Uses {@link ScenarioStore} fields to fill in necessary model information.
-	 * Calls {@link DynamicClassInstantiator} to create {@link MainModel} instance.
-	 * Calls {@link MainModel#initialize(List, Topography, AttributesAgent, Random)} to initialize the model.
+	 * Creates a new {@link MainModel instance}. Uses {@link ScenarioStore} fields to fill in
+	 * necessary model information. Calls {@link DynamicClassInstantiator} to create {@link
+	 * MainModel} instance. Calls {@link MainModel#initialize(List, Topography, AttributesAgent,
+	 * Random)} to initialize the model.
+	 *
 	 * @param random the {@link Random} instance used.
 	 * @return new initialized {@link MainModel} instance.
 	 */

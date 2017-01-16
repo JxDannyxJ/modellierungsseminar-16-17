@@ -24,7 +24,6 @@ import java.util.Optional;
 
 /**
  * Provides the possibility to generate a picture based on a output-file in console mode.
- * 
  */
 public class PostVisualizationConsole {
 

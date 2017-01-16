@@ -224,7 +224,7 @@ public class PotentialFieldTargetQueuingGrid implements IPotentialTargetGrid, Dy
 	}
 
 	public boolean changeAttitude(final Pedestrian ped, final double lifeTimeInSec, final double lastLifeTimeInSec,
-			final double expectedTimeInSec) {
+								  final double expectedTimeInSec) {
 		// queue position
 		// double endDistance = queue.getHighestValue();
 		// double posDistance = queue.getValue(ped.getPosition().x, ped.getPosition().y);
@@ -275,7 +275,7 @@ public class PotentialFieldTargetQueuingGrid implements IPotentialTargetGrid, Dy
 	}
 
 	private static boolean isValidArguments(final Topography topography,
-			final AttributesQueuingGame attributesQueuingGame) {
+											final AttributesQueuingGame attributesQueuingGame) {
 		AttributesFloorField competitiveAttributes = attributesQueuingGame.getNavigationFloorField();
 		AttributesFloorField gentleAttributes = attributesQueuingGame.getQueuingFloorField();
 
@@ -294,7 +294,7 @@ public class PotentialFieldTargetQueuingGrid implements IPotentialTargetGrid, Dy
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 }

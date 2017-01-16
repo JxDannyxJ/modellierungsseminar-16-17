@@ -13,8 +13,6 @@ import javax.swing.undo.UndoManager;
 
 /**
  * Action: Undo the last action.
- * 
- * 
  */
 public class ActionUndo extends AbstractAction {
 

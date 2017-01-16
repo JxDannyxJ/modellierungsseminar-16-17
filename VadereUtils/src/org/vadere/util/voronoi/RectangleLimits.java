@@ -1,11 +1,11 @@
 package org.vadere.util.voronoi;
 
+import org.vadere.util.geometry.shapes.VPoint;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.vadere.util.geometry.shapes.VPoint;
-
-/* ToDo: Remove class. */
+//TODO Remove class
 public class RectangleLimits {
 	public final double xLow;
 	public final double yLow;
@@ -15,7 +15,7 @@ public class RectangleLimits {
 	public final List<VPoint> corners;
 
 	public RectangleLimits(double xLimitLow, double yLimitLow,
-			double xLimitHigh, double yLimitHigh) {
+						   double xLimitHigh, double yLimitHigh) {
 
 		this.xLow = xLimitLow;
 		this.yLow = yLimitLow;

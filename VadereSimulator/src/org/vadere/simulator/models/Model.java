@@ -2,6 +2,7 @@ package org.vadere.simulator.models;
 
 import java.util.List;
 import java.util.Random;
+
 import org.vadere.state.attributes.Attributes;
 import org.vadere.state.attributes.exceptions.AttributesMultiplyDefinedException;
 import org.vadere.state.attributes.exceptions.AttributesNotFoundException;
@@ -19,15 +20,16 @@ public interface Model {
 	 * list and creating sub models. It also sets attributes recursively for its sub models.
 	 */
 	void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random);
+					AttributesAgent attributesPedestrian, Random random);
 
 	/**
-	 * Searches for {@link Attributes} class of given type.
-	 * If no object is found this method throws a {@link AttributesNotFoundException}.
-	 * If multiple instances of the given class exist a {@link AttributesMultiplyDefinedException} is thrown.
+	 * Searches for {@link Attributes} class of given type. If no object is found this method throws
+	 * a {@link AttributesNotFoundException}. If multiple instances of the given class exist a
+	 * {@link AttributesMultiplyDefinedException} is thrown.
+	 *
 	 * @param attributesList List of all available {@link Attributes}.
-	 * @param type the {@link Attributes} class type to search for.
-	 * @param <T> the actual class type.
+	 * @param type           the {@link Attributes} class type to search for.
+	 * @param <T>            the actual class type.
 	 * @return {@link Attributes} instance with searched type T.
 	 */
 	public static <T extends Attributes> T findAttributes(List<Attributes> attributesList, final Class<T> type) {

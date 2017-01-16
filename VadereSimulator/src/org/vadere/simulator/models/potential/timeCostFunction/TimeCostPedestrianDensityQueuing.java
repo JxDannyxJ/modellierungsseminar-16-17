@@ -13,14 +13,16 @@ import org.vadere.util.potential.timecost.ITimeCostFunction;
  * queuing. The measurement with a loading is done by the
  * PedestrianGaussianFilter that uses the javaCV library. This has to be done
  * for every simulation step.
- * 
- * 
  */
 public class TimeCostPedestrianDensityQueuing implements ITimeCostFunction {
-	/** the image processing filter to measure the weighted density. */
+	/**
+	 * the image processing filter to measure the weighted density.
+	 */
 	private final IGaussianFilter gaussianCalculator;
 
-	/** the decorator that is uesed by this decorator. */
+	/**
+	 * the decorator that is uesed by this decorator.
+	 */
 	private ITimeCostFunction timeCostFunction;
 
 	private final double queueWidhtFactor;
@@ -28,7 +30,9 @@ public class TimeCostPedestrianDensityQueuing implements ITimeCostFunction {
 	// private final static double EPSILON = 0.0001;
 	private final static double EPSILON = 0.000001;
 
-	/** only for logging. */
+	/**
+	 * only for logging.
+	 */
 	private static Logger logger = LogManager
 			.getLogger(TimeCostPedestrianDensity.class);
 	private double highestCost = 0.0;

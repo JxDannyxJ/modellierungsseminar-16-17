@@ -8,7 +8,6 @@ import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 
 /**
  * Part of the command pattern to re- and undo scaleTopography.
- * 
  */
 public class EditScaleScenario extends AbstractUndoableEdit {
 

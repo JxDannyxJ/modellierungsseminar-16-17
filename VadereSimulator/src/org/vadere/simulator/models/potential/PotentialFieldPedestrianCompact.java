@@ -55,7 +55,7 @@ public class PotentialFieldPedestrianCompact implements PotentialFieldAgent {
 
 	@Override
 	public Collection<Pedestrian> getRelevantAgents(VCircle relevantArea,
-			Agent pedestrian, Topography scenario) {
+													Agent pedestrian, Topography scenario) {
 
 		List<Pedestrian> result = new LinkedList<>();
 
@@ -67,13 +67,12 @@ public class PotentialFieldPedestrianCompact implements PotentialFieldAgent {
 		result = closePedestrians;
 
 
-
 		return result;
 	}
 
 	@Override
 	public double getAgentPotential(VPoint pos, Agent pedestrian,
-			Agent otherPedestrian) {
+									Agent otherPedestrian) {
 		double distance = otherPedestrian.getPosition().distance(pos);
 
 
@@ -94,7 +93,7 @@ public class PotentialFieldPedestrianCompact implements PotentialFieldAgent {
 
 	@Override
 	public double getAgentPotential(VPoint pos, Agent pedestrian,
-			Collection<? extends Agent> otherPedestrians) {
+									Collection<? extends Agent> otherPedestrians) {
 		double potential = 0;
 
 		for (Agent neighbor : otherPedestrians) {
@@ -108,8 +107,8 @@ public class PotentialFieldPedestrianCompact implements PotentialFieldAgent {
 
 	@Override
 	public Vector2D getAgentPotentialGradient(VPoint pos,
-			Vector2D velocity, Agent pedestrian,
-			Collection<? extends Agent> otherPedestrians) {
+											  Vector2D velocity, Agent pedestrian,
+											  Collection<? extends Agent> otherPedestrians) {
 
 		Vector2D gradient = new Vector2D(0, 0);
 
@@ -124,7 +123,7 @@ public class PotentialFieldPedestrianCompact implements PotentialFieldAgent {
 	}
 
 	public Vector2D getAgentPotentialGradient(VPoint pos,
-			Agent pedestrian, Agent otherPedestrian) {
+											  Agent pedestrian, Agent otherPedestrian) {
 
 		Vector2D result;
 
@@ -148,7 +147,7 @@ public class PotentialFieldPedestrianCompact implements PotentialFieldAgent {
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 }

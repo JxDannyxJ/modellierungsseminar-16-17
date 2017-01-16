@@ -6,7 +6,6 @@ import org.vadere.util.geometry.shapes.VPoint;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class PointDensityCountingAlgorithm extends PointDensityAlgorithm {

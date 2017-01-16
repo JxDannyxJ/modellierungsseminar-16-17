@@ -10,7 +10,6 @@ import org.vadere.simulator.projects.io.IOOutput;
 /**
  * Converts a selected output directory to a
  * {@link org.vadere.simulator.projects.ScenarioRunManager} scenario.
- * 
  */
 public class ActionOutputToScenario extends ActionAbstractAddScenario {
 

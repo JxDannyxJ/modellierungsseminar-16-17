@@ -20,7 +20,6 @@ import org.vadere.util.potential.gradients.GradientProvider;
 /**
  * Provides gradients for obstacles using the formula of the classical SFM
  * (Helbing 1995).
- * 
  */
 public class PotentialFieldObstacleSFM implements GradientProvider,
 		PotentialFieldObstacle {
@@ -30,7 +29,7 @@ public class PotentialFieldObstacleSFM implements GradientProvider,
 	private final AttributesPotentialSFM attributes;
 
 	public PotentialFieldObstacleSFM(Collection<Obstacle> obstacles,
-			AttributesPotentialSFM attributesPotential) {
+									 AttributesPotentialSFM attributesPotential) {
 		this.obstacles = obstacles;
 		this.attributes = attributesPotential;
 	}
@@ -61,7 +60,7 @@ public class PotentialFieldObstacleSFM implements GradientProvider,
 			// compute the potential from ped i at x
 			pot = attributes.getObstacleBodyPotential()
 					* Math.exp(-distance
-							/ attributes.getObstacleRepulsionStrength());
+					/ attributes.getObstacleRepulsionStrength());
 
 			// compute and normalize the gradient length to the potential
 			double normDV = Math.sqrt(distanceVec[0] * distanceVec[0]
@@ -87,10 +86,10 @@ public class PotentialFieldObstacleSFM implements GradientProvider,
 
 	@Override
 	public Vector2D getObstaclePotentialGradient(VPoint pos,
-			Agent pedestrian) {
+												 Agent pedestrian) {
 
 		double[] completeGrad = new double[2];
-		double[] x = new double[] {pos.getX(), pos.getY()};
+		double[] x = new double[]{pos.getX(), pos.getY()};
 		double t = 0;
 		gradient(t, pedestrian.getNextTargetId(), x, completeGrad);
 
@@ -104,7 +103,7 @@ public class PotentialFieldObstacleSFM implements GradientProvider,
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 

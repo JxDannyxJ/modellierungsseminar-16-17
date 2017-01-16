@@ -5,28 +5,35 @@ import org.vadere.state.attributes.Attributes;
 /**
  * Provides attributes for a pedestrian, like body radius, height, gender...
  * Currently implemented: radius [m, default: 0.195].
- * 
  */
 public class AttributesTimeCost extends Attributes {
 	/**
 	 * The different time cost function types that represents different scenario
 	 * types.
-	 * 
-	 * 
 	 */
 	public enum TimeCostFunctionType {
-		/** a static middle scale navigation. */
+		/**
+		 * a static middle scale navigation.
+		 */
 		UNIT,
-		/** a dynamicelements middle scale navigation (navigation around groups). */
+		/**
+		 * a dynamicelements middle scale navigation (navigation around groups).
+		 */
 		NAVIGATION,
 
-		/** a dynamicelements middle scale navigation (queuing). */
+		/**
+		 * a dynamicelements middle scale navigation (queuing).
+		 */
 		QUEUEING,
 
-		/** for the queuing game */
+		/**
+		 * for the queuing game
+		 */
 		QUEUEING_GAME,
 
-		/** for the queuing game */
+		/**
+		 * for the queuing game
+		 */
 		NAVIGATION_GAME,
 
 		/**
@@ -37,7 +44,9 @@ public class AttributesTimeCost extends Attributes {
 	}
 
 	public enum LoadingType {
-		/** use one single loading for all pedestrians. */
+		/**
+		 * use one single loading for all pedestrians.
+		 */
 		CONSTANT,
 		/**
 		 * use c_D and c_D' for differ pedestrains of the some target and other
@@ -52,11 +61,17 @@ public class AttributesTimeCost extends Attributes {
 		QUEUEGAME;
 	}
 
-	/** the standard derivation required for the gaussian method. */
+	/**
+	 * the standard derivation required for the gaussian method.
+	 */
 	private double standardDerivation = 0.7;
-	/** the method of density measurement. */
+	/**
+	 * the method of density measurement.
+	 */
 	private TimeCostFunctionType type = TimeCostFunctionType.UNIT;
-	/** the weight of the density. */
+	/**
+	 * the weight of the density.
+	 */
 	private double obstacleDensityWeight = 3.5;
 	/**
 	 * (hartmann-2012, c_D) = the weight of the pedestrian that has the some
@@ -68,7 +83,9 @@ public class AttributesTimeCost extends Attributes {
 	 * target than the potentialfield that will be generated.
 	 */
 	private double pedestrianOtherTargetDensityWeight = 3.5;
-	/** the weight for the constant laoding c in hartmann-2012. */
+	/**
+	 * the weight for the constant laoding c in hartmann-2012.
+	 */
 	private double pedestrianWeight = 3.5;
 	/**
 	 * (queuing only) the factor that influences the queue width. = 1 > means
@@ -77,7 +94,9 @@ public class AttributesTimeCost extends Attributes {
 	// @SerializedName("queueWidthLaoding")
 	private double queueWidthLoading = 1;
 
-	/** the laoding that will be multiplied to the dynamicelements loading. */
+	/**
+	 * the laoding that will be multiplied to the dynamicelements loading.
+	 */
 	private double pedestrianDynamicWeight = 6.0;
 	/**
 	 * indicate that the dynamicelements potential field should calculate a individual
@@ -91,7 +110,8 @@ public class AttributesTimeCost extends Attributes {
 	// @SerializedName("laodingType")
 	private LoadingType loadingType = LoadingType.CONSTANT;
 
-	public AttributesTimeCost() {}
+	public AttributesTimeCost() {
+	}
 
 	// Getters...
 	public double getStandardDerivation() {

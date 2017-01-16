@@ -29,7 +29,7 @@ public class OfflineSimulation {
 
 
 	public OfflineSimulation(final Map<Step, List<Agent>> pedestriansByStep, final ScenarioRunManager vadere,
-			final Path outputDir) {
+							 final Path outputDir) {
 		this.pedestriansByStep = pedestriansByStep;
 		this.vadere = vadere;
 		this.outputDir = outputDir;

@@ -25,7 +25,7 @@ public class PotentialFieldPedestrianOSM implements PotentialFieldAgent {
 
 	@Override
 	public double getAgentPotential(VPoint pos, Agent pedestrian,
-			Collection<? extends Agent> otherPedestrians) {
+									Collection<? extends Agent> otherPedestrians) {
 		double potential = 0;
 
 		for (Agent neighbor : otherPedestrians) {
@@ -39,7 +39,7 @@ public class PotentialFieldPedestrianOSM implements PotentialFieldAgent {
 
 	@Override
 	public double getAgentPotential(VPoint pos, Agent agent,
-			Agent otherPedestrian) {
+									Agent otherPedestrian) {
 		// type = PedOSM oder HorseOSM
 		// Note: Only works for Circle and not for other shapes
 		double distance = otherPedestrian.getPosition().distance(pos)
@@ -59,7 +59,7 @@ public class PotentialFieldPedestrianOSM implements PotentialFieldAgent {
 
 	@Override
 	public Collection<Agent> getRelevantAgents(VCircle relevantArea,
-			Agent pedestrian, Topography scenario) {
+											   Agent pedestrian, Topography scenario) {
 		List<Agent> closePedestrians = scenario.getSpatialMap(Agent.class)
 				.getObjects(relevantArea.getCenter(),
 						attributes.getRecognitionDistance(pedestrian.getClass()));
@@ -69,8 +69,8 @@ public class PotentialFieldPedestrianOSM implements PotentialFieldAgent {
 
 	@Override
 	public Vector2D getAgentPotentialGradient(VPoint pos,
-			Vector2D velocity, Agent pedestrian,
-			Collection<? extends Agent> otherPedestrians) {
+											  Vector2D velocity, Agent pedestrian,
+											  Collection<? extends Agent> otherPedestrians) {
 
 		Vector2D gradient = new Vector2D(0, 0);
 
@@ -86,7 +86,7 @@ public class PotentialFieldPedestrianOSM implements PotentialFieldAgent {
 	}
 
 	public Vector2D getPedestrianPotentialGradient(VPoint pos,
-			Agent agent, Agent otherPedestrian) {
+												   Agent agent, Agent otherPedestrian) {
 		Vector2D result;
 
 		VPoint positionOther = otherPedestrian.getPosition();
@@ -105,7 +105,7 @@ public class PotentialFieldPedestrianOSM implements PotentialFieldAgent {
 					* attributes.getBPedOSM()
 					* Math.pow(distance, attributes.getBPedOSM() / 2.0 - 1.0)
 					* Math.exp(-attributes.getAPedOSM()
-							* Math.pow(distance, attributes.getBPedOSM() / 2.0))
+					* Math.pow(distance, attributes.getBPedOSM() / 2.0))
 					* attributes.getRepulsionStrength(agent.getClass());
 
 			result = new Vector2D(vu * direction.getX(), vu * direction.getY());
@@ -118,7 +118,7 @@ public class PotentialFieldPedestrianOSM implements PotentialFieldAgent {
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 }

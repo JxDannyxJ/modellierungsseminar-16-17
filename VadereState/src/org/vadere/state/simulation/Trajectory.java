@@ -17,7 +17,6 @@ import org.vadere.util.geometry.shapes.VPoint;
  * pedestrian. The representing pedestrian is the same, so all
  * {@link Pedestrian} objects has
  * the same id but the state of a pedestrian changes over time.
- *
  */
 public class Trajectory {
 
@@ -52,7 +51,7 @@ public class Trajectory {
 			Stream.iterate(firstStep.get(), s -> new Step(s.getStepNumber() + 1))
 					.limit(lastStep.get().getStepNumber() - firstStep.get().getStepNumber())
 					.filter(s -> !trajectoryPoints.containsKey(s)).forEachOrdered(
-							s -> trajectoryPoints.put(s, trajectoryPoints.get(new Step(s.getStepNumber() - 1))));
+					s -> trajectoryPoints.put(s, trajectoryPoints.get(new Step(s.getStepNumber() - 1))));
 		}
 
 
@@ -69,7 +68,7 @@ public class Trajectory {
 
 	/**
 	 * Returns the pedestrian id that specified this trajectory.
-	 * 
+	 *
 	 * @return the pedestrian id that specified this trajectory
 	 */
 	public int getPedestrianId() {
@@ -80,7 +79,7 @@ public class Trajectory {
 	 * Returns true if the pedestrian is alive at the specific time step, alive means the pedestrain
 	 * appeared and does not jet
 	 * disappeared.
-	 * 
+	 *
 	 * @param step the time step
 	 * @return true if the pedestrian is alive at the specific time step
 	 */
@@ -90,7 +89,7 @@ public class Trajectory {
 
 	/**
 	 * Returns true if the pedestrian appeared, otherwise false.
-	 * 
+	 *
 	 * @param step the time step
 	 * @return true if the pedestrian appeared, otherwise false
 	 */
@@ -101,7 +100,7 @@ public class Trajectory {
 
 	/**
 	 * Returns true if the pedestrian disappeared, otherwise false.
-	 * 
+	 *
 	 * @param step the time step
 	 * @return true if the pedestrian disappeared, otherwise false
 	 */
@@ -115,7 +114,7 @@ public class Trajectory {
 	 * the Optional will be empty, the Optional will contain the Pedestrian object that is the last
 	 * one
 	 * in the list before (step+1).
-	 * 
+	 *
 	 * @param step the time step that specify the pedestrian state
 	 * @return an Optional<Pedestrian> object which is empty if the pedestrian is not alive at the
 	 *         specific time step
@@ -145,7 +144,7 @@ public class Trajectory {
 	 * method will return the pedestrian at the
 	 * first step it is alive. If the pedestrain has disappeared at step, this method return the
 	 * pedestrian at the last step it is alive.
-	 * 
+	 *
 	 * @param step the time step that specify the pedestrian
 	 * @return an Optional<Pedestrian> object which is empty if the trajectory is completely empty.
 	 */
@@ -168,7 +167,7 @@ public class Trajectory {
 	 * Return a {@link java.util.stream.Stream<>} stream of
 	 * {@link org.vadere.util.geometry.shapes.VPoint} pedestrian positions
 	 * from the first step (1) to the (step.getStepNumber()) in reverse order.
-	 * 
+	 *
 	 * @param step the step of the last pedestrian position
 	 * @return a stream of pedestrian positions to from 1 to step.getStepNumber() in reverse order
 	 */

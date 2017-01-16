@@ -15,7 +15,8 @@ public class AttributesPotentialCompact extends Attributes {
 	private double visionFieldRadius = 5;
 
 
-	public AttributesPotentialCompact() {}
+	public AttributesPotentialCompact() {
+	}
 
 	public double getPedPotentialWidth() {
 		return pedPotentialWidth;

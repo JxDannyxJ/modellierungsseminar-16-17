@@ -27,8 +27,8 @@ public class TestFloorDiscretizer {
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.vadere.util.potential.FloorDiscretizer#setGridDistanceValuesForShape(CellGrid, org.vadere.util.geometry.shapes.VShape, PathFindingTag)}.
+	 * Test method for {@link org.vadere.util.potential.FloorDiscretizer#setGridDistanceValuesForShape(CellGrid,
+	 * org.vadere.util.geometry.shapes.VShape, PathFindingTag)}.
 	 */
 	@Test
 	public void testSetGridDistanceValuesForShape_halfGrid() {
@@ -57,10 +57,9 @@ public class TestFloorDiscretizer {
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.vadere.util.potential.FloorDiscretizer#setGridDistanceValuesForShape(CellGrid, org.vadere.util.geometry.shapes.VShape, PathFindingTag)}.
-	 * Tests that in case of using a shape larger than the grid, the algorithms still works as if
-	 * the shape were equally large.
+	 * Test method for {@link org.vadere.util.potential.FloorDiscretizer#setGridDistanceValuesForShape(CellGrid,
+	 * org.vadere.util.geometry.shapes.VShape, PathFindingTag)}. Tests that in case of using a shape
+	 * larger than the grid, the algorithms still works as if the shape were equally large.
 	 */
 	@Test
 	public void testSetGridDistanceValuesForShape_halfGridHeightPlusEps() {
@@ -81,10 +80,9 @@ public class TestFloorDiscretizer {
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.vadere.util.potential.FloorDiscretizer#setGridDistanceValuesForShape(CellGrid, org.vadere.util.geometry.shapes.VShape, PathFindingTag)}.
-	 * Tests that in case of using a shape slightly overlapping certain cells, the distances are
-	 * computed correctly.
+	 * Test method for {@link org.vadere.util.potential.FloorDiscretizer#setGridDistanceValuesForShape(CellGrid,
+	 * org.vadere.util.geometry.shapes.VShape, PathFindingTag)}. Tests that in case of using a shape
+	 * slightly overlapping certain cells, the distances are computed correctly.
 	 */
 	@Test
 	public void testSetGridDistanceValuesForShape_halfGridWidthPlusEps() {

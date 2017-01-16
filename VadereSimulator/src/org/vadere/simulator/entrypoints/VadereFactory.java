@@ -14,8 +14,6 @@ import java.nio.file.Paths;
 
 /**
  * The VadereFactory create new Vadere-Scenario objects.
- * 
- *
  */
 public class VadereFactory {
 
@@ -25,15 +23,14 @@ public class VadereFactory {
 
 	/**
 	 * Create a new Vadere object with the given file paths to output and scenario.
-	 * 
-	 * @param outputFile path to the output file
+	 *
+	 * @param outputFile       path to the output file
 	 * @param scenarioFilePath path to the scenario file
-	 * @param name name of the vadere object
+	 * @param name             name of the vadere object
 	 * @return a new Vadere object
-	 * @throws IOException
 	 */
 	public static ScenarioRunLocked createVadereWithFiles(final String outputFile, final String scenarioFilePath,
-			final String name) throws IOException {
+														  final String name) throws IOException {
 		// TODO [priority=high] [task=rewrite] this class has a legacy name and is not implemented
 		/*
 		 * String json = IOUtils.readTextFile(scenarioFilePath);
@@ -47,15 +44,15 @@ public class VadereFactory {
 	/**
 	 * Create a new Vadere with the specified name based on the path to the directory of the project
 	 * and the filename of the scenario of the Vadere.
-	 * 
+	 *
 	 * @param projectdirectory directory to the addressed project
-	 * @param name name of the new Vadere object
-	 * @param fileName filename of the addressed scenario
+	 * @param name             name of the new Vadere object
+	 * @param fileName         filename of the addressed scenario
 	 * @return a new Vadere object
 	 * @throws IOException if something goes wrong creatin the output folders of the project
 	 */
 	public static ScenarioRunManager createVadereWithProjectDirectory(final String projectdirectory,
-			final String fileName, final String name) throws IOException {
+																	  final String fileName, final String name) throws IOException {
 		String scenarioDir = IOUtils.SCENARIO_DIR;
 		if (projectdirectory.endsWith(IOUtils.SCENARIO_DIR))
 			scenarioDir = "";

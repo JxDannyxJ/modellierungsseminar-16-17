@@ -2,8 +2,10 @@ package org.vadere.gui.projectview.view;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
+
 import java.awt.*;
 import java.io.File;
 import java.util.Collection;
@@ -22,8 +24,8 @@ public class OutputTableRenderer extends DefaultTableCellRenderer {
 
 	@Override
 	public Component getTableCellRendererComponent(final JTable table, Object value, final boolean isSelected,
-			final boolean hasFocus,
-			final int row, final int column) {
+												   final boolean hasFocus,
+												   final int row, final int column) {
 
 		String text;
 		if (value instanceof File) {

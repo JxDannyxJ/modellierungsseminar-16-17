@@ -16,7 +16,6 @@ import java.util.Random;
 /**
  * The Class StepCircleOptimizerDiscrete. Simple discrete optimizer, described
  * in [Seitz, 2012]
- * 
  */
 public class StepCircleOptimizerDiscrete implements StepCircleOptimizer {
 
@@ -68,7 +67,7 @@ public class StepCircleOptimizerDiscrete implements StepCircleOptimizer {
 //		}
 //		return nextPos;
 //	}
-	
+
 	@Override
 	public VPoint getNextPosition(AgentOSM agentOSM, Shape reachableArea) {
 
@@ -86,14 +85,13 @@ public class StepCircleOptimizerDiscrete implements StepCircleOptimizer {
 		double tmpPotential = 0;
 
 
-
 		for (VPoint tmpPos : positions) {
 			try {
 				tmpPotential = potentialEvaluationFunction.getValue(tmpPos);
 
 				if (tmpPotential < potential
 						|| (Math.abs(tmpPotential - potential) <= 0.0001 && random
-								.nextBoolean())) {
+						.nextBoolean())) {
 					potential = tmpPotential;
 					nextPos = tmpPos.clone();
 				}
@@ -176,7 +174,7 @@ public class StepCircleOptimizerDiscrete implements StepCircleOptimizer {
 //		}
 //		return reachablePositions;
 //	}
-	
+
 	public static LinkedList<VPoint> getReachablePositions(final AgentOSM agentOSM, final Random random) {
 
 		final AttributesOSM attributesOSM = agentOSM.getAttributesOSM();

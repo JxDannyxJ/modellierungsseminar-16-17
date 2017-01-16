@@ -18,7 +18,6 @@ import static junit.framework.TestCase.assertFalse;
 /**
  * Checks that every Attribute is serializable.
  * All classes in the attribute package (and below that package) will be included.
- *
  */
 public class TestAttributesSerializability {
 

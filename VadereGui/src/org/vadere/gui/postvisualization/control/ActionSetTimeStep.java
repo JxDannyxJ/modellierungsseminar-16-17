@@ -7,6 +7,7 @@ import org.vadere.gui.postvisualization.model.PostvisualizationModel;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
 import java.awt.event.ActionEvent;
 
 public class ActionSetTimeStep extends ActionVisualization implements ChangeListener {

@@ -7,6 +7,7 @@ import org.vadere.gui.projectview.model.ProjectViewModel;
 import org.vadere.util.io.IOUtils;
 
 import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 
 public class ActionRenameProject extends AbstractAction {

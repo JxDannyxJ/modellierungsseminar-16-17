@@ -10,7 +10,6 @@ import java.awt.geom.Rectangle2D;
 /**
  * The ViewportChangeListener handles the change of the viewport when the user select a viewport
  * bound (world coordinates).
- *
  */
 public class ViewportChangeListener implements IViewportChangeListener {
 

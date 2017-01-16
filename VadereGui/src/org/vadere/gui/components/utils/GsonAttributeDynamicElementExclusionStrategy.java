@@ -9,7 +9,6 @@ import com.google.gson.FieldAttributes;
  * This Exclusion strategy exclude the {@link AttributesDynamicElement#id} from serialization. This
  * is useful if you want
  * to protect the id from changes via text.
- *
  */
 public class GsonAttributeDynamicElementExclusionStrategy implements ExclusionStrategy {
 

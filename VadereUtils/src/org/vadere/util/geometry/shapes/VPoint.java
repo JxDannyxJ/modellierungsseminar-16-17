@@ -8,8 +8,6 @@ import org.vadere.util.geometry.GeometryUtils;
 
 /**
  * Immutable point.
- * 
- * 
  */
 public class VPoint {
 
@@ -18,7 +16,8 @@ public class VPoint {
 	private double x;
 	private double y;
 
-	public VPoint() {}
+	public VPoint() {
+	}
 
 	public VPoint(double x, double y) {
 		this.x = x;

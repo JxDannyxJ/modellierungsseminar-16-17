@@ -33,33 +33,28 @@ public interface PotentialFieldAgent extends Model {
 	/**
 	 * Computes the pedestrians possessing a potential that reaches into the
 	 * given relevantArea.
-	 * 
-	 * @param relevantArea
-	 * @param pedestrian
-	 *        the pedestrian in the center of the relevant area. It can be
-	 *        used to determine if some pedestrians have special relation
-	 *        (like group member) that would change the potential value.
-	 * @param scenario
-	 *        the current scenario to enable the
-	 *        {@link PotentialFieldAgent} to search for the relevant
-	 *        pedestrians.
-	 * @return
+	 *
+	 * @param pedestrian the pedestrian in the center of the relevant area. It can be used to
+	 *                   determine if some pedestrians have special relation (like group member)
+	 *                   that would change the potential value.
+	 * @param scenario   the current scenario to enable the {@link PotentialFieldAgent} to search
+	 *                   for the relevant pedestrians.
 	 */
 	public Collection<? extends Agent> getRelevantAgents(VCircle relevantArea,
-			Agent pedestrian, Topography topography);
+														 Agent pedestrian, Topography topography);
 
 	public double getAgentPotential(VPoint pos, Agent pedestrian,
-			Agent otherPedestrian);
+									Agent otherPedestrian);
 
 	public double getAgentPotential(VPoint pos, Agent pedestrian,
-			Collection<? extends Agent> otherAgents);
+									Collection<? extends Agent> otherAgents);
 
 	public Vector2D getAgentPotentialGradient(VPoint pos,
-			Vector2D velocity, Agent pedestrian,
-			Collection<? extends Agent> otherAgents);
+											  Vector2D velocity, Agent pedestrian,
+											  Collection<? extends Agent> otherAgents);
 
 	public static PotentialFieldAgent createPotentialField(List<Attributes> modelAttributesList,
-			Topography topography, String className) {
+														   Topography topography, String className) {
 
 		DynamicClassInstantiator<PotentialFieldAgent> instantiator = new DynamicClassInstantiator<>();
 		Class<? extends PotentialFieldAgent> type = instantiator.getClassFromName(className);

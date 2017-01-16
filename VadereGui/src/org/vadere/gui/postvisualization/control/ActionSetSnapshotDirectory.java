@@ -17,7 +17,7 @@ public class ActionSetSnapshotDirectory extends ActionVisualization {
 	private final JTextField textField;
 
 	public ActionSetSnapshotDirectory(final String name, final PostvisualizationModel model,
-			final JTextField textField) {
+									  final JTextField textField) {
 		super(name, model);
 		this.textField = textField;
 	}

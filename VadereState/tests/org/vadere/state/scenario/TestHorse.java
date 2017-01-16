@@ -12,19 +12,19 @@ import org.vadere.state.scenario.dynamicelements.Horse;
 public class TestHorse {
 
 	private Horse horse;
-	
+
 	@Before
 	public void SetUp() {
 		this.horse = createHorse();
 		horse.setNextTargetListIndex(0);
 	}
-	
+
 	@Test
 	public void testSetNextTargetListIndex() {
 		horse.setNextTargetListIndex(1);
 		assertEquals(1, horse.getNextTargetListIndex());
 	}
-	
+
 	@Test
 	public void testIncrementNextTargetListIndex() {
 		assertEquals(0, horse.getNextTargetListIndex());
@@ -43,7 +43,7 @@ public class TestHorse {
 		horse.getTargets().clear();
 		horse.getNextTargetId();
 	}
-	
+
 	private Horse createHorse() {
 		return new Horse(new AttributesHorse(), new Random(0));
 	}

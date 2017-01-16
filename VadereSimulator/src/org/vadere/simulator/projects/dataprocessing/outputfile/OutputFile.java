@@ -19,13 +19,11 @@ import java.util.stream.Stream;
 /**
  * Base class for all types of output files.
  *
- * This class knows all the data processors of which the data should be saved.
- * It writes the data with the specified <tt>separator</tt> sign into a file specified by <tt>filename</tt>.
+ * This class knows all the data processors of which the data should be saved. It writes the data
+ * with the specified <tt>separator</tt> sign into a file specified by <tt>filename</tt>.
  *
  * @param <K> key type
- * 
  * @author Mario Teixeira Parente
- *
  */
 
 public abstract class OutputFile<K extends DataKey<K>> {
@@ -35,7 +33,7 @@ public abstract class OutputFile<K extends DataKey<K>> {
 	private List<Integer> processorIds;
 	private List<DataProcessor<K, ?>> dataProcessors;
 
-    private String separator;
+	private String separator;
 
 	protected OutputFile(final String... keyHeaders) {
 		this.keyHeaders = keyHeaders;
@@ -73,9 +71,9 @@ public abstract class OutputFile<K extends DataKey<K>> {
 					.forEach(key -> printRow(out, key));
 
 			out.flush();
-        } catch (IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
+		} catch (IOException ex) {
+			throw new UncheckedIOException(ex);
+		}
 	}
 
 	private void printHeader(PrintWriter out) {
@@ -98,14 +96,16 @@ public abstract class OutputFile<K extends DataKey<K>> {
 		fields.addAll(processorFields);
 		return fields;
 	}
-	
+
 	private void writeLine(PrintWriter out, final List<String> fields) {
 		out.println(String.join(this.separator, fields));
 	}
 
-	/** Return the column headers as string or the empty array. */
+	/**
+	 * Return the column headers as string or the empty array.
+	 */
 	public String[] toStrings(K key) {
-		return new String[] { key.toString() };
+		return new String[]{key.toString()};
 	}
 
 	public String getFileName() {

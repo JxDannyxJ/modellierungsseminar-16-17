@@ -119,11 +119,11 @@ public class BeachLineLeaf implements BeachLineNode {
 		 */
 		x = (xThis * xThis * (yPre - ySuc)
 				+ (xPre * xPre + (yPre - ySuc) * (yPre - yThis))
-						* (ySuc - yThis)
+				* (ySuc - yThis)
 				+ xSuc * xSuc * (-yPre + yThis));
 		x = x
 				/ (2 * (xThis * (yPre - ySuc) + xPre * (ySuc - yThis) + xSuc
-						* (-yPre + yThis)));
+				* (-yPre + yThis)));
 
 		// conditions I thought of my own, hence it may be wrong
 		if (yThis + NUM_ERROR < yPre || yThis - NUM_ERROR > yPre) {

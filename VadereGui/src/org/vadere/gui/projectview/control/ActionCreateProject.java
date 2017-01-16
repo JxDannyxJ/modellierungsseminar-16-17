@@ -8,6 +8,7 @@ import org.vadere.gui.projectview.view.VadereWindow;
 import org.vadere.simulator.projects.VadereProject;
 
 import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;

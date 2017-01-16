@@ -6,9 +6,14 @@ import org.apache.log4j.Logger;
 import org.vadere.simulator.projects.ScenarioRunManager;
 import org.vadere.simulator.projects.dataprocessing.processor.PedestrianPositionProcessor;
 import org.vadere.state.attributes.scenario.AttributesAgent;
+import org.vadere.state.attributes.scenario.AttributesHorse;
+import org.vadere.state.attributes.scenario.AttributesPedestrian;
 import org.vadere.state.scenario.dynamicelements.Agent;
+import org.vadere.state.scenario.dynamicelements.DynamicElement;
+import org.vadere.state.scenario.dynamicelements.Horse;
 import org.vadere.state.scenario.dynamicelements.Pedestrian;
 import org.vadere.state.simulation.Step;
+import org.vadere.state.types.ScenarioElementType;
 import org.vadere.util.geometry.shapes.VPoint;
 
 import java.io.IOException;
@@ -23,10 +28,10 @@ import java.util.stream.Collectors;
 /**
  * A TrajectoryReader is the counterpart of the
  * {@link PedestrianPositionProcessor}.
- * 
  *
- *         This reader trys to generate a {@link java.util.stream.Stream< scenario.Pedestrian >} by
- *         reading it from a file.
+ *
+ * This reader trys to generate a {@link java.util.stream.Stream< scenario.Pedestrian >} by
+ * reading it from a file.
  */
 public class TrajectoryReader {
 
@@ -48,24 +53,37 @@ public class TrajectoryReader {
 
 	public Map<Step, List<Agent>> readFile() throws IOException {
 		return Files.lines(this.trajectoryFilePath)
-					.skip(1) // Skip header line
-					.map(line -> line.split(" "))
-					.map(cells -> {
-						int step = Integer.parseInt(cells[0]);
-						int pedestrianId = Integer.parseInt(cells[1]);
-						VPoint pos = new VPoint(Double.parseDouble(cells[2]), Double.parseDouble(cells[3]));
-						int targetId = Integer.parseInt(cells[4]);
-						
-						// also should read type and then call dynamicelements instantiation for type.
+				.skip(1) // Skip header line
+				.map(line -> line.split(" "))
+				.map(cells -> {
+					int step = Integer.parseInt(cells[0]);
+					int agentId = Integer.parseInt(cells[1]);
+					VPoint pos = new VPoint(Double.parseDouble(cells[2]), Double.parseDouble(cells[3]));
+					int targetId = Integer.parseInt(cells[4]);
+					int dynamicType = Integer.parseInt(cells[4]);
 
-						Pedestrian ped = new Pedestrian(new AttributesAgent(this.attributesAgent, pedestrianId), new Random());
-						ped.setPosition(pos);
-						LinkedList<Integer> targets = new LinkedList<Integer>();
-						targets.addFirst(targetId);
-						ped.setTargets(targets);
+					// also should read type and then call dynamicelements instantiation for type.
 
-						return Pair.create(new Step(Integer.parseInt(cells[0])), ped);
-					})
-					.collect(Collectors.groupingBy(pair -> pair.getKey(), Collectors.mapping(pair -> pair.getValue(), Collectors.toList())));
+					ScenarioElementType element = ScenarioElementType.values()[dynamicType];
+
+					Agent agent;
+
+					switch (dynamicType) {
+						case 1:
+							agent = new Horse(new AttributesHorse(agentId), new Random());
+							break;
+
+						default:
+							agent = new Pedestrian(new AttributesPedestrian(this.attributesAgent, agentId), new Random());
+					}
+
+					agent.setPosition(pos);
+					LinkedList<Integer> targets = new LinkedList<Integer>();
+					targets.addFirst(targetId);
+					agent.setTargets(targets);
+
+					return Pair.create(new Step(Integer.parseInt(cells[0])), agent);
+				})
+				.collect(Collectors.groupingBy(pair -> pair.getKey(), Collectors.mapping(pair -> pair.getValue(), Collectors.toList())));
 	}
 }

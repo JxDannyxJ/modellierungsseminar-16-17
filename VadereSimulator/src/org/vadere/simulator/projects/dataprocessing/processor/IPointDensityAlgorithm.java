@@ -5,10 +5,10 @@ import org.vadere.util.geometry.shapes.VPoint;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public interface IPointDensityAlgorithm {
 	String getName();
+
 	double getDensity(final VPoint pos, final SimulationState state);
 }

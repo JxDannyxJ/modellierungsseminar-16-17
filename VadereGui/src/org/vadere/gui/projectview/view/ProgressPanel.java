@@ -1,12 +1,11 @@
 package org.vadere.gui.projectview.view;
 
 import javax.swing.*;
+
 import java.awt.*;
 
 /**
  * A panel with a progress bar and a text.
- * 
- * 
  */
 public class ProgressPanel extends JPanel {
 
@@ -31,9 +30,6 @@ public class ProgressPanel extends JPanel {
 
 	/**
 	 * Set text and progress bar value
-	 * 
-	 * @param text
-	 * @param value
 	 */
 	public void setData(String text, int value) {
 		this.progressBar.setValue(value);

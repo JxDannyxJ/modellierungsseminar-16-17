@@ -23,7 +23,7 @@ public class FloorDiscretizer {
 	 * bodies to 'value'.
 	 */
 	public static void setGridValueForShapes(CellGrid floorGrid,
-			Collection<VShape> elementShapes, CellState value) {
+											 Collection<VShape> elementShapes, CellState value) {
 		for (VShape b : elementShapes) {
 			setGridValuesForShape(floorGrid, b, value);
 		}
@@ -34,7 +34,7 @@ public class FloorDiscretizer {
 	 * scenario element to 'value'.
 	 */
 	public static void setGridValuesForShape(CellGrid floorGrid,
-			VShape elementShape, CellState value) {
+											 VShape elementShape, CellState value) {
 		// Axis aligned bounds of the given body.
 		Rectangle2D bodyBounds = elementShape.getBounds2D();
 
@@ -69,7 +69,7 @@ public class FloorDiscretizer {
 	 * but sets the values considering the CENTER of the cells, not the left lower corner.
 	 */
 	public static void setGridValuesForShapeCentered(CellGrid floorGrid,
-			VShape elementShape, CellState value) {
+													 VShape elementShape, CellState value) {
 		// Axis aligned bounds of the given body.
 		Rectangle2D bodyBounds = elementShape.getBounds2D();
 
@@ -106,13 +106,13 @@ public class FloorDiscretizer {
 	/**
 	 * Computes the distance to the given shape of all contained plus directly adjacent points.
 	 * A point is considered adjacent if one of its eight neighbors is contained in the shape.
-	 * 
+	 *
 	 * @deprecated not used by any function but its test. The reason for this function was that the
-	 *             target shapes were not correctly rendered on the grid. They are now, in the
-	 *             FastMarching algorithm itself.
+	 * target shapes were not correctly rendered on the grid. They are now, in the FastMarching
+	 * algorithm itself.
 	 */
 	public static void setGridDistanceValuesForShape(CellGrid floorGrid, VShape elementShape, PathFindingTag tagInside,
-			PathFindingTag tagOutside) {
+													 PathFindingTag tagOutside) {
 		// Axis aligned bounds of the given body.
 		Rectangle2D bodyBounds = elementShape.getBounds2D();
 
@@ -163,7 +163,7 @@ public class FloorDiscretizer {
 	 * footprint of the body.
 	 */
 	public static LinkedList<Point> getShapeFootprint(CellGrid floorGrid,
-			VShape elementShape) {
+													  VShape elementShape) {
 		LinkedList<Point> footprint = new LinkedList<Point>();
 
 		/* Axis aligned bounds of the given body. */

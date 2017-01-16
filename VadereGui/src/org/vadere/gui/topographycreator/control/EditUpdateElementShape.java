@@ -21,7 +21,7 @@ public class EditUpdateElementShape extends AbstractUndoableEdit {
 	private final VShape newShape;
 
 	public EditUpdateElementShape(final IDrawPanelModel panelModel, final ScenarioElement element,
-			final VShape oldShape) {
+								  final VShape oldShape) {
 		this.panelModel = panelModel;
 		this.oldShape = oldShape;
 		this.newShape = element.getShape();

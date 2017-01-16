@@ -4,7 +4,6 @@ import org.vadere.state.attributes.Attributes;
 
 /**
  * The model types representing strategy, tactics and operation models.
- * 
  */
 public class AttributesSTOM extends Attributes {
 	// TODO [priority=medium] the following strings are class names of models. better names would be operationModel, ...
@@ -12,7 +11,8 @@ public class AttributesSTOM extends Attributes {
 	private String tactics = null;
 	private String strategy = null;
 
-	public AttributesSTOM() {}
+	public AttributesSTOM() {
+	}
 
 	// Getters...
 	public String getOperation() {

@@ -10,8 +10,6 @@ import org.vadere.state.attributes.models.AttributesODEIntegrator;
 
 /**
  * Factory for several apache ODE system integrators.
- * 
- * 
  */
 public class IntegratorFactory {
 

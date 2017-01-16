@@ -22,6 +22,7 @@ public class AttributesPedestrian extends AttributesAgent {
 
 	/**
 	 * Class constructor which creates an attributes object for pedestrians with a given id
+	 *
 	 * @param id the unique identifier for that attributes object
 	 */
 	@SuppressWarnings("unused")
@@ -31,8 +32,9 @@ public class AttributesPedestrian extends AttributesAgent {
 
 	/**
 	 * Copy constructor with new id assignment.
+	 *
 	 * @param other the template from which the attributes shall be copied from
-	 * @param id a new unique identifier for this object
+	 * @param id    a new unique identifier for this object
 	 */
 	@SuppressWarnings("unused")
 	public AttributesPedestrian(final AttributesAgent other, final int id) {

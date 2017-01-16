@@ -14,14 +14,14 @@ import org.vadere.util.geometry.shapes.VPoint;
 
 /**
  * A potential field forming a ring.
- * 
+ *
  * The ring consists of two circles and is used to simulate the experiment described in jelic-2012
  * and jelic-2012b:
- *   _____
- *  / _   \
+ * _____
+ * / _   \
  * / / \  \
  * \ \_/  /
- *  \____/
+ * \____/
  */
 public class PotentialFieldObstacleRingExperiment implements PotentialFieldObstacle {
 
@@ -69,7 +69,7 @@ public class PotentialFieldObstacleRingExperiment implements PotentialFieldObsta
 
 	@Override
 	public Vector2D getObstaclePotentialGradient(VPoint pos,
-			Agent pedestrian) {
+												 Agent pedestrian) {
 		return new Vector2D(0, 0);
 	}
 
@@ -80,7 +80,7 @@ public class PotentialFieldObstacleRingExperiment implements PotentialFieldObsta
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 

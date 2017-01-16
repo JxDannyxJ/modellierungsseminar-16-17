@@ -82,7 +82,7 @@ public class HalfEdge {
 	// static methods handling Edges after Events...
 
 	static void handleSiteEventEdges(List<Face> faces, BeachLineLeaf newLeaf,
-			BeachLineLeaf arcAboveLeaf, boolean siteOnHorizontalLine) {
+									 BeachLineLeaf arcAboveLeaf, boolean siteOnHorizontalLine) {
 
 		if (!siteOnHorizontalLine) {
 			BeachLineInternal lowerNode = newLeaf.getParent();
@@ -91,7 +91,8 @@ public class HalfEdge {
 			HalfEdge halfEdgeLeft = newLeaf.getFace().getOuterComponent();
 
 			Face upperFace = arcAboveLeaf.getFace();
-			HalfEdge halfEdgeRight = new HalfEdge(upperFace);;
+			HalfEdge halfEdgeRight = new HalfEdge(upperFace);
+			;
 
 			if (upperFace.getOuterComponent() == null) {
 				upperFace.setOuterComponent(halfEdgeRight);
@@ -109,7 +110,8 @@ public class HalfEdge {
 			HalfEdge halfEdgeLeft = newLeaf.getFace().getOuterComponent();
 
 			Face upperFace = arcAboveLeaf.getFace();
-			HalfEdge halfEdgeRight = new HalfEdge(upperFace);;
+			HalfEdge halfEdgeRight = new HalfEdge(upperFace);
+			;
 
 			if (upperFace.getOuterComponent() == null) {
 				upperFace.setOuterComponent(halfEdgeRight);
@@ -122,7 +124,7 @@ public class HalfEdge {
 	}
 
 	static HalfEdge handleCircleEventEdges(BeachLineInternal leftNode,
-			BeachLineInternal rightNode, VPoint vertex) {
+										   BeachLineInternal rightNode, VPoint vertex) {
 
 		HalfEdge rightEdge = rightNode.getHalfEgde();
 		HalfEdge leftEdge = leftNode.getHalfEgde();

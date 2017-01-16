@@ -18,17 +18,13 @@ import org.vadere.util.potential.gradients.GradientProvider;
 
 /**
  * Factory for {@link GradientProvider}.
- * 
- * 
  */
 public class FloorGradientProviderFactory {
 	/**
 	 * Creates a floor gradient provider based on {@link GradientProvider}.
-	 * 
-	 * @param type
-	 *        the type of the floor gradient provider.
-	 * @param attributes
-	 *        scenario and target map.
+	 *
+	 * @param type       the type of the floor gradient provider.
+	 * @param attributes scenario and target map.
 	 * @return an appropriate floor gradient provider, or null
 	 */
 	public static GradientProvider createFloorGradientProvider(

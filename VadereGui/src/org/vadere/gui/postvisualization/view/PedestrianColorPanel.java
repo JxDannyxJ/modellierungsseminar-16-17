@@ -6,6 +6,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -16,13 +17,13 @@ public class PedestrianColorPanel extends JPanel {
 
 	public PedestrianColorPanel(final DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
-		String[] headers = new String[] {"Criteria", "Color"};
-		Object[][] data = new Object[][] {
-				new Object[] {"", Color.BLUE},
-				new Object[] {"", Color.BLUE},
-				new Object[] {"", Color.BLUE},
-				new Object[] {"", Color.BLUE},
-				new Object[] {"", Color.BLUE}
+		String[] headers = new String[]{"Criteria", "Color"};
+		Object[][] data = new Object[][]{
+				new Object[]{"", Color.BLUE},
+				new Object[]{"", Color.BLUE},
+				new Object[]{"", Color.BLUE},
+				new Object[]{"", Color.BLUE},
+				new Object[]{"", Color.BLUE}
 		};
 		colorTable = new JTable(tableModel);
 		JScrollPane scrollPane = new JScrollPane(colorTable);
@@ -58,7 +59,7 @@ public class PedestrianColorPanel extends JPanel {
 
 		@Override
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-				int row, int column) {
+													   int row, int column) {
 			if (value instanceof Color) {
 				Color color = (Color) value;
 				setForeground(Color.white);

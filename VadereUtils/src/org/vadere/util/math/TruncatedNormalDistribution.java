@@ -6,14 +6,14 @@ import org.apache.commons.math3.random.RandomGenerator;
 public class TruncatedNormalDistribution extends NormalDistribution {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private double min;
 	private double max;
-	
+
 	private int maxIterations;
 
 	public TruncatedNormalDistribution(RandomGenerator rng, double mean, double standardDeviation, double min,
-			double max, int maxIterations) {
+									   double max, int maxIterations) {
 		super(rng, mean, standardDeviation);
 		if (max <= min)
 			throw new IllegalArgumentException("Parameter min must be less than max.");

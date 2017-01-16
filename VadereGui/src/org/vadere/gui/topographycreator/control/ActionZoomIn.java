@@ -10,8 +10,6 @@ import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 /**
  * Action: Sets the selection mode to ZoomInMode, so the user can zoom in if he hit the mouse
  * button.
- * 
- * 
  */
 public class ActionZoomIn extends TopographyAction {
 

@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.JsonNode;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.gui.components.model.SimulationModel;
@@ -301,7 +302,7 @@ public class PostvisualizationModel extends SimulationModel<PostvisualizationCon
 	/**
 	 * Returns all trajectories. E.g. also trajectories from pedestrian that are not already
 	 * appeared and pedestrians that are already reach their target
-	 * 
+	 *
 	 * @return all trajectories
 	 */
 	public synchronized Stream<Trajectory> getAppearedPedestrians() {
@@ -311,7 +312,7 @@ public class PostvisualizationModel extends SimulationModel<PostvisualizationCon
 	/**
 	 * Returns all trajectories of pedestrians that are visible in the topography at the current
 	 * time step e. g. they didn't reach their target and they already appear.
-	 * 
+	 *
 	 * @return all trajectories of pedestrians that are visible at the current time step
 	 */
 	public synchronized Stream<Trajectory> getAlivePedestrians() {

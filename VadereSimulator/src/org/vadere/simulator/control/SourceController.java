@@ -32,44 +32,69 @@ import java.util.Random;
  */
 public class SourceController {
 
-	/** {@link Source} controlled by this {@link SourceController} instance.*/
+	/**
+	 * {@link Source} controlled by this {@link SourceController} instance.
+	 */
 	protected final Source source;
-	/** {@link DynamicElementFactory} used to spawn {@link DynamicElement}.*/
+	/**
+	 * {@link DynamicElementFactory} used to spawn {@link DynamicElement}.
+	 */
 	protected DynamicElementFactory dynamicElementFactory;
-	/** The scenarios {@link Topography}.*/
+	/**
+	 * The scenarios {@link Topography}.
+	 */
 	protected final Topography topography;
-	/** Random instance.*/
+	/**
+	 * Random instance.
+	 */
 	protected final Random random;
-	/** The attributes of the used source {@link SourceController#source}.*/
+	/**
+	 * The attributes of the used source {@link SourceController#source}.
+	 */
 	private final AttributesSource sourceAttributes;
-	/** The attributes of the dynamic element associated with the source {@link SourceController#source}.*/
+	/**
+	 * The attributes of the dynamic element associated with the source {@link
+	 * SourceController#source}.
+	 */
 	private AttributesDynamicElement attributesDynamicElement;
 
 	// TODO [priority=high] [task=refactoring] remove this from the SourceController and add a new attribute.
 	// This is ONLY used for "useFreeSpaceOnly".
-	/** Shape to check are when spawning elements.*/
+	/**
+	 * Shape to check are when spawning elements.
+	 */
 	private VShape dynamicElementShape;
-	/** Number of elements to create.*/
+	/**
+	 * Number of elements to create.
+	 */
 	private int dynamicElementsToCreate;
-	/** Number of already created elements.*/
+	/**
+	 * Number of already created elements.
+	 */
 	private int dynamicElementsCreatedTotal;
 
-	/** <code>null</code>, if there is no next event. */
+	/**
+	 * <code>null</code>, if there is no next event.
+	 */
 	private Double timeOfNextEvent;
-	/** {@link RealDistribution} used for spawning.*/
+	/**
+	 * {@link RealDistribution} used for spawning.
+	 */
 	private RealDistribution distribution;
 
 	/**
 	 * Constructor for this class.
-	 * @param scenario the current scenarios {@link Topography}.
-	 * @param source the {@link Source} to manage.
-	 * @param dynamicElementFactory the {@link DynamicElementFactory} factory used for spawning.
-	 * @param attributesDynamicElement the {@link AttributesDynamicElement} attributes for the spawned elements.
-	 * @param random random instance.
+	 *
+	 * @param scenario                 the current scenarios {@link Topography}.
+	 * @param source                   the {@link Source} to manage.
+	 * @param dynamicElementFactory    the {@link DynamicElementFactory} factory used for spawning.
+	 * @param attributesDynamicElement the {@link AttributesDynamicElement} attributes for the
+	 *                                 spawned elements.
+	 * @param random                   random instance.
 	 */
 	public SourceController(Topography scenario, Source source,
-			DynamicElementFactory dynamicElementFactory,
-			AttributesDynamicElement attributesDynamicElement, Random random) {
+							DynamicElementFactory dynamicElementFactory,
+							AttributesDynamicElement attributesDynamicElement, Random random) {
 		this.source = source;
 		this.sourceAttributes = source.getAttributes();
 		this.dynamicElementFactory = dynamicElementFactory;
@@ -96,6 +121,7 @@ public class SourceController {
 	/**
 	 * Update routine for the Source controller.
 	 * Calls {@link SourceController#useDistributionSpawnAlgorithm(double)}.
+	 *
 	 * @param simTimeInSec the current simulation time (seconds).
 	 */
 	public void update(double simTimeInSec) {
@@ -104,6 +130,7 @@ public class SourceController {
 
 	/**
 	 * Checks if position is suited to spawn a {@link DynamicElement}.
+	 *
 	 * @param position {@link VPoint} position to check.
 	 * @return True if suited, else false.
 	 */
@@ -122,6 +149,7 @@ public class SourceController {
 
 	/**
 	 * Getter for the {@link VShape} of the {@link DynamicElement}.
+	 *
 	 * @return {@link VShape} of the {@link DynamicElement}.
 	 */
 	private VShape getDynamicElementShape() {
@@ -133,15 +161,16 @@ public class SourceController {
 		// otherwise
 		else if (attributesDynamicElement instanceof AttributesAgent) {
 			return new VCircle(((AttributesAgent) attributesDynamicElement).getRadius());
-		}
-		else {
+		} else {
 			return new VCircle(0.2);
 		}
 	}
 
 	/**
-	 * Collects all {@link DynamicElement} instances inside {@link VShape} at a given position {@link VPoint}.
-	 * @param sourcePosition the position from where to start looking.
+	 * Collects all {@link DynamicElement} instances inside {@link VShape} at a given position
+	 * {@link VPoint}.
+	 *
+	 * @param sourcePosition  the position from where to start looking.
 	 * @param dynElementShape the area {@link VShape} where to look.
 	 * @return list of all found {@link DynamicElement}.
 	 */
@@ -155,6 +184,7 @@ public class SourceController {
 	 * Calls {@link SourceController#tryToSpawnOutstandingDynamicElements()}
 	 * and {@link SourceController#processNextEventWhenItIsTime(double)} when event available
 	 * (which means {@link SourceController#timeOfNextEvent} is not null).
+	 *
 	 * @param simTimeInSec the current simulation time (seconds).
 	 */
 	private void useDistributionSpawnAlgorithm(double simTimeInSec) {
@@ -171,6 +201,7 @@ public class SourceController {
 
 	/**
 	 * Check if {@link Source} is finished.
+	 *
 	 * @param simTimeInSec the simulation time in (seconds).
 	 * @return True if finished, else False.
 	 */
@@ -188,6 +219,7 @@ public class SourceController {
 
 	/**
 	 * Check if max number of spawns is reached.
+	 *
 	 * @return True if max number is reached, else False.
 	 */
 	private boolean isMaximumNumberOfSpawnedElementsReached() {
@@ -198,6 +230,7 @@ public class SourceController {
 
 	/**
 	 * Check if only one spawn event is available.
+	 *
 	 * @return True if yes, else False.
 	 */
 	private boolean isSourceWithOneSingleSpawnEvent() {
@@ -207,7 +240,6 @@ public class SourceController {
 	/**
 	 * If current simulation time surpasses {@link SourceController#timeOfNextEvent}
 	 * call {@link SourceController#determineNumberOfSpawnsAndNextEvent(double)}.
-	 * @param simTimeInSec
 	 */
 	private void processNextEventWhenItIsTime(double simTimeInSec) {
 		if (simTimeInSec >= timeOfNextEvent) {
@@ -217,6 +249,7 @@ public class SourceController {
 
 	/**
 	 * Determine number of spawns and time of next event.
+	 *
 	 * @param simTimeInSec the current simulation time (seconds).
 	 */
 	private void determineNumberOfSpawnsAndNextEvent(double simTimeInSec) {
@@ -241,6 +274,7 @@ public class SourceController {
 
 	/**
 	 * Check if next event is available.
+	 *
 	 * @return True if it does, else False.
 	 */
 	private boolean hasNextEvent() {
@@ -249,6 +283,7 @@ public class SourceController {
 
 	/**
 	 * Check if spawn time is over.
+	 *
 	 * @param time the current time (seconds).
 	 * @return True if yes, else False.
 	 */
@@ -296,6 +331,7 @@ public class SourceController {
 	/**
 	 * Creates new {@link DynamicElement} at a Position given by {@linkplain VPoint}.
 	 * Agent type is retrieved from the source attributes given by {@link AttributesSource}.
+	 *
 	 * @param position at which new {@link DynamicElement} should be created.
 	 * @return new {@link DynamicElement} at given position.
 	 */
@@ -323,6 +359,7 @@ public class SourceController {
 
 	/**
 	 * Compute List of {@link VPoint} positions.
+	 *
 	 * @param numDynamicElements number of positions to compute.
 	 * @return List of {@link VPoint}.
 	 */

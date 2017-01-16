@@ -5,7 +5,6 @@ import java.util.Random;
 /**
  * The Distribution of the generated group sizes is a zero truncated Poisson
  * distribution with mean lambda.
- * 
  */
 public class GroupSizeDeterminatorPoisson implements GroupSizeDeterminator {
 

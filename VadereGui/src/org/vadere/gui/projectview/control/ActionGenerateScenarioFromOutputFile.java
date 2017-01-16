@@ -10,13 +10,13 @@ import org.vadere.util.io.IOUtils;
 
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 /**
  * Ask the user to select a scenario-file from an output directory to convert this file to a
  * {@link org.vadere.simulator.projects.ScenarioRunManager} scenario.
- *
  */
 public class ActionGenerateScenarioFromOutputFile extends ActionAbstractAddScenario {
 

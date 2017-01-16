@@ -13,16 +13,16 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Basic unit test for the {@link org.vadere.util.geometry.GrahamScan} class.
- *
  */
 public class TestGrahamScan {
 
 	@Before
-	public void setUp() throws Exception {}
+	public void setUp() throws Exception {
+	}
 
 	@Test
 	public void testSimpleConvexHull() {
-		GrahamScan grahamScan = new GrahamScan(new VPoint[] {
+		GrahamScan grahamScan = new GrahamScan(new VPoint[]{
 				new VPoint(2.0, 2.0),
 				new VPoint(-2.0, -2.0),
 				new VPoint(1.0, 2.0),
@@ -44,7 +44,7 @@ public class TestGrahamScan {
 
 	@Test
 	public void testPolytopConvexHull() {
-		GrahamScan grahamScan = new GrahamScan(new VPoint[] {
+		GrahamScan grahamScan = new GrahamScan(new VPoint[]{
 				new VPoint(2.0, 2.0),
 				new VPoint(-2.0, -2.0),
 				new VPoint(2.0, -2.0),
@@ -76,7 +76,7 @@ public class TestGrahamScan {
 
 	@Test
 	public void testThreePointsOnOneLine() {
-		GrahamScan grahamScan = new GrahamScan(new VPoint[] {
+		GrahamScan grahamScan = new GrahamScan(new VPoint[]{
 				new VPoint(2.0, 2.0),
 				new VPoint(1.0, 2.0),
 				new VPoint(-2.0, 2.0)

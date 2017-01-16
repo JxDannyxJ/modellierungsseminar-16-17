@@ -13,6 +13,7 @@ import org.vadere.gui.postvisualization.utils.SVGGenerator;
 import org.vadere.gui.postvisualization.view.PostvisualizationRenderer;
 
 import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -26,7 +27,7 @@ public class ActionGenerateSVG extends AbstractAction implements IRendererChange
 	private final SimulationModel<? extends DefaultSimulationConfig> model;
 
 	public ActionGenerateSVG(final String name, final Icon icon, final SimulationRenderer renderer,
-			final SimulationModel<? extends DefaultSimulationConfig> model) {
+							 final SimulationModel<? extends DefaultSimulationConfig> model) {
 		super(name, icon);
 		this.svgGenerator = new SVGGenerator(renderer, model);
 		this.model = model;
@@ -44,5 +45,6 @@ public class ActionGenerateSVG extends AbstractAction implements IRendererChange
 	}
 
 	@Override
-	public void update(SimulationRenderer renderer) {}
+	public void update(SimulationRenderer renderer) {
+	}
 }

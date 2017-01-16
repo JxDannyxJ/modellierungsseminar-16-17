@@ -6,8 +6,6 @@ import org.vadere.gui.components.view.IActionContainer;
 
 /**
  * Toolbar for the topographycreator.
- * 
- * 
  */
 public class ScenarioToolBar extends JToolBar implements IActionContainer {
 

@@ -18,6 +18,7 @@ public abstract class AttributesDynamicElement extends AttributesScenarioElement
 
 	/**
 	 * Class constructor which creates an attributes object with a given id
+	 *
 	 * @param id the unique identifier for that object
 	 */
 	public AttributesDynamicElement(final int id) {
@@ -26,7 +27,8 @@ public abstract class AttributesDynamicElement extends AttributesScenarioElement
 
 	/**
 	 * Class constructor which instantiates an attributes object with a given shape and id
-	 * @param id the unique identifier for the new object
+	 *
+	 * @param id    the unique identifier for the new object
 	 * @param shape the shape of the object
 	 */
 	@SuppressWarnings("unused")

@@ -6,7 +6,8 @@ public class AttributesReynolds extends Attributes {
 
 	private int dummy = 1;
 
-	public AttributesReynolds() {}
+	public AttributesReynolds() {
+	}
 
 	// Getters...
 	public int getDummy() {

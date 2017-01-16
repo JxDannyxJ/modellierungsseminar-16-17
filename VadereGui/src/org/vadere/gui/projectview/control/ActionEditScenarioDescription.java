@@ -18,7 +18,7 @@ public class ActionEditScenarioDescription extends AbstractAction {
 	private static Logger logger = LogManager.getLogger(ActionEditScenarioDescription.class);
 
 	private ProjectViewModel model;
-	
+
 
 	public ActionEditScenarioDescription(final String name, final ProjectViewModel model) {
 		super(name);

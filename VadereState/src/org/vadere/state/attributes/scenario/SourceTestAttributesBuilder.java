@@ -13,9 +13,9 @@ public class SourceTestAttributesBuilder {
 	private int spawnNumber = 1;
 	private boolean useFreeSpaceOnly = false;
 	private Class<? extends RealDistribution> distributionClass = ConstantDistribution.class;
-	private double[] distributionParams = new double[] { 1 };
+	private double[] distributionParams = new double[]{1};
 	private int maxSpawnNumberTotal = AttributesSource.NO_MAX_SPAWN_NUMBER_TOTAL;
-	
+
 	public AttributesSource getResult() {
 		String json = generateSourceAttributesJson();
 		return IOUtils.getGson().fromJson(json, AttributesSource.class);
@@ -43,7 +43,7 @@ public class SourceTestAttributesBuilder {
 	}
 
 	public SourceTestAttributesBuilder setSpawnIntervalForConstantDistribution(double spawnDelay) {
-		this.distributionParams = new double[] {spawnDelay};
+		this.distributionParams = new double[]{spawnDelay};
 		return this;
 	}
 
@@ -56,7 +56,7 @@ public class SourceTestAttributesBuilder {
 		this.distributionClass = distributionClass;
 		return this;
 	}
-	
+
 	public SourceTestAttributesBuilder setMaxSpawnNumberTotal(int maxSpawnNumberTotal) {
 		this.maxSpawnNumberTotal = maxSpawnNumberTotal;
 		return this;

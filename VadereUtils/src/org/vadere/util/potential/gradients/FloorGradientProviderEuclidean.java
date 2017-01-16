@@ -10,7 +10,6 @@ import org.vadere.util.math.MathUtil;
 /**
  * Provides a floor gradient. It is computed by the directions to the targets of
  * the respective pedestrian, regardless of obstacles (i.e. the direct way).
- * 
  */
 public class FloorGradientProviderEuclidean implements GradientProvider {
 
@@ -22,7 +21,7 @@ public class FloorGradientProviderEuclidean implements GradientProvider {
 
 	@Override
 	public void gradient(double t, int currentTargetId, double[] x,
-			double[] grad) {
+						 double[] grad) {
 		if (targetShapes.isEmpty() || targetShapes.get(currentTargetId) == null) {
 			grad[0] = 0;
 			grad[1] = 0;

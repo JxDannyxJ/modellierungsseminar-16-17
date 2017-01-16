@@ -83,7 +83,7 @@ public class MigrationAssistant {
 		Path outputDir = Paths.get(projectFolderPath, IOUtils.OUTPUT_DIR);
 		if (Files.exists(outputDir)) {
 			int[] outputDirStats = analyzeDirectory(outputDir, false);
-			for (int i = 0; i < outputDirStats.length; i ++) {
+			for (int i = 0; i < outputDirStats.length; i++) {
 				stats[i] += outputDirStats[i];
 			}
 		}
@@ -174,7 +174,7 @@ public class MigrationAssistant {
 		// 1. collect possible incidents
 
 		List<Incident> possibleIncidents = new ArrayList<>();
-		for (int versionIndex = version.ordinal(); versionIndex < Version.latest().ordinal(); versionIndex ++) {
+		for (int versionIndex = version.ordinal(); versionIndex < Version.latest().ordinal(); versionIndex++) {
 			Version ver = Version.values()[versionIndex];
 			log.append("  > checking possible incidents from version \"" + ver.label() + "\" to version \""
 					+ Version.values()[versionIndex + 1].label() + "\"\n");

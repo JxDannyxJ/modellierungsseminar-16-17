@@ -9,8 +9,6 @@ import org.vadere.util.geometry.shapes.VTriangle;
 
 /**
  * Incomplete tests of the {@link VTriangle} class.
- * 
- * 
  */
 public class TestTriangle {
 

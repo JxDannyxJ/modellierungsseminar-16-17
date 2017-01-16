@@ -11,7 +11,6 @@ import java.util.Map;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class PedestrianLastPositionProcessor extends DataProcessor<PedestrianIdKey, VPoint> {
@@ -42,6 +41,6 @@ public class PedestrianLastPositionProcessor extends DataProcessor<PedestrianIdK
 	public String[] toStrings(final PedestrianIdKey key) {
 		VPoint pos = this.getValue(key);
 
-		return new String[] { Double.toString(pos.getX()), Double.toString(pos.getY()) };
+		return new String[]{Double.toString(pos.getX()), Double.toString(pos.getY())};
 	}
 }

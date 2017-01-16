@@ -36,6 +36,7 @@ public class Stairs implements ScenarioElement {
 
 	/**
 	 * Class constructor for creating a new stairs object with a preset of attributes
+	 *
 	 * @param attributes the attributes for the new object
 	 */
 	public Stairs(AttributesStairs attributes) {
@@ -46,6 +47,7 @@ public class Stairs implements ScenarioElement {
 
 	/**
 	 * Initializes the amount of treads a stair object has.
+	 *
 	 * @return an array of tread objects which represent the stairs treads
 	 */
 	private Tread[] initializeTreads() {

@@ -4,7 +4,6 @@ import org.vadere.state.attributes.Attributes;
 
 /**
  * Provides potential attributes for pedestrians and obstacles in the Social Force Model.
- * 
  */
 public class AttributesPotentialSFM extends Attributes {
 
@@ -14,7 +13,8 @@ public class AttributesPotentialSFM extends Attributes {
 	private double obstacleBodyPotential = 20.1;
 	private double obstacleRepulsionStrength = 0.25;
 
-	public AttributesPotentialSFM() {}
+	public AttributesPotentialSFM() {
+	}
 
 	// Getters...
 

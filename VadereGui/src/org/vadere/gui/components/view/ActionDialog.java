@@ -19,10 +19,8 @@ import com.jgoodies.forms.util.LayoutStyle;
 
 /**
  * Currently UNUSED!
- * 
+ *
  * A Dialog that can contain multiple Actions.
- * 
- * 
  */
 public class ActionDialog extends JDialog {
 
@@ -34,10 +32,9 @@ public class ActionDialog extends JDialog {
 
 	/**
 	 * Factory-Method of this Dialog. Create's a new ActionDialog.
-	 * 
+	 *
 	 * @param parent the parent Component of new ActionDialog
 	 * @return a new or restored ActionDialog
-	 * @throws IOException
 	 */
 	public static ActionDialog createPaintMethodDialog(final Component parent) throws IOException {
 		if (instance == null) {
@@ -79,7 +76,9 @@ public class ActionDialog extends JDialog {
 				}
 				pack();
 				repaint();
-			};
+			}
+
+			;
 		});
 	}
 
@@ -93,11 +92,11 @@ public class ActionDialog extends JDialog {
 			public void run() {
 				toolbar = new JToolBar(SwingConstants.VERTICAL);
 				getContentPane().setLayout(
-						new FormLayout(new ColumnSpec[] {ColumnSpec.decode("left:2dlu"), ColumnSpec.decode("pref:grow"),
-								ColumnSpec.decode("left:2dlu"),}, new RowSpec[] {
-										RowSpec.createGap(LayoutStyle.getCurrent().getNarrowLinePad()),
-										RowSpec.decode("fill:pref:grow"),
-										RowSpec.createGap(LayoutStyle.getCurrent().getNarrowLinePad())}));
+						new FormLayout(new ColumnSpec[]{ColumnSpec.decode("left:2dlu"), ColumnSpec.decode("pref:grow"),
+								ColumnSpec.decode("left:2dlu"),}, new RowSpec[]{
+								RowSpec.createGap(LayoutStyle.getCurrent().getNarrowLinePad()),
+								RowSpec.decode("fill:pref:grow"),
+								RowSpec.createGap(LayoutStyle.getCurrent().getNarrowLinePad())}));
 
 				toolbar.setAlignmentX(CENTER_ALIGNMENT);
 				toolbar.setFloatable(false);

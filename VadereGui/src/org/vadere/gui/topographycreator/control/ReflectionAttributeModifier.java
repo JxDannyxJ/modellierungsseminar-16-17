@@ -12,15 +12,14 @@ import java.lang.reflect.Field;
  * Setter and getter implementation to modify Attributes. This class uses use of reflection.
  * Do not use this class outside of the topographycreator package, or even not outside this
  * control-package!
- * 
  */
 public class ReflectionAttributeModifier {
 	/**
 	 * Sets the shape to the attributes of an topography element. Use this method only in the
 	 * control!
-	 * 
+	 *
 	 * @param element the attributes
-	 * @param shape the shape
+	 * @param shape   the shape
 	 */
 	static void setShapeToAttributes(final ScenarioElement element, final VShape shape) {
 		try {

@@ -131,7 +131,7 @@ public class ScenarioJPanel extends JPanel implements IProjectChangeListener, Pr
 		presetMenuBar.add(mnAttributesMenu);
 		menusInTabs.add(mnAttributesMenu);
 		ClassFinder.getAttributesNames().stream()
-			.sorted().forEach(
+				.sorted().forEach(
 				attributesClassName -> mnAttributesMenu.add(new JMenuItem(new AbstractAction(attributesClassName) {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -208,7 +208,7 @@ public class ScenarioJPanel extends JPanel implements IProjectChangeListener, Pr
 		}
 
 		tabbedPane.addTab(Messages.getString("Tab.OutputProcessors.title"), null, outputView, null);
-		
+
 		// online visualization card...
 		JPanel visualizationCard = new JPanel();
 
@@ -236,9 +236,8 @@ public class ScenarioJPanel extends JPanel implements IProjectChangeListener, Pr
 
 	/**
 	 * Shows data of a specific scenario.
-	 * 
-	 * @param scenario
-	 *        Vadere with data that should be shown and edited.
+	 *
+	 * @param scenario Vadere with data that should be shown and edited.
 	 */
 	public void setScenario(ScenarioRunManager scenario, boolean isEditable) {
 		this.scenario = scenario;
@@ -325,7 +324,8 @@ public class ScenarioJPanel extends JPanel implements IProjectChangeListener, Pr
 	}
 
 	@Override
-	public void propertyChanged(final VadereProject project) {}
+	public void propertyChanged(final VadereProject project) {
+	}
 
 	@Override
 	public void preProjectRun(final VadereProject project) {

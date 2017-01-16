@@ -24,7 +24,7 @@ public class CLConvolution {
 	}
 
 	public float[] convolve(final float[] input, final int matrixWidth, final int matrixHeight, final float[] kernel,
-			final int kernelWidth) throws IOException {
+							final int kernelWidth) throws IOException {
 		float[] output = new float[input.length];
 		CLQueue queue = context.createDefaultQueue();
 
@@ -34,7 +34,7 @@ public class CLConvolution {
 
 		// timer.start();
 		CLEvent convolveEvt = gaussianFilter.convolve(queue, clInput, clKernel, clOutput, matrixWidth, matrixHeight,
-				kernelWidth, new int[] {matrixWidth, input.length / matrixWidth}, null);
+				kernelWidth, new int[]{matrixWidth, input.length / matrixWidth}, null);
 
 		queue.finish();
 		convolveEvt.waitFor();
@@ -49,7 +49,7 @@ public class CLConvolution {
 	}
 
 	public float[] convolveSperate(final float[] input, final int matrixWidth, final int matrixHeight,
-			final float[] kernel, final int kernelWidth) {
+								   final float[] kernel, final int kernelWidth) {
 		float[] output = new float[input.length];
 		float[] tmp = new float[input.length];
 		CLQueue queue = context.createDefaultQueue();
@@ -60,10 +60,10 @@ public class CLConvolution {
 		CLBuffer<Float> clTmp = doubleArrayToCLBuffer(tmp);
 
 		CLEvent convolveEvtCol = gaussianFilter.convolveCol(queue, clInput, clKernel, clTmp, matrixWidth, matrixHeight,
-				kernelWidth, new int[] {matrixWidth, input.length / matrixWidth}, null);
+				kernelWidth, new int[]{matrixWidth, input.length / matrixWidth}, null);
 		convolveEvtCol.waitFor();
 		CLEvent convolveEvtRow = gaussianFilter.convolveRow(queue, clTmp, clKernel, clOutput, matrixWidth, matrixHeight,
-				kernelWidth, new int[] {matrixWidth, input.length / matrixWidth}, null);
+				kernelWidth, new int[]{matrixWidth, input.length / matrixWidth}, null);
 		queue.finish();
 		convolveEvtRow.waitFor();
 
@@ -76,7 +76,7 @@ public class CLConvolution {
 	}
 
 	public float[] convolveCol(final float[] input, final int matrixWidth, final int matrixHeight, final float[] kernel,
-			final int kernelWidth) {
+							   final int kernelWidth) {
 		float[] output = new float[input.length];
 		CLQueue queue = context.createDefaultQueue();
 
@@ -85,7 +85,7 @@ public class CLConvolution {
 		CLBuffer<Float> clOutput = doubleArrayToCLBuffer(output);
 
 		CLEvent convolveEvtCol = gaussianFilter.convolveCol(queue, clInput, clKernel, clOutput, matrixWidth,
-				matrixHeight, kernelWidth, new int[] {matrixWidth, input.length / matrixWidth}, null);
+				matrixHeight, kernelWidth, new int[]{matrixWidth, input.length / matrixWidth}, null);
 		convolveEvtCol.waitFor();
 		queue.finish();
 
@@ -98,7 +98,7 @@ public class CLConvolution {
 	}
 
 	public float[] convolveRow(final float[] input, final int matrixWidth, final int matrixHeight, final float[] kernel,
-			final int kernelWidth) {
+							   final int kernelWidth) {
 		float[] output = new float[input.length];
 		float[] tmp = new float[input.length];
 		CLQueue queue = context.createDefaultQueue();
@@ -108,7 +108,7 @@ public class CLConvolution {
 		CLBuffer<Float> clOutput = doubleArrayToCLBuffer(output);
 
 		CLEvent convolveEvtRow = gaussianFilter.convolveRow(queue, clInput, clKernel, clOutput, matrixWidth,
-				matrixHeight, kernelWidth, new int[] {matrixWidth, input.length / matrixWidth}, null);
+				matrixHeight, kernelWidth, new int[]{matrixWidth, input.length / matrixWidth}, null);
 		queue.finish();
 		convolveEvtRow.waitFor();
 

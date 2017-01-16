@@ -10,20 +10,15 @@ import java.nio.file.Paths;
 
 /**
  * Writes a {@link VadereProject} to a file.
- * 
- * 
  */
 public class ProjectWriter {
 
 	/**
 	 * Writes a {@link VadereProject} to file.
-	 * 
-	 * @param folderpath
-	 *        path of the project file to write.
-	 * @param project
-	 *        project to write.
-	 * @throws IOException
-	 *         if something goes wrong writing the file.
+	 *
+	 * @param folderpath path of the project file to write.
+	 * @param project    project to write.
+	 * @throws IOException if something goes wrong writing the file.
 	 */
 	public static void writeProjectFileJson(String folderpath, VadereProject project) throws IOException {
 		writeProjectFileJson(folderpath, project, false, false);
@@ -32,20 +27,16 @@ public class ProjectWriter {
 	/**
 	 * Writes a {@link VadereProject} to file.
 	 *
-	 * @param folderpath
-	 *        path of the project file to write.
-	 * @param project
-	 *        project to write.
-	 * @param override
-	 *        if true => if directories already exists they will be used,
-	 *        if false => if directories already exist this method throws an
-	 *        {@link java.io.IOException}
-	 * @throws IOException
-	 *         if something goes wrong writing the file (for example override == false and a
-	 *         directory already exists).
+	 * @param folderpath path of the project file to write.
+	 * @param project    project to write.
+	 * @param override   if true => if directories already exists they will be used, if false => if
+	 *                   directories already exist this method throws an {@link
+	 *                   java.io.IOException}
+	 * @throws IOException if something goes wrong writing the file (for example override == false
+	 *                     and a directory already exists).
 	 */
 	public static void writeProjectFileJson(final String folderpath, final VadereProject project, boolean override,
-			boolean includeCommitHash) throws IOException {
+											boolean includeCommitHash) throws IOException {
 		Path projectPath = Paths.get(folderpath);
 		Path scenarioPath = Paths.get(folderpath, IOUtils.SCENARIO_DIR);
 		Path outputDir = Paths.get(folderpath, IOUtils.OUTPUT_DIR);

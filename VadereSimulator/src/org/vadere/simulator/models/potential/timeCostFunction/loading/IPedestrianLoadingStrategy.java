@@ -11,30 +11,22 @@ import org.vadere.state.scenario.Topography;
  * IPedestrianLoadingStrategy is the interface for the strategy-pattern. A
  * pedestrian loading strategy calculates a loading based on the information of
  * the body of the pedestrian (for example the position the speed and so on).
- * 
- * 
  */
 public interface IPedestrianLoadingStrategy<T extends Pedestrian> {
 	/**
 	 * Returns the calculated loading for the body of a pedestrian.
-	 * 
-	 * @param body
-	 *        the body of the pedestrian
+	 *
+	 * @param body the body of the pedestrian
 	 * @return the calculated loading for the body of a pedestrian
 	 */
 	double calculateLoading(final T body);
 
 	/**
 	 * Factory method.
-	 * 
-	 * @param topography
-	 * @param timeCostAttributes
-	 * @param targetId
-	 * @return
 	 */
 	public static IPedestrianLoadingStrategy create(final Topography topography,
-			final AttributesTimeCost timeCostAttributes, final AttributesAgent attributesPedestrian,
-			final int targetId) {
+													final AttributesTimeCost timeCostAttributes, final AttributesAgent attributesPedestrian,
+													final int targetId) {
 		IPedestrianLoadingStrategy loadingStrategy = null;
 		switch (timeCostAttributes.getLoadingType()) {
 			case DYNAMIC:

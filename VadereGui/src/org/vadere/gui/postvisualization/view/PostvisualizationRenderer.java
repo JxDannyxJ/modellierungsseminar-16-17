@@ -1,12 +1,5 @@
 package org.vadere.gui.postvisualization.view;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Stream;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.vadere.gui.components.utils.ColorHelper;
@@ -14,9 +7,18 @@ import org.vadere.gui.components.view.DefaultRenderer;
 import org.vadere.gui.components.view.SimulationRenderer;
 import org.vadere.gui.postvisualization.model.PostvisualizationModel;
 import org.vadere.state.scenario.dynamicelements.Agent;
+import org.vadere.state.scenario.dynamicelements.Horse;
 import org.vadere.state.simulation.Step;
 import org.vadere.state.simulation.Trajectory;
+import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VPoint;
+
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public class PostvisualizationRenderer extends SimulationRenderer {
 
@@ -52,10 +54,6 @@ public class PostvisualizationRenderer extends SimulationRenderer {
 
 		if (!model.isEmpty()) {
 
-			if (color != null) {
-				g.setColor(color);
-			}
-
 			// choose current trajectories or current+old trajectories
 			Stream<Trajectory> trajectoriesStream;
 			if (model.config.isShowAllTrajectories()) {
@@ -72,41 +70,41 @@ public class PostvisualizationRenderer extends SimulationRenderer {
 		Optional<Agent> optionalPedestrian = trajectory.getAgent(step);
 
 		if (optionalPedestrian.isPresent()) {
-			Agent pedestrian = optionalPedestrian.get();
+			Agent agent = optionalPedestrian.get();
+			AffineTransform oldTransform = g.getTransform();
+			Color defaultColor;
+			double theta = 0.0;
 
-			int targetId = pedestrian.hasNextTarget() ? pedestrian.getNextTargetId() : -1;
+			if (agent instanceof Horse) {
+				defaultColor = model.config.getHorseColor();
+			} else {
+				defaultColor = model.config.getPedestrianColor();
+			}
+
+			int targetId = agent.hasNextTarget() ? agent.getNextTargetId() : -1;
 
 			// choose the color
 			Optional<Color> c = model.config.isUseEvacuationTimeColor() ?
 					Optional.of(colorHelper.numberToColor(trajectory.getLifeTime().orElse(0))) :
 					Optional.empty();
-			g.setColor(model.getColor(pedestrian)
+			g.setColor(model.getColor(agent)
 					.orElse(model.config.getColorByTargetId(targetId)
 							.orElse(c
-								.orElseGet(model.config::getPedestrianDefaultColor))));
+									.orElse(defaultColor))));
 
-			// renderImage the pedestrian
-			if (model.config.isShowPedestrians()) {
-				if (model.config.isShowFaydedPedestrians() || !trajectory.isPedestrianDisappeared(step)) {
-					g.fill(pedestrian.getShape());
-					if (model.config.isShowPedestrianIds()) {
-						DefaultRenderer.paintAgentId(g, pedestrian);
-					}
-				}
-			}
 
 			// renderImage the trajectory
 			if (model.config.isShowTrajectories() && step.getStepNumber() > 0) {
-				renderTrajectory(g, trajectory.getPositionsReverse(step), pedestrian);
+				renderTrajectory(g, trajectory.getPositionsReverse(step), agent);
 			}
 
 			// renderImage the arrows indicating the walking direction
-			if (model.config.isShowWalkdirection() &&
+			if (!(agent.getShape() instanceof VCircle) || model.config.isShowWalkdirection() &&
 					(model.config.isShowFaydedPedestrians() || !trajectory.isPedestrianDisappeared(step))) {
-				int pedestrianId = pedestrian.getId();
+				int pedestrianId = agent.getId();
 				VPoint lastPosition = lastPedestrianPositions.get(pedestrianId);
 
-				VPoint position = pedestrian.getPosition();
+				VPoint position = agent.getPosition();
 
 				lastPedestrianPositions.put(pedestrianId, position);
 
@@ -125,13 +123,34 @@ public class PostvisualizationRenderer extends SimulationRenderer {
 						pedestrianDirections.put(pedestrianId, direction);
 					}
 					if (direction != null) {
-						double theta = Math.atan2(-direction.getY(), -direction.getX());
-						DefaultRenderer.drawArrow(g, theta,
-								position.getX() - pedestrian.getRadius() * 2 * direction.getX(),
-								position.getY() - pedestrian.getRadius() * 2 * direction.getY());
+						theta = Math.atan2(-direction.getY(), -direction.getX());
+
+						if (model.config.isShowWalkdirection()) {
+							DefaultRenderer.drawArrow(g, theta,
+									position.getX() - agent.getRadius() * 2 * direction.getX(),
+									position.getY() - agent.getRadius() * 2 * direction.getY());
+						}
+					}
+
+					if (!(agent.getShape() instanceof VCircle)) {
+						AffineTransform rotation = new AffineTransform(g.getTransform());
+						rotation.rotate(theta - Math.PI / 2, agent.getPosition().getX(), agent.getPosition().getY());
+						g.setTransform(rotation);
 					}
 				}
 			}
+
+			// renderImage the pedestrian
+			if (model.config.isShowPedestrians()) {
+				if (model.config.isShowFaydedPedestrians() || !trajectory.isPedestrianDisappeared(step)) {
+					g.fill(agent.getShape());
+					if (model.config.isShowPedestrianIds()) {
+						DefaultRenderer.paintAgentId(g, agent);
+					}
+				}
+			}
+
+			g.setTransform(oldTransform);
 		} else {
 			logger.error("Optional<Pedestrian> should not be empty at this point! Step: " + step + ", Ped: "
 					+ trajectory.getPedestrianId());

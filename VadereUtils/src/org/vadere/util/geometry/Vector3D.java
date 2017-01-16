@@ -4,7 +4,6 @@ import java.awt.Point;
 
 /**
  * A point in 3D.
- * 
  */
 public class Vector3D extends Point implements Comparable<Vector3D> {
 
@@ -50,9 +49,6 @@ public class Vector3D extends Point implements Comparable<Vector3D> {
 	/**
 	 * Normalizes the given point (now considered a vector) to the given length.
 	 * If it is the zero vector, it is returned unchanged.
-	 * 
-	 * @param length
-	 * @return
 	 */
 	public Vector3D normalize(double length) {
 		if (this.equals(ZERO)) {
@@ -64,9 +60,6 @@ public class Vector3D extends Point implements Comparable<Vector3D> {
 
 	/**
 	 * Euclidian distance to a given point.
-	 * 
-	 * @param p
-	 * @return
 	 */
 	public double distTo(Vector3D p) {
 		double x = this.x - p.x;
@@ -79,10 +72,6 @@ public class Vector3D extends Point implements Comparable<Vector3D> {
 	 * Interpolates a point between this to a given target with the given
 	 * factor.<br>
 	 * Formula: result = this + factor*(target-this)
-	 * 
-	 * @param target
-	 * @param factor
-	 * @return
 	 */
 	public Vector3D interpolate(Vector3D target, double factor) {
 		Vector3D result = new Vector3D(x + factor * (target.x - x), y + factor
@@ -94,9 +83,8 @@ public class Vector3D extends Point implements Comparable<Vector3D> {
 	 * Checks whether the given point is greater than the current point with
 	 * respect to:<br>
 	 * 1. x-coordinate -> 2. y-coordinate -> 3. z-coordinate
-	 * 
-	 * @param p
-	 *        point to compare with
+	 *
+	 * @param p point to compare with
 	 * @return true if the current point is greater than p, false otherwise.
 	 */
 	public boolean isGreaterThan(Vector3D p) {
@@ -118,11 +106,9 @@ public class Vector3D extends Point implements Comparable<Vector3D> {
 	 * Checks wether the given point is greater than the current point with
 	 * respect to:<br>
 	 * 1. x-coordinate -> 2. y-coordinate -> -> 3. z-coordinate
-	 * 
-	 * @param p
-	 *        point to compare with
-	 * @return 1 if the current point is greater than p, -1 if smaller, 0
-	 *         otherwise.
+	 *
+	 * @param p point to compare with
+	 * @return 1 if the current point is greater than p, -1 if smaller, 0 otherwise.
 	 */
 	@Override
 	public int compareTo(Vector3D p) {
@@ -151,7 +137,9 @@ public class Vector3D extends Point implements Comparable<Vector3D> {
 			return true;
 		}
 		return false;
-	};
+	}
+
+	;
 
 	@Override
 	public int hashCode() {
@@ -170,10 +158,6 @@ public class Vector3D extends Point implements Comparable<Vector3D> {
 	/**
 	 * Computes the cross product of two vectors and store it in the cross
 	 * vector.
-	 * 
-	 * @param v1
-	 * @param v2
-	 * @param cross
 	 */
 	public Vector3D cross(Vector3D p2) {
 		return new Vector3D(this.y * p2.z - this.z * p2.y, this.z * p2.x

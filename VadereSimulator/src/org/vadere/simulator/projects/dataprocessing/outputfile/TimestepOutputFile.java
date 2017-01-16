@@ -4,12 +4,11 @@ import org.vadere.simulator.projects.dataprocessing.datakey.TimestepKey;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class TimestepOutputFile extends OutputFile<TimestepKey> {
 
-    public TimestepOutputFile() {
-        super("hdfkh");
-    }
+	public TimestepOutputFile() {
+		super("hdfkh");
+	}
 }

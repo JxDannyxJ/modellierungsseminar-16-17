@@ -23,12 +23,15 @@ public class Target implements ScenarioElement, Comparable<Target> {
 
 	private AttributesTarget attributes;
 	private final Map<Integer, Double> enteringTimes;
-	
-	/** Collection of listeners - order does not play a role. */
+
+	/**
+	 * Collection of listeners - order does not play a role.
+	 */
 	private final Collection<TargetListener> targetListeners = new LinkedList<>();
 
 	/**
 	 * Class constructor for a target object which takes preset attributes as an argument
+	 *
 	 * @param attributes the attributes for the target
 	 */
 	public Target(AttributesTarget attributes) {
@@ -36,9 +39,8 @@ public class Target implements ScenarioElement, Comparable<Target> {
 	}
 
 	/**
-	 * Class constructor which creates a new target with given attributes and a map of entering times
-	 * @param attributes
-	 * @param enteringTimes
+	 * Class constructor which creates a new target with given attributes and a map of entering
+	 * times
 	 */
 	public Target(AttributesTarget attributes, Map<Integer, Double> enteringTimes) {
 		this.attributes = attributes;
@@ -48,6 +50,7 @@ public class Target implements ScenarioElement, Comparable<Target> {
 	/**
 	 * Getter for the property of absorbing elements. Absorbing means removing
 	 * them from the simulation.
+	 *
 	 * @return true if the target absorbs entering elements, false otherwise
 	 */
 	public boolean isAbsorbing() {
@@ -56,6 +59,7 @@ public class Target implements ScenarioElement, Comparable<Target> {
 
 	/**
 	 * Another way of treating entering elements is a waiting time.
+	 *
 	 * @return the waiting time for elements on the target shape
 	 */
 	public double getWaitingTime() {
@@ -64,6 +68,7 @@ public class Target implements ScenarioElement, Comparable<Target> {
 
 	/**
 	 * Getter for the waiting time in a car scenario with a yellow phase traffic light
+	 *
 	 * @return the waiting time in the yellow phase
 	 */
 	public double getWaitingTimeYellowPhase() {
@@ -72,6 +77,7 @@ public class Target implements ScenarioElement, Comparable<Target> {
 
 	/**
 	 * Getter for the amount of waiting elements on the target shape
+	 *
 	 * @return the amount of waiters for the targets action
 	 */
 	public int getParallelWaiters() {
@@ -80,6 +86,7 @@ public class Target implements ScenarioElement, Comparable<Target> {
 
 	/**
 	 * Defines whether a car simulation scenario starts with a red traffic light
+	 *
 	 * @return true if the traffic light starts with red, false otherwise
 	 */
 	public boolean isStartingWithRedLight() {
@@ -88,6 +95,7 @@ public class Target implements ScenarioElement, Comparable<Target> {
 
 	/**
 	 * Getter for the next speed calculation
+	 *
 	 * @return the next speed
 	 */
 	public double getNextSpeed() {
@@ -96,6 +104,7 @@ public class Target implements ScenarioElement, Comparable<Target> {
 
 	/**
 	 * Getter for the map of entering times
+	 *
 	 * @return map of entering times
 	 */
 	public Map<Integer, Double> getEnteringTimes() {
@@ -166,7 +175,9 @@ public class Target implements ScenarioElement, Comparable<Target> {
 		this.attributes = (AttributesTarget) attributes;
 	}
 
-	/** Is this target actually a pedestrian? @see scenario.TargetPedestrian */
+	/**
+	 * Is this target actually a pedestrian? @see scenario.TargetPedestrian
+	 */
 	public boolean isTargetPedestrian() {
 		return false;
 	}
@@ -180,19 +191,25 @@ public class Target implements ScenarioElement, Comparable<Target> {
 		return this.getId() - otherTarget.getId();
 	}
 
-	/** Models can register a target listener. */
+	/**
+	 * Models can register a target listener.
+	 */
 	@SuppressWarnings("unused")
 	public void addListener(TargetListener listener) {
 		targetListeners.add(listener);
 	}
 
-	/** They can also be removed */
+	/**
+	 * They can also be removed
+	 */
 	@SuppressWarnings("unused")
 	public boolean removeListener(TargetListener listener) {
 		return targetListeners.remove(listener);
 	}
 
-	/** Returns an unmodifiable collection. */
+	/**
+	 * Returns an unmodifiable collection.
+	 */
 	public Collection<TargetListener> getTargetListeners() {
 		return Collections.unmodifiableCollection(targetListeners);
 	}

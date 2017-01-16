@@ -13,9 +13,9 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 /**
- *  Geometric shape of an Ellipse
- * @author yauseyea
+ * Geometric shape of an Ellipse
  *
+ * @author yauseyea
  */
 public class VEllipse implements VShape {
 
@@ -26,10 +26,10 @@ public class VEllipse implements VShape {
 
 	/**
 	 * Constructor for an ellipse
-	 * 
-	 * @param x and y: Center point of ellipse
+	 *
+	 * @param x       and y: Center point of ellipse
 	 * @param height: length of the vertical radius of the ellipse
-	 * @param width: length of the horizontal radius of an ellipse
+	 * @param width:  length of the horizontal radius of an ellipse
 	 */
 	public VEllipse(double x, double y, double height, double width) {
 		this(new VPoint(x, y), height, width);
@@ -37,8 +37,9 @@ public class VEllipse implements VShape {
 
 	/**
 	 * Ellipse at 0|0
+	 *
 	 * @param height: length of the vertical radius of the ellipse
-	 * @param width: length of the horizontal radius of an ellipse
+	 * @param width:  length of the horizontal radius of an ellipse
 	 */
 	public VEllipse(double height, double width) {
 		this(0.0, 0.0, height, width);
@@ -46,10 +47,10 @@ public class VEllipse implements VShape {
 
 	/**
 	 * Constructor for an ellipse
-	 * 
+	 *
 	 * @param center: Center point of ellipse
 	 * @param height: length of the vertical radius of the ellipse
-	 * @param width: length of the horizontal radius of an ellipse
+	 * @param width:  length of the horizontal radius of an ellipse
 	 */
 	public VEllipse(VPoint center, double height, double width) {
 
@@ -78,6 +79,7 @@ public class VEllipse implements VShape {
 
 	/**
 	 * getter for the center
+	 *
 	 * @return VPoint center
 	 */
 	public VPoint getCenter() {
@@ -108,7 +110,7 @@ public class VEllipse implements VShape {
 			return false;
 		}
 		if (!this.center.equals(other.center)) {
-			return false;			
+			return false;
 		}
 
 		return true;
@@ -121,7 +123,7 @@ public class VEllipse implements VShape {
 	public double distance(VPoint point) {
 		if (contains(point)) {
 			return 0;
-		} 
+		}
 		return closestPoint(point).distance(point);
 	}
 
@@ -141,9 +143,9 @@ public class VEllipse implements VShape {
 				- center.getY());
 		double theta = direction.angleToZero();
 
-		double r = (width*height) / 
+		double r = (width * height) /
 				Math.sqrt(Math.pow(height * Math.cos(theta), 2) + Math.pow(width * Math.sin(theta), 2));
-		return new VPoint(Math.round((center.getX() + r * Math.cos(theta)*1000))/1000.0, Math.round((center.getY() + r * Math.sin(theta))*1000)/1000.0);
+		return new VPoint(Math.round((center.getX() + r * Math.cos(theta) * 1000)) / 1000.0, Math.round((center.getY() + r * Math.sin(theta)) * 1000) / 1000.0);
 	}
 
 	@Override
@@ -176,7 +178,7 @@ public class VEllipse implements VShape {
 	 * Looks if a point is contained in the ellipse
 	 */
 	public boolean contains(VPoint point) {
-		return contains(point.getX(),point.getY());
+		return contains(point.getX(), point.getY());
 	}
 
 
@@ -246,8 +248,8 @@ public class VEllipse implements VShape {
 	 */
 	@Override
 	public boolean contains(double x, double y) {
-		return Math.pow(center.getX() - x, 2)/Math.pow(getWidth(), 2) + 
-				Math.pow(center.getY() - y, 2)/Math.pow(getHeight(), 2) <= 1;
+		return Math.pow(center.getX() - x, 2) / Math.pow(getWidth(), 2) +
+				Math.pow(center.getY() - y, 2) / Math.pow(getHeight(), 2) <= 1;
 	}
 
 	/**
@@ -255,7 +257,7 @@ public class VEllipse implements VShape {
 	 */
 	@Override
 	public boolean contains(Point2D p) {
-		return contains(p.getX(),p.getY());
+		return contains(p.getX(), p.getY());
 	}
 
 

@@ -120,7 +120,7 @@ public class WatchDir {
 		boolean deleted = false;
 		boolean created = false;
 
-		for (;;) {
+		for (; ; ) {
 
 			// wait for key to be signalled
 			WatchKey key;

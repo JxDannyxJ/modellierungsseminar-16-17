@@ -16,8 +16,6 @@ import org.vadere.util.io.IOUtils;
 
 /**
  * Basic tests of the {@link VPolygon} class.
- * 
- * 
  */
 public class TestPolygon {
 	private VPolygon testPolygon;

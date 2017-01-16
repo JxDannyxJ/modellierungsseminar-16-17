@@ -17,7 +17,6 @@ import org.vadere.util.io.IOUtils;
  * can be rotated around its center. This creates a 3D time cost field (2 for
  * space, 1 for angle). see Sethian: Level Set Methods and Fast Marching
  * Methods, p. 287ff
- * 
  */
 public class TimeCost2D1ConfigurationSpace implements ITimeCostFunction3D {
 
@@ -29,20 +28,15 @@ public class TimeCost2D1ConfigurationSpace implements ITimeCostFunction3D {
 	/**
 	 * Computes a time cost potential field based on obstacles and a rigid body
 	 * that can be rotated around its center.
-	 * 
-	 * @param geometry
-	 *        geometry with obstacles
-	 * @param floorshape
-	 *        the shape/dimensions of the current floor
-	 * @param rigidBodyShape
-	 *        shape of the rigid body
-	 * @param cellSize
-	 *        size of one space cell
-	 * @param cellSizeAngle
-	 *        size of one rotation cell
+	 *
+	 * @param geometry       geometry with obstacles
+	 * @param floorshape     the shape/dimensions of the current floor
+	 * @param rigidBodyShape shape of the rigid body
+	 * @param cellSize       size of one space cell
+	 * @param cellSizeAngle  size of one rotation cell
 	 */
 	public TimeCost2D1ConfigurationSpace(Geometry geometry, Shape floorshape,
-			VPolygon rigidBodyShape, double cellSize, double cellSizeAngle) {
+										 VPolygon rigidBodyShape, double cellSize, double cellSizeAngle) {
 
 		floorshape.getBounds2D().getMinX();
 		floorshape.getBounds2D().getMinY();
@@ -70,9 +64,6 @@ public class TimeCost2D1ConfigurationSpace implements ITimeCostFunction3D {
 	/**
 	 * Generate the cost field for the configuration space. The given shape is
 	 * rotated 360 degrees.
-	 * 
-	 * @param scenario
-	 * @param shape
 	 */
 	private void generateCostField(Geometry geometry, VPolygon shape) {
 

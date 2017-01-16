@@ -10,14 +10,12 @@ import org.vadere.util.geometry.shapes.VPoint;
 
 /**
  * Math utilities not covered by java.lang.Math
- * 
  */
 public class MathUtil {
 	/**
 	 * The two-norm of a vector.
-	 * 
-	 * @param vector
-	 *        a double vector with arbitrary number of entries x1,x2,....
+	 *
+	 * @param vector a double vector with arbitrary number of entries x1,x2,....
 	 * @return sqrt(x1^2+x2^2+...)
 	 */
 	public static double norm2(double[] vector) {
@@ -30,9 +28,8 @@ public class MathUtil {
 
 	/**
 	 * The one-norm of a vector.
-	 * 
-	 * @param vector
-	 *        a double vector with arbitrary number of entries x1,x2,....
+	 *
+	 * @param vector a double vector with arbitrary number of entries x1,x2,....
 	 * @return abs(x1)+abs(x2)+...
 	 */
 	public static double norm1(double[] vector) {
@@ -46,13 +43,10 @@ public class MathUtil {
 	/**
 	 * The value of the gradient of the 2D smooth function with compact support
 	 * given by exp(1/((x/cut)^2-1)).
-	 * 
-	 * @param x
-	 *        2D position where the gradient should be evaluated.
-	 * @param cut
-	 *        if abs(x)>cut, the function (and its gradient) is zero.
-	 * @param grad
-	 *        a 2D vector where the result is stored.
+	 *
+	 * @param x    2D position where the gradient should be evaluated.
+	 * @param cut  if abs(x)>cut, the function (and its gradient) is zero.
+	 * @param grad a 2D vector where the result is stored.
 	 */
 	public static void cutExpGrad2D(double[] x, double cut, double[] grad) {
 		double absx = Math.sqrt(x[0] * x[0] + x[1] * x[1]) / cut;
@@ -71,12 +65,9 @@ public class MathUtil {
 	/**
 	 * The value of the 2D smooth function with compact support given by
 	 * exp(1/((x/cut)^2-1)).
-	 * 
-	 * @param x
-	 *        2D position where the gradient should be evaluated.
-	 * @param cut
-	 *        if abs(x)>cut, the function is zero.
-	 * @return
+	 *
+	 * @param x   2D position where the gradient should be evaluated.
+	 * @param cut if abs(x)>cut, the function is zero.
 	 */
 	public static double cutExp(double x, double cut) {
 		double absx = Math.abs(x) / cut;
@@ -90,12 +81,9 @@ public class MathUtil {
 	/**
 	 * The value of the 2D smooth function with compact support given by
 	 * exp(1/((x/cut)^(2p)-1)).
-	 * 
-	 * @param x
-	 *        2D position where the gradient should be evaluated.
-	 * @param cut
-	 *        if abs(x)>cut, the function is zero.
-	 * @return
+	 *
+	 * @param x   2D position where the gradient should be evaluated.
+	 * @param cut if abs(x)>cut, the function is zero.
 	 */
 	public static double cutExp(double x, double cut, double p) {
 		double absx = Math.abs(x) / cut;
@@ -108,11 +96,9 @@ public class MathUtil {
 
 	/**
 	 * Adds a vector to another one.
-	 * 
-	 * @param vec
-	 *        the initial vector that contains the solution later on.
-	 * @param vecToAdd
-	 *        the vector that should be added.
+	 *
+	 * @param vec      the initial vector that contains the solution later on.
+	 * @param vecToAdd the vector that should be added.
 	 */
 	public static void vecAdd(double[] vec, double[] vecToAdd) {
 		for (int i = 0; i < vec.length; i++) {
@@ -122,9 +108,6 @@ public class MathUtil {
 
 	/**
 	 * Multiplies the given vector with a scalar.
-	 * 
-	 * @param vec
-	 * @param scalar
 	 */
 	public static void mult(double[] vec, double scalar) {
 		for (int i = 0; i < vec.length; i++) {
@@ -135,15 +118,12 @@ public class MathUtil {
 	/**
 	 * computes the "smallest distance on the circle" of the angle
 	 * (x+v,x,x2-x)
-	 * 
-	 * @param x
-	 *        the starting position
-	 * @param v
-	 *        the viewing direction
-	 * @param x2
-	 *        the position that should be evaluated
-	 * @return a value between 0.0 and 1.0 that indicates how much of the
-	 *         position is visible. 1.0 is fully visible, 0.0 is hidden.
+	 *
+	 * @param x  the starting position
+	 * @param v  the viewing direction
+	 * @param x2 the position that should be evaluated
+	 * @return a value between 0.0 and 1.0 that indicates how much of the position is visible. 1.0
+	 * is fully visible, 0.0 is hidden.
 	 */
 	public static double smallestViewingAngle(double[] x, double[] v, double[] x2) {
 		// compute the "smallest distance on the circle" between the two angles
@@ -175,15 +155,12 @@ public class MathUtil {
 	/**
 	 * Computes the portion of a position x2 that is visible from position x
 	 * given the direction in v.
-	 * 
-	 * @param x
-	 *        the starting position
-	 * @param v
-	 *        the viewing direction
-	 * @param x2
-	 *        the position that should be evaluated
-	 * @return a value between 0.0 and 1.0 that indicates how much of the
-	 *         position is visible. 1.0 is fully visible, 0.0 is hidden.
+	 *
+	 * @param x  the starting position
+	 * @param v  the viewing direction
+	 * @param x2 the position that should be evaluated
+	 * @return a value between 0.0 and 1.0 that indicates how much of the position is visible. 1.0
+	 * is fully visible, 0.0 is hidden.
 	 */
 	public static double visiblePortion(double[] x, double[] v, double[] x2) {
 		double portion = 0;
@@ -211,11 +188,9 @@ public class MathUtil {
 
 	/**
 	 * A smooth "step" function with given sigma.
-	 * 
-	 * @param t
-	 *        the value where the function should be evaluated
-	 * @param sigma
-	 *        the sigma for smoothing the step
+	 *
+	 * @param t     the value where the function should be evaluated
+	 * @param sigma the sigma for smoothing the step
 	 * @return step(t)
 	 */
 	public static double step(double t, double sigma) {
@@ -224,8 +199,6 @@ public class MathUtil {
 
 	/**
 	 * If the vector is nonzero, sets it to the same direction with length = 1.
-	 * 
-	 * @param vec
 	 */
 	public static void normalize(double[] vec) {
 		double norm = norm2(vec);
@@ -240,22 +213,16 @@ public class MathUtil {
 	/**
 	 * Generates quasi random numbers in two dimensions using a VERY simple
 	 * algorithm.
-	 * 
-	 * @param rndSource
-	 *        the random number source that is used in the algorithm.
-	 * @param count
-	 *        number of points in two dimensions that should be created
-	 * @param width
-	 *        width of the area where the points should be created
-	 * @param height
-	 *        height of the area where the points should be created
-	 * @param randomFrac
-	 *        0...1, specifies the amount that is added after the bin is
-	 *        chosen
+	 *
+	 * @param rndSource  the random number source that is used in the algorithm.
+	 * @param count      number of points in two dimensions that should be created
+	 * @param width      width of the area where the points should be created
+	 * @param height     height of the area where the points should be created
+	 * @param randomFrac 0...1, specifies the amount that is added after the bin is chosen
 	 * @return an array with dimension [count][2]
 	 */
 	public static double[][] quasiRandom2D(Random rndSource, int count,
-			double width, double height, double randomFrac) {
+										   double width, double height, double randomFrac) {
 		if (count == 0) {
 			count = 1;
 		}
@@ -286,7 +253,7 @@ public class MathUtil {
 					+ rndSource.nextDouble() * sideLenX * randomFrac);
 			result[i][1] = Math.min(height, coords.getValue()
 					* sideLenY + rndSource.nextDouble()
-							* sideLenY * randomFrac);
+					* sideLenY * randomFrac);
 		}
 
 		return result;
@@ -295,13 +262,10 @@ public class MathUtil {
 	/**
 	 * Computes the cross product of two vectors and store it in the cross
 	 * vector.
-	 * 
-	 * @param v1
-	 *        vector 1
-	 * @param v2
-	 *        vector 2
-	 * @param cross
-	 *        3D vector that will contain the result: cross = (v1 x v2)
+	 *
+	 * @param v1    vector 1
+	 * @param v2    vector 2
+	 * @param cross 3D vector that will contain the result: cross = (v1 x v2)
 	 */
 	public static void cross(double[] v1, double[] v2, double[] cross) {
 		cross[0] = v1[1] * v2[2] - v1[2] * v2[1];
@@ -392,7 +356,7 @@ public class MathUtil {
 	}
 
 	public static VPoint proectVector(final VPoint origin,
-			final VPoint projection) {
+									  final VPoint projection) {
 		double tmp = (origin.getX() * projection.getX() + origin.getY() * projection.getY())
 				/ (projection.getX() * projection.getX() + projection.getY() * projection.getY());
 		return new VPoint(projection.getX() * tmp, projection.getY() * tmp);
@@ -406,10 +370,10 @@ public class MathUtil {
 	 * @return a double array representing the same complex numbers
 	 */
 	public static double[] toDouble(final Complex[] complex) {
-		double[] pairs = new double[complex.length*2];
-		for(int i = 0; i < complex.length*2; i += 2) {
-			pairs[i] = complex[i/2].getReal();
-			pairs[i+1] = complex[i/2].getImaginary();
+		double[] pairs = new double[complex.length * 2];
+		for (int i = 0; i < complex.length * 2; i += 2) {
+			pairs[i] = complex[i / 2].getReal();
+			pairs[i + 1] = complex[i / 2].getImaginary();
 		}
 		return pairs;
 	}
@@ -422,22 +386,22 @@ public class MathUtil {
 	 * @return a float array representing the same complex numbers
 	 */
 	public static float[] toFloat(final Complex[] complex) {
-		float[] pairs = new float[complex.length*2];
-		for(int i = 0; i < complex.length*2; i += 2) {
-			pairs[i] = (float)complex[i/2].getReal();
-			pairs[i+1] = (float)complex[i/2].getImaginary();
+		float[] pairs = new float[complex.length * 2];
+		for (int i = 0; i < complex.length * 2; i += 2) {
+			pairs[i] = (float) complex[i / 2].getReal();
+			pairs[i + 1] = (float) complex[i / 2].getImaginary();
 		}
 		return pairs;
 	}
 
 	/**
 	 * Transform the real numbers to complex numbers i.e. the imaginary part is zero.
-	 * @param realValues
+	 *
 	 * @return a complex array representing the same real numbers
 	 */
 	public static Complex[] toComplex(final double[] realValues) {
 		Complex[] complex = new Complex[realValues.length];
-		for(int i = 0; i < realValues.length; i++) {
+		for (int i = 0; i < realValues.length; i++) {
 			complex[i] = Complex.valueOf(realValues[i], 0.0);
 		}
 		return complex;

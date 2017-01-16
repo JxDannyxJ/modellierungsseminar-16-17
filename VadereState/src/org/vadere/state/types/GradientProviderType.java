@@ -2,7 +2,6 @@ package org.vadere.state.types;
 
 /**
  * Holds all viable gradient provider types.
- * 
  */
 public enum GradientProviderType {
 	FLOOR_EIKONAL_DISCRETE,
@@ -23,7 +22,9 @@ public enum GradientProviderType {
 	 */
 
 	OBSTACLE_CONTINUOUS,
-	/** obstacle "forces", continuous */
+	/**
+	 * obstacle "forces", continuous
+	 */
 
 	PEDESTRIAN_CYCLE_CONTINUOUS,
 	/**

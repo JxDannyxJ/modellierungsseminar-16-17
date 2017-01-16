@@ -3,12 +3,13 @@ package org.vadere.state.attributes;
 /**
  * Provides attributes for the simulation, like visualizationEnabled and
  * writeSimulationData.
- * 
  */
 public class AttributesSimulation extends Attributes {
 
 	private double finishTime = 500;
-	/** Progress of simulation time between two simulation steps in a row. */
+	/**
+	 * Progress of simulation time between two simulation steps in a row.
+	 */
 	private double simTimeStepLength = 0.4;
 	private double realTimeSimTimeRatio = 0.1;
 	private boolean writeSimulationData = true;
@@ -19,7 +20,8 @@ public class AttributesSimulation extends Attributes {
 	private boolean useRandomSeed = true;
 	private long randomSeed = 1;
 
-	public AttributesSimulation() {}
+	public AttributesSimulation() {
+	}
 
 	// Getter...
 

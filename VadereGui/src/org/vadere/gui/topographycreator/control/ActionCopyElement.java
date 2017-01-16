@@ -7,8 +7,6 @@ import org.vadere.state.scenario.ScenarioElement;
 
 /**
  * Copies the reference of an ScenarioElement and put it into the panelmodel.
- * 
- *
  */
 public class ActionCopyElement extends TopographyAction {
 

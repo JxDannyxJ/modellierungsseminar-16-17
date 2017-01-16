@@ -4,7 +4,6 @@ import org.vadere.simulator.projects.dataprocessing.datakey.PedestrianIdKey;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class PedestrianIdOutputFile extends OutputFile<PedestrianIdKey> {

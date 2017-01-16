@@ -6,10 +6,8 @@ import org.vadere.state.scenario.dynamicelements.Pedestrian;
 /**
  * Adjusts the desired speed according to the Weidmann fundamental diagram,
  * which means: the higher the density, the lower the speed.
- * 
- * TODO: [priority=low] [task=feature] NOT IMPLEMENTED!
- * 
  */
+//TODO: [priority=low] [task=feature] NOT IMPLEMENTED!
 public class SpeedAdjusterWeidmann implements SpeedAdjuster {
 
 	@Override
@@ -26,7 +24,7 @@ public class SpeedAdjusterWeidmann implements SpeedAdjuster {
 		throw new UnsupportedOperationException("method is not implemented jet.");
 		// return originalSpeed * result;
 	}
-	
+
 //	@Override
 //	public double getAdjustedSpeed(Horse horse, double originalSpeed) {
 //		double result = 1.0;

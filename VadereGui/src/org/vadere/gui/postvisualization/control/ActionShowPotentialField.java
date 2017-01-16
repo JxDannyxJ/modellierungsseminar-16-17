@@ -12,6 +12,7 @@ import org.vadere.util.potential.CellGrid;
 import org.vadere.util.potential.CellGridConverter;
 
 import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.List;

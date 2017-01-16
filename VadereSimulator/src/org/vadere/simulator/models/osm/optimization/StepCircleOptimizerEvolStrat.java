@@ -15,7 +15,6 @@ import org.vadere.util.geometry.shapes.VPoint;
 
 /**
  * The Class StepCircleOptimizerEvolStrat.
- * 
  */
 public class StepCircleOptimizerEvolStrat implements StepCircleOptimizer {
 
@@ -106,7 +105,7 @@ public class StepCircleOptimizerEvolStrat implements StepCircleOptimizer {
 	 * Mutate the individual.
 	 */
 	private EvolStratIndividual mutate(EvolStratIndividual indiv,
-			PotentialEvaluationFunction potentialEvaluationFunction) {
+									   PotentialEvaluationFunction potentialEvaluationFunction) {
 		EvolStratIndividual newIndiv = new EvolStratIndividual(indiv);
 		double x = indiv.getPosition().getX() + random.nextGaussian()
 				* indiv.getSigma().getX() * random.nextInt(2);

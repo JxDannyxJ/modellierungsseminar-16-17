@@ -16,26 +16,39 @@ import java.util.Map;
  * Holds all variable information's.
  */
 public class SimulationState {
-	/** The current {@link Topography}.*/
+	/**
+	 * The current {@link Topography}.
+	 */
 	private final Topography topography;
-	/** Map of (Id, {@link VPoint}) pairs.*/
+	/**
+	 * Map of (Id, {@link VPoint}) pairs.
+	 */
 	private final Map<Integer, VPoint> agentPositionMap;
-	/** The simulation time (seconds).*/
+	/**
+	 * The simulation time (seconds).
+	 */
 	private final double simTimeInSec;
-	/** Holding simulation parameters and attributes {@link ScenarioStore}.*/
+	/**
+	 * Holding simulation parameters and attributes {@link ScenarioStore}.
+	 */
 	private final ScenarioStore scenarioStore;
-	/** The current simulation step.*/
+	/**
+	 * The current simulation step.
+	 */
 	private final int step;
-	/** The name of the current simulation.*/
+	/**
+	 * The name of the current simulation.
+	 */
 	private final String name;
 
 	/**
 	 * Constructor for state instance.
-	 * @param name the simulations name.
-	 * @param topography the current {@link Topography}.
+	 *
+	 * @param name          the simulations name.
+	 * @param topography    the current {@link Topography}.
 	 * @param scenarioStore holding parameters and attributes {@link ScenarioStore}.
-	 * @param simTimeInSec the current simulation time (seconds).
-	 * @param step the current simulation step.
+	 * @param simTimeInSec  the current simulation time (seconds).
+	 * @param step          the current simulation step.
 	 */
 	protected SimulationState(final String name,
 							  final Topography topography,
@@ -50,14 +63,14 @@ public class SimulationState {
 		this.scenarioStore = scenarioStore;
 
 		// get each agent from the topography and put an entry into the position map
-		for(Agent agent : topography.getElements(Agent.class)) {
+		for (Agent agent : topography.getElements(Agent.class)) {
 			agentPositionMap.put(agent.getId(), agent.getPosition());
 		}
 	}
 
 	@Deprecated
 	public SimulationState(final Map<Integer, VPoint> agentPositionMap, final Topography topography,
-			final double simTimeInSec, final int step) {
+						   final double simTimeInSec, final int step) {
 		this.name = "";
 		this.topography = topography;
 		this.simTimeInSec = simTimeInSec;
@@ -70,6 +83,7 @@ public class SimulationState {
 
 	/**
 	 * Getter for the {@link Topography} instance.
+	 *
 	 * @return the {@link Topography}.
 	 */
 	public Topography getTopography() {
@@ -78,6 +92,7 @@ public class SimulationState {
 
 	/**
 	 * Getter for the current simulation time (seconds).
+	 *
 	 * @return the simulation time.
 	 */
 	public double getSimTimeInSec() {
@@ -86,6 +101,7 @@ public class SimulationState {
 
 	/**
 	 * Getter for the current simulation step.
+	 *
 	 * @return the simulation step.
 	 */
 	public int getStep() {
@@ -94,6 +110,7 @@ public class SimulationState {
 
 	/**
 	 * Getter for the position map {@link SimulationState#agentPositionMap}.
+	 *
 	 * @return a position map.
 	 */
 	public Map<Integer, VPoint> getAgentPositionMap() {
@@ -102,6 +119,7 @@ public class SimulationState {
 
 	/**
 	 * Getter for {@link SimulationState#scenarioStore}.
+	 *
 	 * @return {@link ScenarioStore}.
 	 */
 	public ScenarioStore getScenarioStore() {
@@ -110,6 +128,7 @@ public class SimulationState {
 
 	/**
 	 * Getter for the simulation name.
+	 *
 	 * @return returns the simulation name.
 	 */
 	public String getName() {

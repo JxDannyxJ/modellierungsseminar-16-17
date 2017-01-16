@@ -41,7 +41,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
- *
+ * The optimal steps model as developed by Michael Seitz and Gerta Köster
+ * in Natural discretization of pedestrian movement in continuous space.
  */
 public class OptimalStepsModel implements MainModel {
 
@@ -52,6 +53,7 @@ public class OptimalStepsModel implements MainModel {
 
 		/**
 		 * Time based compare method.
+		 *
 		 * @param a1 First {@link AgentOSM}.
 		 * @param a2 Second {@link AgentOSM}.
 		 * @return -1 if {@param a1} time of next step is smaller than {@param a2}. Otherwise 1.
@@ -66,49 +68,82 @@ public class OptimalStepsModel implements MainModel {
 		}
 	}
 
-	/** The {@link Attributes} for the {@link OptimalStepsModel}.*/
+	/**
+	 * The {@link Attributes} for the {@link OptimalStepsModel}.
+	 */
 	private AttributesOSM attributesOSM;
-	/** The {@link Attributes} for the {@link org.vadere.state.scenario.dynamicelements.Agent} instances.*/
+	/**
+	 * The {@link Attributes} for the {@link org.vadere.state.scenario.dynamicelements.Agent}
+	 * instances.
+	 */
 	private AttributesAgent attributesAgent;
-	/** The {@link Random} instance.*/
+	/**
+	 * The {@link Random} instance.
+	 */
 	private Random random;
-	/** The {@link StepOptimizer} instance used in this simulation.*/
+	/**
+	 * The {@link StepOptimizer} instance used in this simulation.
+	 */
 	private StepOptimizer stepOptimizer;
-	/** The {@link PotentialFieldTarget} instance used in this simulation.*/
+	/**
+	 * The {@link PotentialFieldTarget} instance used in this simulation.
+	 */
 	private PotentialFieldTarget potentialFieldTarget;
-	/** The {@link PotentialFieldObstacle} instance used in this simulation.*/
+	/**
+	 * The {@link PotentialFieldObstacle} instance used in this simulation.
+	 */
 	private PotentialFieldObstacle potentialFieldObstacle;
-	/** The {@link PotentialFieldAgent} instance used in this simulation.*/
+	/**
+	 * The {@link PotentialFieldAgent} instance used in this simulation.
+	 */
 	private PotentialFieldAgent potentialFieldAgent;
-	/** Not used.*/
+	/**
+	 * Not used.
+	 */
 	private List<SpeedAdjuster> speedAdjusters;
-	/** The scenarios {@link Topography}.*/
+	/**
+	 * The scenarios {@link Topography}.
+	 */
 	private Topography topography;
-	/** The last simulation time (seconds).*/
+	/**
+	 * The last simulation time (seconds).
+	 */
 	private double lastSimTimeInSec;
-	/** The agent id counter*/
+	/**
+	 * The agent id counter
+	 */
 	private int agentIdCounter;
 //	private PriorityQueue<PedestrianOSM> pedestrianEventsQueue;
-	/** The {@link PriorityQueue} managing update events.*/
+	/**
+	 * The {@link PriorityQueue} managing update events.
+	 */
 	private PriorityQueue<AgentOSM> agentEventsQueue;
 
-	/** The {@link ExecutorService} to execute commands in parallel.*/
+	/**
+	 * The {@link ExecutorService} to execute commands in parallel.
+	 */
 	private ExecutorService executorService;
-	/** List of {@link ActiveCallback}.*/
+	/**
+	 * List of {@link ActiveCallback}.
+	 */
 	private List<ActiveCallback> activeCallbacks = new LinkedList<>();
 
 	/**
-	 * Deprecated. Do not use this.
-	 * Rather use {@link org.vadere.simulator.models.MainModelBuilder} and {@link MainModel#initialize(List, Topography, AttributesAgent, Random)}.
-	 * @param topography the scenarios {@link Topography}.
-	 * @param attributes the {@link AttributesOSM} for this model.
-	 * @param attributesAgent the {@link AttributesAgent} for the agents.
-	 * @param potentialFieldTarget The {@link PotentialFieldTarget} instance used in this simulation.
-	 * @param potentialFieldObstacle The {@link PotentialFieldObstacle} instance used in this simulation.
-	 * @param potentialFieldAgent The {@link PotentialFieldAgent} instance used in this simulation.
-	 * @param speedAdjusters the unused speed adjuster.
-	 * @param stepOptimizer The {@link StepOptimizer} instance used in this simulation.
-	 * @param random the {@link Random} instance.
+	 * Deprecated. Do not use this. Rather use {@link org.vadere.simulator.models.MainModelBuilder}
+	 * and {@link MainModel#initialize(List, Topography, AttributesAgent, Random)}.
+	 *
+	 * @param topography             the scenarios {@link Topography}.
+	 * @param attributes             the {@link AttributesOSM} for this model.
+	 * @param attributesAgent        the {@link AttributesAgent} for the agents.
+	 * @param potentialFieldTarget   The {@link PotentialFieldTarget} instance used in this
+	 *                               simulation.
+	 * @param potentialFieldObstacle The {@link PotentialFieldObstacle} instance used in this
+	 *                               simulation.
+	 * @param potentialFieldAgent    The {@link PotentialFieldAgent} instance used in this
+	 *                               simulation.
+	 * @param speedAdjusters         the unused speed adjuster.
+	 * @param stepOptimizer          The {@link StepOptimizer} instance used in this simulation.
+	 * @param random                 the {@link Random} instance.
 	 */
 	@Deprecated
 	public OptimalStepsModel(final Topography topography, final AttributesOSM attributes,
@@ -155,14 +190,15 @@ public class OptimalStepsModel implements MainModel {
 	/**
 	 * Used to initialize the {@link OptimalStepsModel}.
 	 * Necessary call so that the model can be used.
+	 *
 	 * @param modelAttributesList list of all given {@link Attributes}.
-	 * @param topography the scenarios {@link Topography}.
-	 * @param attributesAgent the {@link AttributesAgent} for the agents.
-	 * @param random the {@link Random} instance.
+	 * @param topography          the scenarios {@link Topography}.
+	 * @param attributesAgent     the {@link AttributesAgent} for the agents.
+	 * @param random              the {@link Random} instance.
 	 */
 	@Override
 	public void initialize(List<Attributes> modelAttributesList, Topography topography,
-			AttributesAgent attributesAgent, Random random) {
+						   AttributesAgent attributesAgent, Random random) {
 
 		// find osm attributes and set model fields
 		this.attributesOSM = Model.findAttributes(modelAttributesList, AttributesOSM.class);
@@ -194,11 +230,11 @@ public class OptimalStepsModel implements MainModel {
 
 		// create centroid group model if necessary
 		Optional<CentroidGroupModel> opCentroidGroupModel = activeCallbacks.stream().
-			filter(ac -> ac instanceof CentroidGroupModel).map(ac -> (CentroidGroupModel)ac).findAny();
+				filter(ac -> ac instanceof CentroidGroupModel).map(ac -> (CentroidGroupModel) ac).findAny();
 
 		// if group model is present
 		if (opCentroidGroupModel.isPresent()) {
-			
+
 			CentroidGroupModel centroidGroupModel = opCentroidGroupModel.get();
 			centroidGroupModel.setPotentialFieldTarget(iPotentialTargetGrid);
 
@@ -206,7 +242,7 @@ public class OptimalStepsModel implements MainModel {
 			this.potentialFieldAgent =
 					new CentroidGroupPotential(centroidGroupModel,
 							potentialFieldAgent, centroidGroupModel.getAttributesCGM());
-			
+
 			SpeedAdjuster speedAdjusterCGM = new CentroidGroupSpeedAdjuster(centroidGroupModel);
 			this.speedAdjusters.add(speedAdjusterCGM);
 		}
@@ -242,9 +278,10 @@ public class OptimalStepsModel implements MainModel {
 	/**
 	 * Creates {@link StepOptimizer} instance.
 	 * The {@link OptimizationType} is provided by model attributes {@link AttributesOSM}.
-	 * @param attributesOSM the {@link AttributesOSM}.
-	 * @param random the {@link Random} instance.
-	 * @param topography the scenarios {@link Topography}.
+	 *
+	 * @param attributesOSM        the {@link AttributesOSM}.
+	 * @param random               the {@link Random} instance.
+	 * @param topography           the scenarios {@link Topography}.
 	 * @param potentialFieldTarget the field potential for targets {@link IPotentialTargetGrid}.
 	 * @return new instance of {@link StepOptimizer}.
 	 */
@@ -291,7 +328,9 @@ public class OptimalStepsModel implements MainModel {
 	}
 
 	/**
-	 * Pre loop routine. Setts {@link OptimalStepsModel#lastSimTimeInSec} to current simulation time.
+	 * Pre loop routine. Setts {@link OptimalStepsModel#lastSimTimeInSec} to current simulation
+	 * time.
+	 *
 	 * @param simTimeInSec current simulation time.
 	 */
 	@Override
@@ -301,16 +340,19 @@ public class OptimalStepsModel implements MainModel {
 
 	/**
 	 * Empty body does nothing.
+	 *
 	 * @param simTimeInSec current simulation time.
 	 */
 	@Override
-	public void postLoop(final double simTimeInSec) {}
+	public void postLoop(final double simTimeInSec) {
+	}
 
 	/**
 	 * Update call to model. Moving the simulation forward.
 	 * Depends on the {@link UpdateType} of the model.
 	 * In most cases {@link AgentOSM#update(double, double, CallMethod)} is called.
- 	 * @param simTimeInSec current simulation time (seconds).
+	 *
+	 * @param simTimeInSec current simulation time (seconds).
 	 */
 	@Override
 	public void update(final double simTimeInSec) {
@@ -358,6 +400,7 @@ public class OptimalStepsModel implements MainModel {
 	/**
 	 * Called when {@link UpdateType} is {@link UpdateType#PARALLEL}.
 	 * Updates agents in parallel.
+	 *
 	 * @param timeStepInSec the time step in seconds.
 	 */
 	private void parallelCall(double timeStepInSec) {
@@ -378,6 +421,7 @@ public class OptimalStepsModel implements MainModel {
 
 	/**
 	 * Collects {@link Future}.
+	 *
 	 * @param futures to collect.
 	 */
 	private void collectFutures(final List<Future<?>> futures) {
@@ -401,10 +445,11 @@ public class OptimalStepsModel implements MainModel {
 	/**
 	 * Create element routine. Called by {@link org.vadere.simulator.control.SourceController}
 	 * to create new {@link DynamicElement} objects.
+	 *
 	 * @param position of new element.
-	 * @param id new elements id.
-	 * @param type class type to create (like {@link HorseOSM} or {@link PedestrianOSM}.
-	 * @param <T> actual type.
+	 * @param id       new elements id.
+	 * @param type     class type to create (like {@link HorseOSM} or {@link PedestrianOSM}.
+	 * @param <T>      actual type.
 	 * @return new instance of {@link AgentOSM}.
 	 */
 	@Override
@@ -419,7 +464,7 @@ public class OptimalStepsModel implements MainModel {
 		AgentOSM agentOSM = null;
 		// if type is Horse then create new HorseOSM
 		if (type == Horse.class) {
-			agentOSM = new HorseOSM(attributesOSM,new AttributesHorse(topography.getAttributesHorse(), 
+			agentOSM = new HorseOSM(attributesOSM, new AttributesHorse(topography.getAttributesHorse(),
 					id > 0 ? id : agentIdCounter), topography, random, potentialFieldTarget,
 					potentialFieldObstacle.copy(), potentialFieldAgent,
 					speedAdjusters, stepOptimizer.clone());
@@ -446,6 +491,7 @@ public class OptimalStepsModel implements MainModel {
 
 	/**
 	 * Getter for list of {@link ActiveCallback}.
+	 *
 	 * @return {@link OptimalStepsModel#activeCallbacks}.
 	 */
 	@Override

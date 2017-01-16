@@ -16,35 +16,46 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
  * Contains the data for a Vadere object that can be serialized.
- * 
- *
  */
 public class ScenarioStore {
 
-	/** The name of the scenario.*/
+	/**
+	 * The name of the scenario.
+	 */
 	public String name;
-	/** The description of the scenario*/
+	/**
+	 * The description of the scenario
+	 */
 	public String description;
-	/** The {@link org.vadere.simulator.models.MainModel} of the scenario.*/
+	/**
+	 * The {@link org.vadere.simulator.models.MainModel} of the scenario.
+	 */
 	public String mainModel;
-	/** List of {@link Attributes}.*/
+	/**
+	 * List of {@link Attributes}.
+	 */
 	public List<Attributes> attributesList;
-	/** The simulation attributes {@link AttributesSimulation}.*/
+	/**
+	 * The simulation attributes {@link AttributesSimulation}.
+	 */
 	public AttributesSimulation attributesSimulation;
-	/** The scenarios {@link Topography}.*/
+	/**
+	 * The scenarios {@link Topography}.
+	 */
 	public Topography topography;
 
 	/**
 	 * Constructor.
-	 * @param name the name of the scenario.
-	 * @param description the description of the scenario.
-	 * @param mainModel the {@link org.vadere.simulator.models.MainModel}.
-	 * @param attributesModel the model attributes.
+	 *
+	 * @param name                 the name of the scenario.
+	 * @param description          the description of the scenario.
+	 * @param mainModel            the {@link org.vadere.simulator.models.MainModel}.
+	 * @param attributesModel      the model attributes.
 	 * @param attributesSimulation the simulation attributes.
-	 * @param topography the topography.
+	 * @param topography           the topography.
 	 */
 	public ScenarioStore(final String name, final String description, final String mainModel, final List<Attributes> attributesModel,
-			final AttributesSimulation attributesSimulation, final Topography topography) {
+						 final AttributesSimulation attributesSimulation, final Topography topography) {
 		this.name = name;
 		this.description = description;
 		this.mainModel = mainModel;
@@ -55,6 +66,7 @@ public class ScenarioStore {
 
 	/**
 	 * Constructor.
+	 *
 	 * @param name the name of the scenario.
 	 */
 	public ScenarioStore(final String name) {
@@ -67,6 +79,7 @@ public class ScenarioStore {
 
 	/**
 	 * Creates new {@link ScenarioStore} instance.
+	 *
 	 * @return new {@link ScenarioStore}.
 	 */
 	@Override
@@ -81,8 +94,8 @@ public class ScenarioStore {
 
 	/**
 	 * Calls {@link DigestUtils#sha1Hex(String)}.
+	 *
 	 * @return String hash of json.
-	 * @throws JsonProcessingException
 	 */
 	public String hashOfJsonRepresentation() throws JsonProcessingException {
 		return DigestUtils.sha1Hex(JsonConverter.serializeObject(this));

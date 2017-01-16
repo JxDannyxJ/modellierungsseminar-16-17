@@ -8,8 +8,8 @@ import org.vadere.util.geometry.shapes.VShape;
 /**
  * In the simulation a target also can be pedestrian. Thus this pedestrian may
  * obtain the characteristics of a target object.
- * //TODO: This has to be improved in the very future to grant the ability of being a target for every agent
  */
+//TODO: This has to be improved in the very future to grant the ability of being a target for every agent
 public class TargetPedestrian extends Target implements DynamicElementRemoveListener<Pedestrian> {
 
 	private final Pedestrian pedestrian;
@@ -17,6 +17,7 @@ public class TargetPedestrian extends Target implements DynamicElementRemoveList
 
 	/**
 	 * Class constructor creating a new target specified as a pedestrian
+	 *
 	 * @param pedestrian the pedestrian which will get the properties of a target
 	 */
 	public TargetPedestrian(Pedestrian pedestrian) {

@@ -28,7 +28,7 @@ public class CentroidGroup implements Group {
 	private final PotentialFieldTarget potentialFieldTarget;
 
 	public CentroidGroup(int id, int size,
-			PotentialFieldTarget potentialFieldTarget) {
+						 PotentialFieldTarget potentialFieldTarget) {
 		this.id = id;
 		this.size = size;
 		this.potentialFieldTarget = potentialFieldTarget;

@@ -12,8 +12,6 @@ import org.vadere.gui.topographycreator.utils.JSONWriter;
 
 /**
  * Action: save the topography to the current file (last_save_point).
- * 
- *
  */
 public class ActionQuickSaveTopography extends TopographyAction {
 	private static Resources resources = Resources.getInstance("topologycreator");

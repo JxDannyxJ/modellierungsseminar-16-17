@@ -9,7 +9,8 @@ import org.junit.Test;
 public class TestSha1Hash {
 
 	@Before
-	public void setUp() throws Exception {}
+	public void setUp() throws Exception {
+	}
 
 	@Test
 	public void test() {

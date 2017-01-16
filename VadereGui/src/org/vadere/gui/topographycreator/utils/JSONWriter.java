@@ -11,14 +11,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
  * IO-Class to write a Topography to a certain stream.
- *
  */
 public class JSONWriter {
 	/**
 	 * Write the Topography to a certain File.
-	 * 
+	 *
 	 * @param topography the topography
-	 * @param file the certain file
+	 * @param file       the certain file
 	 */
 	public static void writeTopography(final Topography topography, final File file) {
 		try {

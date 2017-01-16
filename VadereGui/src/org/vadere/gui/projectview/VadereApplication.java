@@ -12,8 +12,6 @@ import java.util.prefs.Preferences;
 
 /**
  * Entry point for the Vadere GUI.
- * 
- * 
  */
 public class VadereApplication {
 	public static final String preferencesFilename = "VadereTestingSuite.preferences.xml";
@@ -50,8 +48,6 @@ public class VadereApplication {
 
 	/**
 	 * Set default preferences.
-	 * 
-	 * @param prefs
 	 */
 	private static void defaultPreferences(Preferences prefs) {
 		prefs.put("default_directory", System.getProperty("user.dir") + "/projects");

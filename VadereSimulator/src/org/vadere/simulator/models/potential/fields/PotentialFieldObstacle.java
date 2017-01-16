@@ -28,12 +28,12 @@ public interface PotentialFieldObstacle extends Model {
 	public double getObstaclePotential(VPoint pos, Agent pedestrian);
 
 	public Vector2D getObstaclePotentialGradient(VPoint pos,
-			Agent pedestrian);
+												 Agent pedestrian);
 
 	public PotentialFieldObstacle copy();
 
 	public static PotentialFieldObstacle createPotentialField(List<Attributes> modelAttributesList,
-			Topography topography, Random random, String className) {
+															  Topography topography, Random random, String className) {
 
 		DynamicClassInstantiator<PotentialFieldObstacle> instantiator = new DynamicClassInstantiator<>();
 		Class<? extends PotentialFieldObstacle> type = instantiator.getClassFromName(className);

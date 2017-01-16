@@ -8,6 +8,7 @@ import org.vadere.gui.projectview.model.VadereState;
 import org.vadere.simulator.projects.ScenarioRunManager;
 
 import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 
 public class ActionPauseScenario extends AbstractAction {

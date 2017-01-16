@@ -8,7 +8,7 @@ import org.vadere.util.math.Convolution;
 public class JGaussianFilter extends GaussianFilter {
 
 	JGaussianFilter(Rectangle2D scenarioBounds, double scale, final BiFunction<Integer, Integer, Float> f,
-			final boolean normalize) {
+					final boolean normalize) {
 		super(scenarioBounds, scale, f, normalize);
 	}
 

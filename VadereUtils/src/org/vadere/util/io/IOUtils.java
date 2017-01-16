@@ -33,7 +33,6 @@ import com.google.gson.JsonParseException;
 
 /**
  * Contains utilities for input and output.
- * 
  */
 public class IOUtils {
 
@@ -113,8 +112,7 @@ public class IOUtils {
 	/**
 	 * Converts a given object to an unecaped, pretty printed JSON string. This
 	 * function uses Gson.
-	 * 
-	 * @param object
+	 *
 	 * @return a pretty printed json string that represents the given object.
 	 */
 	@Deprecated
@@ -170,7 +168,7 @@ public class IOUtils {
 	 * http://stackoverflow.com/questions
 	 * /3784657/what-is-the-best-way-to-save-user-settings-in-java-application
 	 * Works in Windows, iOS and Linux.
-	 * 
+	 *
 	 * @return path to the user directory
 	 */
 	public static String getUserDataDirectory() {
@@ -179,14 +177,10 @@ public class IOUtils {
 
 	/**
 	 * Loads user preferences from the given file.
-	 * 
-	 * @param filename
-	 *        filename of the file storing the preferences
-	 * @param cls
-	 *        class type for which the preferences should be loaded
+	 *
+	 * @param filename filename of the file storing the preferences
+	 * @param cls      class type for which the preferences should be loaded
 	 * @return the preferences object, or null.
-	 * @throws InvalidPreferencesFormatException
-	 * @throws IOException
 	 */
 	public static Preferences loadUserPreferences(String filename, Class<?> cls)
 			throws IOException, InvalidPreferencesFormatException {
@@ -196,9 +190,11 @@ public class IOUtils {
 		return Preferences.userNodeForPackage(cls);
 	}
 
-	/** Saves a given preference to file. */
+	/**
+	 * Saves a given preference to file.
+	 */
 	public static void saveUserPreferences(String preferencesfilename,
-			Preferences prefs) throws IOException, BackingStoreException {
+										   Preferences prefs) throws IOException, BackingStoreException {
 		try (FileOutputStream fos = new FileOutputStream(preferencesfilename)) {
 			prefs.exportNode(fos);
 		} catch (IOException e) {
@@ -206,7 +202,9 @@ public class IOUtils {
 		}
 	}
 
-	/** Writes a given string to a given file. */
+	/**
+	 * Writes a given string to a given file.
+	 */
 	public static void writeTextFile(String filepath, String text) throws IOException {
 		Files.deleteIfExists(Paths.get(filepath));
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(filepath))) {
@@ -214,7 +212,9 @@ public class IOUtils {
 		}
 	}
 
-	/** Reads all text of a given file and store it in a string. */
+	/**
+	 * Reads all text of a given file and store it in a string.
+	 */
 	public static String readTextFile(Path filePath) throws IOException {
 		List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
 		StringBuilder sb = new StringBuilder();
@@ -236,7 +236,7 @@ public class IOUtils {
 	 * subdirectory is not an absolute path, it is combined with user.dir.
 	 */
 	public static String chooseFile(String title, String subdir,
-			FileFilter filter) {
+									FileFilter filter) {
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setDialogTitle(title);
 		fileChooser.addChoosableFileFilter(filter);
@@ -265,7 +265,7 @@ public class IOUtils {
 	}
 
 	public static String chooseFileOrDirSave(String title, String subdir,
-			FileFilter filter) {
+											 FileFilter filter) {
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setDialogTitle(title);
 		fileChooser.addChoosableFileFilter(filter);
@@ -288,11 +288,9 @@ public class IOUtils {
 	/**
 	 * Runs file selector with given title using given subdirectory. If the
 	 * subdirectory is not an absolute path, it is combined with user.dir.
-	 * 
-	 * @param title
-	 *        title of the dialog
-	 * @param subdir
-	 *        subdirectory of the user.dir
+	 *
+	 * @param title  title of the dialog
+	 * @param subdir subdirectory of the user.dir
 	 * @return the path chosen by the user
 	 */
 	public static String chooseJSONFileSave(String title, String subdir) {
@@ -301,19 +299,25 @@ public class IOUtils {
 		return chooseFileSave(title, subdir, filter);
 	}
 
-	/** Shows an error box with given message and title. */
+	/**
+	 * Shows an error box with given message and title.
+	 */
 	public static void errorBox(String infoMessage, String title) {
 		JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + title,
 				JOptionPane.ERROR_MESSAGE);
 	}
 
-	/** Shows an warn box with given message and title. */
+	/**
+	 * Shows an warn box with given message and title.
+	 */
 	public static void warnBox(String infoMessage, String title) {
 		JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + title,
 				JOptionPane.WARNING_MESSAGE);
 	}
 
-	/** Shows an info box with given message and title. */
+	/**
+	 * Shows an info box with given message and title.
+	 */
 	public static void infoBox(String infoMessage, String title) {
 		JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + title,
 				JOptionPane.INFORMATION_MESSAGE);

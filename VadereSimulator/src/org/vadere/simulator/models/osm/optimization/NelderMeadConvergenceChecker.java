@@ -7,7 +7,6 @@ import org.apache.commons.math.util.MathUtils;
 /**
  * The Class NelderMeadConvergenceChecker. The implementation of the stopping
  * criteria from [Nelder u. Mead, 1965].
- * 
  */
 
 public class NelderMeadConvergenceChecker implements RealConvergenceChecker {
@@ -38,7 +37,7 @@ public class NelderMeadConvergenceChecker implements RealConvergenceChecker {
 
 	@Override
 	public boolean converged(final int iteration,
-			final RealPointValuePair previous, final RealPointValuePair current) {
+							 final RealPointValuePair previous, final RealPointValuePair current) {
 
 		if (lastiteration != iteration) {
 			index = 0;

@@ -2,8 +2,8 @@ package org.vadere.state.attributes.processor;
 
 /**
  * Attributes class for the density gaussian processor
- * @author Mario Teixeira Parente
  *
+ * @author Mario Teixeira Parente
  */
 
 public class AttributesDensityGaussianProcessor extends AttributesDensityProcessor {

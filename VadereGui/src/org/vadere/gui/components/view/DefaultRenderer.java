@@ -29,7 +29,7 @@ public abstract class DefaultRenderer {
 	}
 
 	public DefaultRenderer(final IDefaultModel defaultModel, final boolean doubleBuffering,
-			final boolean hideBoundingBoxBorder) {
+						   final boolean hideBoundingBoxBorder) {
 		this.defaultModel = defaultModel;
 		this.logo = null;
 	}
@@ -38,10 +38,6 @@ public abstract class DefaultRenderer {
 	 * Render the content. If doublebuffering is true, the whole content will be drawn on a new
 	 * image.
 	 * Otherwise the content will be drawn on the graphics object directly.
-	 * 
-	 * @param targetGraphics2D
-	 * @param width
-	 * @param height
 	 */
 	public void render(final Graphics2D targetGraphics2D, final int width, final int height) {
 		render(targetGraphics2D, 0, 0, width, height);
@@ -84,7 +80,8 @@ public abstract class DefaultRenderer {
 		this.logo = logo;
 	}
 
-	protected void renderPreTransformation(final Graphics2D graphics2D, final int width, final int height) {}
+	protected void renderPreTransformation(final Graphics2D graphics2D, final int width, final int height) {
+	}
 
 	protected void renderPostTransformation(final Graphics2D graphics2D, final int width, final int height) {
 		graphics2D.setColor(Color.WHITE);
@@ -112,13 +109,15 @@ public abstract class DefaultRenderer {
 	}
 
 	/**
-	 * Render a list of equal scenario element by filling it with the given color and set the given shape
+	 * Render a list of equal scenario element by filling it with the given color and set the given
+	 * shape
+	 *
 	 * @param elements the scenario elements which shall be painted on the screen
-	 * @param g the graphics object representing the screen
-	 * @param color of the scenario element list
+	 * @param g        the graphics object representing the screen
+	 * @param color    of the scenario element list
 	 */
 	protected void renderScenarioElement(final Iterable<? extends ScenarioElement> elements, final Graphics2D g,
-			final Color color) {
+										 final Color color) {
 		final Color tmpColor = g.getColor();
 		g.setColor(color);
 

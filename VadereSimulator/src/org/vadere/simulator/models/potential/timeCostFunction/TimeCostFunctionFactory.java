@@ -15,35 +15,29 @@ import org.vadere.util.potential.timecost.UnitTimeCostFunction;
  * The TimeCostFunctionFactory creates the TimeCostFunctions with the currently
  * availible configurations. The Decorator-Pattern is used for the
  * TimeCostFunctions. So you can combine different TimeCostFunctions!
- * 
+ *
  * UNIT: static potential field, with F=1
- * 
+ *
  * NAVIGATION: time cost funtions which takes the density, measured by the
  * gaussian function, in count. The higher the density the higher is the
  * repulsion effect. The obstacle and the pedestrian density influences this
  * chraracteristics.
- * 
+ *
  * QUEUING: time cost funtions which takes the density, measured by the gaussian
  * function, in count. The higher the pedestrian density the higher is the
  * gravity. The obstacle density still has an repulsion effect.
- * 
- * 
  */
 public class TimeCostFunctionFactory {
 	/**
 	 * Construct the TimeCostFunction-Decoration (combination of different time
 	 * cost function), based on the attributes.
-	 * 
-	 * @param timeCostAttributes
-	 *        the attribute that is significant for the time cost function
-	 *        combinations and for their configurations
-	 * @param topography
-	 *        the floor of the potential field generator that uses this time
-	 *        cost function
-	 * @param targetId
-	 *        the target id of the potential field generator target body
-	 * @param scale
-	 *        the scale (this should be equals to 1/gridresoulution)
+	 *
+	 * @param timeCostAttributes the attribute that is significant for the time cost function
+	 *                           combinations and for their configurations
+	 * @param topography         the floor of the potential field generator that uses this time cost
+	 *                           function
+	 * @param targetId           the target id of the potential field generator target body
+	 * @param scale              the scale (this should be equals to 1/gridresoulution)
 	 * @return the TimeCostFunction-Decoration based on the attributes.
 	 */
 	public static ITimeCostFunction create(

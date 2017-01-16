@@ -9,7 +9,6 @@ import org.vadere.simulator.projects.VadereProject;
 /**
  * The table panelModel used in the table that displays
  * {@link org.vadere.simulator.projects.ScenarioRunManager}s.
- *
  */
 public class VadereScenarioTableModel extends VadereTableModelSorted<VadereScenarioTableModel.VadereDisplay> {
 
@@ -42,9 +41,9 @@ public class VadereScenarioTableModel extends VadereTableModelSorted<VadereScena
 	private static final long serialVersionUID = 1145206652000839654L;
 
 	VadereScenarioTableModel() {
-		super(new String[] {
-				Messages.getString("ProjectView.testTable.test.text"),
-				Messages.getString("ProjectView.testTable.state.text")}, 0,
+		super(new String[]{
+						Messages.getString("ProjectView.testTable.test.text"),
+						Messages.getString("ProjectView.testTable.state.text")}, 0,
 				(v1, v2) -> v1.scenarioRM.getName().compareTo(v2.scenarioRM.getName()));
 	}
 
@@ -87,7 +86,7 @@ public class VadereScenarioTableModel extends VadereTableModelSorted<VadereScena
 
 	@Override
 	public void insertRow(int row, VadereDisplay value) {
-		insertRow(row, new Object[] {
+		insertRow(row, new Object[]{
 				value.scenarioRM,
 				value.state.toString()
 		});

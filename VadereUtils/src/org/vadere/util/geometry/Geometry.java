@@ -15,8 +15,6 @@ import org.vadere.util.geometry.shapes.VPolygon;
 /**
  * A generic geometry. Represented by a polygon (borders) with inner polygons
  * (obstacles), if any.
- * 
- * 
  */
 public class Geometry {
 
@@ -34,7 +32,7 @@ public class Geometry {
 
 	/**
 	 * Returns a list of all points of this geometry.
-	 * 
+	 *
 	 * @return A list of points.
 	 */
 	public List<VPoint> getPoints() {
@@ -51,8 +49,6 @@ public class Geometry {
 	/**
 	 * Returns the list of all polygons of this geometry, including the
 	 * boundary.
-	 * 
-	 * @return
 	 */
 	public List<VPolygon> getPolygons() {
 		return new LinkedList<VPolygon>(this.polygons);
@@ -60,9 +56,8 @@ public class Geometry {
 
 	/**
 	 * Checks if a given point is in the geometry, including inner polygons.
-	 * 
-	 * @param toCheck
-	 *        Point to check
+	 *
+	 * @param toCheck Point to check
 	 */
 	public boolean contains(VPoint toCheck) {
 		for (VPolygon p : polygons) {
@@ -75,9 +70,6 @@ public class Geometry {
 
 	/**
 	 * Determines whether a point lies on the boundary of this geometry.
-	 * 
-	 * @param p
-	 * @return
 	 */
 	public boolean onBoundary(Point p) {
 		throw new UnsupportedOperationException(
@@ -86,14 +78,11 @@ public class Geometry {
 
 	/**
 	 * Checks intersection with a given polygon
-	 * 
-	 * @param polygon
-	 * @param createMidpoints
-	 *        if true, every line is split into two by inserting a midpoint.
-	 * @return
+	 *
+	 * @param createMidpoints if true, every line is split into two by inserting a midpoint.
 	 */
 	public boolean intersects(VPolygon polygon, boolean createMidpoints,
-			boolean useEndpoints) {
+							  boolean useEndpoints) {
 
 		List<VPoint> pointList = getPoints();
 		List<VPoint> points = new LinkedList<VPoint>(pointList);

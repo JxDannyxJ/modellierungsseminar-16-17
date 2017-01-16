@@ -12,8 +12,6 @@ import org.vadere.gui.topographycreator.utils.JSONWriter;
 
 /**
  * Action: save the topography to a new file.
- * 
- * 
  */
 public class ActionSaveTopography extends TopographyAction {
 	private static Resources resources = Resources.getInstance("topologycreator");

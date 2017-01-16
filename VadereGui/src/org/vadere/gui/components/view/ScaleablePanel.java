@@ -16,12 +16,14 @@ public abstract class ScaleablePanel extends JPanel implements IScaleChangeListe
 	private final IDefaultModel model;
 	private Point lastMousePos;
 	private VPoint newRelMousePos;
-	/** a reference copy of the selection mode of the panelModel. */
+	/**
+	 * a reference copy of the selection mode of the panelModel.
+	 */
 	protected IMode selectionMode;
 
 
 	public ScaleablePanel(final IDefaultModel defaultModel, final DefaultRenderer renderer,
-			final JScrollPane scrollPane) {
+						  final JScrollPane scrollPane) {
 		this.renderer = renderer;
 		this.model = defaultModel;
 		this.scrollPane = scrollPane;

@@ -42,18 +42,15 @@ public abstract class AbstractPotentialFieldTarget implements IPotentialTargetGr
 	}
 
 	/**
-	 *
 	 * Returns the potential value of the static or dynamicelements target floor field.
 	 * This does not take obstacle repulsion and pedestrian repulsion into
 	 * account. This is specific to pedestrians. See pedestrian perception for
 	 * more information.
-	 *
 	 */
 	@Override
 	public double getTargetPotential(final VPoint pos, final Agent ped) {
-		
-		if(!ped.hasNextTarget())
-		{
+
+		if (!ped.hasNextTarget()) {
 			return 0.0;
 		}
 
@@ -134,9 +131,8 @@ public abstract class AbstractPotentialFieldTarget implements IPotentialTargetGr
 		if (weightOfKnown[0] > 0.00001) {
 			tmpPotential = tmpPotential / weightOfKnown[0]
 					+ (1 - weightOfKnown[0])
-							* attributesFloorField.getObstacleGridPenalty();
-		} else /* If all values are maximal, set potential to maximum. */
-		{
+					* attributesFloorField.getObstacleGridPenalty();
+		} else /* If all values are maximal, set potential to maximum. */ {
 			tmpPotential = Double.MAX_VALUE;
 		}
 
@@ -154,13 +150,9 @@ public abstract class AbstractPotentialFieldTarget implements IPotentialTargetGr
 	 * Updates all potential fields, for potentialfields for pedestrain- or moving targets this
 	 * means that
 	 * the PotentialFieldAndInitializer will be completely recreated.
-	 *
-	 * @param simTimeInSec
-	 * @param target
-	 * @param targetShapes
 	 */
 	protected void updatePotentialField(final double simTimeInSec, final Target target,
-			final List<VShape> targetShapes) {
+										final List<VShape> targetShapes) {
 		if (target.isTargetPedestrian()) {
 			if (!((TargetPedestrian) target).isDeleted()) {
 				createNewPotentialFieldAndInitializer(target.getId(), targetShapes);
@@ -182,8 +174,6 @@ public abstract class AbstractPotentialFieldTarget implements IPotentialTargetGr
 
 	/**
 	 * Indicate that update was called at least once!
-	 * 
-	 * @return
 	 */
 	protected boolean wasUpdated() {
 		return wasUpdated;
@@ -213,9 +203,8 @@ public abstract class AbstractPotentialFieldTarget implements IPotentialTargetGr
 	 * potential fields) if they are available, otherwise the static potential
 	 * fields.
 	 *
-	 * @return the secondaryPotential fields (which represents the dynamicelements
-	 *         potential fields) if they are available, otherwise the static
-	 *         potential fields.
+	 * @return the secondaryPotential fields (which represents the dynamicelements potential fields)
+	 * if they are available, otherwise the static potential fields.
 	 */
 	@Override
 	public HashMap<Integer, CellGrid> getCellGrids() {

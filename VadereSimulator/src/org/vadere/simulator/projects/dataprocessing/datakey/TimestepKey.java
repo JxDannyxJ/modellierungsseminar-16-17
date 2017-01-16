@@ -2,23 +2,23 @@ package org.vadere.simulator.projects.dataprocessing.datakey;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class TimestepKey implements DataKey<TimestepKey> {
 	private final int timestep;
-    public TimestepKey(int timestep) {
-    	this.timestep = timestep;
-    }
 
-    @Override
-    public int compareTo(final TimestepKey o) {
-        return Integer.compare(timestep, o.timestep);
-    }
+	public TimestepKey(int timestep) {
+		this.timestep = timestep;
+	}
 
-    public static String getHeader() {
-        return "timeStep";
-    }
+	@Override
+	public int compareTo(final TimestepKey o) {
+		return Integer.compare(timestep, o.timestep);
+	}
+
+	public static String getHeader() {
+		return "timeStep";
+	}
 
 	@Override
 	public int hashCode() {

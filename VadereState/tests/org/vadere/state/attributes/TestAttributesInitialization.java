@@ -24,29 +24,21 @@ public class TestAttributesInitialization {
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.vadere.state.attributes.models.AttributesODEIntegrator#AttributesODEModel(java.util.Map)}
+	 * Test method for {@link org.vadere.state.attributes.models.AttributesODEIntegrator#AttributesODEModel(java.util.Map)}
 	 * . Asserts the attributes are initialized correctly.
-	 * 
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
 	 */
 	@Test
 	public void testInit() throws IllegalArgumentException, IllegalAccessException {
 		// correct case
 		attributesPedestrian = new Gson().fromJson(store, AttributesAgent.class);
 
-		assertArrayEquals(new double[] {0.2}, new double[] {attributesPedestrian.getSpeedDistributionMean()}, delta);
+		assertArrayEquals(new double[]{0.2}, new double[]{attributesPedestrian.getSpeedDistributionMean()}, delta);
 
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.vadere.state.attributes.models.AttributesODEIntegrator#AttributesODEModel(java.util.Map)}
+	 * Test method for {@link org.vadere.state.attributes.models.AttributesODEIntegrator#AttributesODEModel(java.util.Map)}
 	 * . Asserts the default attributes are initialized correctly.
-	 * 
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
 	 */
 	@Test
 	public void testInitDefault() throws IllegalArgumentException, IllegalAccessException {
@@ -54,7 +46,7 @@ public class TestAttributesInitialization {
 		store = "{}";
 		attributesPedestrian = new Gson().fromJson(store, AttributesAgent.class);
 
-		assertArrayEquals(new double[] {1.34}, new double[] {attributesPedestrian.getSpeedDistributionMean()},
+		assertArrayEquals(new double[]{1.34}, new double[]{attributesPedestrian.getSpeedDistributionMean()},
 				delta);
 
 	}

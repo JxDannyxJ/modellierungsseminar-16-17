@@ -14,17 +14,14 @@ import org.vadere.util.geometry.shapes.VRectangle;
 /**
  * Utility class for tests of geometry classes. Generates several test
  * geometries.
- * 
  */
 public class CreateGeometry {
 
-	public CreateGeometry() {}
+	public CreateGeometry() {
+	}
 
 	/**
 	 * Setup a sample room with no obstacles.
-	 * 
-	 * @param roomSideLen
-	 * @return
 	 */
 	public static Geometry createRoomWithoutObstacles(double roomSideLen) {
 		Geometry roomWithoutObstacles = new Geometry();
@@ -43,13 +40,9 @@ public class CreateGeometry {
 
 	/**
 	 * Setup a sample room with one square shaped obstacle.
-	 * 
-	 * @param roomSideLen
-	 * @param obstacleSideLen
-	 * @return
 	 */
 	public static Geometry createRoomWithObstacle(double roomSideLen,
-			double obstacleSideLen) {
+												  double obstacleSideLen) {
 		Geometry roomWithObstacle = new Geometry();
 
 		// setup borders
@@ -82,13 +75,9 @@ public class CreateGeometry {
 
 	/**
 	 * Setup a sample room with two square shaped obstacles.
-	 * 
-	 * @param roomSideLen
-	 * @param obstacleSideLen
-	 * @return
 	 */
 	public static Geometry createRoomWith2Obstacles(double roomSideLen,
-			double obstacleSideLen) {
+													double obstacleSideLen) {
 		Geometry roomWithObstacle = new Geometry();
 
 		// setup borders
@@ -117,16 +106,16 @@ public class CreateGeometry {
 
 		// create obstacle
 		VPolygon obstacle2 = GeometryUtils.polygonFromPoints2D(new VPoint(
-				roomSideLen / 2 - obstacleSideLen / 2, roomSideLen / 2
+						roomSideLen / 2 - obstacleSideLen / 2, roomSideLen / 2
 						- obstacleSideLen / 2 + 30),
 				new VPoint(roomSideLen / 2
 						+ obstacleSideLen / 2, roomSideLen / 2 - obstacleSideLen / 2
-								+ 30),
+						+ 30),
 				new VPoint(roomSideLen / 2 + obstacleSideLen / 2,
 						roomSideLen / 2 + obstacleSideLen / 2 + 30),
 				new VPoint(
 						roomSideLen / 2 - obstacleSideLen / 2, roomSideLen / 2
-								+ obstacleSideLen / 2 + 30));
+						+ obstacleSideLen / 2 + 30));
 
 		roomWithObstacle.addPolygon(obstacle2);
 
@@ -135,9 +124,6 @@ public class CreateGeometry {
 
 	/**
 	 * Create a U-shape.
-	 * 
-	 * @param roomSideLen
-	 * @return
 	 */
 	public static Geometry createComplexGeometry1(double roomSideLen) {
 		Geometry geometry1 = CreateGeometry
@@ -166,9 +152,6 @@ public class CreateGeometry {
 
 	/**
 	 * Create a room with a target after a smaller pathway
-	 * 
-	 * @param roomSideLen
-	 * @return
 	 */
 	public static Geometry createComplexGeometry2(double roomSideLen) {
 		Geometry geometry2 = CreateGeometry
@@ -200,9 +183,6 @@ public class CreateGeometry {
 
 	/**
 	 * Create a room with a target after a pathway
-	 * 
-	 * @param roomSideLen
-	 * @return
 	 */
 	public static Geometry createComplexGeometry3(double roomSideLen) {
 		Geometry geometry3 = CreateGeometry
@@ -231,9 +211,6 @@ public class CreateGeometry {
 
 	/**
 	 * Create a room with a target after a small pathway
-	 * 
-	 * @param roomSideLen
-	 * @return
 	 */
 	public static Geometry createComplexGeometry4(double roomSideLen) {
 		Geometry geometry3 = CreateGeometry

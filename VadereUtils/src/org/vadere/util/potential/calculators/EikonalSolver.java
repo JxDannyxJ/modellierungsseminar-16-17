@@ -28,7 +28,8 @@ public interface EikonalSolver {
 	 * Recomputes the potentials. May be called every simulation step. May
 	 * contain an empty implementation for static floor field initializers.
 	 */
-	default void update() {}
+	default void update() {
+	}
 
 	/**
 	 * Returns true if the potential field needs an update. The value indicates
@@ -110,7 +111,7 @@ public interface EikonalSolver {
 				if (isValidPoint(new Point(point.x + 1, point.y), cellGrid) &&
 						(!isValidPoint(new Point(point.x - 1, point.y), cellGrid)
 								|| (cellGrid.getValue(new Point(point.x + 1, point.y)).potential < cellGrid
-										.getValue(new Point(point.x - 1, point.y)).potential))) {
+								.getValue(new Point(point.x - 1, point.y)).potential))) {
 					xPoint = new Point(point.x + 1, point.y);
 					xhPoint = new Point(point.x + 2, point.y);
 				} else {
@@ -121,7 +122,7 @@ public interface EikonalSolver {
 				if (isValidPoint(new Point(point.x, point.y + 1), cellGrid) &&
 						(!isValidPoint(new Point(point.x, point.y - 1), cellGrid)
 								|| (cellGrid.getValue(new Point(point.x, point.y + 1)).potential < cellGrid
-										.getValue(new Point(point.x, point.y - 1)).potential))) {
+								.getValue(new Point(point.x, point.y - 1)).potential))) {
 					yPoint = new Point(point.x, point.y + 1);
 					yhPoint = new Point(point.x, point.y + 2);
 				} else {
@@ -211,7 +212,7 @@ public interface EikonalSolver {
 						point.y + neighbors.get(2 * j + i).y);
 				Point pni2 = new Point(
 						point.x + neighbors.get(2 * j + i).x * 2, point.y
-								+ neighbors.get(2 * j + i).y * 2);
+						+ neighbors.get(2 * j + i).y * 2);
 
 				if (isValidPoint(pni, cellGrid) && cellGrid.getValue(pni).tag.frozen) {
 					double val1n = cellGrid.getValue(pni).potential;

@@ -12,7 +12,6 @@ import org.vadere.util.geometry.shapes.VPoint;
 
 /**
  * This class helps to generate specific sets of positions and sets of pedestrians.
- *
  */
 public class PointToPedestrianConverter {
 

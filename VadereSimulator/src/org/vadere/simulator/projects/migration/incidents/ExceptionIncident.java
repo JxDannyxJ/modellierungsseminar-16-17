@@ -1,6 +1,7 @@
 package org.vadere.simulator.projects.migration.incidents;
 
 import com.fasterxml.jackson.databind.JsonNode;
+
 import org.apache.commons.lang3.tuple.Pair;
 import org.vadere.simulator.projects.io.JsonConverter;
 import org.vadere.simulator.projects.migration.Graph;

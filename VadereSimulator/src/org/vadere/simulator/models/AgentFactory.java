@@ -6,7 +6,7 @@ public interface AgentFactory<T extends DynamicElement> {
 
 	/**
 	 * Additionally functions as an Abstract Factory for dynamicelements elements.
-	 * 
+	 *
 	 * Note: Every attribute of the given element should be cloned for each individual in this
 	 * method, because some fields are individual.
 	 */

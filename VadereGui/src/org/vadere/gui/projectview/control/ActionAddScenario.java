@@ -12,7 +12,6 @@ import java.io.IOException;
 /**
  * Add a new and fresh {@link org.vadere.simulator.projects.ScenarioRunManager} scenario to the
  * {@link org.vadere.simulator.projects.VadereProject} project.
- *
  */
 public class ActionAddScenario extends ActionAbstractAddScenario {
 

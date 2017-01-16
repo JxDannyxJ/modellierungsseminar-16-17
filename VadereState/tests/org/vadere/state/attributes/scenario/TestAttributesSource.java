@@ -25,7 +25,7 @@ public class TestAttributesSource {
 	@Test
 	public void testGetDistributionParameters() {
 		final SourceTestAttributesBuilder builder = new SourceTestAttributesBuilder()
-				.setDistributionParameters(new double[] {1, 2, 3});
+				.setDistributionParameters(new double[]{1, 2, 3});
 		createAttributes(builder);
 		List<Double> expected = new ArrayList<>(3);
 		expected.add(1.0);

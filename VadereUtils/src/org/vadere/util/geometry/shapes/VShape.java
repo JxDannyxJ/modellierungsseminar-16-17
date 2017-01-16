@@ -6,8 +6,6 @@ import java.awt.*;
 
 /**
  * Geometric shape and position.
- * 
- * 
  */
 public interface VShape extends Shape {
 	double distance(VPoint point);

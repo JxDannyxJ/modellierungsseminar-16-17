@@ -20,23 +20,32 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This Class handles a {@link Target} Object. 
+ * This Class handles a {@link Target} Object.
  */
 public class TargetController {
 
-	/** Logger instance.*/
+	/**
+	 * Logger instance.
+	 */
 	private static final Logger log = Logger.getLogger(TargetController.class);
-	/** The {@link Target} managed by this instance.*/
+	/**
+	 * The {@link Target} managed by this instance.
+	 */
 	public final Target target;
-	/** The scenarios {@link Topography}.*/
+	/**
+	 * The scenarios {@link Topography}.
+	 */
 	private Topography topography;
-	/** {@link TrafficLightPhase}.*/
+	/**
+	 * {@link TrafficLightPhase}.
+	 */
 	public TrafficLightPhase phase = TrafficLightPhase.GREEN;
 
 	/**
 	 * Constructor.
+	 *
 	 * @param scenario the scenarios {@link Topography}.
-	 * @param target the {@link Target} to manage.
+	 * @param target   the {@link Target} to manage.
 	 */
 	public TargetController(Topography scenario, Target target) {
 		this.target = target;
@@ -50,8 +59,9 @@ public class TargetController {
 	}
 
 	/**
-	 * Checks for each Agent which is near the {@link Target}, whether
-	 * it reached the {@link Target}. If an Agent reached the {@link Target} a {@link TargetListener} is notified.
+	 * Checks for each Agent which is near the {@link Target}, whether it reached the {@link
+	 * Target}. If an Agent reached the {@link Target} a {@link TargetListener} is notified.
+	 *
 	 * @param simTimeInSec the simulation time.
 	 */
 	public void update(double simTimeInSec) {
@@ -87,6 +97,7 @@ public class TargetController {
 	/**
 	 * This method retrieves for each implementation of {@link Agent} the Objects,
 	 * which are already inside of the {@link Target} and returns them.
+	 *
 	 * @return Collection containing all Agents inside the {@link Target}.
 	 */
 	private Collection<DynamicElement> getPrefilteredDynamicElements() {
@@ -98,7 +109,7 @@ public class TargetController {
 
 		// container for all agents inside target
 		final Collection<DynamicElement> elementsInRange = new LinkedList<>();
-		
+
 		// add all Agents which are inside the target.
 		elementsInRange.addAll(getObjectsInCircle(Agent.class, center, radius));
 		//elementsInRange.addAll(getObjectsInCircle(Pedestrian.class, center, radius));
@@ -109,8 +120,9 @@ public class TargetController {
 
 	/**
 	 * Define waiting behavior for {@link Agent} at given time.
+	 *
 	 * @param simTimeInSec the current simulation time (seconds).
-	 * @param agent the {@link Agent}.
+	 * @param agent        the {@link Agent}.
 	 */
 	private void waitingBehavior(double simTimeInSec, final Agent agent) {
 		final int agentId = agent.getId();
@@ -143,10 +155,11 @@ public class TargetController {
 	/**
 	 * Collects all objects with given class instance inside a defined area
 	 * on the {@link Topography}. Calls {@link Topography#getSpatialMap(Class).getObjects(....)}.
-	 * @param clazz The class instances to look for.
+	 *
+	 * @param clazz  The class instances to look for.
 	 * @param center the position from where to start looking.
 	 * @param radius the radius defining the area.
-	 * @param <T> the type parameter.
+	 * @param <T>    the type parameter.
 	 * @return List of found objects.
 	 */
 	private <T extends DynamicElement> List<T> getObjectsInCircle(final Class<T> clazz, final VPoint center, final double radius) {
@@ -156,6 +169,7 @@ public class TargetController {
 
 	/**
 	 * Check if {@link Agent} reached the {@link Target}.
+	 *
 	 * @param agent the {@link Agent} to check.
 	 * @return True if the {@link Agent} reached its {@link Target}, else False.
 	 */
@@ -170,6 +184,7 @@ public class TargetController {
 
 	/**
 	 * Getter for the current {@link TrafficLightPhase}.
+	 *
 	 * @param simTimeInSec the current simulation time (seconds).
 	 * @return {@link TrafficLightPhase}.
 	 */
@@ -200,6 +215,7 @@ public class TargetController {
 	/**
 	 * Checks if {@link Target} of this controller is
 	 * the next one for given {@link Agent}.
+	 *
 	 * @param agent the {@link Agent} to check for.
 	 * @return True if is next {@link Target}, else False.
 	 */
@@ -215,6 +231,7 @@ public class TargetController {
 	 * Updates target on given {@link Agent}.
 	 * If the current {@link Target} is absorbing
 	 * the {@link Agent} is removed from teh {@link Topography}.
+	 *
 	 * @param agent the {@link Agent} to update.
 	 */
 	private void checkRemove(Agent agent) {
@@ -251,6 +268,7 @@ public class TargetController {
 
 	/**
 	 * Notify target listeners {@link TargetListener}.
+	 *
 	 * @param agent the {@link Agent} used to notify the listeners.
 	 */
 	private void notifyListenersTargetReached(final Agent agent) {

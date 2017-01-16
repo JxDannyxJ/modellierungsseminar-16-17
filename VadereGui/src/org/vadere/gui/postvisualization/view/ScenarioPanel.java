@@ -10,7 +10,6 @@ import javax.swing.*;
 
 /**
  * The panel which will draw the simulation steps.
- * 
  */
 public class ScenarioPanel extends ScaleablePanel implements Observer {
 

@@ -10,8 +10,6 @@ import java.util.TreeSet;
 
 /**
  * A triangle with additional double data at each point.
- * 
- * 
  */
 public class DataTriangle extends VTriangle {
 
@@ -24,12 +22,8 @@ public class DataTriangle extends VTriangle {
 
 	/**
 	 * Creates a triangle. Points must be given in ccw order.
-	 * 
-	 * @param p1
-	 * @param p2
-	 * @param p3
-	 * @param mp
-	 *        datapoint, holding the data of this triangle
+	 *
+	 * @param mp datapoint, holding the data of this triangle
 	 */
 	public DataTriangle(VPoint p1, VPoint p2, VPoint p3, DataPoint mp) {
 		super(p1, p2, p3);
@@ -66,8 +60,6 @@ public class DataTriangle extends VTriangle {
 
 	/**
 	 * Sets the measure point.
-	 * 
-	 * @param newMeasurePoint
 	 */
 	public void setMeasurePoint(DataPoint newMeasurePoint) {
 		this.measurePoint = newMeasurePoint;
@@ -81,8 +73,6 @@ public class DataTriangle extends VTriangle {
 	 * Converts the given triangle in a DataTriangle. Note that if the triangle
 	 * is already a DataTriangle, the data values are NOT copied but also set to
 	 * 0.0.
-	 * 
-	 * @param triangle
 	 */
 	public DataTriangle(VTriangle triangle) {
 		this(triangle, 0.0);
@@ -92,25 +82,19 @@ public class DataTriangle extends VTriangle {
 	 * Converts the given triangle in a DataTriangle. Note that if the triangle
 	 * is already a DataTriangle, the data values are NOT copied but also set to
 	 * initialData.
-	 * 
-	 * @param triangle
-	 *        the triangle to copy
-	 * @param initialData
-	 *        data to set at each vertex
+	 *
+	 * @param triangle    the triangle to copy
+	 * @param initialData data to set at each vertex
 	 */
 	public DataTriangle(VTriangle triangle, double initialData) {
 		this(new DataPoint(triangle.p1, initialData), new DataPoint(
 				triangle.p2, initialData), new DataPoint(triangle.p3,
-						initialData));
+				initialData));
 	}
 
 	/**
 	 * A new DataTriangle from {@link VPoint} points. The measure point is set
 	 * to 0,0 with data 0.
-	 * 
-	 * @param p1
-	 * @param p2
-	 * @param p3
 	 */
 	public DataTriangle(VPoint p1, VPoint p2, VPoint p3) {
 		this(p1, p2, p3, new DataPoint(0, 0));
@@ -119,12 +103,10 @@ public class DataTriangle extends VTriangle {
 	/**
 	 * Get data at a specified point that must equal one of the triangles
 	 * vertices.
-	 * 
-	 * @param p
-	 *        p1,p2 or p3 specified in the constructor.
-	 * @throws IllegalArgumentException
-	 *         if the point does not lie on any of the three vertices.
+	 *
+	 * @param p p1,p2 or p3 specified in the constructor.
 	 * @return the data value at that point
+	 * @throws IllegalArgumentException if the point does not lie on any of the three vertices.
 	 */
 	public double getDataAt(VPoint p) {
 		if (p == this.p1) {
@@ -142,12 +124,10 @@ public class DataTriangle extends VTriangle {
 
 	/**
 	 * Set the data at the given point.
-	 * 
-	 * @param p
-	 *        must be one of the vertices of this triangle. if p is not any
-	 *        of the vertices, nothing happens.
-	 * @param data
-	 *        new data at p
+	 *
+	 * @param p    must be one of the vertices of this triangle. if p is not any of the vertices,
+	 *             nothing happens.
+	 * @param data new data at p
 	 */
 	public void setDataAt(VPoint p, double data) {
 		if (p.equals(this.p1)) {
@@ -169,9 +149,9 @@ public class DataTriangle extends VTriangle {
 		VPoint v1 = new VPoint(p2.getX() - p1.getX(), p2.getY() - p1.getY());
 		VPoint v2 = new VPoint(p3.getX() - p1.getX(), p3.getY() - p1.getY());
 
-		double[] v1d = new double[] {v1.getX(), v1.getY(),
+		double[] v1d = new double[]{v1.getX(), v1.getY(),
 				((DataPoint) p1).getData() - ((DataPoint) p2).getData()};
-		double[] v2d = new double[] {v2.getX(), v2.getY(),
+		double[] v2d = new double[]{v2.getX(), v2.getY(),
 				((DataPoint) p1).getData() - ((DataPoint) p3).getData()};
 
 		double[] cross = new double[3];
@@ -183,7 +163,7 @@ public class DataTriangle extends VTriangle {
 		return 1
 				/ cross[2]
 				* (k - cross[0] * p1_minus_toEval.getX() - cross[1]
-						* p1_minus_toEval.getY());
+				* p1_minus_toEval.getY());
 	}
 
 	public Collection<? extends DataPoint> getDataPoints() {

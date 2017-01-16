@@ -16,27 +16,38 @@ import org.vadere.util.reflection.DynamicClassInstantiator;
  */
 public class SubModelBuilder {
 
-	/** List of {@link Attributes} used for the submodels.*/
+	/**
+	 * List of {@link Attributes} used for the submodels.
+	 */
 	private final List<Attributes> modelAttributesList;
-	/** {@link Topography} of the submodels.*/
+	/**
+	 * {@link Topography} of the submodels.
+	 */
 	private final Topography topography;
-	/** {@link AttributesAgent} the agent attributes for the submodels*/
+	/**
+	 * {@link AttributesAgent} the agent attributes for the submodels
+	 */
 	private final AttributesAgent attributesAgent;
-	/** the submodels {@link Random} instance*/
+	/**
+	 * the submodels {@link Random} instance
+	 */
 	private final Random random;
-	/** List of {@link Model} holding the submodels.*/
+	/**
+	 * List of {@link Model} holding the submodels.
+	 */
 	private final List<Model> subModels = new LinkedList<>();
 
 	/**
 	 * Constructor of the {@link SubModelBuilder},
 	 * setting all field neccessary to create {@link Model} instances.
+	 *
 	 * @param modelAttributesList all available {@link Attributes}.
-	 * @param topography the scenarios {@link Topography}.
-	 * @param attributesAgent the {@link AttributesAgent} attributes of the agents.
-	 * @param random the {@link Random} instance.
+	 * @param topography          the scenarios {@link Topography}.
+	 * @param attributesAgent     the {@link AttributesAgent} attributes of the agents.
+	 * @param random              the {@link Random} instance.
 	 */
 	public SubModelBuilder(List<Attributes> modelAttributesList, Topography topography,
-			AttributesAgent attributesAgent, Random random) {
+						   AttributesAgent attributesAgent, Random random) {
 		this.modelAttributesList = modelAttributesList;
 		this.topography = topography;
 		this.attributesAgent = attributesAgent;
@@ -47,6 +58,7 @@ public class SubModelBuilder {
 	 * Initializes all {@link Model} instances by
 	 * calling {@link Model#initialize(List, Topography, AttributesAgent, Random)}.
 	 * This is necessary before using the {@link Model} instances.
+	 *
 	 * @param subModelClassNames List of class names. Used to instantiate object instances.
 	 */
 	public void buildSubModels(List<String> subModelClassNames) {

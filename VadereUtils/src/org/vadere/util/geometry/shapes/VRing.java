@@ -12,10 +12,8 @@ import java.util.List;
 
 /**
  * A ring consists of two circles of different size.
- * 
+ *
  * This shape can be used to simulate the experiment described in paper jelic-2012 and jelic-2012b.
- *
- *
  */
 public class VRing implements VShape {
 

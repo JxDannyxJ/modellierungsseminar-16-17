@@ -24,75 +24,123 @@ import java.util.Random;
  * Contains all Instances needed to run the simulation.
  * The is carried out by processing update calls to {@link PassiveCallback}s,
  * {@link ActiveCallback}s and Controllers.
- *
  */
 public class Simulation {
 
-	/** Logger instance */
+	/**
+	 * Logger instance
+	 */
 	private static Logger logger = LogManager.getLogger(Simulation.class);
 
-	/** The simulation attributes - {@link AttributesSimulation}.*/
+	/**
+	 * The simulation attributes - {@link AttributesSimulation}.
+	 */
 	private final AttributesSimulation attributesSimulation;
-	/** General {@link org.vadere.state.scenario.dynamicelements.Agent} attributes - {@link AttributesAgent}.*/
+	/**
+	 * General {@link org.vadere.state.scenario.dynamicelements.Agent} attributes - {@link
+	 * AttributesAgent}.
+	 */
 	private final AttributesAgent attributesAgent;
 
-	/** Collection of {@link SourceController} instances.*/
+	/**
+	 * Collection of {@link SourceController} instances.
+	 */
 	private final Collection<SourceController> sourceControllers;
-	/** Collection of {@link TargetController} instances.*/
+	/**
+	 * Collection of {@link TargetController} instances.
+	 */
 	private final Collection<TargetController> targetControllers;
-	/** Instance of a {@link TeleporterController}.*/
+	/**
+	 * Instance of a {@link TeleporterController}.
+	 */
 	private TeleporterController teleporterController;
-	/** Instance of an {@link TopographyController}.*/
+	/**
+	 * Instance of an {@link TopographyController}.
+	 */
 	private TopographyController topographyController;
-	/** Instance of a {@link DynamicElementFactory} to create {@link org.vadere.state.scenario.dynamicelements.DynamicElement}.*/
+	/**
+	 * Instance of a {@link DynamicElementFactory} to create {@link org.vadere.state.scenario.dynamicelements.DynamicElement}.
+	 */
 	private DynamicElementFactory dynamicElementFactory;
 
-	/** List of {@link PassiveCallback} instances.*/
+	/**
+	 * List of {@link PassiveCallback} instances.
+	 */
 	private final List<PassiveCallback> passiveCallbacks;
-	/** List of {@link ActiveCallback} instances.*/
+	/**
+	 * List of {@link ActiveCallback} instances.
+	 */
 	private List<ActiveCallback> activeCallbacks;
 
-	/** {@link ProcessorManager} to handle output.*/
+	/**
+	 * {@link ProcessorManager} to handle output.
+	 */
 	private ProcessorManager processorManager;
 
-	/** Loop variable to control update loops.*/
+	/**
+	 * Loop variable to control update loops.
+	 */
 	private boolean runSimulation = false;
-	/** Variable to indicate that simulation is paused.*/
+	/**
+	 * Variable to indicate that simulation is paused.
+	 */
 	private boolean paused = false;
-	/** current simulation time (seconds).*/
+	/**
+	 * current simulation time (seconds).
+	 */
 	private double simTimeInSec = 0;
-	/** time (seconds) where the simulation starts.*/
+	/**
+	 * time (seconds) where the simulation starts.
+	 */
 	private double startTimeInSec = 0;
-	/** time (seconds) that should be simulated, i.e. the final time is startTimeInSec + runTimeInSec.*/
+	/**
+	 * time (seconds) that should be simulated, i.e. the final time is startTimeInSec +
+	 * runTimeInSec.
+	 */
 	private double runTimeInSec = 0;
-	/** time (seconds) of last frame.*/
+	/**
+	 * time (seconds) of last frame.
+	 */
 	private long lastFrameInMs = 0;
-	/** Simulation step counter, increasing with each update loop.*/
+	/**
+	 * Simulation step counter, increasing with each update loop.
+	 */
 	private int step = 0;
-	/** The scenarios {@link Topography}.*/
+	/**
+	 * The scenarios {@link Topography}.
+	 */
 	private final Topography topography;
-	/** The current {@link SimulationState}.*/
+	/**
+	 * The current {@link SimulationState}.
+	 */
 	private SimulationState simulationState;
-	/** Holding simulation parameters and attributes {@link ScenarioStore}.*/
+	/**
+	 * Holding simulation parameters and attributes {@link ScenarioStore}.
+	 */
 	private ScenarioStore scenarioStore;
-	/** The name of the current simulation.*/
+	/**
+	 * The name of the current simulation.
+	 */
 	private String name;
-	/** The {@link MainModel} instance used for the simulation.*/
+	/**
+	 * The {@link MainModel} instance used for the simulation.
+	 */
 	private MainModel mainModel;
 
 	/**
 	 * Constructor for Simulation instance.
 	 * Initializes Controller instances.
-	 * @param mainModel the {@link MainModel} to use.
-	 * @param startTimeInSec starting t ime of the simulation (seconds).
-	 * @param name the simulations name.
-	 * @param scenarioStore holding parameters and attributes {@link ScenarioStore}.
+	 *
+	 * @param mainModel        the {@link MainModel} to use.
+	 * @param startTimeInSec   starting t ime of the simulation (seconds).
+	 * @param name             the simulations name.
+	 * @param scenarioStore    holding parameters and attributes {@link ScenarioStore}.
 	 * @param passiveCallbacks list of {@link PassiveCallback} instances.
-	 * @param random random instance.
+	 * @param random           random instance.
 	 * @param processorManager {@link ProcessorManager} to handle output results.
 	 */
 	public Simulation(MainModel mainModel, double startTimeInSec, final String name, ScenarioStore scenarioStore,
-			List<PassiveCallback> passiveCallbacks, Random random, ProcessorManager processorManager) {
+					  List<PassiveCallback> passiveCallbacks, Random random, ProcessorManager processorManager) {
 		this.name = name;
 		this.mainModel = mainModel;
 		this.scenarioStore = scenarioStore;
@@ -268,8 +316,7 @@ public class Simulation {
 					logger.info("Simulation interrupted.");
 				}
 			}
-		}
-		finally {
+		} finally {
 			// this is necessary to free the resources (files), the SimulationWriter and processor are writing in!
 			postLoop();
 
@@ -280,6 +327,7 @@ public class Simulation {
 
 	/**
 	 * Initializes new {@link SimulationState} instance.
+	 *
 	 * @return initialized {@link SimulationState}.
 	 */
 	private SimulationState initialSimulationState() {
@@ -291,6 +339,7 @@ public class Simulation {
 
 	/**
 	 * Update {@link SimulationState} time.
+	 *
 	 * @param simTimeInSec time of simulation (seconds).
 	 */
 	private void updateWriters(double simTimeInSec) {
@@ -303,6 +352,7 @@ public class Simulation {
 
 	/**
 	 * Assigning Targets to target controller and updating source/target controller
+	 *
 	 * @param simTimeInSec the simulation time in seconds
 	 */
 	private void updateActiveCallbacks(double simTimeInSec) {
@@ -351,6 +401,7 @@ public class Simulation {
 
 	/**
 	 * Getter for {@link Simulation#paused}.
+	 *
 	 * @return {@link Simulation#paused}.
 	 */
 	public synchronized boolean isPaused() {
@@ -359,6 +410,7 @@ public class Simulation {
 
 	/**
 	 * Check whether simulation is running or not.
+	 *
 	 * @return True if simulation is running, else False.
 	 */
 	public synchronized boolean isRunning() {
@@ -402,6 +454,7 @@ public class Simulation {
 
 	/**
 	 * Getter for the current simulation time {@link Simulation#simTimeInSec}.
+	 *
 	 * @return {@link Simulation#simTimeInSec}.
 	 */
 	public double getCurrentTime() {
@@ -410,6 +463,7 @@ public class Simulation {
 
 	/**
 	 * Setter for the start time in seconds {@link Simulation#startTimeInSec}
+	 *
 	 * @param startTimeInSec time (seconds) when the simulation started.
 	 */
 	public void setStartTimeInSec(double startTimeInSec) {

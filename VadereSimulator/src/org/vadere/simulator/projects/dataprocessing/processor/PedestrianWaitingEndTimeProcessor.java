@@ -11,34 +11,33 @@ import java.util.Map;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class PedestrianWaitingEndTimeProcessor extends DataProcessor<PedestrianIdKey, Double> {
-    private VRectangle waitingArea;
+	private VRectangle waitingArea;
 
-    public PedestrianWaitingEndTimeProcessor() {
-        super("waitingEndTime");
-    }
+	public PedestrianWaitingEndTimeProcessor() {
+		super("waitingEndTime");
+	}
 
-    @Override
-    protected void doUpdate(final SimulationState state) {
-        Map<Integer, VPoint> agentPosMap = state.getAgentPositionMap();
+	@Override
+	protected void doUpdate(final SimulationState state) {
+		Map<Integer, VPoint> agentPosMap = state.getAgentPositionMap();
 
-        for (Map.Entry<Integer, VPoint> entry : agentPosMap.entrySet()) {
-            int pedId = entry.getKey();
-            VPoint pos = entry.getValue();
+		for (Map.Entry<Integer, VPoint> entry : agentPosMap.entrySet()) {
+			int pedId = entry.getKey();
+			VPoint pos = entry.getValue();
 
-            if (this.waitingArea.contains(pos)) {
-                PedestrianIdKey key = new PedestrianIdKey(pedId);
-                this.setValue(key, state.getSimTimeInSec());
-            }
-        }
-    }
+			if (this.waitingArea.contains(pos)) {
+				PedestrianIdKey key = new PedestrianIdKey(pedId);
+				this.setValue(key, state.getSimTimeInSec());
+			}
+		}
+	}
 
-    @Override
-    public void init(final ProcessorManager manager) {
-        AttributesWaitingEndTimeProcessor att = (AttributesWaitingEndTimeProcessor) this.getAttributes();
-        this.waitingArea = att.getWaitingArea();
-    }
+	@Override
+	public void init(final ProcessorManager manager) {
+		AttributesWaitingEndTimeProcessor att = (AttributesWaitingEndTimeProcessor) this.getAttributes();
+		this.waitingArea = att.getWaitingArea();
+	}
 }

@@ -9,8 +9,6 @@ import org.vadere.gui.topographycreator.model.IDrawPanelModel;
  * Each Action of the topographycreator gets the panelModel because each action change the
  * panelModel.
  * Actions are part of the controller of the mvc-pattern.
- * 
- * 
  */
 public abstract class TopographyAction extends AbstractAction {
 

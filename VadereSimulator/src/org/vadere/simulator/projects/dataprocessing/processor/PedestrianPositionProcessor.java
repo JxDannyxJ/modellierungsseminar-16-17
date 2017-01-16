@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class PedestrianPositionProcessor extends DataProcessor<TimestepPedestrianIdKey, VPoint> {
@@ -42,12 +41,13 @@ public class PedestrianPositionProcessor extends DataProcessor<TimestepPedestria
 	}
 
 	@Override
-	public void init(final ProcessorManager manager) {}
+	public void init(final ProcessorManager manager) {
+	}
 
 	@Override
 	public String[] toStrings(TimestepPedestrianIdKey key) {
 		VPoint p = this.getValue(key);
 
-		return new String[] { Double.toString(p.getX()), Double.toString(p.getY()) };
+		return new String[]{Double.toString(p.getX()), Double.toString(p.getY())};
 	}
 }

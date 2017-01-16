@@ -10,8 +10,8 @@ public class ParallelWorkerOSM implements Runnable {
 	private final double timeStepInSec;
 
 	public ParallelWorkerOSM(CallMethod callMethod, AgentOSM agent,
-			double timeStepInSec) {
-		this.agent  = agent;
+							 double timeStepInSec) {
+		this.agent = agent;
 		this.callMethod = callMethod;
 		this.timeStepInSec = timeStepInSec;
 	}

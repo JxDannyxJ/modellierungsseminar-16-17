@@ -1,12 +1,12 @@
 package org.vadere.simulator.models.potential.timeCostFunction.loading;
 
+import org.vadere.simulator.models.potential.fields.IPotentialTargetGrid;
+import org.vadere.state.scenario.Topography;
+import org.vadere.state.scenario.dynamicelements.Pedestrian;
+import org.vadere.util.geometry.shapes.VPoint;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import org.vadere.simulator.models.potential.fields.IPotentialTargetGrid;
-import org.vadere.state.scenario.dynamicelements.Pedestrian;
-import org.vadere.state.scenario.Topography;
-import org.vadere.util.geometry.shapes.VPoint;
 
 /**
  * The PedestrianLoadingStrategyPotentialDifference calculates an individual
@@ -24,11 +24,8 @@ import org.vadere.util.geometry.shapes.VPoint;
  * disturbing (if the potential difference is negative on the dynamicelements field) or
  * is not disturbing (if the potential is positive). The static field gives the
  * us the measurement.
- * 
- *
- *         // TODO [priority=medium] [task=refactoring] Remove this class
- * 
  */
+// TODO [priority=medium] [task=refactoring] Remove this class
 @Deprecated
 class PedestrianLoadingStrategyPotentialDifference implements
 		IPedestrianLoadingStrategy {
@@ -43,18 +40,12 @@ class PedestrianLoadingStrategyPotentialDifference implements
 
 	/**
 	 * Construct a new PedestrianLoadingStrategyPotentialDifference object.
-	 * 
-	 * @param floor
-	 *        the floor that contains all the pedestrians that count
-	 * @param targetId
-	 *        the target id of the potential field that will be influenced
-	 *        by this loadin strategy
-	 * @param loading
-	 *        the constant laoding that will be multiplied to the dynamicelements
-	 *        laoding
-	 * @param meanSpeed
-	 *        the mean speed of all pedestrians
-	 * @param baseField
+	 *
+	 * @param floor     the floor that contains all the pedestrians that count
+	 * @param targetId  the target id of the potential field that will be influenced by this loadin
+	 *                  strategy
+	 * @param loading   the constant laoding that will be multiplied to the dynamicelements laoding
+	 * @param meanSpeed the mean speed of all pedestrians
 	 */
 	PedestrianLoadingStrategyPotentialDifference(
 			final Topography floor,

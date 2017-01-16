@@ -22,8 +22,6 @@ import java.util.stream.Collectors;
  * The FIM essentially drops the condition that the narrow band is sorted.
  * In each step all points contained in the narrow band (which is called active list)
  * can be treated in parallel.
- *
- *
  */
 public class EikonalSolverFIM implements EikonalSolver {
 
@@ -40,9 +38,9 @@ public class EikonalSolverFIM implements EikonalSolver {
 	private LinkedList<Point> activeList;
 
 	public EikonalSolverFIM(final CellGrid cellGrid,
-			final List<VShape> targetShapes,
-			final boolean isHighAccuracy,
-			final ITimeCostFunction timeCostFunction) {
+							final List<VShape> targetShapes,
+							final boolean isHighAccuracy,
+							final ITimeCostFunction timeCostFunction) {
 		this.timeCostFunction = timeCostFunction;
 		this.isHighAccuracy = isHighAccuracy;
 		this.targetShapes = targetShapes;
@@ -141,7 +139,8 @@ public class EikonalSolverFIM implements EikonalSolver {
 	}
 
 	@Override
-	public void update() {}
+	public void update() {
+	}
 
 	@Override
 	public boolean needsUpdate() {

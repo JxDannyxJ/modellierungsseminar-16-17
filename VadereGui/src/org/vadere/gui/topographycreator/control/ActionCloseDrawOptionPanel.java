@@ -9,7 +9,6 @@ import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 
 /**
  * Action: Hide the PaintMethodDialog Window.
- * 
  */
 public class ActionCloseDrawOptionPanel extends TopographyAction {
 
@@ -18,13 +17,13 @@ public class ActionCloseDrawOptionPanel extends TopographyAction {
 	private final TopographyAction action;
 
 	public ActionCloseDrawOptionPanel(final String name, final ImageIcon icon, final IDrawPanelModel panelModel,
-			final TopographyAction action) {
+									  final TopographyAction action) {
 		super(name, icon, panelModel);
 		this.action = action;
 	}
 
 	public ActionCloseDrawOptionPanel(final String name, final IDrawPanelModel panelModel,
-			final TopographyAction action) {
+									  final TopographyAction action) {
 		super(name, panelModel);
 		this.action = action;
 	}

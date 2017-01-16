@@ -63,7 +63,7 @@ public class JsonSerializerVShape implements JsonSerializer<VShape>,
 		public VPoint center;
 		public ShapeType type = ShapeType.CIRCLE;
 	}
-	
+
 	private static class EllipseStore {
 		public EllipseStore(VEllipse shape) {
 			this.height = shape.getHeight();
@@ -79,7 +79,7 @@ public class JsonSerializerVShape implements JsonSerializer<VShape>,
 
 	@Override
 	public VShape deserialize(JsonElement arg0, Type arg1,
-			JsonDeserializationContext arg2) throws JsonParseException {
+							  JsonDeserializationContext arg2) throws JsonParseException {
 
 		JsonObject shapeObj = arg0.getAsJsonObject();
 		Gson g = IOUtils.getGson();
@@ -109,7 +109,7 @@ public class JsonSerializerVShape implements JsonSerializer<VShape>,
 
 	@Override
 	public JsonElement serialize(VShape shape, Type arg1,
-			JsonSerializationContext arg2) {
+								 JsonSerializationContext arg2) {
 
 		Gson g = IOUtils.getGson();
 

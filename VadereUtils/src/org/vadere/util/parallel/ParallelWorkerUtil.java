@@ -6,8 +6,6 @@ import java.util.concurrent.Executors;
 /**
  * Utility class for parallelization of tasks. Defines functions to setup an
  * ExecutorService (thread pool).
- * 
- * 
  */
 public class ParallelWorkerUtil {
 	private static volatile ExecutorService executerService = null;

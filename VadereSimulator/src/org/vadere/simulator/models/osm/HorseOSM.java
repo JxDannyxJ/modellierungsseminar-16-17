@@ -1,25 +1,22 @@
 package org.vadere.simulator.models.osm;
 
-import java.util.*;
-
-import java.util.Random;
 import org.vadere.simulator.models.SpeedAdjuster;
 import org.vadere.simulator.models.osm.optimization.StepOptimizer;
 import org.vadere.simulator.models.osm.stairOptimization.StairStepOptimizer;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeEventDriven;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM;
-import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeSequential;
 import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeOSM.CallMethod;
+import org.vadere.simulator.models.osm.updateScheme.UpdateSchemeSequential;
 import org.vadere.simulator.models.potential.fields.PotentialFieldAgent;
 import org.vadere.simulator.models.potential.fields.PotentialFieldObstacle;
 import org.vadere.simulator.models.potential.fields.PotentialFieldTarget;
 import org.vadere.simulator.models.potential.fields.PotentialFieldTargetRingExperiment;
 import org.vadere.state.attributes.models.AttributesOSM;
 import org.vadere.state.attributes.scenario.AttributesHorse;
+import org.vadere.state.scenario.Topography;
 import org.vadere.state.scenario.dynamicelements.Agent;
 import org.vadere.state.scenario.dynamicelements.Horse;
 import org.vadere.state.scenario.staticelements.Stairs;
-import org.vadere.state.scenario.Topography;
 import org.vadere.state.types.MovementType;
 import org.vadere.state.types.UpdateType;
 import org.vadere.util.geometry.Vector2D;
@@ -27,49 +24,84 @@ import org.vadere.util.geometry.shapes.VCircle;
 import org.vadere.util.geometry.shapes.VEllipse;
 import org.vadere.util.geometry.shapes.VPoint;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
 /**
  *
  */
 public class HorseOSM extends Horse implements AgentOSM {
 
-	
+
 	/**
 	 * transient fields will not be serialized by Gson.
 	 */
 
-	/** attriubtes of {@link OptimalStepsModel}. **/
+	/**
+	 * attriubtes of {@link OptimalStepsModel}.
+	 **/
 	private final AttributesOSM attributesOSM;
 
-	/** {@link StepOptimizer}.**/
+	/**
+	 * {@link StepOptimizer}.
+	 **/
 	private final transient StepOptimizer stepOptimizer;
 
-	/** {@link UpdateSchemeOSM} defining how to update agent.**/
+	/**
+	 * {@link UpdateSchemeOSM} defining how to update agent.
+	 **/
 	private final transient UpdateSchemeOSM updateScheme;
 
-	/** Potentialfield for {@link Target}.**/
+	/**
+	 * Potentialfield for {@link org.vadere.state.scenario.staticelements.Target Target}.
+	 **/
 	private transient PotentialFieldTarget potentialFieldTarget;
-	/** Potentialfield for {@link Obstacle}.**/
+	/**
+	 * Potentialfield for {@link org.vadere.state.scenario.staticelements.Obstacle Obstacle}.
+	 **/
 	private transient PotentialFieldObstacle potentialFieldObstacle;
-	/** Potentialfield for {@link Agent}.**/
+	/**
+	 * Potentialfield for {@link Agent}.
+	 **/
 	private transient PotentialFieldAgent potentialFieldAgent;
 
-	/** The {@link Topography}. **/
+	/**
+	 * The {@link Topography}.
+	 **/
 	private final transient Topography topography;
 
-	/** the step length. **/
+	/**
+	 * the step length.
+	 **/
 	private final double stepLength;
-	/** the step deviation. **/
+	/**
+	 * the step deviation.
+	 **/
 	private final double stepDeviation;
-	/** List of {@link SpeedAdjuster}. **/
+	/**
+	 * List of {@link SpeedAdjuster}.
+	 **/
 	private List<SpeedAdjuster> speedAdjusters;
-	/** min step length. **/
+	/**
+	 * min step length.
+	 **/
 	private final double minStepLength;
 
-	/** duration of next step. **/
+	/**
+	 * duration of next step.
+	 **/
 	private double durationNextStep;
-	/** next position {@link VPoint}.**/
+	/**
+	 * next position {@link VPoint}.
+	 **/
 	private VPoint nextPosition;
-	/** last position {@link VPoint}.**/
+	/**
+	 * last position {@link VPoint}.
+	 **/
 	private VPoint lastPosition;
 
 	// for unit time clock update...
@@ -77,7 +109,9 @@ public class HorseOSM extends Horse implements AgentOSM {
 	// for event driven update...
 	private double timeOfNextStep;
 
-	/** collection of relevant {@link Agent}'s (neighbors).**/
+	/**
+	 * collection of relevant {@link Agent}'s (neighbors).
+	 **/
 	private transient Collection<? extends Agent> relevantAgents;
 
 	// calculated by (current position - last position)/(period of time).
@@ -89,24 +123,26 @@ public class HorseOSM extends Horse implements AgentOSM {
 	/**
 	 * Constructor.
 	 *
-	 * @param attributesOSM attributes of {@link OptimalStepsModel}.
-	 * @param attributesAgent attributes of {@link AttributesHorse}.
-	 * @param topography the {@link Topography}.
-	 * @param random just random instance.
-	 * @param potentialFieldTarget the {@link Target} potential field.
-	 * @param potentialFieldObstacle the {@link Obstacle} potential field.
-	 * @param potentialFieldAgent {@link Agent} potential field.
-	 * @param speedAdjusters list of {@link SpeedAdjuster}.
-	 * @param stepOptimizer the {@link StepOptimizer}.
+	 * @param attributesOSM          attributes of {@link OptimalStepsModel}.
+	 * @param attributesAgent        attributes of {@link AttributesHorse}.
+	 * @param topography             the {@link Topography}.
+	 * @param random                 just random instance.
+	 * @param potentialFieldTarget   the {@link org.vadere.state.scenario.staticelements.Target
+	 *                               Target} potential field.
+	 * @param potentialFieldObstacle the {@link org.vadere.state.scenario.staticelements.Obstacle
+	 *                               Obstacle} potential field.
+	 * @param potentialFieldAgent    {@link Agent} potential field.
+	 * @param speedAdjusters         list of {@link SpeedAdjuster}.
+	 * @param stepOptimizer          the {@link StepOptimizer}.
 	 */
 	@SuppressWarnings("unchecked")
 	HorseOSM(AttributesOSM attributesOSM,
-			AttributesHorse attributesAgent, Topography topography,
-			Random random, PotentialFieldTarget potentialFieldTarget,
-			PotentialFieldObstacle potentialFieldObstacle,
-			PotentialFieldAgent potentialFieldAgent,
-			List<SpeedAdjuster> speedAdjusters,
-			StepOptimizer stepOptimizer) {
+			 AttributesHorse attributesAgent, Topography topography,
+			 Random random, PotentialFieldTarget potentialFieldTarget,
+			 PotentialFieldObstacle potentialFieldObstacle,
+			 PotentialFieldAgent potentialFieldAgent,
+			 List<SpeedAdjuster> speedAdjusters,
+			 StepOptimizer stepOptimizer) {
 
 		super(attributesAgent, random);
 
@@ -145,7 +181,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 	 * Creates update schme for this {@link AgentOSM}.
 	 *
 	 * @param updateType the {@link UpdateType}.
-	 * @param agent the {@link AgentOSM} to update.
+	 * @param agent      the {@link AgentOSM} to update.
 	 * @return new instance of {@link UpdateSchemeOSM}.
 	 */
 	private static UpdateSchemeOSM createUpdateScheme(UpdateType updateType, AgentOSM agent) {
@@ -172,9 +208,9 @@ public class HorseOSM extends Horse implements AgentOSM {
 	/**
 	 * Update routine.
 	 *
-	 * @param timeStepInSec duration of timestep.
+	 * @param timeStepInSec    duration of timestep.
 	 * @param currentTimeInSec current time.
-	 * @param callMethod {@link CallMethod}.
+	 * @param callMethod       {@link CallMethod}.
 	 */
 	public void update(double timeStepInSec, double currentTimeInSec, CallMethod callMethod) {
 
@@ -255,6 +291,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Returns step size.
+	 *
 	 * @return step size.
 	 */
 	public double getStepSize() {
@@ -262,7 +299,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 		if (attributesOSM.isDynamicStepLength()) {
 			return attributesOSM.getStepLengthIntercept()
 					+ attributesOSM.getStepLengthSlopeSpeed()
-							* getDesiredSpeed()
+					* getDesiredSpeed()
 					+ stepDeviation;
 		} else {
 			return stepLength;
@@ -307,6 +344,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Getter for {@link PotentialFieldTarget}.
+	 *
 	 * @return the {@link PotentialFieldTarget} instance.
 	 */
 	public PotentialFieldTarget getPotentialFieldTarget() {
@@ -346,6 +384,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Getter for time of next step.
+	 *
 	 * @return time for next step.
 	 */
 	public double getTimeOfNextStep() {
@@ -354,6 +393,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Getter for next position {@link VPoint}.
+	 *
 	 * @return next position.
 	 */
 	public VPoint getNextPosition() {
@@ -362,6 +402,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Getter for last postion {@link VPoint}.
+	 *
 	 * @return last position.
 	 */
 	public VPoint getLastPosition() {
@@ -370,6 +411,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Getter for time credit.
+	 *
 	 * @return time credit.
 	 */
 	public double getTimeCredit() {
@@ -378,6 +420,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Getter for relevant agents.
+	 *
 	 * @return list of relevant agents.
 	 */
 	public Collection<? extends Agent> getRelevantAgents() {
@@ -386,6 +429,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Getter for duration time of next step.
+	 *
 	 * @return duration time of next step.
 	 */
 	public double getDurationNextStep() {
@@ -394,6 +438,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Getter for OSM attributes.
+	 *
 	 * @return OSM attributes.
 	 */
 	public AttributesOSM getAttributesOSM() {
@@ -402,6 +447,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Getter for strides.
+	 *
 	 * @return strides.
 	 */
 	public List<Double>[] getStrides() {
@@ -411,6 +457,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Setter for next position {@link VPoint}.
+	 *
 	 * @param nextPosition next position of this agent.
 	 */
 	public void setNextPosition(VPoint nextPosition) {
@@ -419,6 +466,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Setter for last postion {@link VPoint}.
+	 *
 	 * @param lastPosition last position of this agent.
 	 */
 	public void setLastPosition(VPoint lastPosition) {
@@ -427,7 +475,6 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Setter for time credit.
-	 * @param timeCredit
 	 */
 	public void setTimeCredit(double timeCredit) {
 		this.timeCredit = timeCredit;
@@ -435,7 +482,6 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Setter for time of next step.
-	 * @param timeOfNextStep
 	 */
 	public void setTimeOfNextStep(double timeOfNextStep) {
 		this.timeOfNextStep = timeOfNextStep;
@@ -443,7 +489,6 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Setter for duration time of next step.
-	 * @param durationNextStep
 	 */
 	public void setDurationNextStep(double durationNextStep) {
 		this.durationNextStep = durationNextStep;
@@ -451,6 +496,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Getter for {@link Topography}.
+	 *
 	 * @return instance of a {@link Topography}.
 	 */
 	public Topography getTopography() {
@@ -459,6 +505,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Getter for min step length.
+	 *
 	 * @return min step length.
 	 */
 	public double getMinStepLength() {
@@ -467,6 +514,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Getter for current position.
+	 *
 	 * @return current position.
 	 */
 	@Override
@@ -476,14 +524,15 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Getter for desired speed.
+	 *
 	 * @return desired speed.
 	 */
 	@Override
 	public double getDesiredSpeed() {
-		
+
 		double desiredSpeed = super.getFreeFlowSpeed();
 		double epsilon = 0.0;
-		
+
 		if (super.isSaddled()) {
 			double lambda = 0.5;
 			double rand = new Random().nextDouble();
@@ -495,6 +544,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 
 	/**
 	 * Getter for discrete ellipse points (possible next steps).
+	 *
 	 * @param random used to randomize location of step on ellipse.
 	 * @return List of discrete {@link VPoint}.
 	 */
@@ -518,15 +568,13 @@ public class HorseOSM extends Horse implements AgentOSM {
 		// [TODO] differentiate between settings for eyepatched horse and directional movement
 		if (super.isHasEyepatch()) {
 			if (attributesOSM.getMovementType() == MovementType.DIRECTIONAL) {
-				angle = Math.PI / 4.0 - AttributesHorse.getEYEPATCHED();
-				anchorAngle = 2 * Math.PI - (Math.PI / 4.0) + AttributesHorse.getEYEPATCHED();
+				angle = Math.PI / 4.0 - AttributesHorse.EYEPATCHED;
+				anchorAngle = 2 * Math.PI - (Math.PI / 4.0) + AttributesHorse.EYEPATCHED;
+			} else {
+				angle = Math.PI / 4.0 - AttributesHorse.EYEPATCHED;
+				anchorAngle = 2 * Math.PI - (Math.PI / 4.0) + AttributesHorse.EYEPATCHED;
 			}
-			else {
-				angle = Math.PI / 4.0 - AttributesHorse.getEYEPATCHED();
-				anchorAngle = 2 * Math.PI - (Math.PI / 4.0) + AttributesHorse.getEYEPATCHED();
-			}
-		}
-		else if (attributesOSM.getMovementType() == MovementType.DIRECTIONAL) {
+		} else if (attributesOSM.getMovementType() == MovementType.DIRECTIONAL) {
 			angle = Math.PI / 4.0;
 			anchorAngle = 2 * Math.PI - Math.PI / 4.0;
 		} else {
@@ -550,9 +598,10 @@ public class HorseOSM extends Horse implements AgentOSM {
 	/**
 	 * Discretize ellipse points.
 	 * Using random offset to add variations to steps.
+	 *
 	 * @param ellipseLenght the length of the ellipse.
-	 * @param ellipseWidth the width of the ellipse.
-	 * @param angles list of angles to use in order to compute points on the ellipse.
+	 * @param ellipseWidth  the width of the ellipse.
+	 * @param angles        list of angles to use in order to compute points on the ellipse.
 	 * @return list of {@link VPoint} on the defined ellipse.
 	 */
 	private LinkedList<VPoint> discretize(double ellipseLenght, double ellipseWidth, double[] angles, Random random) {
@@ -580,8 +629,8 @@ public class HorseOSM extends Horse implements AgentOSM {
 				angleShifted = (new Vector2D(new Vector2D(randomX, randomY)).angleToZero());
 			}
 			// compute x and y values on default ellipse
-			x = (ellipseLenght * ellipseWidth)/(Math.sqrt(Math.pow(ellipseWidth, 2) + Math.pow(ellipseLenght, 2) * Math.pow(Math.tan(angleShifted), 2) ));
-			y = sign * ellipseWidth * Math.sqrt(1 - (Math.pow(x, 2)/Math.pow(ellipseLenght, 2)));
+			x = (ellipseLenght * ellipseWidth) / (Math.sqrt(Math.pow(ellipseWidth, 2) + Math.pow(ellipseLenght, 2) * Math.pow(Math.tan(angleShifted), 2)));
+			y = sign * ellipseWidth * Math.sqrt(1 - (Math.pow(x, 2) / Math.pow(ellipseLenght, 2)));
 			// transform to actual points and rotate according to rotationAngle
 			Vector2D point = new Vector2D(x, y);
 			Vector2D rotatedPoint = new Vector2D(point.rotate(rotationAngle));
@@ -595,7 +644,7 @@ public class HorseOSM extends Horse implements AgentOSM {
 	/**
 	 * Computes new position to given angle and step size.
 	 *
-	 * @param angle the angle.
+	 * @param angle    the angle.
 	 * @param stepSize the step size.
 	 * @return new {@link VPoint} instance.
 	 */
@@ -604,8 +653,8 @@ public class HorseOSM extends Horse implements AgentOSM {
 		double height = ((VEllipse) getShape()).getWidth() + stepLength;
 		double width = ((VEllipse) getShape()).getHeight();
 		int factor = angle % (2 * Math.PI) <= Math.PI / 4.0 ? 1 : -1;
-		double x = (height * width)/(Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2) * Math.pow(Math.tan(angle), 2) ));
-		double y = factor * width * Math.sqrt(1 - (Math.pow(x, 2)/Math.pow(height, 2)));
+		double x = (height * width) / (Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2) * Math.pow(Math.tan(angle), 2)));
+		double y = factor * width * Math.sqrt(1 - (Math.pow(x, 2) / Math.pow(height, 2)));
 		double rotationAngle = getVelocity().angleToZero();
 		Vector2D pointVector = new Vector2D(x, y);
 		Vector2D newPoint = new Vector2D(pointVector.rotate(rotationAngle));

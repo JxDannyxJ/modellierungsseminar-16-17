@@ -16,7 +16,7 @@ public class TopographyPanel extends ScaleablePanel implements Observer {
 	private final TopographyCreatorModel model;
 
 	public TopographyPanel(final TopographyCreatorModel model, final DefaultRenderer renderer,
-			final JScrollPane scrollPane) {
+						   final JScrollPane scrollPane) {
 		super(model, renderer, scrollPane);
 		this.model = model;
 		this.selectionMode = model.getMouseSelectionMode();

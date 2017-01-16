@@ -20,7 +20,6 @@ import net.sourceforge.argparse4j.inf.Namespace;
 
 /**
  * Provides the possibility to start VADERE in console mode.
- * 
  */
 public class VadereConsole {
 

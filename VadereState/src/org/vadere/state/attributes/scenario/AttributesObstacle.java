@@ -10,10 +10,12 @@ public class AttributesObstacle extends AttributesScenarioElement {
 	/**
 	 * Class default constructor
 	 */
-	public AttributesObstacle() {}
+	public AttributesObstacle() {
+	}
 
 	/**
 	 * Class constructor which creates an attributes obstacle object with a given id
+	 *
 	 * @param id the unique identifier of the obstacle
 	 */
 	public AttributesObstacle(int id) {
@@ -23,7 +25,8 @@ public class AttributesObstacle extends AttributesScenarioElement {
 	/**
 	 * Class constructor which creates an attributes object for obstacles with a given id
 	 * and a shape
-	 * @param id the unique identifier of the obstacle
+	 *
+	 * @param id    the unique identifier of the obstacle
 	 * @param shape the shape of the obstacle
 	 */
 	public AttributesObstacle(int id, VShape shape) {

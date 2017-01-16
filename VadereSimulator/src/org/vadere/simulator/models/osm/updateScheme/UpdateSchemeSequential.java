@@ -5,7 +5,7 @@ import org.vadere.simulator.models.osm.PedestrianOSM;
 
 public class UpdateSchemeSequential implements UpdateSchemeOSM {
 
-//	private final PedestrianOSM pedestrian;
+	//	private final PedestrianOSM pedestrian;
 	private final AgentOSM agentOSM;
 
 	public UpdateSchemeSequential(AgentOSM agentOSM) {

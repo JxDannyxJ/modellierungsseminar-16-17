@@ -20,6 +20,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -54,17 +55,12 @@ public class TestProjectWriterAndReader {
 	/**
 	 * Test method for
 	 * {@link org.vadere.simulator.projects.io.IOVadere#readProject(java.lang.String)} .
-	 * 
-	 * @throws IOException
-	 * @throws SAXException
-	 * @throws ParserConfigurationException
-	 * @throws TransformerException
 	 */
 	@Test
 	public void testWriteReadProject()
-            throws IOException, ParserConfigurationException, SAXException, TransformerException, URISyntaxException {
+			throws IOException, ParserConfigurationException, SAXException, TransformerException, URISyntaxException {
 		String testFileJson =
-                new File(getClass().getResource("/input/testProjectFile/").toURI()).toString();
+				new File(getClass().getResource("/input/testProjectFile/").toURI()).toString();
 		ProjectWriter.writeProjectFileJson(testFileJson, testProject);
 		VadereProject projectJson = IOVadere.readProjectJson(testFileJson);
 

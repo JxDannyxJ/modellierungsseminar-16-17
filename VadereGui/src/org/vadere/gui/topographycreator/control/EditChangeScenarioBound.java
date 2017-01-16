@@ -9,8 +9,6 @@ import org.vadere.util.geometry.shapes.VRectangle;
 
 /**
  * Part of the command pattern to re- and undo setTopographyBound.
- * 
- * 
  */
 public class EditChangeScenarioBound extends AbstractUndoableEdit {
 	private static final long serialVersionUID = -8794215770821216524L;
@@ -19,7 +17,7 @@ public class EditChangeScenarioBound extends AbstractUndoableEdit {
 	private final VRectangle newScenarioBound;
 
 	public EditChangeScenarioBound(final IDrawPanelModel panelModel, final VRectangle oldScenarioBound,
-			final VRectangle newScenarioBound) {
+								   final VRectangle newScenarioBound) {
 		this.panelModel = panelModel;
 		this.oldScenarioBound = oldScenarioBound;
 		this.newScenarioBound = newScenarioBound;

@@ -21,7 +21,7 @@ public class SVGGenerator {
 	private final SimulationModel<? extends DefaultSimulationConfig> model;
 
 	public SVGGenerator(final SimulationRenderer renderer,
-			final SimulationModel<? extends DefaultSimulationConfig> model) {
+						final SimulationModel<? extends DefaultSimulationConfig> model) {
 		this.renderer = renderer;
 		this.model = model;
 	}

@@ -27,7 +27,6 @@ import java.util.stream.Collectors;
 /**
  * This IOUtility class provides all methods to load, delete, list, clean output directories.
  * Each output directory contains two fiels *.scenario and *.trajectories.
- *
  */
 public abstract class IOOutput {
 
@@ -60,14 +59,14 @@ public abstract class IOOutput {
 	}
 
 	public static Map<Step, List<Agent>> readTrajectories(final VadereProject project,
-			final ScenarioRunManager scenario, final String directoryName) throws IOException {
+														  final ScenarioRunManager scenario, final String directoryName) throws IOException {
 		TrajectoryReader reader = new TrajectoryReader(
 				getPathToOutputFile(project, directoryName, IOUtils.TRAJECTORY_FILE_EXTENSION), scenario);
 		return reader.readFile();
 	}
 
 	public static Map<Step, List<Agent>> readTrajectories(final Path trajectoryFilePath,
-			final ScenarioRunManager scenario) throws IOException {
+														  final ScenarioRunManager scenario) throws IOException {
 		TrajectoryReader reader = new TrajectoryReader(trajectoryFilePath, scenario);
 		Map<Step, List<Agent>> result = reader.readFile();
 		return result;
@@ -194,7 +193,7 @@ public abstract class IOOutput {
 	}
 
 	private static boolean isMatchingOutputDirectory(final VadereProject project, final File directory,
-			final ScenarioRunManager scenario) {
+													 final ScenarioRunManager scenario) {
 		Optional<ScenarioRunManager> optionalScenario = readOutputFile(project, directory);
 		return directory.isDirectory() && optionalScenario.isPresent() && equalHash(optionalScenario.get(), scenario);
 	}
@@ -211,12 +210,12 @@ public abstract class IOOutput {
 	}
 
 	private static Path getPathToOutputFile(final VadereProject project, final String directoryName,
-			final String fileExtension) throws IOException {
+											final String fileExtension) throws IOException {
 		return IOOutput.getPathToOutputFile(project.getOutputDir(), directoryName, fileExtension);
 	}
 
 	private static Path getPathToOutputFile(final Path outputDir, final String directoryName,
-			final String fileExtension) throws IOException {
+											final String fileExtension) throws IOException {
 		Path dir = outputDir.resolve(directoryName);
 
 		File[] files = new File(dir.toString()).listFiles((d, name) -> name.toLowerCase().endsWith(fileExtension));

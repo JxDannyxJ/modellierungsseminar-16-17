@@ -25,7 +25,7 @@ public interface IDrawPanelModel<T extends DefaultConfig> extends IDefaultModel<
 	/**
 	 * Build a new Topography out of the current state of the DrawPanelModel by using the
 	 * TopographyBuilder.
-	 * 
+	 *
 	 * @return a complete new TopographyElement
 	 */
 	Topography build();
@@ -33,21 +33,21 @@ public interface IDrawPanelModel<T extends DefaultConfig> extends IDefaultModel<
 	/**
 	 * Part of the observer-pattern. Adds an observer that will be notified about the changes of
 	 * this panelModel.
-	 * 
+	 *
 	 * @param observer the observer that will be notified about the change of this panelModel.
 	 */
 	void addObserver(Observer observer);
 
 	/**
 	 * Changes the topography bound (cutting).
-	 * 
+	 *
 	 * @param scenarioBound the new topography bound
 	 */
 	void setTopographyBound(final VRectangle scenarioBound);
 
 	/**
 	 * Returns the used font for displaying informations and so on.
-	 * 
+	 *
 	 * @return the used font
 	 */
 	Font getFont();
@@ -55,7 +55,7 @@ public interface IDrawPanelModel<T extends DefaultConfig> extends IDefaultModel<
 	/**
 	 * Scales the whole topography, so every topography element will be scaled and will be
 	 * translated to the correct position. Pedestrians has only to be translated.
-	 * 
+	 *
 	 * @param scale the scale factor has to be greater than zero
 	 */
 	void scaleTopography(final double scale);
@@ -63,7 +63,7 @@ public interface IDrawPanelModel<T extends DefaultConfig> extends IDefaultModel<
 
 	/**
 	 * True if the user is selecting a topography element, otherwise false.
-	 * 
+	 *
 	 * @return true if the user is selecting a topography element, otherwise false.
 	 */
 	boolean isSelectionVisible();
@@ -124,8 +124,6 @@ public interface IDrawPanelModel<T extends DefaultConfig> extends IDefaultModel<
 
 	/**
 	 * @Null
-	 * @param position
-	 * @return
 	 */
 	ScenarioElement setSelectedElement(VPoint position);
 

@@ -16,7 +16,6 @@ import org.vadere.util.geometry.shapes.VShape;
  * A Queue is connected to a Target. All Pedestrians with the Target are out of the queue.
  * After the QueueDetector detect a queue, the queue is active as long as there are Pedestrians
  * in the queue.
- *
  */
 public class Queue implements DynamicElementRemoveListener<Pedestrian>, DynamicElementAddListener<Pedestrian> {
 

@@ -3,10 +3,9 @@ package org.vadere.util.reflection;
 /**
  * For example, this class can be used for creating {@link attributes.Attributes} or
  * {@link models.Model}s.
- * 
  *
  * @param <T> Objects created by this class should be subclasses of T but it cannot be guaranteed!
- *        The user should catch {@link java.lang.ClassCastException}s.
+ *            The user should catch {@link java.lang.ClassCastException}s.
  */
 public class DynamicClassInstantiator<T> {
 

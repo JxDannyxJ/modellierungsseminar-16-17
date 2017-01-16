@@ -1,7 +1,6 @@
 /**
  * This class manages the Equations of the Optimal Velocity Model and computes the
  * derivative-equations
- * 
  */
 package org.vadere.simulator.models.ovm;
 
@@ -35,7 +34,7 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 
 	/**
 	 * Optimal Velocity Function in the form of the original paper
-	 * 
+	 *
 	 * @param x_n Xn
 	 * @param x_n_1 Xn-1
 	 * @return
@@ -63,24 +62,24 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 		for (final Car car : elements) {
 			AParallelWorker<Double[]> w = new CountableParallelWorker<Double[]>(
 					personCounter, new Work<Double[]>() {
-						private int ID;
+				private int ID;
 
-						@Override
-						public Double[] call() throws Exception {
-							computeSingleCarParallel(car, getWorkerID(), t, x, xdot);
-							return null;
-						}
+				@Override
+				public Double[] call() throws Exception {
+					computeSingleCarParallel(car, getWorkerID(), t, x, xdot);
+					return null;
+				}
 
-						@Override
-						public void setID(int ID) {
-							this.ID = ID;
-						}
+				@Override
+				public void setID(int ID) {
+					this.ID = ID;
+				}
 
-						@Override
-						public int getWorkerID() {
-							return this.ID;
-						}
-					});
+				@Override
+				public int getWorkerID() {
+					return this.ID;
+				}
+			});
 			personCounter++;
 			workers.add(w);
 			w.start();
@@ -191,7 +190,7 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 
 	/**
 	 * Computation of speed and position of a single car for one time step
-	 * 
+	 *
 	 * @param currentCar
 	 * @param frontCar
 	 * @param t
@@ -200,7 +199,7 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 	 * @param index
 	 */
 	private void computeSingleCar(Car currentCar, Car frontCar, double t, double[] x, double[] xdot, int index,
-			int fCI) {
+								  int fCI) {
 
 		double[] position = new double[2];
 		double[] speed = new double[2];
@@ -249,7 +248,7 @@ public class OVMEquations extends AbstractModelEquations<Car> implements IAsyncC
 			speed[0] = sensitivity * ovFunction(0.0, newTargetX, currentCar.getFreeFlowSpeed()) - sensitivity * mySpeed;
 		} else {
 			speed[0] = sensitivity * ovFunction(0.0,
-					myPos.distance(frontCar.getPosition()) - ((AttributesCar)currentCar.getAttributes()).getLength() * 2,
+					myPos.distance(frontCar.getPosition()) - ((AttributesCar) currentCar.getAttributes()).getLength() * 2,
 					currentCar.getFreeFlowSpeed()) - sensitivity * myVelocity.getLength();
 		}
 		speed[1] = 0;

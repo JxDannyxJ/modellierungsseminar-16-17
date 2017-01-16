@@ -49,7 +49,7 @@ public class SortedList<E> extends AbstractList<E> {
 
 	/**
 	 * Returns the position the element would be inserted.
-	 * 
+	 *
 	 * @param e the element
 	 * @return the position
 	 */

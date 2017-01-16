@@ -35,7 +35,8 @@ public class AttributesOSM extends Attributes {
 	/**
 	 * Class default constructor for JSON
 	 */
-	public AttributesOSM() {}
+	public AttributesOSM() {
+	}
 
 	/*****************************
 	 * 			Getter			 *
@@ -105,11 +106,12 @@ public class AttributesOSM extends Attributes {
 		return obstaclePotentialModel;
 	}
 
-	/** Return a copy of the submodel class names. */
+	/**
+	 * Return a copy of the submodel class names.
+	 */
 	public List<String> getSubmodels() {
 		return new ArrayList<>(submodels);
 	}
-
 
 
 }

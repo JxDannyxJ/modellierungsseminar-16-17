@@ -11,6 +11,7 @@ import org.vadere.simulator.projects.io.IOVadere;
 import org.vadere.simulator.projects.migration.MigrationAssistant;
 
 import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.nio.file.Files;

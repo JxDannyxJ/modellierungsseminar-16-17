@@ -17,8 +17,6 @@ import org.vadere.util.geometry.shapes.VPoint;
 
 /**
  * Thorough test of the {@link LinkedCellsGrid}.
- * 
- * 
  */
 public class TestLinkedCellsGrid {
 	private static Logger logger = LogManager
@@ -52,15 +50,17 @@ public class TestLinkedCellsGrid {
 	NotComparableObject obj3 = new NotComparableObject(3);
 	NotComparableObject obj4 = new NotComparableObject(4);
 
-	/** linked cells grid with comparable objects */
+	/**
+	 * linked cells grid with comparable objects
+	 */
 	private static LinkedCellsGrid<Integer> linkedCellsInteger;
-	/** linked cells grid with non comparable objects */
+	/**
+	 * linked cells grid with non comparable objects
+	 */
 	private static LinkedCellsGrid<NotComparableObject> linkedCellsObject;
 
 	/**
 	 * Initializes the linked cells grids so that each test gets a clean object.
-	 * 
-	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
@@ -71,11 +71,9 @@ public class TestLinkedCellsGrid {
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.vadere.util.geometry.LinkedCellsGrid#addObject(java.lang.Object, java.awt.geometry.shapes.VPoint)}
-	 * . adds several integer objects and tries to retrieve them via
-	 * {@link LinkedCellsGrid#getObjects(java.awt.geometry.shapes.VPoint, double)}
-	 * .
+	 * Test method for {@link org.vadere.util.geometry.LinkedCellsGrid#addObject(java.lang.Object,
+	 * java.awt.geometry.shapes.VPoint)} . adds several integer objects and tries to retrieve them
+	 * via {@link LinkedCellsGrid#getObjects(java.awt.geometry.shapes.VPoint, double)} .
 	 */
 	@Test
 	public void testAddObject() {
@@ -119,11 +117,9 @@ public class TestLinkedCellsGrid {
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.vadere.util.geometry.LinkedCellsGrid#addObject(java.lang.Object, java.awt.geometry.shapes.VPoint)}
-	 * . adds several non comparable objects and tries to retrieve them via
-	 * {@link LinkedCellsGrid#getObjects(java.awt.geometry.shapes.VPoint, double)}
-	 * .
+	 * Test method for {@link org.vadere.util.geometry.LinkedCellsGrid#addObject(java.lang.Object,
+	 * java.awt.geometry.shapes.VPoint)} . adds several non comparable objects and tries to retrieve
+	 * them via {@link LinkedCellsGrid#getObjects(java.awt.geometry.shapes.VPoint, double)} .
 	 */
 	@Test
 	public void testAddNonComparableObject() {
@@ -167,10 +163,9 @@ public class TestLinkedCellsGrid {
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.vadere.util.geometry.LinkedCellsGrid#addObject(java.lang.Object, java.awt.geometry.shapes.VPoint)}
-	 * . adds several points and tests the number of objects stored in the
-	 * linked cells grid after adding three comparable objects.
+	 * Test method for {@link org.vadere.util.geometry.LinkedCellsGrid#addObject(java.lang.Object,
+	 * java.awt.geometry.shapes.VPoint)} . adds several points and tests the number of objects
+	 * stored in the linked cells grid after adding three comparable objects.
 	 */
 	@Test
 	public void testAddObjectSize() {
@@ -190,9 +185,8 @@ public class TestLinkedCellsGrid {
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.vadere.util.geometry.LinkedCellsGrid#getObjects(java.awt.geometry.shapes.VPoint, double)}
-	 * . Adds objects and tries to retrieve them via getObjects.
+	 * Test method for {@link org.vadere.util.geometry.LinkedCellsGrid#getObjects(java.awt.geometry.shapes.VPoint,
+	 * double)} . Adds objects and tries to retrieve them via getObjects.
 	 */
 	@Test
 	public void testGetObjects() {
@@ -353,7 +347,7 @@ public class TestLinkedCellsGrid {
 	@Test
 	public void testGetObjectsCompexity() {
 		// throw a lot of objects in the grid, equally spaced.
-		int[] objCounts = new int[] {10, 100, 1000, 10000, 100000};
+		int[] objCounts = new int[]{10, 100, 1000, 10000, 100000};
 
 		List<Long> times = new LinkedList<Long>();
 
@@ -404,12 +398,9 @@ public class TestLinkedCellsGrid {
 
 	/**
 	 * Fills an integer grid with a given number of objects.
-	 * 
-	 * @param linkedCellsGrid
-	 * @param numberOfObjects
 	 */
 	private void fillGrid(LinkedCellsGrid<Integer> linkedCellsGrid,
-			int numberOfObjects) {
+						  int numberOfObjects) {
 		int size = (int) Math.sqrt(numberOfObjects);
 		for (int row = 0; row < size; row++) {
 			for (int col = 0; col < size; col++) {

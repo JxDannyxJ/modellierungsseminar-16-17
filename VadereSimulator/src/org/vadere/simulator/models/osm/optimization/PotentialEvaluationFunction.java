@@ -13,15 +13,18 @@ import java.util.List;
 
 /**
  * The Class PotentialEvaluationFunction.
- * 
  */
 public class PotentialEvaluationFunction implements UnivariateRealFunction,
 		MultivariateRealFunction, MultivariateFunction {
 
-	/** The agent. */
+	/**
+	 * The agent.
+	 */
 	private final AgentOSM agent;
-	
-	/** The step size. */
+
+	/**
+	 * The step size.
+	 */
 	private double stepSize;
 	private double minStepSize;
 
@@ -29,9 +32,8 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 
 	/**
 	 * Instantiates a new potential evaluation function.
-	 * 
-	 * @param agent
-	 *        the considered agent
+	 *
+	 * @param agent the considered agent
 	 */
 	public PotentialEvaluationFunction(final AgentOSM agent) {
 		this.agent = agent;
@@ -42,9 +44,8 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 
 	/**
 	 * Sets the step size for the agent.
-	 * 
-	 * @param stepSize
-	 *        the new step size
+	 *
+	 * @param stepSize the new step size
 	 */
 	public void setStepSize(double stepSize) {
 		this.stepSize = stepSize;
@@ -60,12 +61,10 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	/**
 	 * Returns the value of the aggregated potential. Required method for
 	 * optimization by Brent.
-	 * 
-	 * @param angle
-	 *        the angle to the relevant position
+	 *
+	 * @param angle the angle to the relevant position
 	 * @return the potential value
-	 * @throws FunctionEvaluationException
-	 *         the function evaluation exception
+	 * @throws FunctionEvaluationException the function evaluation exception
 	 */
 	@Override
 	public double value(double angle) throws FunctionEvaluationException {
@@ -78,9 +77,8 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 
 	/**
 	 * Returns the target potential.
-	 * 
-	 * @param angle
-	 *        the angle of the direction to new position
+	 *
+	 * @param angle the angle of the direction to new position
 	 */
 	public double getTargetPotential(double angle) {
 		// some circle logic........ should this work for horses??
@@ -94,14 +92,11 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	/**
 	 * Returns the value of the aggregated potential. Auxiliary method for
 	 * optimization.
-	 * 
-	 * @param pos
-	 *        the relevant position
+	 *
+	 * @param pos the relevant position
 	 * @return the potential value
-	 * @throws FunctionEvaluationException
-	 *         the function evaluation exception
-	 * @throws IllegalArgumentException
-	 *         the illegal argument exception
+	 * @throws FunctionEvaluationException the function evaluation exception
+	 * @throws IllegalArgumentException    the illegal argument exception
 	 */
 	public double getValue(VPoint pos) throws FunctionEvaluationException,
 			IllegalArgumentException {
@@ -111,14 +106,11 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	/**
 	 * Returns the value of the aggregated potential. Required method for
 	 * optimization by NelderMead.
-	 * 
-	 * @param pos
-	 *        the relevant position
+	 *
+	 * @param pos the relevant position
 	 * @return the potential value
-	 * @throws FunctionEvaluationException
-	 *         the function evaluation exception
-	 * @throws IllegalArgumentException
-	 *         the illegal argument exception
+	 * @throws FunctionEvaluationException the function evaluation exception
+	 * @throws IllegalArgumentException    the illegal argument exception
 	 */
 	@Override
 	public double value(double[] pos) {
@@ -145,7 +137,7 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	/**
 	 * Checks if position is acceptable.
 	 *
-	 * @param newPosition to check.
+	 * @param newPosition   to check.
 	 * @param agentPosition current position of agent.
 	 * @return true if accepted, else false.
 	 */
@@ -164,14 +156,11 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 	/**
 	 * Returns the value of the aggregated potential. Auxiliary method for
 	 * optimization.
-	 * 
-	 * @param position
-	 *        the relevant position
+	 *
+	 * @param position the relevant position
 	 * @return the potential value
-	 * @throws FunctionEvaluationException
-	 *         the function evaluation exception
-	 * @throws IllegalArgumentException
-	 *         the illegal argument exception
+	 * @throws FunctionEvaluationException the function evaluation exception
+	 * @throws IllegalArgumentException    the illegal argument exception
 	 */
 	public double getPotential(VPoint position)
 			throws FunctionEvaluationException, IllegalArgumentException {
@@ -180,8 +169,7 @@ public class PotentialEvaluationFunction implements UnivariateRealFunction,
 
 	/**
 	 * Converts a point - position '(x,y)' - into an array.
-	 * 
-	 * @param point
+	 *
 	 * @return the array with x = array[0] and y = array[1]
 	 */
 	public double[] pointToArray(VPoint point) {

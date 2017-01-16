@@ -66,12 +66,12 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 
 	@SuppressWarnings("unchecked")
 	PedestrianOSM(AttributesOSM attributesOSM,
-			AttributesAgent attributesPedestrian, Topography topography,
-			Random random, PotentialFieldTarget potentialFieldTarget,
-			PotentialFieldObstacle potentialFieldObstacle,
-			PotentialFieldAgent potentialFieldPedestrian,
-			List<SpeedAdjuster> speedAdjusters,
-			StepOptimizer stepCircleOptimizer) {
+				  AttributesAgent attributesPedestrian, Topography topography,
+				  Random random, PotentialFieldTarget potentialFieldTarget,
+				  PotentialFieldObstacle potentialFieldObstacle,
+				  PotentialFieldAgent potentialFieldPedestrian,
+				  List<SpeedAdjuster> speedAdjusters,
+				  StepOptimizer stepCircleOptimizer) {
 
 		super(attributesPedestrian, random);
 
@@ -124,7 +124,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 
 		return result;
 	}
-	
+
 	@Override
 	public void update(double timeStepInSec, double currentTimeInSec, CallMethod callMethod) {
 
@@ -200,7 +200,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 		if (attributesOSM.isDynamicStepLength()) {
 			return attributesOSM.getStepLengthIntercept()
 					+ attributesOSM.getStepLengthSlopeSpeed()
-							* getDesiredSpeed()
+					* getDesiredSpeed()
 					+ stepDeviation;
 		} else {
 			return stepLength;
@@ -319,7 +319,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 	public double getMinStepLength() {
 		return minStepLength;
 	}
-	
+
 	@Override
 	public VPoint getPosition() {
 		return super.getPosition();
@@ -404,7 +404,7 @@ public class PedestrianOSM extends Pedestrian implements AgentOSM {
 	/**
 	 * Computes new position to given angle and step size.
 	 *
-	 * @param angle the angle.
+	 * @param angle    the angle.
 	 * @param stepSize the step size.
 	 * @return new {@link VPoint} instance.
 	 */

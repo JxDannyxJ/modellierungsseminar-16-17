@@ -9,6 +9,7 @@ import org.vadere.util.io.IOUtils;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.awt.*;
 import java.util.prefs.Preferences;
 
@@ -43,7 +44,7 @@ public class VDialogManager {
 	}
 
 	public static int showConfirmDialogWithBodyAndTextArea(String title, String body, String textAreaContent,
-			int buttonOptions) {
+														   int buttonOptions) {
 		return JOptionPane.showConfirmDialog(
 				VadereWindow.getMainWindow(),
 				getPanelWithBodyAndTextArea(body, textAreaContent),
@@ -52,7 +53,7 @@ public class VDialogManager {
 
 
 	public static void showMessageDialogWithBodyAndTextArea(String title, String body, String textAreaContent,
-			int messageType) {
+															int messageType) {
 		JOptionPane.showMessageDialog(
 				VadereWindow.getMainWindow(),
 				getPanelWithBodyAndTextArea(

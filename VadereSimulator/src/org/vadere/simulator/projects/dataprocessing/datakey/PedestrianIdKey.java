@@ -2,7 +2,6 @@ package org.vadere.simulator.projects.dataprocessing.datakey;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class PedestrianIdKey implements DataKey<PedestrianIdKey> {

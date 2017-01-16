@@ -12,7 +12,7 @@ public class DefaultSimulationConfig extends DefaultConfig {
 	private double densityStandardDerivation = Double.valueOf(resources.getProperty("Density.standardderivation"));
 	private double pedestrianTorso = Double.valueOf(resources.getProperty("Pedestrian.Radius")) * 2;
 	//private double horseTorso = Double.valueOf(resources.getProperty("Horse.Radius")) * 2.5; //CHANGED AG
-	
+
 	private boolean showTargets = true;
 	private boolean showSources = true;
 	private boolean showObstacles = true;
@@ -55,7 +55,7 @@ public class DefaultSimulationConfig extends DefaultConfig {
 	public boolean isShowPedestrians() {
 		return showPedestrians;
 	}
-	
+
 	public boolean isShowHorses() {  //CHANGED AG
 		return showHorses;
 	}
@@ -77,16 +77,16 @@ public class DefaultSimulationConfig extends DefaultConfig {
 		this.showPedestrians = showPedestrians;
 		setChanged();
 	}
-	
+
 	public Color getHorseDefaultColor() {  //CHANGED AG
 		return horseDefaultColor;
 	}
-	
+
 	public void setShowHorses(boolean showHorses) { //CHANGED AG
 		this.showHorses = showHorses;
 		setChanged();
 	}
-	
+
 
 	public boolean isShowTargets() {
 		return showTargets;

@@ -24,13 +24,16 @@ public class PotentialFieldTargetRingExperiment implements IPotentialTargetGrid 
 	}
 
 	@Override
-	public void preLoop(double simTimeInSec) {}
+	public void preLoop(double simTimeInSec) {
+	}
 
 	@Override
-	public void postLoop(double simTimeInSec) {}
+	public void postLoop(double simTimeInSec) {
+	}
 
 	@Override
-	public void update(double simTimeInSec) {}
+	public void update(double simTimeInSec) {
+	}
 
 	@Override
 	public boolean needsUpdate() {
@@ -39,7 +42,7 @@ public class PotentialFieldTargetRingExperiment implements IPotentialTargetGrid 
 
 	/**
 	 * The pedestrians should move on a circular course.
-	 * 
+	 *
 	 * Therefore, calculate the vector centerToPedestrian = pedestrian - center (of ring).
 	 * Rotate this vector by 90 degree (counter-clockwise) to get the tangent vector to the circle.
 	 * Afterwards, rate "pos" and check if it lies in the same direction as tangent vector.
@@ -93,7 +96,7 @@ public class PotentialFieldTargetRingExperiment implements IPotentialTargetGrid 
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 

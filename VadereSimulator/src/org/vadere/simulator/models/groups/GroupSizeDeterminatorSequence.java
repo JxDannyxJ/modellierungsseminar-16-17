@@ -12,7 +12,7 @@ public class GroupSizeDeterminatorSequence implements GroupSizeDeterminator {
 	private int offset;
 
 	private GroupSizeDeterminatorSequence(List<Integer> groupSizeSequence,
-			GroupSizeDeterminator subsequentGroupSize, boolean finiteSequence) {
+										  GroupSizeDeterminator subsequentGroupSize, boolean finiteSequence) {
 
 		this.finiteSequence = finiteSequence;
 		this.groupSizeSequence = groupSizeSequence;
@@ -20,7 +20,7 @@ public class GroupSizeDeterminatorSequence implements GroupSizeDeterminator {
 	}
 
 	GroupSizeDeterminatorSequence(List<Integer> groupSizeSequence, int times,
-			GroupSizeDeterminator subsequentGroupSize) {
+								  GroupSizeDeterminator subsequentGroupSize) {
 
 		this(groupSizeSequence, subsequentGroupSize, true);
 
@@ -29,7 +29,7 @@ public class GroupSizeDeterminatorSequence implements GroupSizeDeterminator {
 	}
 
 	GroupSizeDeterminatorSequence(List<Integer> groupSizeSequence,
-			GroupSizeDeterminator subsequentGroupSize) {
+								  GroupSizeDeterminator subsequentGroupSize) {
 
 		this(groupSizeSequence, 1, subsequentGroupSize);
 	}

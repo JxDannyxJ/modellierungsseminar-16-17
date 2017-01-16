@@ -14,8 +14,6 @@ import org.vadere.util.geometry.shapes.VShape;
 
 /**
  * In this mode the user can cut the Topography with the mouse.
- * 
- * 
  */
 public class CutScenarioMode extends RectangleSelectionMode {
 	private final UndoableEditSupport undoSupport;

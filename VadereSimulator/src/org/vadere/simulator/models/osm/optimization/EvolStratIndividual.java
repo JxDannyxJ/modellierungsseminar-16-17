@@ -4,7 +4,6 @@ import org.vadere.util.geometry.shapes.VPoint;
 
 /**
  * The Class EvolStratIndividual.
- * 
  */
 public class EvolStratIndividual implements Comparable<EvolStratIndividual> {
 
@@ -16,9 +15,8 @@ public class EvolStratIndividual implements Comparable<EvolStratIndividual> {
 
 	/**
 	 * Instantiates a new individual for an evolution strategy.
-	 * 
-	 * @param position
-	 *        the position of the individual
+	 *
+	 * @param position the position of the individual
 	 */
 	public EvolStratIndividual(VPoint position) {
 		this.position = position;
@@ -28,9 +26,8 @@ public class EvolStratIndividual implements Comparable<EvolStratIndividual> {
 
 	/**
 	 * Instantiates a new individual for an evolution strategy.
-	 * 
-	 * @param indiv
-	 *        an other individual
+	 *
+	 * @param indiv an other individual
 	 */
 	public EvolStratIndividual(EvolStratIndividual indiv) {
 		this.position = indiv.getPosition();
@@ -40,9 +37,8 @@ public class EvolStratIndividual implements Comparable<EvolStratIndividual> {
 
 	/**
 	 * Compares two individuals by fitness.
-	 * 
-	 * @param indiv
-	 *        an other individual
+	 *
+	 * @param indiv an other individual
 	 */
 	@Override
 	public int compareTo(EvolStratIndividual indiv) {
@@ -51,9 +47,8 @@ public class EvolStratIndividual implements Comparable<EvolStratIndividual> {
 
 	/**
 	 * Sets the fitness of the individual.
-	 * 
-	 * @param fitness
-	 *        the new fitness
+	 *
+	 * @param fitness the new fitness
 	 */
 	public void setFitness(double fitness) {
 		this.fitness = fitness;
@@ -61,7 +56,7 @@ public class EvolStratIndividual implements Comparable<EvolStratIndividual> {
 
 	/**
 	 * Gets the fitness of the individual.
-	 * 
+	 *
 	 * @return the fitness
 	 */
 	public double getFitness() {
@@ -70,9 +65,8 @@ public class EvolStratIndividual implements Comparable<EvolStratIndividual> {
 
 	/**
 	 * Sets the position of the individual.
-	 * 
-	 * @param position
-	 *        the new position
+	 *
+	 * @param position the new position
 	 */
 	public void setPosition(VPoint position) {
 		this.position = position;
@@ -80,7 +74,7 @@ public class EvolStratIndividual implements Comparable<EvolStratIndividual> {
 
 	/**
 	 * Gets the position of the individual.
-	 * 
+	 *
 	 * @return the position
 	 */
 	public VPoint getPosition() {
@@ -89,9 +83,8 @@ public class EvolStratIndividual implements Comparable<EvolStratIndividual> {
 
 	/**
 	 * Sets the standard derivation for the individual.
-	 * 
-	 * @param sigma
-	 *        the new standard derivation
+	 *
+	 * @param sigma the new standard derivation
 	 */
 	public void setSigma(VPoint sigma) {
 		this.sigma = sigma;
@@ -99,7 +92,7 @@ public class EvolStratIndividual implements Comparable<EvolStratIndividual> {
 
 	/**
 	 * Gets the standard derivation for the individual.
-	 * 
+	 *
 	 * @return the sigma
 	 */
 	public VPoint getSigma() {

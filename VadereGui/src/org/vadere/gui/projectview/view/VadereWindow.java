@@ -89,10 +89,10 @@ public class VadereWindow extends JFrame implements ProjectFinishedListener, Sin
 	/**
 	 * GUI elements (part of the view) of the {@link VadereWindow}
 	 *
-	 * TODO [priority=medium] [task=refactoring] do the actions have to be stored in member
 	 * variables or could it be better to store them locally where they are needed? Some are used in
 	 * different methods, maybe only store these as members?
 	 */
+	//TODO [priority=medium] [task=refactoring] do the actions have to be stored in member
 	private JPanel contentPane = new JPanel();
 	private JPanel controlPanel = new JPanel();
 	private VTable scenarioTable;
@@ -236,7 +236,6 @@ public class VadereWindow extends JFrame implements ProjectFinishedListener, Sin
 //		frame.setUndecorated(true);
 //		frame.getRootPane().setWindowDecorationStyle(JRootPane.QUESTION_DIALOG);
 
-		//TODO: ASK FOR PERMISSION
 		java.util.List<Image> images = new ArrayList<Image>();
 		Resources res = Resources.getInstance("global");
 

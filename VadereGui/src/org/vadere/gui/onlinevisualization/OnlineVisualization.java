@@ -60,7 +60,8 @@ public class OnlineVisualization implements PassiveCallback {
 	}
 
 	@Override
-	public void preUpdate(double simTimeInSec) {}
+	public void preUpdate(double simTimeInSec) {
+	}
 
 	@Override
 	public void postUpdate(double simTimeInSec) {

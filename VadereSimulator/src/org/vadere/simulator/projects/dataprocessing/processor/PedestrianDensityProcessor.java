@@ -8,7 +8,6 @@ import org.vadere.state.scenario.dynamicelements.Pedestrian;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public abstract class PedestrianDensityProcessor extends DataProcessor<TimestepPedestrianIdKey, Double> {

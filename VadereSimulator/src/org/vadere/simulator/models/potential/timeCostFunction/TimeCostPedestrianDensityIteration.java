@@ -17,28 +17,36 @@ import java.util.Collection;
  * using the gaussian formula from Seitz paper. We currently use the
  * getSpatialMapPeds for getting the neighbours (3 * size x size * 3), with size
  * = 3. The function is for the purpose of navigation around groups.
- * 
+ *
  * This implementation is not efficient, but was used to compare the values and
  * the performance of the different implementations. Use the
  * TimeCostPedestrianDensity instead.
- * 
- * 
  */
 @Deprecated
 public class TimeCostPedestrianDensityIteration implements ITimeCostFunction {
-	/** the floor for the time cost function in general the whole scenario. */
+	/**
+	 * the floor for the time cost function in general the whole scenario.
+	 */
 	private final Topography floor;
 
-	/** the for the pedestrian density function. */
+	/**
+	 * the for the pedestrian density function.
+	 */
 	private final double scaleFactor;
 
-	/** the varianz of the pedestrian density function. */
+	/**
+	 * the varianz of the pedestrian density function.
+	 */
 	private final double varianz;
 
-	/** the next decorator (time cost function) of the decorator pattern. */
+	/**
+	 * the next decorator (time cost function) of the decorator pattern.
+	 */
 	private final ITimeCostFunction timeCostFunction;
 
-	/** the loading of the pedestrian density (= c_p). */
+	/**
+	 * the loading of the pedestrian density (= c_p).
+	 */
 	private IPedestrianLoadingStrategy loadingStrategy;
 
 	/**
@@ -47,7 +55,9 @@ public class TimeCostPedestrianDensityIteration implements ITimeCostFunction {
 	 */
 	private boolean useDynamicLoading = false;
 
-	/** only for logging information. */
+	/**
+	 * only for logging information.
+	 */
 	private long runtime = 0;
 	private int updateCount = 0;
 	private double heighestCost = 0.0;

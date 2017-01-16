@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 /**
  * Prints a scenario file with obstacles, sources and targets forming a given
  * text.
- * 
  */
 public class TextScenarioPrinter {
 	private static final int widthPerCharacter = 3;
@@ -33,10 +32,8 @@ public class TextScenarioPrinter {
 
 	/**
 	 * Entry point, use arg0 to set the text, arg1 to set the output file name.
-	 * 
-	 * @param args
-	 *        string array. args[0] must be the text, args[1] the output
-	 *        file name.
+	 *
+	 * @param args string array. args[0] must be the text, args[1] the output file name.
 	 */
 	public static void main(String... args) {
 		if (args.length < 2) {
@@ -58,14 +55,12 @@ public class TextScenarioPrinter {
 
 	/**
 	 * Creates a scenario file from a given text.
-	 * 
-	 * @param text
-	 *        the text to convert to a scenario
-	 * @param textScenarioFilePath
-	 *        the file path to the new scenario file
+	 *
+	 * @param text                 the text to convert to a scenario
+	 * @param textScenarioFilePath the file path to the new scenario file
 	 */
 	private static void createTextScenario(String text,
-			String textScenarioFilePath) {
+										   String textScenarioFilePath) {
 		String[] lines = text.split("\n");
 		int maxLenPerLine = 0;
 		for (String line : lines) {
@@ -115,17 +110,16 @@ public class TextScenarioPrinter {
 	/**
 	 * Converts a given char to a sequence of scenario object definitions stored
 	 * in a string.
-	 * 
-	 * @param letter
-	 * @return a string array containing the topography [0] and object
-	 *         definitions [1] (obstacles, sources, targets).
+	 *
+	 * @return a string array containing the topography [0] and object definitions [1] (obstacles,
+	 * sources, targets).
 	 */
 	private static String[] convertLetterToscenario(char letter) {
 		// a line break just means adding a character width to y
 		if (letter == '\n') {
 			yAdd += widthPerCharacter;
 			xAdd = 0;
-			return new String[] {"", ""};
+			return new String[]{"", ""};
 		}
 
 		Path pathToLetterDefinition = Paths.get(pathToLetters,
@@ -165,20 +159,19 @@ public class TextScenarioPrinter {
 		xAdd += widthPerCharacter;
 		targetCounter += targetCounterAdd;
 
-		return new String[] {topographyOutput, objectsOutput};
+		return new String[]{topographyOutput, objectsOutput};
 	}
 
 	/**
 	 * Corrects the coordinates in the given line of a scenario definition file
 	 * according to current letterCounter, sourceCounter and targetCounter
 	 * values.
-	 * 
-	 * @param line
-	 *        line of a scenario definition file
+	 *
+	 * @param line line of a scenario definition file
 	 * @return the same line, only that all contained coordinates are adjusted.
 	 */
 	private static String correctCoordinates(String line) {
-		String[] coordinateTypes = new String[] {"x", "y", "xMin", "xMax",
+		String[] coordinateTypes = new String[]{"x", "y", "xMin", "xMax",
 				"yMin", "yMax", "targetId", "id"};
 
 		for (String type : coordinateTypes) {

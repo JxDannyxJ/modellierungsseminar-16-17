@@ -20,15 +20,25 @@ import java.util.stream.Stream;
  */
 public class CellGrid {
 
-	/** Width of the grid. */
+	/**
+	 * Width of the grid.
+	 */
 	protected final double width;
-	/** Height of the grid. */
+	/**
+	 * Height of the grid.
+	 */
 	protected final double height;
-	/** Distance of point along x- and y-axis */
+	/**
+	 * Distance of point along x- and y-axis
+	 */
 	protected final double resolution;
-	/** Number of points along x axis. */
+	/**
+	 * Number of points along x axis.
+	 */
 	protected final int numPointsX;
-	/** Number of points along y axis. */
+	/**
+	 * Number of points along y axis.
+	 */
 	protected final int numPointsY;
 
 	protected CellState[][] values;
@@ -38,7 +48,7 @@ public class CellGrid {
 	 * point values are initialized with 'value'.
 	 */
 	public CellGrid(double width, double height, double resolution,
-			CellState value) {
+					CellState value) {
 		this.width = width;
 		this.height = height;
 		this.resolution = resolution;
@@ -70,7 +80,9 @@ public class CellGrid {
 		}
 	}
 
-	/** Returns the values of all data points. */
+	/**
+	 * Returns the values of all data points.
+	 */
 	public Iterable<CellState> getRawBuffer() {
 		return new Iterable<CellState>() {
 			@Override
@@ -104,7 +116,9 @@ public class CellGrid {
 		};
 	}
 
-	/** Returns the width of the grid. */
+	/**
+	 * Returns the width of the grid.
+	 */
 	public double getWidth() {
 		return width;
 	}
@@ -117,17 +131,23 @@ public class CellGrid {
 		return resolution;
 	}
 
-	/** Returns the height of the grid. */
+	/**
+	 * Returns the height of the grid.
+	 */
 	public double getHeight() {
 		return height;
 	}
 
-	/** Returns the number of grid points along the x-axis. */
+	/**
+	 * Returns the number of grid points along the x-axis.
+	 */
 	public int getNumPointsX() {
 		return numPointsX;
 	}
 
-	/** Returns the number of grid points along the y-axis. */
+	/**
+	 * Returns the number of grid points along the y-axis.
+	 */
 	public int getNumPointsY() {
 		return numPointsY;
 	}
@@ -233,7 +253,7 @@ public class CellGrid {
 	 * Resturns the distance of grid points specified by its matrix indices.
 	 */
 	public double pointDistance(int pointX1, int pointY1, int pointX2,
-			int pointY2) {
+								int pointY2) {
 		return Math.sqrt(Math.pow(pointY2 - pointY1, 2)
 				+ Math.pow(pointX2 - pointX1, 2))
 				* resolution;
@@ -246,7 +266,9 @@ public class CellGrid {
 		return pointDistance(p1.x, p1.y, p2.x, p2.y);
 	}
 
-	/** Sets the values of all grid points to 'value'. */
+	/**
+	 * Sets the values of all grid points to 'value'.
+	 */
 	public void reset(CellState value) {
 		for (int row = 0; row < numPointsY; row++) {
 			for (int col = 0; col < numPointsX; col++) {
@@ -255,7 +277,9 @@ public class CellGrid {
 		}
 	}
 
-	/** Dumps the grid values. */
+	/**
+	 * Dumps the grid values.
+	 */
 	public void dump() {
 		for (int y = 0; y < numPointsY; ++y) {
 			for (int x = 0; x < numPointsX; ++x) {
@@ -265,7 +289,9 @@ public class CellGrid {
 		}
 	}
 
-	/** Returns a copy of the grid. See copy constructor for more information. */
+	/**
+	 * Returns a copy of the grid. See copy constructor for more information.
+	 */
 	@Override
 	public Object clone() {
 		return new CellGrid(this);

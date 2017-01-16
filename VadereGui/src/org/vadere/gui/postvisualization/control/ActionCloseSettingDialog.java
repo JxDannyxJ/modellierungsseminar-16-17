@@ -6,6 +6,7 @@ import org.vadere.gui.postvisualization.PostVisualisation;
 import org.vadere.util.io.IOUtils;
 
 import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.prefs.BackingStoreException;

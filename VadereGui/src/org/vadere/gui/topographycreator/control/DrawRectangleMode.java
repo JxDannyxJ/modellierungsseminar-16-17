@@ -2,6 +2,7 @@ package org.vadere.gui.topographycreator.control;
 
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
+
 import javax.swing.*;
 import javax.swing.undo.UndoableEditSupport;
 
@@ -11,8 +12,6 @@ import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 
 /**
  * In this mode Retangles will be generated.
- * 
- * 
  */
 public class DrawRectangleMode extends DefaultSelectionMode {
 	private final UndoableEditSupport undoSupport;

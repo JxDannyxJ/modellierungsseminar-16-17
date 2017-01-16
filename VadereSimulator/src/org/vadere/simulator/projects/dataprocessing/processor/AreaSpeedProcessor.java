@@ -12,48 +12,47 @@ import java.util.Map;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class AreaSpeedProcessor extends AreaDataProcessor<Double> {
-    private PedestrianPositionProcessor pedPosProc;
-    private PedestrianVelocityProcessor pedVelProc;
+	private PedestrianPositionProcessor pedPosProc;
+	private PedestrianVelocityProcessor pedVelProc;
 
-    public AreaSpeedProcessor() {
-        super("areaSpeed");
-    }
+	public AreaSpeedProcessor() {
+		super("areaSpeed");
+	}
 
-    @Override
-    protected void doUpdate(final SimulationState state) {
-        int step = state.getStep();
+	@Override
+	protected void doUpdate(final SimulationState state) {
+		int step = state.getStep();
 
-        this.pedPosProc.update(state);
-        this.pedVelProc.update(state);
+		this.pedPosProc.update(state);
+		this.pedVelProc.update(state);
 
-        Map<PedestrianIdKey, VPoint> positionMap = this.pedPosProc.getPositions(new TimestepKey(step));
+		Map<PedestrianIdKey, VPoint> positionMap = this.pedPosProc.getPositions(new TimestepKey(step));
 
-        int pedCount = 0;
-        double sumVelocities = 0.0;
+		int pedCount = 0;
+		double sumVelocities = 0.0;
 
-        for (Map.Entry<PedestrianIdKey, VPoint> entry : positionMap.entrySet()) {
-            final int pedId = entry.getKey().getPedestrianId();
-            final VPoint pos = entry.getValue();
+		for (Map.Entry<PedestrianIdKey, VPoint> entry : positionMap.entrySet()) {
+			final int pedId = entry.getKey().getPedestrianId();
+			final VPoint pos = entry.getValue();
 
-            if (getMeasurementArea().contains(pos)) {
-                sumVelocities += this.pedVelProc.getValue(new TimestepPedestrianIdKey(step, pedId));
-                pedCount++;
-            }
-        }
+			if (getMeasurementArea().contains(pos)) {
+				sumVelocities += this.pedVelProc.getValue(new TimestepPedestrianIdKey(step, pedId));
+				pedCount++;
+			}
+		}
 
-        this.setValue(new TimestepKey(step), sumVelocities / pedCount);
-    }
+		this.setValue(new TimestepKey(step), sumVelocities / pedCount);
+	}
 
-    @Override
-    public void init(final ProcessorManager manager) {
-        AttributesAreaSpeedProcessor att = (AttributesAreaSpeedProcessor) this.getAttributes();
-        this.pedPosProc = (PedestrianPositionProcessor) manager.getProcessor(att.getPositionProcessorId());
-        this.pedVelProc = (PedestrianVelocityProcessor) manager.getProcessor(att.getVelocityProcessorId());
+	@Override
+	public void init(final ProcessorManager manager) {
+		AttributesAreaSpeedProcessor att = (AttributesAreaSpeedProcessor) this.getAttributes();
+		this.pedPosProc = (PedestrianPositionProcessor) manager.getProcessor(att.getPositionProcessorId());
+		this.pedVelProc = (PedestrianVelocityProcessor) manager.getProcessor(att.getVelocityProcessorId());
 
-        super.init(manager);
-    }
+		super.init(manager);
+	}
 }

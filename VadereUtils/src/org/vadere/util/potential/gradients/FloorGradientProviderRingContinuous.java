@@ -5,7 +5,6 @@ import org.vadere.util.math.MathUtil;
 
 /**
  * Provides gradients for a ring / ellipsoid structure.
- * 
  */
 public class FloorGradientProviderRingContinuous implements GradientProvider {
 
@@ -18,14 +17,14 @@ public class FloorGradientProviderRingContinuous implements GradientProvider {
 	private VPoint center;
 
 	public FloorGradientProviderRingContinuous(VPoint center,
-			double radiusSmall, double radiusBig, double xStretch,
-			double yStretch) {
+											   double radiusSmall, double radiusBig, double xStretch,
+											   double yStretch) {
 		this(center, radiusSmall, radiusBig, xStretch, yStretch, false);
 	}
 
 	public FloorGradientProviderRingContinuous(VPoint center,
-			double radiusSmall, double radiusBig, double xStretch,
-			double yStretch, boolean directionCCW) {
+											   double radiusSmall, double radiusBig, double xStretch,
+											   double yStretch, boolean directionCCW) {
 		this.center = center;
 		this.radiusSmall = radiusSmall;
 		this.radiusBig = radiusBig;
@@ -65,12 +64,12 @@ public class FloorGradientProviderRingContinuous implements GradientProvider {
 			grad[1] += Math.signum(localPos[1])
 					* OBSTACLE_HEIGHT
 					* MathUtil.cutExp(distToRadiusBig,
-							FloorGradientProviderRingContinuous.CUTOFF);
+					FloorGradientProviderRingContinuous.CUTOFF);
 			double distToRadiusSmall = Math.abs(distance - radiusSmall);
 			grad[1] += -Math.signum(localPos[1])
 					* OBSTACLE_HEIGHT
 					* MathUtil.cutExp(distToRadiusSmall,
-							FloorGradientProviderRingContinuous.CUTOFF);
+					FloorGradientProviderRingContinuous.CUTOFF);
 
 			if (Math.abs(localPos[1]) > radiusBig) {
 				grad[0] = 0;
@@ -110,11 +109,11 @@ public class FloorGradientProviderRingContinuous implements GradientProvider {
 			grad[0] += (localPos[0])
 					* OBSTACLE_HEIGHT
 					* MathUtil.cutExp(distToRadius,
-							FloorGradientProviderRingContinuous.CUTOFF);
+					FloorGradientProviderRingContinuous.CUTOFF);
 			grad[1] += (localPos[1])
 					* OBSTACLE_HEIGHT
 					* MathUtil.cutExp(distToRadius,
-							FloorGradientProviderRingContinuous.CUTOFF);
+					FloorGradientProviderRingContinuous.CUTOFF);
 		}
 		if (distance > this.radiusBig) {
 			grad[0] += (localPos[0]) * OBSTACLE_HEIGHT;
@@ -126,11 +125,11 @@ public class FloorGradientProviderRingContinuous implements GradientProvider {
 			grad[0] += (-localPos[0])
 					* OBSTACLE_HEIGHT
 					* MathUtil.cutExp(distToRadius,
-							FloorGradientProviderRingContinuous.CUTOFF);
+					FloorGradientProviderRingContinuous.CUTOFF);
 			grad[1] += (-localPos[1])
 					* OBSTACLE_HEIGHT
 					* MathUtil.cutExp(distToRadius,
-							FloorGradientProviderRingContinuous.CUTOFF);
+					FloorGradientProviderRingContinuous.CUTOFF);
 		}
 		if (distance < this.radiusSmall) {
 			grad[0] += (-localPos[0]) * OBSTACLE_HEIGHT;

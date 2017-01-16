@@ -9,8 +9,6 @@ import org.vadere.state.scenario.Topography;
 
 /**
  * Part of the command pattern to re- and undo resetTopography.
- * 
- * 
  */
 public class EditResetScenario extends AbstractUndoableEdit {
 	private static final long serialVersionUID = 2514392730749834389L;

@@ -18,12 +18,12 @@ public class PedestrianGaussianFilter<E extends Pedestrian> implements IGaussian
 	private static Logger logger = LogManager.getLogger(PedestrianGaussianFilter.class);
 
 	public PedestrianGaussianFilter(final Collection<E> pedestrians, final IGaussianFilter filter,
-			final IPedestrianLoadingStrategy pedestrianLoadingStrategy) {
+									final IPedestrianLoadingStrategy pedestrianLoadingStrategy) {
 		this(pedestrians, filter, pedestrianLoadingStrategy, p -> true);
 	}
 
 	public PedestrianGaussianFilter(final Collection<E> pedestrians, final IGaussianFilter filter,
-			final IPedestrianLoadingStrategy pedestrianLoadingStrategy, final Predicate<E> pedestrianPredicate) {
+									final IPedestrianLoadingStrategy pedestrianLoadingStrategy, final Predicate<E> pedestrianPredicate) {
 		this.filter = filter;
 		this.pedestrians = pedestrians;
 		this.pedestrianPredicate = pedestrianPredicate;

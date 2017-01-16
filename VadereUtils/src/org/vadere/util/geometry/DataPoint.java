@@ -7,9 +7,8 @@ import org.vadere.util.geometry.shapes.VPoint;
 /**
  * Point class representing one {@link VPoint} in 2D space with an additional
  * double-valued data store.
- * 
+ *
  * An order can be applied with the isGreaterThan method.
- * 
  */
 public class DataPoint extends VPoint implements Comparable<VPoint> {
 
@@ -47,8 +46,7 @@ public class DataPoint extends VPoint implements Comparable<VPoint> {
 	}
 
 	/**
-	 * @param data
-	 *        the data to set
+	 * @param data the data to set
 	 */
 	public void setData(double data) {
 		this.data = data;
@@ -61,8 +59,6 @@ public class DataPoint extends VPoint implements Comparable<VPoint> {
 
 	/**
 	 * Creates a comparator for the data values.
-	 * 
-	 * @return
 	 */
 	public static Comparator<DataPoint> getComparator() {
 		return new Comparator<DataPoint>() {
@@ -82,8 +78,6 @@ public class DataPoint extends VPoint implements Comparable<VPoint> {
 	/**
 	 * Creates a comparator for the data values. If the values agree, the
 	 * Point.compareTo is called to compare x,y values.
-	 * 
-	 * @return
 	 */
 	public static Comparator<? super DataPoint> getPointComparator() {
 		return new Comparator<DataPoint>() {

@@ -11,7 +11,7 @@ public class ActionSetPedestrianColor extends ActionSetColor {
 	private final JComboBox<Integer> comboBox;
 
 	public ActionSetPedestrianColor(final String name, final PostvisualizationModel model, final JPanel coloredPanel,
-			final JComboBox<Integer> comboBox) {
+									final JComboBox<Integer> comboBox) {
 		super(name, model, coloredPanel);
 		this.comboBox = comboBox;
 	}

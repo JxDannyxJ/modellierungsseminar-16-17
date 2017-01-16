@@ -36,9 +36,9 @@ public class MoveSpawnDelayIntoDistributionParametersIncident extends Incident {
 					// copy spawn delay to distribution parameters
 					if (spawnDelay != -1.0 &&
 							(distribution == null
-							|| distribution.asText().equals(AttributesSource.CONSTANT_DISTRIBUTION))) {
+									|| distribution.asText().equals(AttributesSource.CONSTANT_DISTRIBUTION))) {
 
-						s.set("distributionParameters", JsonConverter.toJsonNode(new Double[] {spawnDelay}));
+						s.set("distributionParameters", JsonConverter.toJsonNode(new Double[]{spawnDelay}));
 					}
 
 					s.remove("spawnDelay");

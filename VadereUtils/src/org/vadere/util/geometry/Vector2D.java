@@ -6,12 +6,12 @@ public class Vector2D extends VPoint {
 
 	/**
 	 * generated serial version UID
-	 * 
 	 */
 	private static final long serialVersionUID = -9086115463015728807L;
 	public static final VPoint ZERO = new VPoint(0, 0);
 
-	public Vector2D() {}
+	public Vector2D() {
+	}
 
 	public Vector2D(double x, double y) {
 		super(x, y);
@@ -52,11 +52,6 @@ public class Vector2D extends VPoint {
 
 	/**
 	 * The (smallest possible) angle at C from the triangle ACB.
-	 * 
-	 * @param A
-	 * @param C
-	 * @param B
-	 * @return
 	 */
 	public static double angle(VPoint A, VPoint C, VPoint B) {
 		double phi1 = new Vector2D(A).angleTo(C);
@@ -80,7 +75,6 @@ public class Vector2D extends VPoint {
 	}
 
 	/**
-	 * 
 	 * Computes the angle between the x-axis through the given Point "center" and this.
 	 * Result is in interval (0,2*PI) according to standard math usage.
 	 */

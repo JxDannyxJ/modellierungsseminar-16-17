@@ -9,6 +9,7 @@ import org.vadere.gui.projectview.view.VDialogManager;
 import org.vadere.util.io.IOUtils;
 
 import javax.swing.*;
+
 import java.io.IOException;
 import java.util.prefs.BackingStoreException;
 
@@ -26,11 +27,10 @@ public abstract class ActionAbstractSaveProject extends AbstractAction {
 
 	/**
 	 * Ask user if they want to save the project. If yes, see saveProjectUnlessUserCancels.
-	 * 
-	 * @param model
+	 *
 	 * @return false only if the user canceled the operation
 	 * @throws IOException exception to cause actions like "new project" and "close application" not
-	 *         to proceed (prevent data loss).
+	 *                     to proceed (prevent data loss).
 	 */
 	static boolean askSaveUnlessUserCancels(ProjectViewModel model) throws IOException {
 		if (!model.hasProjectChanged())
@@ -54,11 +54,10 @@ public abstract class ActionAbstractSaveProject extends AbstractAction {
 	/**
 	 * Save the project. Before that, if necessary, show the save dialog and give the user the
 	 * option to cancel.
-	 * 
-	 * @param model
+	 *
 	 * @return false only if the user canceled the save dialog
 	 * @throws IOException exception to cause actions like "new project" and "close application" not
-	 *         to proceed (prevent data loss).
+	 *                     to proceed (prevent data loss).
 	 */
 	static boolean saveProjectUnlessUserCancels(ProjectViewModel model) throws IOException {
 		if (model.getCurrentProjectPath() == null && !doesUserChooseToSave(model))
@@ -72,7 +71,7 @@ public abstract class ActionAbstractSaveProject extends AbstractAction {
 	/**
 	 * Show project save dialog to let the user choose the project path. If the user clicks save,
 	 * set the model's project path to the selected path.
-	 * 
+	 *
 	 * @return false only if the user canceled the save dialog
 	 */
 	static boolean doesUserChooseToSave(ProjectViewModel model) {
@@ -86,10 +85,9 @@ public abstract class ActionAbstractSaveProject extends AbstractAction {
 
 	/**
 	 * Actually save the project to disk. The model must have a valid project path.
-	 * 
-	 * @param model
-	 * @throws IOException exceptions will be handled here but re-thrown to cause actions like
-	 *         "new project" and "close application" not to proceed (prevent data loss).
+	 *
+	 * @throws IOException exceptions will be handled here but re-thrown to cause actions like "new
+	 *                     project" and "close application" not to proceed (prevent data loss).
 	 */
 	static void saveProject(ProjectViewModel model) throws IOException {
 		if (model.isProjectAvailable()) {

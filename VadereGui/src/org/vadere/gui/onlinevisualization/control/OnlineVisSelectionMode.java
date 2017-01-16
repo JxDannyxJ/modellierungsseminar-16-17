@@ -12,9 +12,8 @@ public class OnlineVisSelectionMode extends DefaultSelectionMode {
 
 	/**
 	 * Just do nothing since we have no special cursor for the OnlineVisualization!
-	 * 
-	 * @param e
 	 */
 	@Override
-	public void mouseMoved(final MouseEvent e) {}
+	public void mouseMoved(final MouseEvent e) {
+	}
 }

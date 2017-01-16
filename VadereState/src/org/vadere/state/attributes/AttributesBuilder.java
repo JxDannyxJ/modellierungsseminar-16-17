@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 /**
  * This class represents a way of importing json files into attribute objects by
  * using the google json class
+ *
  * @param <T> generic class derived from the abstract class Attributes
  */
 public class AttributesBuilder<T extends Attributes> {
@@ -21,7 +22,7 @@ public class AttributesBuilder<T extends Attributes> {
 	private final Gson gson;
 
 	@SuppressWarnings("unchecked")
-    @Deprecated
+	@Deprecated
 	public AttributesBuilder(T attributes) {
 		this.gson = IOUtils.getGson();
 		this.attributes = (T) gson.fromJson(gson.toJson(attributes), attributes.getClass());
@@ -29,7 +30,8 @@ public class AttributesBuilder<T extends Attributes> {
 
 	/**
 	 * Sets the field of an attribute on the specified value
-	 * @param name of the field (ID of the field)
+	 *
+	 * @param name  of the field (ID of the field)
 	 * @param value to set on the given field ID
 	 */
 	public void setField(String name, Object value) {
@@ -48,6 +50,7 @@ public class AttributesBuilder<T extends Attributes> {
 	/**
 	 * Extracts the attributes from a json by converting it first to a gson file and then
 	 * returning them as generic attribute object
+	 *
 	 * @return generic attribute object
 	 */
 	@SuppressWarnings("unchecked")

@@ -43,11 +43,12 @@ public class Source implements ScenarioElement {
 
 	@Override
 	public void setAttributes(AttributesScenarioElement attributes) {
-		this.attributes = (AttributesSource)attributes;
+		this.attributes = (AttributesSource) attributes;
 	}
 
 	/**
 	 * Getter for the start time of the source spawning elements
+	 *
 	 * @return the start time
 	 */
 	@SuppressWarnings("unused")

@@ -23,7 +23,6 @@ import java.util.List;
 /**
  * A tupel (PotentialFieldCalculator, AttributesFloorField). Furthermore this class
  * contains the factory method to create a PotentialFieldAndInitializer object.
- *
  */
 class PotentialFieldAndInitializer {
 	protected final EikonalSolver eikonalSolver;

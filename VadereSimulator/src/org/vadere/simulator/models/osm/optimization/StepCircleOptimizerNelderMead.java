@@ -19,7 +19,6 @@ import org.vadere.util.geometry.shapes.VPoint;
 
 /**
  * The Class StepCircleOptimizerNelderMead.
- * 
  */
 public class StepCircleOptimizerNelderMead implements StepCircleOptimizer {
 
@@ -54,7 +53,7 @@ public class StepCircleOptimizerNelderMead implements StepCircleOptimizer {
 
 		try {
 
-			double[][] simplex = new double[][] {{0, 0}, {step, step}, {step, -step}};
+			double[][] simplex = new double[][]{{0, 0}, {step, step}, {step, -step}};
 			((DirectSearchOptimizer) optimizer).setStartConfiguration(simplex);
 			optimizer.setConvergenceChecker(new NelderMeadConvergenceChecker());
 			newMinimum = optimizer.optimize(potentialEvaluationFunction, GoalType.MINIMIZE, minimum).getPoint();

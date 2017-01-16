@@ -18,11 +18,9 @@ import java.util.*;
  * existing rows is to use the iterators {@link RowIterator} or {@link RowArrayIterator}. The reason
  * is that it
  * is inefficient to reference via index since the implementation is based on {@link LinkedList}.
- * 
+ *
  * Note: The column size difference is maximal +-1, if the row is not complete. This implementation
  * is not synchronized.
- * 
- *
  */
 public class Table implements Iterable<Row> {
 	private Map<String, LinkedList<Object>> table;
@@ -34,7 +32,7 @@ public class Table implements Iterable<Row> {
 
 	/**
 	 * Construct a new fixed column sized {@link org.vadere.util.data.Table}.
-	 * 
+	 *
 	 * @param columnNames immutable columnNames
 	 */
 	public Table(final String... columnNames) {
@@ -45,7 +43,7 @@ public class Table implements Iterable<Row> {
 	}
 
 	public Table(final List<String> columnNames) {
-		this(columnNames.toArray(new String[] {}));
+		this(columnNames.toArray(new String[]{}));
 	}
 
 	public Table(final String[] columnNames, final Object[] values, final int size) {
@@ -65,7 +63,7 @@ public class Table implements Iterable<Row> {
 
 	/**
 	 * Returns the a copy of all column names of this table.
-	 * 
+	 *
 	 * @return a copy of all column names of this table
 	 */
 	public String[] getColumnNames() {
@@ -107,10 +105,10 @@ public class Table implements Iterable<Row> {
 	 * will be thrown. If one try to add an entry to a full column an
 	 * {@link IndexOutOfBoundsException}
 	 * will be thrown.
-	 * 
+	 *
 	 * @param columnName name of the column
-	 * @param value the value that will be inserted
-	 * @throws IllegalArgumentException if the column does not exist
+	 * @param value      the value that will be inserted
+	 * @throws IllegalArgumentException  if the column does not exist
 	 * @throws IndexOutOfBoundsException if the column is full before the call is happened
 	 */
 	public void addColumnEntry(final String columnName, final Object value) {
@@ -160,7 +158,7 @@ public class Table implements Iterable<Row> {
 	 * tables has to be of the same size. If there a duplicated column names
 	 * this table will stay with its column. Futhermore the columns of the other table
 	 * will be added behind the this table.
-	 * 
+	 *
 	 * @param table the table that will be merged into this table
 	 */
 	public void merge(final Table table) {
@@ -201,9 +199,9 @@ public class Table implements Iterable<Row> {
 	/**
 	 * Returns a single value of this table. This is a expensive call
 	 * since the data structure use LinkedLists. You should use the iterator.
-	 * 
+	 *
 	 * @param columnName the column of the entry
-	 * @param row the row of the entry
+	 * @param row        the row of the entry
 	 * @return a single value of this table
 	 */
 	public Object getEntry(final String columnName, final int row) {
@@ -215,7 +213,7 @@ public class Table implements Iterable<Row> {
 
 	/**
 	 * Returns a whole column if it exist, otherwise it will return null.
-	 * 
+	 *
 	 * @param columnName the name of the column
 	 * @return a whole column if it exist, null otherwise
 	 */
@@ -226,7 +224,7 @@ public class Table implements Iterable<Row> {
 
 	/**
 	 * Returns the number of filled rows in this table.
-	 * 
+	 *
 	 * @return the number of filled rows in this table
 	 */
 	public int size() {
@@ -235,7 +233,7 @@ public class Table implements Iterable<Row> {
 
 	/**
 	 * Returns the column capacity of this table.
-	 * 
+	 *
 	 * @return the column capacity of this table
 	 */
 	public int columns() {
@@ -244,7 +242,7 @@ public class Table implements Iterable<Row> {
 
 	/**
 	 * Returns true if this table contains no elements.
-	 * 
+	 *
 	 * @return true if this table contains no elements
 	 */
 	public boolean isEmpty() {
@@ -307,8 +305,6 @@ public class Table implements Iterable<Row> {
 
 	/**
 	 * A {@link ListIterator} for manipulate the Table (remove, and update rows).
-	 * 
-	 *
 	 */
 	private class RowIterator implements ListIterator<Row> {
 
@@ -409,8 +405,6 @@ public class Table implements Iterable<Row> {
 
 	/**
 	 * A {@link ListIterator} for manipulate the Table (remove, and update rows).
-	 * 
-	 *
 	 */
 	private class RowArrayIterator implements ListIterator<Object[]> {
 
@@ -430,10 +424,12 @@ public class Table implements Iterable<Row> {
 						int index = 0;
 
 						@Override
-						public void set(Object e) {}
+						public void set(Object e) {
+						}
 
 						@Override
-						public void remove() {}
+						public void remove() {
+						}
 
 						@Override
 						public int previousIndex() {
@@ -472,7 +468,8 @@ public class Table implements Iterable<Row> {
 						}
 
 						@Override
-						public void add(Object e) {}
+						public void add(Object e) {
+						}
 					});
 				}
 
@@ -546,7 +543,8 @@ public class Table implements Iterable<Row> {
 		@Override
 		public void remove() {
 			for (ListIterator<Object> iterator : iteratorList) {
-				iterator.remove();;
+				iterator.remove();
+				;
 			}
 			size--;
 		}

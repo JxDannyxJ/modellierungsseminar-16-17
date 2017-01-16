@@ -13,6 +13,7 @@ import org.vadere.gui.postvisualization.view.ImageSizeDialog;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -28,7 +29,7 @@ public class ActionGeneratePNG extends AbstractAction implements IRendererChange
 	private final SimulationModel<? extends DefaultSimulationConfig> model;
 
 	public ActionGeneratePNG(final String name, Icon icon, final SimulationRenderer renderer,
-			final SimulationModel<? extends DefaultSimulationConfig> model) {
+							 final SimulationModel<? extends DefaultSimulationConfig> model) {
 		super(name, icon);
 		generator = new ImageGenerator(renderer, model);
 		this.model = model;

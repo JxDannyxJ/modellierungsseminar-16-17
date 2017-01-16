@@ -19,7 +19,7 @@ public class BeachLineInternal implements BeachLineNode {
 	private HalfEdge halfEdge;
 
 	BeachLineInternal(BeachLineNode leftChild, BeachLineNode rightChild,
-			VPoint leftSite, VPoint rightSite) {
+					  VPoint leftSite, VPoint rightSite) {
 		this.leftChild = leftChild;
 		this.rightChild = rightChild;
 		this.leftSite = leftSite;

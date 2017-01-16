@@ -11,25 +11,25 @@ import org.vadere.util.geometry.shapes.VPoint;
  */
 
 public class FloorFieldProcessor extends DataProcessor<TimestepPositionKey, Double> {
-    private int targetId;
+	private int targetId;
 
-    public FloorFieldProcessor() {
-        super("potential");
-    }
+	public FloorFieldProcessor() {
+		super("potential");
+	}
 
-    @Override
-    protected void doUpdate(SimulationState state) {
-        // First try, TODO: Implementation
-        for (int x = 0; x < 50; ++x) {
-            for (int y = 0; y < 50; ++y) {
-                this.setValue(new TimestepPositionKey(state.getStep(), new VPoint(x, y)), 0.0);
-            }
-        }
-    }
+	@Override
+	protected void doUpdate(SimulationState state) {
+		// First try, TODO: Implementation
+		for (int x = 0; x < 50; ++x) {
+			for (int y = 0; y < 50; ++y) {
+				this.setValue(new TimestepPositionKey(state.getStep(), new VPoint(x, y)), 0.0);
+			}
+		}
+	}
 
-    @Override
-    public void init(ProcessorManager manager) {
-        AttributesFloorFieldProcessor att = (AttributesFloorFieldProcessor) this.getAttributes();
-        this.targetId = att.getTargetId();
-    }
+	@Override
+	public void init(ProcessorManager manager) {
+		AttributesFloorFieldProcessor att = (AttributesFloorFieldProcessor) this.getAttributes();
+		this.targetId = att.getTargetId();
+	}
 }

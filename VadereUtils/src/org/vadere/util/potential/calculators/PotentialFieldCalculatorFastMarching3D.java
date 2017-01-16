@@ -18,7 +18,6 @@ import org.vadere.util.potential.timecost.UnitTimeCostFunction3D;
 /**
  * Uses the fast-marching algorithm to solve the Eikonal equation (F(x) * |grad
  * phi|=1) in a given 3D room.
- * 
  */
 public class PotentialFieldCalculatorFastMarching3D {
 
@@ -73,7 +72,7 @@ public class PotentialFieldCalculatorFastMarching3D {
 		}
 	}
 
-	private Vector3D[] neighborPoints = new Vector3D[] {
+	private Vector3D[] neighborPoints = new Vector3D[]{
 			new Vector3D(-1, 0, 0), new Vector3D(1, 0, 0),
 			new Vector3D(0, -1, 0), new Vector3D(0, 1, 0),
 			new Vector3D(0, 0, -1), new Vector3D(0, 0, 1),};
@@ -86,10 +85,9 @@ public class PotentialFieldCalculatorFastMarching3D {
 
 	/**
 	 * Initializes the FM potential calculator with a time cost function F > 0.
-	 * 
-	 * @param timeCostFunction
-	 *        an ITimeCostFunction, that defines the time cost ( > 0 ) at
-	 *        every point on the grid.
+	 *
+	 * @param timeCostFunction an ITimeCostFunction, that defines the time cost ( > 0 ) at every
+	 *                         point on the grid.
 	 */
 	public PotentialFieldCalculatorFastMarching3D(
 			ITimeCostFunction3D timeCostFunction) {
@@ -105,13 +103,9 @@ public class PotentialFieldCalculatorFastMarching3D {
 
 	/**
 	 * Calculate the new potential for all targets using the Eikonal equation.
-	 * 
-	 * @param potential
-	 * @param elements
-	 * @param targets
 	 */
 	public double[][][] recalculate(double[][][] potential,
-			CellStateFD[][][] elements, List<Vector3D> targets) {
+									CellStateFD[][][] elements, List<Vector3D> targets) {
 		TreeSet<Vector3D> frozenPoints = new TreeSet<Vector3D>();
 		TreeSet<DistPoint3D> narrowBand = new TreeSet<DistPoint3D>();
 
@@ -158,17 +152,14 @@ public class PotentialFieldCalculatorFastMarching3D {
 	/**
 	 * Recalculates the potential at the given point, using the neigbor points
 	 * and the high accuracy version.
-	 * 
-	 * @param p
-	 *        point to recalculate the potential at
-	 * @param frozenPoints
-	 *        all frozen points so far
-	 * @param potential
-	 *        potential so far
+	 *
+	 * @param p            point to recalculate the potential at
+	 * @param frozenPoints all frozen points so far
+	 * @param potential    potential so far
 	 * @return potential value of the point
 	 */
 	private double recalculateAt(Vector3D p, TreeSet<Vector3D> frozenPoints,
-			double[][][] potential) {
+								 double[][][] potential) {
 		int x = (int) (p.x);
 		int y = (int) (p.y);
 		int z = (int) (p.z);
@@ -179,7 +170,7 @@ public class PotentialFieldCalculatorFastMarching3D {
 		double val2;
 
 		double cost = timeCostFunction.costAt(p);
-		double[] coeff = new double[] {-1 / (cost * cost), 0, 0};
+		double[] coeff = new double[]{-1 / (cost * cost), 0, 0};
 
 		// for all directions, add up the differences
 		for (int j = 0; j < 3; j++) {
@@ -226,15 +217,15 @@ public class PotentialFieldCalculatorFastMarching3D {
 				coeff[1] -= 2 * a * tp;
 				coeff[0] += a * (tp) * tp;
 			} else // low accuracy
-			if (val1 != Double.MAX_VALUE) {
-				coeff[2] += 1;
-				coeff[1] -= 2 * val1;
-				coeff[0] += val1 * val1;
-			}
+				if (val1 != Double.MAX_VALUE) {
+					coeff[2] += 1;
+					coeff[1] -= 2 * val1;
+					coeff[0] += val1 * val1;
+				}
 		}
 
 		double result = Double.MAX_VALUE;
-		double[] sol = new double[] {Double.MAX_VALUE, Double.MAX_VALUE};
+		double[] sol = new double[]{Double.MAX_VALUE, Double.MAX_VALUE};
 		int solutions = solve_quadratic(coeff, sol);
 		if (solutions == 2) {
 			result = Math.max(sol[0], sol[1]);
@@ -249,21 +240,16 @@ public class PotentialFieldCalculatorFastMarching3D {
 	/**
 	 * add all near points (in the neighborhood) to the given point. the
 	 * neighbors potential is evaluated using the recalculateAt function.
-	 * 
-	 * @param t
-	 *        point to find near points in the neighborhood
-	 * @param narrowBand
-	 *        the narrow band so far
-	 * @param frozenPoints
-	 *        the frozenpoints so far
-	 * @param elements
-	 *        all elements in the room, obstacles persons etc.
-	 * @param potential
-	 *        the potential in the room, so far
+	 *
+	 * @param t            point to find near points in the neighborhood
+	 * @param narrowBand   the narrow band so far
+	 * @param frozenPoints the frozenpoints so far
+	 * @param elements     all elements in the room, obstacles persons etc.
+	 * @param potential    the potential in the room, so far
 	 */
 	private void addNearPoints(Vector3D t, TreeSet<DistPoint3D> narrowBand,
-			TreeSet<Vector3D> frozenPoints, CellStateFD[][][] elements,
-			double[][][] potential) {
+							   TreeSet<Vector3D> frozenPoints, CellStateFD[][][] elements,
+							   double[][][] potential) {
 		int x = (int) (t.x);
 		int y = (int) (t.y);
 		int z = (int) (t.z);
@@ -320,11 +306,9 @@ public class PotentialFieldCalculatorFastMarching3D {
 
 	/**
 	 * Solve a quadratic equation given the coefficients.
-	 * 
-	 * @param coeff
-	 *        a,b,c for cx^2+bx+a = 0
-	 * @param sol
-	 *        solutions (0,1 or 2) of the equation
+	 *
+	 * @param coeff a,b,c for cx^2+bx+a = 0
+	 * @param sol   solutions (0,1 or 2) of the equation
 	 * @return solution count, equals sol.length
 	 */
 	private int solve_quadratic(double[] coeff, double[] sol) {

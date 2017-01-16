@@ -12,7 +12,8 @@ public class DefaultConfig {
 	private Color horseColor = Color.MAGENTA;
 	private boolean changed = false;
 
-	public DefaultConfig() {}
+	public DefaultConfig() {
+	}
 
 	public DefaultConfig(final DefaultConfig config) {
 		this.sourceColor = config.sourceColor;
@@ -75,7 +76,7 @@ public class DefaultConfig {
 	public void setPedestrianColor(Color pedestrianColor) {
 		this.pedestrianColor = pedestrianColor;
 	}
-	
+
 	public Color getHorseColor() { //CHANGED AG
 		return horseColor;
 	}

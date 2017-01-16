@@ -337,7 +337,7 @@ public class Face {
 	}
 
 	private void createBorderEdges(HalfEdge startEdge, HalfEdge endEdge,
-			VPoint borderPointStart, VPoint borderPointEnd) {
+								   VPoint borderPointStart, VPoint borderPointEnd) {
 
 		int borderClassStart = classifyBorderPoint(borderPointStart);
 		int borderClassEnd = classifyBorderPoint(borderPointEnd);

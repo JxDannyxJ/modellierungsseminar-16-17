@@ -15,11 +15,9 @@ import org.vadere.util.potential.timecost.TimeCost2D1ConfigurationSpace;
 /**
  * Provides the potential values in a configuration space based on 2D geometry
  * and 1D rotation.
- * 
+ *
  * This class was part of a test whether rigid objects can be moved through a
  * difficult geometry. Based on Sethian-1999, p180ff. The test was successful.
- * 
- * 
  */
 public class ConfigurationSpacePotentialProvider {
 
@@ -35,7 +33,7 @@ public class ConfigurationSpacePotentialProvider {
 	private int gridsizeAngle;
 
 	public ConfigurationSpacePotentialProvider(Geometry geometry,
-			Shape floorshape, List<VShape> targetShapes, VPolygon shape) {
+											   Shape floorshape, List<VShape> targetShapes, VPolygon shape) {
 		TimeCost2D1ConfigurationSpace timecostcs = new TimeCost2D1ConfigurationSpace(
 				geometry, floorshape, shape, cellSize, cellSizeAngle);
 

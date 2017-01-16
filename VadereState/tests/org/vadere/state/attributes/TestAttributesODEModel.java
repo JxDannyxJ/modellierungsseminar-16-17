@@ -28,19 +28,15 @@ public class TestAttributesODEModel {
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.vadere.state.attributes.models.AttributesODEIntegrator#AttributesODEModel(java.util.Map)}
-	 * . Asserts that creating an {@link AttributesODEIntegrator} with the given
-	 * store sets the correct instance variables.
-	 * 
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
+	 * Test method for {@link org.vadere.state.attributes.models.AttributesODEIntegrator#AttributesODEModel(java.util.Map)}
+	 * . Asserts that creating an {@link AttributesODEIntegrator} with the given store sets the
+	 * correct instance variables.
 	 */
 	@Test
 	public void testAttributesODEModel() throws IllegalArgumentException, IllegalAccessException {
 		// correct case
 		attributesODEModel = new Gson().fromJson(store, AttributesODEIntegrator.class);
-		assertArrayEquals(new double[] {1e-5}, new double[] {attributesODEModel.getToleranceAbsolute()}, delta);
+		assertArrayEquals(new double[]{1e-5}, new double[]{attributesODEModel.getToleranceAbsolute()}, delta);
 		assertEquals("integrator type is not correct", IntegratorType.CLASSICAL_RK4.name(), attributesODEModel
 				.getSolverType().name());
 

@@ -9,7 +9,6 @@ import java.util.Collection;
 
 /**
  * @author Daniel Jadanec, Andrei Yauseyenka
- *
  */
 
 public class PedestrianTypeProcessor extends DataProcessor<TimestepPedestrianIdKey, Integer> {
@@ -32,9 +31,9 @@ public class PedestrianTypeProcessor extends DataProcessor<TimestepPedestrianIdK
 	}
 
 	@Override
-	public String [] toStrings(TimestepPedestrianIdKey key) {
+	public String[] toStrings(TimestepPedestrianIdKey key) {
 		Integer agentType = this.getValue(key);
 
-		return new String [] {agentType.toString()};
+		return new String[]{agentType.toString()};
 	}
 }

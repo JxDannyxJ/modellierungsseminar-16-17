@@ -20,7 +20,6 @@ import junit.framework.TestCase;
 
 /**
  * Unit test for {@link org.vadere.state.simulation.Trajectory}
- *
  */
 public class TestTrajectory extends TestCase {
 

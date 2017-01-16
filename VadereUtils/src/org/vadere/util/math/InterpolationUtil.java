@@ -4,7 +4,6 @@ import org.vadere.util.potential.CellGrid;
 
 /**
  * Interpolation utilities not covered by java.lang.Math
- * 
  */
 public class InterpolationUtil {
 
@@ -17,7 +16,7 @@ public class InterpolationUtil {
 	 * and y-axis.
 	 */
 	public static double bilinearInterpolation(double z1, double z2, double z3,
-			double z4, double t, double u) {
+											   double z4, double t, double u) {
 		double result = 0;
 		double value = 0;
 		double weight = 0;
@@ -58,7 +57,7 @@ public class InterpolationUtil {
 	 * weightOfKnown.
 	 */
 	public static double bilinearInterpolationWithUnkown(double z[], double t,
-			double u, double weightOfKnown[]) {
+														 double u, double weightOfKnown[]) {
 		double result = 0;
 		double weight[] = {(1 - t) * (1 - u), t * (1 - u), t * u, (1 - t) * u};
 
@@ -76,14 +75,9 @@ public class InterpolationUtil {
 
 	/**
 	 * Get the potential value based on a triangulation of the grid.
-	 * 
-	 * @param pot
-	 * @param x
-	 * @param y
-	 * @return
 	 */
 	public static double getValueByTriangleInterpolation(CellGrid pot,
-			double x, double y) {
+														 double x, double y) {
 		double[] cross = new double[3]; // a temp variable for cross products
 
 		// clamp to grid
@@ -111,7 +105,7 @@ public class InterpolationUtil {
 		double z1 = pot.getValue(x1, y1).potential;
 		double z31 = pot.getValue(x3, y3).potential - z1;
 		double[] v1 = new double[3];
-		double[] v2 = new double[] {x3 - x1, y3 - y1, z31};
+		double[] v2 = new double[]{x3 - x1, y3 - y1, z31};
 
 		// check whether its the upper or lower triangle
 		if (locX < locY) // upper triangle
@@ -140,18 +134,16 @@ public class InterpolationUtil {
 
 	/**
 	 * Gauss quadrature x values for the interval [-1,1] and N=11 steps.
-	 * 
-	 * @see http
-	 *      ://processingjs.nihongoresources.com/bezierinfo/legendre-gauss-values
-	 *      .php
+	 *
+	 * @see http ://processingjs.nihongoresources.com/bezierinfo/legendre-gauss-values .php
 	 */
-	private static double[] GaussQuadraturePoints = new double[] {
+	private static double[] GaussQuadraturePoints = new double[]{
 			-0.993752171, -0.967226839, -0.920099334, -0.853363365,
 			-0.768439963, -0.667138804, -0.551618836, -0.42434212,
 			-0.288021317, -0.145561854, 0, 0.145561854, 0.288021317,
 			0.42434212, 0.551618836, 0.667138804, 0.768439963, 0.853363365,
 			0.920099334, 0.967226839, 0.993752171,};
-	private static double[] NormalQuadraturePoints = new double[] {
+	private static double[] NormalQuadraturePoints = new double[]{
 			-1.000000000000000, -0.933333333333333, -0.866666666666667,
 			-0.800000000000000, -0.733333333333333, -0.666666666666667,
 			-0.600000000000000, -0.533333333333333, -0.466666666666667,
@@ -162,27 +154,25 @@ public class InterpolationUtil {
 			0.466666666666667, 0.533333333333333, 0.600000000000000,
 			0.666666666666667, 0.733333333333333, 0.800000000000000,
 			0.866666666666667, 0.933333333333333, 1.000000000000000};
-	private static double[] ExponentialQuadraturePoints = new double[] {
+	private static double[] ExponentialQuadraturePoints = new double[]{
 			-1.0000, -0.8333, -0.6667, -0.5000, -0.3333, -0.1667, 0, 0.1667,
 			0.3333, 0.5000, 0.6667, 0.8333, 1.0000};
 	/**
 	 * Gauss quadrature weights for the interval [-1,1] and N=11 steps.
-	 * 
-	 * @see http
-	 *      ://processingjs.nihongoresources.com/bezierinfo/legendre-gauss-values
-	 *      .php
+	 *
+	 * @see http ://processingjs.nihongoresources.com/bezierinfo/legendre-gauss-values .php
 	 */
-	private static double[] GaussQuadratureWeights = new double[] {
+	private static double[] GaussQuadratureWeights = new double[]{
 			0.016017228, 0.03695379, 0.057134425, 0.076100114, 0.093444423,
 			0.108797299, 0.121831416, 0.132268939, 0.139887395, 0.144524404,
 			0.146081134, 0.144524404, 0.139887395, 0.132268939, 0.121831416,
 			0.108797299, 0.093444423, 0.076100114, 0.057134425, 0.03695379,
 			0.016017228};
-	private static double[] ExponentialQuadratureWeights = new double[] {
+	private static double[] ExponentialQuadratureWeights = new double[]{
 			0.0419, 0.3319, -0.3449, 1.4980, -2.4841, 4.1669, -4.4195, 4.1669,
 			-2.4841, 1.4980, -0.3449, 0.3319, 0.0419};
 
-	private static double[] NormalQuadratureWeights = new double[] {
+	private static double[] NormalQuadratureWeights = new double[]{
 			0.032258064516129, 0.032258064516129, 0.032258064516129,
 			0.032258064516129, 0.032258064516129, 0.032258064516129,
 			0.032258064516129, 0.032258064516129, 0.032258064516129,
@@ -196,10 +186,8 @@ public class InterpolationUtil {
 			0.032258064516129};
 	/**
 	 * Gauss quadrature length for the interval [-1,1] and N=11 steps.
-	 * 
-	 * @see http
-	 *      ://processingjs.nihongoresources.com/bezierinfo/legendre-gauss-values
-	 *      .php
+	 *
+	 * @see http ://processingjs.nihongoresources.com/bezierinfo/legendre-gauss-values .php
 	 */
 	private static int GaussQuadratureN = 21;
 	private static int NormalQuadratureN = 31;
@@ -213,13 +201,9 @@ public class InterpolationUtil {
 	/**
 	 * Compute the gradient at the given position x, using a mollified version
 	 * of the solution stored in the potential field.
-	 * 
-	 * @param pot
-	 * @param x
-	 * @param grad
 	 */
 	public static void getGradientMollified(CellGrid pot, double[] x,
-			double[] grad, double gradientMollifierRadius) {
+											double[] grad, double gradientMollifierRadius) {
 		double aX = Math.max(0, x[0] - gradientMollifierRadius);
 		double bX = Math.min(pot.getNumPointsX() - 1, x[0]
 				+ gradientMollifierRadius);

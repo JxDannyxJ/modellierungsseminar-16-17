@@ -10,8 +10,6 @@ import java.util.List;
 
 /**
  * Action: Opens the menu containing a set of drawing methods (for example: rectangle, pen, ...).
- * 
- *
  */
 public class ActionOpenDrawOptionMenu extends TopographyAction {
 
@@ -22,7 +20,7 @@ public class ActionOpenDrawOptionMenu extends TopographyAction {
 	private JPopupMenu menu;
 
 	public ActionOpenDrawOptionMenu(final String name, final ImageIcon icon, final IDrawPanelModel panelModel,
-			final TopographyAction action, final Component parent, final List<Action> actions) {
+									final TopographyAction action, final Component parent, final List<Action> actions) {
 		super(name, icon, panelModel);
 		this.action = action;
 		this.parent = parent;
@@ -30,7 +28,7 @@ public class ActionOpenDrawOptionMenu extends TopographyAction {
 	}
 
 	public ActionOpenDrawOptionMenu(final String name, final IDrawPanelModel panelModel, final TopographyAction action,
-			final Component parent, final List<Action> actions) {
+									final Component parent, final List<Action> actions) {
 		super(name, panelModel);
 		this.action = action;
 		this.parent = parent;

@@ -22,7 +22,6 @@ import org.vadere.util.parallel.AParallelWorker.Work;
 
 /**
  * The equations of the Gradient Navigation Model.
- * 
  */
 public class GNMEquations extends AbstractModelEquations<Pedestrian> implements
 		IAsyncComputable {
@@ -39,7 +38,7 @@ public class GNMEquations extends AbstractModelEquations<Pedestrian> implements
 
 	@Override
 	public void computeDerivatives(final double t, final double[] y,
-			final double[] yDot) {
+								   final double[] yDot) {
 
 		// update the pedestrian positions in the topography to the ones computed in the integrator
 		ODEModel.updateElementPositions(Pedestrian.class, t, topography, this, y);
@@ -52,25 +51,25 @@ public class GNMEquations extends AbstractModelEquations<Pedestrian> implements
 		for (final Pedestrian pedestrian : elements) {
 			AParallelWorker<Double[]> w = new CountableParallelWorker<Double[]>(
 					personCounter, new Work<Double[]>() {
-						private int ID;
+				private int ID;
 
-						@Override
-						public Double[] call() throws Exception {
-							computeSinglePerson(pedestrian, getWorkerID(), t,
-									y, yDot);
-							return null;
-						}
+				@Override
+				public Double[] call() throws Exception {
+					computeSinglePerson(pedestrian, getWorkerID(), t,
+							y, yDot);
+					return null;
+				}
 
-						@Override
-						public void setID(int ID) {
-							this.ID = ID;
-						}
+				@Override
+				public void setID(int ID) {
+					this.ID = ID;
+				}
 
-						@Override
-						public int getWorkerID() {
-							return this.ID;
-						}
-					});
+				@Override
+				public int getWorkerID() {
+					return this.ID;
+				}
+			});
 			personCounter++;
 			workers.add(w);
 			w.start();
@@ -96,15 +95,9 @@ public class GNMEquations extends AbstractModelEquations<Pedestrian> implements
 	/**
 	 * Computes yDot for a single person given by personID. This is computed
 	 * asynchronously by an {@link AParallelWorker}.
-	 * 
-	 * @param currentPed
-	 * @param personCounter
-	 * @param t
-	 * @param y
-	 * @param yDot
 	 */
 	private void computeSinglePerson(Pedestrian currentPed, int personCounter,
-			double t, double[] y, double[] yDot) {
+									 double t, double[] y, double[] yDot) {
 		double[] position = new double[2];
 		double[] speed = new double[2];
 		double[] grad_field = new double[2];
@@ -162,7 +155,7 @@ public class GNMEquations extends AbstractModelEquations<Pedestrian> implements
 		// get the gradient for pedestrians
 		Vector2D grad_pedestrians = pedestrianGradientProvider
 				.getAgentPotentialGradient(new VPoint(position[0],
-						position[1]), new Vector2D(viewing_direction[0],
+								position[1]), new Vector2D(viewing_direction[0],
 								viewing_direction[1]),
 						currentPed, otherPeds);
 

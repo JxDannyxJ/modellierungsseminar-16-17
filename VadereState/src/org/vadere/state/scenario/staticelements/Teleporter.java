@@ -50,7 +50,7 @@ public class Teleporter implements ScenarioElement {
 
 	@Override
 	public void setAttributes(AttributesScenarioElement attributes) {
-		this.attributes = (AttributesTeleporter)attributes;
+		this.attributes = (AttributesTeleporter) attributes;
 	}
 
 	@Override

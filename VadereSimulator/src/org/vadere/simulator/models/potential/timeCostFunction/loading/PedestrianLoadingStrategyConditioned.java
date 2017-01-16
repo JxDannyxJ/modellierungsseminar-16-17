@@ -10,7 +10,7 @@ public class PedestrianLoadingStrategyConditioned<T extends Pedestrian> implemen
 	private Predicate<T> predicate;
 
 	PedestrianLoadingStrategyConditioned(final IPedestrianLoadingStrategy loadingStrategy,
-			final Predicate<T> predicate) {
+										 final Predicate<T> predicate) {
 		this.loadingStrategy = loadingStrategy;
 		this.predicate = predicate;
 	}

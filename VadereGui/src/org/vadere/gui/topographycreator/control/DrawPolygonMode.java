@@ -5,6 +5,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.*;
 import javax.swing.undo.UndoableEditSupport;
 
@@ -18,8 +19,6 @@ import org.vadere.util.geometry.shapes.VPolygon;
 
 /**
  * In this mode VPolygons will be generated.
- *
- *
  */
 public class DrawPolygonMode extends DefaultSelectionMode {
 

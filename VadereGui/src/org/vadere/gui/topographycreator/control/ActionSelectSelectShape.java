@@ -11,8 +11,6 @@ import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 
 /**
  * Action: Selects the SelectShapeMode, so after this action the user can select ScenarioElements.
- * 
- *
  */
 public class ActionSelectSelectShape extends TopographyAction {
 
@@ -21,7 +19,7 @@ public class ActionSelectSelectShape extends TopographyAction {
 
 
 	public ActionSelectSelectShape(final String name, ImageIcon icon, final IDrawPanelModel panelModel,
-			final UndoableEditSupport undoSupport) {
+								   final UndoableEditSupport undoSupport) {
 		super(name, icon, panelModel);
 		mode = new SelectElementMode(panelModel, undoSupport);
 	}

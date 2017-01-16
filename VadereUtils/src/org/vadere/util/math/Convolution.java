@@ -12,7 +12,7 @@ public class Convolution {
 	}
 
 	public static float[] floatGaussian1DKernel(final int size, final float sigma, final boolean normalize,
-			final float scaleFactor) {
+												final float scaleFactor) {
 		float sum = 0;
 
 		if (size % 2 == 0) {
@@ -45,7 +45,7 @@ public class Convolution {
 	}
 
 	public static float[] floatGaussian1DKernel(final int size, final BiFunction<Integer, Integer, Float> f,
-			boolean normalize) {
+												boolean normalize) {
 		float sum = 0;
 
 		if (size % 2 == 0) {
@@ -94,10 +94,10 @@ public class Convolution {
 	}
 
 	public static float[] convolve(final float[] inMatrix,
-			final float[] kernelMatrix,
-			final int nWidth,
-			final int nHeight,
-			final int nFilterWidth) {
+								   final float[] kernelMatrix,
+								   final int nWidth,
+								   final int nHeight,
+								   final int nFilterWidth) {
 		float[] outMatrix = new float[inMatrix.length];
 
 		for (int yOut = 0; yOut < nHeight; yOut++) {
@@ -111,11 +111,11 @@ public class Convolution {
 	}
 
 	public static float[] convolveSeperate(final float[] inMatrix,
-			final float[] rowVector,
-			final float[] colVector,
-			final int nWidth,
-			final int nHeight,
-			final int nFilterWidth) {
+										   final float[] rowVector,
+										   final float[] colVector,
+										   final int nWidth,
+										   final int nHeight,
+										   final int nFilterWidth) {
 		float[] tmpOutMatrix = new float[inMatrix.length];
 		float[] outMatrix = new float[inMatrix.length];
 
@@ -136,10 +136,10 @@ public class Convolution {
 	}
 
 	public static float[] convolveCol(final float[] inMatrix,
-			final float[] rowVector,
-			final int nWidth,
-			final int nHeight,
-			final int nFilterWidth) {
+									  final float[] rowVector,
+									  final int nWidth,
+									  final int nHeight,
+									  final int nFilterWidth) {
 		float[] outMatrix = new float[inMatrix.length];
 
 		for (int yOut = 0; yOut < nHeight; yOut++) {
@@ -152,10 +152,10 @@ public class Convolution {
 	}
 
 	public static float[] convolveRow(final float[] inMatrix,
-			final float[] rowVector,
-			final int nWidth,
-			final int nHeight,
-			final int nFilterWidth) {
+									  final float[] rowVector,
+									  final int nWidth,
+									  final int nHeight,
+									  final int nFilterWidth) {
 		float[] outMatrix = new float[inMatrix.length];
 
 		for (int yOut = 0; yOut < nHeight; yOut++) {
@@ -169,12 +169,12 @@ public class Convolution {
 	}
 
 	public static float convolve(final float[] inMatrix,
-			final float[] kernelMatrix,
-			final int inWidth,
-			final int inHeight,
-			final int kernelWidth,
-			final int x,
-			final int y) {
+								 final float[] kernelMatrix,
+								 final int inWidth,
+								 final int inHeight,
+								 final int kernelWidth,
+								 final int x,
+								 final int y) {
 		float sum = 0;
 
 		/**
@@ -224,8 +224,8 @@ public class Convolution {
 	private static Random random = new Random();
 
 	private static double[] doubleGaussianKernel(final int size,
-			final double sigma,
-			final BiFunction<VPoint, VPoint, Double> fDistance) {
+												 final double sigma,
+												 final BiFunction<VPoint, VPoint, Double> fDistance) {
 		double sum = 0;
 
 		if (size % 2 == 0) {
@@ -261,8 +261,8 @@ public class Convolution {
 	}
 
 	private static float[] floatGaussian2DKernel(final int size,
-			final float sigma,
-			final BiFunction<VPoint, VPoint, Float> fDistance) {
+												 final float sigma,
+												 final BiFunction<VPoint, VPoint, Float> fDistance) {
 		float sum = 0;
 
 		if (size % 2 == 0) {
@@ -298,11 +298,11 @@ public class Convolution {
 	}
 
 	private static float convolveRow(final float[] inMatrix,
-			final float[] kernelVector,
-			final int inWidth,
-			final int inHeight,
-			final int kernelWidth,
-			final int x, final int y) {
+									 final float[] kernelVector,
+									 final int inWidth,
+									 final int inHeight,
+									 final int kernelWidth,
+									 final int x, final int y) {
 		float sum = 0;
 		int bottomBorder = (kernelWidth / 2 + 1) - (inHeight - y);
 		bottomBorder = bottomBorder > 0 ? bottomBorder : 0;
@@ -322,11 +322,11 @@ public class Convolution {
 	}
 
 	private static float convolveCol(final float[] inMatrix,
-			final float[] kernelVector,
-			final int inWidth,
-			final int inHeight,
-			final int kernelWidth,
-			final int x, final int y) {
+									 final float[] kernelVector,
+									 final int inWidth,
+									 final int inHeight,
+									 final int kernelWidth,
+									 final int x, final int y) {
 		float sum = 0;
 		int rightBorder = (kernelWidth / 2 + 1) - (inWidth - x);
 		rightBorder = rightBorder > 0 ? rightBorder : 0;

@@ -25,7 +25,7 @@ public class PotentialFieldPedestrianSFM implements PotentialFieldAgent {
 
 	@Override
 	public double getAgentPotential(VPoint pos, Agent pedestrian,
-			Collection<? extends Agent> otherPedestrians) {
+									Collection<? extends Agent> otherPedestrians) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -35,8 +35,8 @@ public class PotentialFieldPedestrianSFM implements PotentialFieldAgent {
 	 */
 	@Override
 	public Vector2D getAgentPotentialGradient(VPoint pos,
-			Vector2D velocity, Agent pedestrian,
-			Collection<? extends Agent> closePedestrians) {
+											  Vector2D velocity, Agent pedestrian,
+											  Collection<? extends Agent> closePedestrians) {
 
 		double[] completeGrad = new double[2];
 		double[] grad = new double[2];
@@ -44,9 +44,9 @@ public class PotentialFieldPedestrianSFM implements PotentialFieldAgent {
 		double distance;
 		double pot;
 		double phi;
-		double[] x = new double[] {pos.getX(), pos.getY()};
+		double[] x = new double[]{pos.getX(), pos.getY()};
 		double[] x2 = new double[2];
-		double[] v = new double[] {velocity.getX(), velocity.getY()};
+		double[] v = new double[]{velocity.getX(), velocity.getY()};
 		double[] v2 = new double[2];
 		double b;
 		double stepLength2;
@@ -73,7 +73,7 @@ public class PotentialFieldPedestrianSFM implements PotentialFieldAgent {
 
 			stepLength2 = otherPedestrian.getVelocity().getLength() * dt;
 
-			double distance2 = MathUtil.norm2(new double[] {
+			double distance2 = MathUtil.norm2(new double[]{
 					pedDistance[0] - dt * v2[0],
 					pedDistance[1] - dt * v2[1]});
 			b = 0.5 * Math.sqrt(Math.pow(distance + distance2, 2) - stepLength2
@@ -81,7 +81,7 @@ public class PotentialFieldPedestrianSFM implements PotentialFieldAgent {
 
 			pot = attributes.getPedestrianBodyPotential()
 					* Math.exp(-b
-							/ attributes.getPedestrianRecognitionDistance());
+					/ attributes.getPedestrianRecognitionDistance());
 
 			// compute and normalize the gradient length to the
 			// potential
@@ -114,13 +114,13 @@ public class PotentialFieldPedestrianSFM implements PotentialFieldAgent {
 
 	@Override
 	public double getAgentPotential(VPoint pos, Agent pedestrian,
-			Agent otherPedestrian) {
+									Agent otherPedestrian) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Collection<Agent> getRelevantAgents(VCircle relevantArea,
-			Agent center, Topography scenario) {
+											   Agent center, Topography scenario) {
 		List<Agent> closePedestrians = scenario.getSpatialMap(Agent.class)
 				.getObjects(relevantArea.getCenter(),
 						attributes.getPedestrianRecognitionDistance() + 3);
@@ -134,7 +134,7 @@ public class PotentialFieldPedestrianSFM implements PotentialFieldAgent {
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 }

@@ -4,7 +4,6 @@ import org.vadere.simulator.projects.dataprocessing.datakey.TimestepPedestrianId
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class TimestepPedestrianIdOutputFile extends OutputFile<TimestepPedestrianIdKey> {
@@ -15,6 +14,6 @@ public class TimestepPedestrianIdOutputFile extends OutputFile<TimestepPedestria
 
 	@Override
 	public String[] toStrings(final TimestepPedestrianIdKey key) {
-		return new String[] { Integer.toString(key.getTimestep()), Integer.toString(key.getPedestrianId()) };
+		return new String[]{Integer.toString(key.getTimestep()), Integer.toString(key.getPedestrianId())};
 	}
 }

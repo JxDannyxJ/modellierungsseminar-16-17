@@ -21,15 +21,13 @@ import javax.swing.undo.UndoableEditSupport;
 
 /**
  * Insert the last copied element in the topography if this element is not null.
- * 
- *
  */
 public class ActionInsertCopiedElement extends TopographyAction {
 	private static final long serialVersionUID = 5049099647921341318L;
 	private final UndoableEditSupport undoSupport;
 
 	public ActionInsertCopiedElement(final String name, final IDrawPanelModel model,
-			final UndoableEditSupport undoSupport) {
+									 final UndoableEditSupport undoSupport) {
 		super(name, model);
 		this.undoSupport = undoSupport;
 	}

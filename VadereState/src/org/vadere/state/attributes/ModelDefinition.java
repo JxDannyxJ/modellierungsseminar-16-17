@@ -7,8 +7,6 @@ import org.vadere.util.reflection.DynamicClassInstantiator;
 
 /**
  * POJO for the model definition.
- * 
- *
  */
 public class ModelDefinition {
 

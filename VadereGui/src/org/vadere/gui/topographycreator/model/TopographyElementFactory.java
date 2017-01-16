@@ -22,13 +22,12 @@ import org.vadere.util.geometry.shapes.VShape;
 
 /**
  * A Factory to create new ScenarioElements.
- * 
- *
  */
 public class TopographyElementFactory {
 	private static TopographyElementFactory instance = new TopographyElementFactory();
 
-	private TopographyElementFactory() {}
+	private TopographyElementFactory() {
+	}
 
 	public static TopographyElementFactory getInstance() {
 		return instance;

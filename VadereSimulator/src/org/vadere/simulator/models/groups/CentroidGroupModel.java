@@ -34,16 +34,16 @@ public class CentroidGroupModel implements GroupModel, ActiveCallback {
 	private AttributesCGM attributesCGM;
 
 	private int nextFreeGroupId = 0;
-	
+
 	public CentroidGroupModel() {
 		this.groupFactories = new TreeMap<>();
 		this.pedestrianGroupData = new HashMap<>();
 		this.outputTables = new HashMap<>();
 	}
-	
+
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		this.attributesCGM = Model.findAttributes(attributesList, AttributesCGM.class);
 		this.groupSizeDeterminator = new GroupSizeDeterminatorRandom(
 				attributesCGM.getGroupSizeDistribution(), random);
@@ -98,13 +98,15 @@ public class CentroidGroupModel implements GroupModel, ActiveCallback {
 	}
 
 	@Override
-	public void postLoop(final double simTimeInSec) {}
+	public void postLoop(final double simTimeInSec) {
+	}
 
 	@Override
-	public void update(final double simTimeInSec) {}
+	public void update(final double simTimeInSec) {
+	}
 
 	public AttributesCGM getAttributesCGM() {
 		return attributesCGM;
 	}
-	
+
 }

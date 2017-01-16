@@ -2,14 +2,13 @@ package org.vadere.gui.projectview.view;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
  * A simple about dialog for the Vadere GUI.
- * 
- * 
  */
 public class AboutDialogView extends JDialog {
 

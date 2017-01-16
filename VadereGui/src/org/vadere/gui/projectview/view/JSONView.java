@@ -9,6 +9,7 @@ import org.vadere.gui.components.utils.Messages;
 
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
+
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;

@@ -9,31 +9,30 @@ import java.util.Collection;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class PedestrianEndTimeProcessor extends DataProcessor<PedestrianIdKey, Double> {
-    public PedestrianEndTimeProcessor() {
-        super("endTime");
-    }
+	public PedestrianEndTimeProcessor() {
+		super("endTime");
+	}
 
-    @Override
-    protected void doUpdate(final SimulationState state) {
-        this.setValues(state.getTopography().getElements(Pedestrian.class), state.getSimTimeInSec());
-    }
+	@Override
+	protected void doUpdate(final SimulationState state) {
+		this.setValues(state.getTopography().getElements(Pedestrian.class), state.getSimTimeInSec());
+	}
 
-    @Override
-    public void postLoop(final SimulationState state) {
-        this.setValues(state.getTopography().getElements(Pedestrian.class), Double.NaN);
-    }
+	@Override
+	public void postLoop(final SimulationState state) {
+		this.setValues(state.getTopography().getElements(Pedestrian.class), Double.NaN);
+	}
 
-    @Override
-    public void init(final ProcessorManager manager) {
-        // No initialization needed
-    }
+	@Override
+	public void init(final ProcessorManager manager) {
+		// No initialization needed
+	}
 
-    private void setValues(Collection<Pedestrian> peds, double value) {
-        peds.stream().map(ped -> new PedestrianIdKey(ped.getId()))
-                .forEach(key -> this.setValue(key, value));
-    }
+	private void setValues(Collection<Pedestrian> peds, double value) {
+		peds.stream().map(ped -> new PedestrianIdKey(ped.getId()))
+				.forEach(key -> this.setValue(key, value));
+	}
 }

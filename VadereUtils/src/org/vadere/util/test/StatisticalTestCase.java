@@ -9,7 +9,6 @@ import java.lang.annotation.Target;
 /**
  * This annotation can be used to mark statistical JUnit test methods that use a
  * random generator and can fail with a certain probability.
- *
  */
 @Retention(SOURCE)
 @Target(METHOD)

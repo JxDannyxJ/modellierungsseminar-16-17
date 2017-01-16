@@ -104,7 +104,7 @@ public class ScriptParser {
 						token = "&";
 					}
 				}
-					break;
+				break;
 				case '|': {
 					if (token.equals("|")) {
 						tokens.add("||");
@@ -114,10 +114,10 @@ public class ScriptParser {
 						token = "|";
 					}
 				}
-					break;
+				break;
 				case ' ': {
 				}
-					break;
+				break;
 				default: {
 					if (token.equals("&") || token.equals("|")) {
 						throw new ParseException("missing " + token + " after " + token, i);

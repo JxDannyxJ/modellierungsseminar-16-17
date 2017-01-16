@@ -23,8 +23,6 @@ import com.jgoodies.forms.util.LayoutStyle;
 
 /**
  * Dialog for scaling the scenario.
- * 
- *
  */
 public class SetScenarioScaleDialog extends JDialog {
 
@@ -34,16 +32,16 @@ public class SetScenarioScaleDialog extends JDialog {
 	public SetScenarioScaleDialog(final IDrawPanelModel model, final UndoableEditSupport undoSupport) {
 		getContentPane()
 				.setLayout(
-						new FormLayout(new ColumnSpec[] {ColumnSpec.decode("2dlu"), ColumnSpec.decode("left:pref"),
+						new FormLayout(new ColumnSpec[]{ColumnSpec.decode("2dlu"), ColumnSpec.decode("left:pref"),
 								ColumnSpec.decode("left:2dlu"), ColumnSpec.decode("left:pref"),
 								ColumnSpec.decode("left:2dlu"), new ColumnSpec(Sizes.PREFERRED),
 								ColumnSpec.decode("2dlu"), new ColumnSpec(Sizes.PREFERRED),
-								new ColumnSpec(Sizes.PREFERRED), ColumnSpec.decode("2dlu"),}, new RowSpec[] {
-										RowSpec.createGap(LayoutStyle.getCurrent().getNarrowLinePad()),
-										new RowSpec(Sizes.PREFERRED), RowSpec.decode("10dlu"),
-										new RowSpec(Sizes.PREFERRED),
-										RowSpec.decode("10dlu"), new RowSpec(Sizes.PREFERRED),
-										RowSpec.createGap(LayoutStyle.getCurrent().getNarrowLinePad())}));
+								new ColumnSpec(Sizes.PREFERRED), ColumnSpec.decode("2dlu"),}, new RowSpec[]{
+								RowSpec.createGap(LayoutStyle.getCurrent().getNarrowLinePad()),
+								new RowSpec(Sizes.PREFERRED), RowSpec.decode("10dlu"),
+								new RowSpec(Sizes.PREFERRED),
+								RowSpec.decode("10dlu"), new RowSpec(Sizes.PREFERRED),
+								RowSpec.createGap(LayoutStyle.getCurrent().getNarrowLinePad())}));
 		JLabel lblPleaeseSelectThe = new JLabel("Pleaese select a scale factor:");
 		getContentPane().add(lblPleaeseSelectThe, "2, 2, 7, 1");
 

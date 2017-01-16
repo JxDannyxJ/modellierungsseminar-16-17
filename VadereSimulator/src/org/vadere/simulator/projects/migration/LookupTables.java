@@ -30,6 +30,7 @@ import org.vadere.state.attributes.scenario.AttributesCar;
 public class LookupTables {
 
 	public final static Map<String, String> version0to1_ModelRenaming = new HashMap<>();
+
 	static {
 		version0to1_ModelRenaming.put("BEHAVIOURAL_HEURISTICS_MODEL", AttributesBHM.class.getName());
 		version0to1_ModelRenaming.put("BIOMECHANICS_MODEL", AttributesBMM.class.getName());
@@ -61,6 +62,7 @@ public class LookupTables {
 	}
 
 	public static final Map<String, String> version0to1_IdentifyingMainModel = new HashMap<>();
+
 	static {
 		version0to1_IdentifyingMainModel.put(AttributesOSM.class.getName(), OptimalStepsModel.class.getName());
 		version0to1_IdentifyingMainModel.put(AttributesGNM.class.getName(), GradientNavigationModel.class.getName());

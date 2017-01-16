@@ -14,6 +14,7 @@ import org.vadere.gui.postvisualization.model.PostvisualizationConfig;
 import org.vadere.gui.postvisualization.model.PostvisualizationModel;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -294,7 +295,7 @@ public class SettingsDialog extends JDialog {
 		});
 		additionalLayeredPane.add(chChowLogo, cc.xyw(2, 24, 5));
 
-		scrollPane.setPreferredSize(new Dimension(mainPanel.getPreferredSize().width+10, Math.min(mainPanel.getPreferredSize().height, Toolkit.getDefaultToolkit().getScreenSize().height - 50)));
+		scrollPane.setPreferredSize(new Dimension(mainPanel.getPreferredSize().width + 10, Math.min(mainPanel.getPreferredSize().height, Toolkit.getDefaultToolkit().getScreenSize().height - 50)));
 		pack();
 		setResizable(true);
 		SwingUtils.centerComponent(this);

@@ -28,7 +28,8 @@ public class PostvisualizationConfig extends DefaultSimulationConfig {
 
 	private Observable observable;
 
-	public PostvisualizationConfig() {}
+	public PostvisualizationConfig() {
+	}
 
 	public PostvisualizationConfig(final PostvisualizationConfig config) {
 		super(config);

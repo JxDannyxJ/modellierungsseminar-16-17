@@ -27,7 +27,7 @@ public class PotentialFieldObstacleCompact implements PotentialFieldObstacle {
 	private Collection<Obstacle> obstacles;
 
 	public PotentialFieldObstacleCompact(AttributesPotentialCompact attributes, Collection<Obstacle> obstacles,
-			Random random) {
+										 Random random) {
 		this.attributes = attributes;
 		this.random = random;
 
@@ -69,7 +69,7 @@ public class PotentialFieldObstacleCompact implements PotentialFieldObstacle {
 
 	@Override
 	public Vector2D getObstaclePotentialGradient(VPoint pos,
-			Agent pedestrian) {
+												 Agent pedestrian) {
 
 		Vector2D result;
 
@@ -97,7 +97,7 @@ public class PotentialFieldObstacleCompact implements PotentialFieldObstacle {
 	}
 
 	private Vector2D getObstaclePotentialGradient(VPoint pos, Obstacle obs,
-			Agent pedestrian, double distance) {
+												  Agent pedestrian, double distance) {
 
 		Vector2D result;
 
@@ -125,7 +125,7 @@ public class PotentialFieldObstacleCompact implements PotentialFieldObstacle {
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 

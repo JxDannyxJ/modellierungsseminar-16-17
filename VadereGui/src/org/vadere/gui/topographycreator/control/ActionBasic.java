@@ -7,7 +7,6 @@ import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 /**
  * A ActionBasic is the last action in the decorator pattern which will be execute.
  * Action: Notify all Observers.
- * 
  */
 public class ActionBasic extends TopographyAction {
 

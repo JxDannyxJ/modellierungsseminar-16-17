@@ -16,7 +16,6 @@ import org.vadere.util.data.Tupel;
  * the table
  * based on the headline you have to use two {@link java.util.stream.Stream<String>} instances,
  * so you have to recreate the {@link java.util.stream.Stream<String>}.
- *
  */
 public class TableReader {
 
@@ -43,7 +42,7 @@ public class TableReader {
 
 	public String[] readHeadLine(final Stream<String> lines) {
 		Optional<String> line = lines.filter(TableReader::isNotEmptyString).findFirst();
-		String[] headline = new String[] {};
+		String[] headline = new String[]{};
 		if (line.isPresent()) {
 			String headerFormat;
 			if (format == null) {
@@ -141,10 +140,6 @@ public class TableReader {
 	/**
 	 * Convert the value to an primitive DataType which is defined by format (e.g. d (for integer)
 	 * or f (for double)).
-	 * 
-	 * @param value
-	 * @param format
-	 * @return
 	 */
 	private static Object convertStringByFormat(final String value, final char format) {
 		switch (format) {

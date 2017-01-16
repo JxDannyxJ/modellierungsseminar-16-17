@@ -19,9 +19,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * 
  * Modellierungsseminar 2014/15
- * 
  */
 public class StairStepOptimizer implements StepCircleOptimizer {
 

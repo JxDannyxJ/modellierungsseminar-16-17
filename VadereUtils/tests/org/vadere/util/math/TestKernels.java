@@ -11,14 +11,14 @@ public class TestKernels {
 	private static final float EPSILON = 0.00000000001f;
 
 	// 3x3 normalized gaussian kernel with sigma^2 = 1.0
-	private double[] gaussian3x3kernel = new double[] {
+	private double[] gaussian3x3kernel = new double[]{
 			0.07511360795411207, 0.12384140315297386, 0.07511360795411207,
 			0.12384140315297386, 0.20417995557165622, 0.12384140315297386,
 			0.07511360795411207, 0.12384140315297386, 0.07511360795411207
 	};
 
 	// 3x3 normalized gaussian kernel with sigma^2 = 0.7
-	private double[] gaussian5x5kernel = new double[] {
+	private double[] gaussian5x5kernel = new double[]{
 			0.0007522898981192341, 0.006412335879670672, 0.013098652085041981, 0.006412335879670672,
 			0.0007522898981192341,
 			0.006412335879670672, 0.05465718938471622, 0.11164972034082171, 0.05465718938471622, 0.006412335879670672,
@@ -29,7 +29,7 @@ public class TestKernels {
 	};
 
 	// 3x3 not normalized gaussian kernel with sigma^2 = 0.7
-	private double[] gaussian11x11kernel = new double[] {
+	private double[] gaussian11x11kernel = new double[]{
 			7.0178349016244e-17, 4.346065275888469e-14, 6.450132772605648e-12, 2.294142421054552e-10,
 			1.955471128401494e-9, 3.994493809109567e-9, 1.955471128401494e-9, 2.294142421054552e-10,
 			6.450132772605648e-12, 4.346065275888469e-14, 7.0178349016244e-17,
@@ -66,7 +66,8 @@ public class TestKernels {
 	};
 
 	@Before
-	public void setUp() throws Exception {}
+	public void setUp() throws Exception {
+	}
 
 	@Test
 	public void testGaussianKernelGeneration() {

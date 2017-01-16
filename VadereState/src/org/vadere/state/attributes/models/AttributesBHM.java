@@ -51,7 +51,8 @@ public class AttributesBHM extends Attributes {
 	private double spaceToKeep = 0.01;
 	private boolean stepAwayFromCollisions = false;
 
-	public AttributesBHM() {}
+	public AttributesBHM() {
+	}
 
 	public double getStepLengthIntercept() {
 		return stepLengthIntercept;
@@ -188,7 +189,6 @@ public class AttributesBHM extends Attributes {
 	public boolean isSwitchBehaviour() {
 		return switchBehaviour;
 	}
-
 
 
 }

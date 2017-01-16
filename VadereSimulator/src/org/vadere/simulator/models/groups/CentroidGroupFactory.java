@@ -10,7 +10,7 @@ public class CentroidGroupFactory implements GroupFactory {
 	private CentroidGroup currentGroup;
 
 	public CentroidGroupFactory(CentroidGroupModel groupCollection,
-			GroupSizeDeterminator groupSizeDet) {
+								GroupSizeDeterminator groupSizeDet) {
 		this.groupCollection = groupCollection;
 		this.groupSizeDeterminator = groupSizeDet;
 	}

@@ -25,7 +25,7 @@ public class PotentialFieldObstacleCompactSoftshell implements PotentialFieldObs
 	private Collection<Obstacle> obstacles;
 
 	public PotentialFieldObstacleCompactSoftshell(AttributesPotentialCompactSoftshell attributesPotential,
-			Collection<Obstacle> obstacles, Random random) {
+												  Collection<Obstacle> obstacles, Random random) {
 		this.attributes = attributesPotential;
 		this.random = random;
 
@@ -62,7 +62,7 @@ public class PotentialFieldObstacleCompactSoftshell implements PotentialFieldObs
 
 	@Override
 	public Vector2D getObstaclePotentialGradient(VPoint pos,
-			Agent pedestrian) {
+												 Agent pedestrian) {
 		throw new UnsupportedOperationException("this method is not jet implemented.");
 	}
 
@@ -73,7 +73,7 @@ public class PotentialFieldObstacleCompactSoftshell implements PotentialFieldObs
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 

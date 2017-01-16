@@ -44,11 +44,9 @@ public class GeometryUtils {
 	 * Computes the point on the line segment that is closest to the given point
 	 * point. from:
 	 * http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line
-	 * 
-	 * @param point
-	 *        the point to which the counterpart should be computed
-	 * @param line
-	 *        line representing the segment
+	 *
+	 * @param point the point to which the counterpart should be computed
+	 * @param line  line representing the segment
 	 * @return the point on the line that is closest to p
 	 */
 	public static VPoint closestToSegment(VLine line, VPoint point) {
@@ -69,14 +67,12 @@ public class GeometryUtils {
 	/**
 	 * Orders a given list angular relative to a given point, starting with
 	 * angle 0.
-	 * 
-	 * @param allPoints
-	 * @param center
-	 * @return an ordered DataPoint list with the angle of the point as data and
-	 *         the original index set.
+	 *
+	 * @return an ordered DataPoint list with the angle of the point as data and the original index
+	 * set.
 	 */
 	public static List<DataPoint> orderByAngle(List<VPoint> allPoints,
-			VPoint center) {
+											   VPoint center) {
 		List<DataPoint> orderedList = new ArrayList<DataPoint>();
 
 		for (int i = 0; i < allPoints.size(); i++) {
@@ -94,13 +90,10 @@ public class GeometryUtils {
 	 * ccw(p1,p2,p3) < 0 if p3 is left of Line(p1,p2)<br>
 	 * ccw(p1,p2,p3) = 0 if p3 lies on Line(p1,p2)<br>
 	 * ccw(p1,p2,p3) > 0 if p3 is right of Line(p1,p2)<br>
-	 * 
-	 * @param p1
-	 *        first point
-	 * @param p2
-	 *        second point
-	 * @param p3
-	 *        third point
+	 *
+	 * @param p1 first point
+	 * @param p2 second point
+	 * @param p3 third point
 	 * @return ccw(p1 p2 p3)
 	 */
 	public static double ccw(VPoint p1, VPoint p2, VPoint p3) {
@@ -110,10 +103,6 @@ public class GeometryUtils {
 	/**
 	 * Computes the cross product of two vectors and store it in the cross
 	 * vector.
-	 * 
-	 * @param v1
-	 * @param v2
-	 * @param cross
 	 */
 	public static void cross(double[] v1, double[] v2, double[] cross) {
 		cross[0] = v1[1] * v2[2] - v1[2] * v2[1];
@@ -126,7 +115,7 @@ public class GeometryUtils {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param vertices
 	 * @return
 	 */

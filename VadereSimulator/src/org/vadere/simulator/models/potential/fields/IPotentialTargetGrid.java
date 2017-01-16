@@ -19,7 +19,7 @@ public interface IPotentialTargetGrid extends PotentialFieldTarget {
 	public HashMap<Integer, CellGrid> getCellGrids();
 
 	public static IPotentialTargetGrid createPotentialField(List<Attributes> modelAttributesList,
-			Topography topography, AttributesAgent attributesPedestrian, String className) {
+															Topography topography, AttributesAgent attributesPedestrian, String className) {
 
 		DynamicClassInstantiator<IPotentialTargetGrid> instantiator = new DynamicClassInstantiator<>();
 		Class<? extends IPotentialTargetGrid> type = instantiator.getClassFromName(className);

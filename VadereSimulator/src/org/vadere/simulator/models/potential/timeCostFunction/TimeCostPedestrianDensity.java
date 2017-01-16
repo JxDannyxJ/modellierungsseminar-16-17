@@ -13,20 +13,26 @@ import org.vadere.util.potential.timecost.ITimeCostFunction;
  * navigation around groups. The measurement with a loading is done by the
  * PedestrianGaussianFilter that uses the javaCV library. This has to be done
  * for every simulation step.
- * 
- * 
  */
 public class TimeCostPedestrianDensity implements ITimeCostFunction {
-	/** the radius for the measurement . */
+	/**
+	 * the radius for the measurement .
+	 */
 	private double heighestDensity = 0.0;
 
-	/** the image processing filter. */
+	/**
+	 * the image processing filter.
+	 */
 	private final IGaussianFilter gaussianCalculator;
 
-	/** the decorator that will be uesed by this decorator. */
+	/**
+	 * the decorator that will be uesed by this decorator.
+	 */
 	private ITimeCostFunction timeCostFunction;
 
-	/** only for logging informations. */
+	/**
+	 * only for logging informations.
+	 */
 	private static Logger logger = LogManager
 			.getLogger(TimeCostPedestrianDensity.class);
 	private int updateCount = 0;

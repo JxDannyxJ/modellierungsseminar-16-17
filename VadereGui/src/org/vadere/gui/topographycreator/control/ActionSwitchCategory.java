@@ -9,8 +9,6 @@ import org.vadere.state.types.ScenarioElementType;
 
 /**
  * Action: Switches the ScenarioElementType of the IDrawPanelModel to a specific type.
- * 
- * 
  */
 public class ActionSwitchCategory extends TopographyAction {
 
@@ -19,14 +17,14 @@ public class ActionSwitchCategory extends TopographyAction {
 	private final TopographyAction action;
 
 	public ActionSwitchCategory(final String name, final IDrawPanelModel panelModel, final ScenarioElementType type,
-			final TopographyAction action) {
+								final TopographyAction action) {
 		super(name, panelModel);
 		this.type = type;
 		this.action = action;
 	}
 
 	public ActionSwitchCategory(final String name, final ImageIcon icon, final IDrawPanelModel panelModel,
-			final ScenarioElementType type, final TopographyAction action) {
+								final ScenarioElementType type, final TopographyAction action) {
 		super(name, icon, panelModel);
 		this.type = type;
 		this.action = action;

@@ -9,7 +9,6 @@ import org.vadere.util.geometry.shapes.VPoint;
 
 /**
  * The Class HimmelblauFunction.
- * 
  */
 public class HimmelblauFunction extends PotentialEvaluationFunction {
 
@@ -21,9 +20,8 @@ public class HimmelblauFunction extends PotentialEvaluationFunction {
 
 	/**
 	 * Instantiates a new Himmelblau function.
-	 * 
-	 * @param pedestrian
-	 *        the considered pedestrian
+	 *
+	 * @param pedestrian the considered pedestrian
 	 */
 	public HimmelblauFunction(PedestrianOSM pedestrian) {
 		super(pedestrian);

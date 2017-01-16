@@ -46,7 +46,7 @@ public class BeachLine {
 	}
 
 	BeachLineLeaf addSite(int id, VPoint site, BeachLineLeaf arc,
-			List<Face> faces, boolean siteOnHorizontalLine) {
+						  List<Face> faces, boolean siteOnHorizontalLine) {
 
 		BeachLineInternal parent;
 		BeachLineLeaf centerLeaf;

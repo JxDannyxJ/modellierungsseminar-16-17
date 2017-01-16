@@ -61,7 +61,7 @@ public class PotentialFieldObstacleOSM implements PotentialFieldObstacle {
 
 	@Override
 	public Vector2D getObstaclePotentialGradient(VPoint pos,
-			Agent pedestrian) {
+												 Agent pedestrian) {
 
 		Vector2D result;
 
@@ -91,7 +91,7 @@ public class PotentialFieldObstacleOSM implements PotentialFieldObstacle {
 	}
 
 	private Vector2D getObstaclePotentialGradient(VPoint pos, Obstacle obs,
-			Agent pedestrian, double distance) {
+												  Agent pedestrian, double distance) {
 
 		Vector2D result;
 
@@ -107,7 +107,7 @@ public class PotentialFieldObstacleOSM implements PotentialFieldObstacle {
 					* attributes.getBObsOSM()
 					* Math.pow(distance, attributes.getBObsOSM() / 2.0 - 1.0)
 					* Math.exp(-attributes.getAObsOSM()
-							* Math.pow(distance, attributes.getBObsOSM() / 2.0))
+					* Math.pow(distance, attributes.getBObsOSM() / 2.0))
 					* attributes.getObstacleRepulsionStrength();
 
 			result = new Vector2D(vu * direction.getX(), vu * direction.getY());
@@ -125,7 +125,7 @@ public class PotentialFieldObstacleOSM implements PotentialFieldObstacle {
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 }

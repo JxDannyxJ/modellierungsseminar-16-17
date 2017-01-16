@@ -5,7 +5,6 @@ import org.vadere.state.attributes.processor.AttributesDensityCountingProcessor;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class PedestrianDensityCountingProcessor extends PedestrianDensityProcessor {

@@ -40,13 +40,13 @@ public class GradientNavigationModel extends ODEModel<Pedestrian, AttributesAgen
 
 	@Deprecated
 	public GradientNavigationModel(final Topography scenario,
-			final AttributesGNM attributes,
-			final PotentialFieldObstacle potentialFieldObstacle,
-			final PotentialFieldAgent potentialFieldPedestrian,
-			final IPotentialTargetGrid potentialFieldTarget,
-			final AttributesAgent attributesPedestrian, final Random random) {
+								   final AttributesGNM attributes,
+								   final PotentialFieldObstacle potentialFieldObstacle,
+								   final PotentialFieldAgent potentialFieldPedestrian,
+								   final IPotentialTargetGrid potentialFieldTarget,
+								   final AttributesAgent attributesPedestrian, final Random random) {
 		super(Pedestrian.class, scenario, IntegratorFactory.createFirstOrderIntegrator(attributes
-				.getAttributesODEIntegrator()), new GNMEquations(),
+						.getAttributesODEIntegrator()), new GNMEquations(),
 				attributesPedestrian, random);
 		this.attributes = attributes;
 		this.targets = new TreeMap<>();
@@ -68,7 +68,7 @@ public class GradientNavigationModel extends ODEModel<Pedestrian, AttributesAgen
 
 	@Override
 	public void initialize(List<Attributes> modelAttributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 
 		this.attributes = Model.findAttributes(modelAttributesList, AttributesGNM.class);
 

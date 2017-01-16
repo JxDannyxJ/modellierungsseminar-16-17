@@ -9,8 +9,6 @@ import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 
 /**
  * Action: Scales the scenario, so every VShape of the ScenarioElement will be changed.
- * 
- * 
  */
 public class ActionScaleTopography extends TopographyAction {
 
@@ -18,7 +16,7 @@ public class ActionScaleTopography extends TopographyAction {
 	private final UndoableEditSupport undoSupport;
 
 	public ActionScaleTopography(final String name, final IDrawPanelModel panelModel,
-			final UndoableEditSupport undoSupport) {
+								 final UndoableEditSupport undoSupport) {
 		super(name, panelModel);
 		this.undoSupport = undoSupport;
 	}

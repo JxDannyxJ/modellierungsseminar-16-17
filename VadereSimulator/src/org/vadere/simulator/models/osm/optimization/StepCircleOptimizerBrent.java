@@ -18,7 +18,6 @@ import org.vadere.util.geometry.shapes.VPoint;
 
 /**
  * The Class StepCircleOptimizerBrent.
- * 
  */
 public class StepCircleOptimizerBrent implements StepCircleOptimizer {
 	private static Logger logger = LogManager
@@ -79,7 +78,7 @@ public class StepCircleOptimizerBrent implements StepCircleOptimizer {
 
 				if (minimumValue > newMinimumValue
 						|| (Math.abs(minimumValue - newMinimumValue) <= 0.00001 && random
-								.nextBoolean())) {
+						.nextBoolean())) {
 					minimumValue = newMinimumValue;
 					minimum = newMinimum;
 				}

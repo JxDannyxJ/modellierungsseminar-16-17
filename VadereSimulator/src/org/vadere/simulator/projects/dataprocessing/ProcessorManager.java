@@ -15,7 +15,6 @@ import java.util.Map;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class ProcessorManager {
@@ -72,10 +71,10 @@ public class ProcessorManager {
 	}
 
 	public void writeOutput() {
-        this.outputFiles.forEach(file -> file.write());
-    }
+		this.outputFiles.forEach(file -> file.write());
+	}
 
-    public JsonNode serializeToNode() throws JsonProcessingException {
-    	return this.jsonManager.serializeToNode();
+	public JsonNode serializeToNode() throws JsonProcessingException {
+		return this.jsonManager.serializeToNode();
 	}
 }

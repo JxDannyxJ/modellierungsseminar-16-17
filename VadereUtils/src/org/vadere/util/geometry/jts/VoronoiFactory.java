@@ -17,12 +17,11 @@ public class VoronoiFactory {
 	 * Calcluates/Creates a new voronoiDiagramm subtracted by polygons.
 	 *
 	 * @param coordinates the coordinates of the sites
-	 * @param polygons the polygons that will be subtracted from the diagram
-	 * @param envolve
+	 * @param polygons    the polygons that will be subtracted from the diagram
 	 * @return a new voronoiDiagramm subtracted by polygons
 	 */
 	public Geometry createVoronoiDiagram(final Collection<Coordinate> coordinates, final Collection<Polygon> polygons,
-			final Envelope envolve) {
+										 final Envelope envolve) {
 		VoronoiDiagramBuilder builder = new VoronoiDiagramBuilder();
 
 		builder.setSites(coordinates);

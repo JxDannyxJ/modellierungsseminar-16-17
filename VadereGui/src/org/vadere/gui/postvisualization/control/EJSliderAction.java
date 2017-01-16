@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.vadere.gui.postvisualization.model.PostvisualizationModel;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

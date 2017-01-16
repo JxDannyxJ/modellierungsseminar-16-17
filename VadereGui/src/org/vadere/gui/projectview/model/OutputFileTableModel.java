@@ -11,7 +11,7 @@ public class OutputFileTableModel extends VadereTableModelSorted<File> {
 	private static final long serialVersionUID = 134253986682827818L;
 
 	OutputFileTableModel() {
-		super(new String[] {"Output files"}, 0, (f1, f2) -> f1.getName().compareTo(f2.getName()));
+		super(new String[]{"Output files"}, 0, (f1, f2) -> f1.getName().compareTo(f2.getName()));
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class OutputFileTableModel extends VadereTableModelSorted<File> {
 
 	@Override
 	public void insertRow(final int row, final File value) {
-		insertRow(row, new Object[] {value});
+		insertRow(row, new Object[]{value});
 	}
 
 	@Override

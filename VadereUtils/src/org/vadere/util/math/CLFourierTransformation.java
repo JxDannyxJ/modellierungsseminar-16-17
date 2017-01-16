@@ -53,8 +53,8 @@ public class CLFourierTransformation {
 		Pointer<Float> outBuffer = dft(FloatBuffer.wrap(MathUtil.toFloat(complexValues)), forward);
 		Complex[] transformedComplexValues = new Complex[complexValues.length];
 
-		for(int i = 0; i < complexValues.length*2; i += 2) {
-			transformedComplexValues[i/2] = Complex.valueOf(outBuffer.get(i), outBuffer.get(i+1));
+		for (int i = 0; i < complexValues.length * 2; i += 2) {
+			transformedComplexValues[i / 2] = Complex.valueOf(outBuffer.get(i), outBuffer.get(i + 1));
 		}
 		outBuffer.release();
 		return transformedComplexValues;

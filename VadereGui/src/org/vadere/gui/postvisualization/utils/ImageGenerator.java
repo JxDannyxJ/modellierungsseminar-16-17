@@ -19,7 +19,7 @@ public class ImageGenerator<T extends DefaultSimulationConfig> {
 	private SimulationModel<? extends DefaultSimulationConfig> model;
 
 	public ImageGenerator(final SimulationRenderer renderer,
-			final SimulationModel<? extends DefaultSimulationConfig> model) {
+						  final SimulationModel<? extends DefaultSimulationConfig> model) {
 		this.renderer = renderer;
 		this.model = model;
 	}

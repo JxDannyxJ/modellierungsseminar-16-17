@@ -31,8 +31,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Shows text like the JSON formatted attributes.
- * 
- * 
  */
 public class TextView extends JPanel {
 
@@ -162,7 +160,7 @@ public class TextView extends JPanel {
 			public void setScenarioContent() {
 				if (isEditable) {
 					String json = txtrTextfiletextarea.getText(); // TODO [priority=medium] [task=bugfix] this can sometimes give the wrong text if an integer is added at the end of
-																  // random-seed in simulation tab, very weird, investigate...
+					// random-seed in simulation tab, very weird, investigate...
 					if (json.length() == 0)
 						return;
 

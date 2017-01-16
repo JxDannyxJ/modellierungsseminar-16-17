@@ -33,9 +33,8 @@ import java.util.prefs.Preferences;
 
 /**
  * Main Window of the new post visualization.
- * 
+ *
  * @Version 1.0
- * 
  */
 public class PostvisualizationWindow extends JPanel implements Observer {
 	private static final long serialVersionUID = -8177132133860336295L;
@@ -129,9 +128,9 @@ public class PostvisualizationWindow extends JPanel implements Observer {
 		infoButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String text = "<html><font size =\"5\"><b>"+Messages.getString("PostVis.title") + "</font></b><br>" +
+				String text = "<html><font size =\"5\"><b>" + Messages.getString("PostVis.title") + "</font></b><br>" +
 						"<font size =\"3\"><em>" + MessageFormat.format(Messages.getString("PostVis.version"), HashGenerator.releaseNumber()) + "</em></font><br>" +
-						"<font size =\"3\">" + MessageFormat.format(Messages.getString("PostVis.license.text"), "<a href=\"https://www.gnu.org/licenses/lgpl-3.0.txt\">LGPL</a>")+".</font></html>";
+						"<font size =\"3\">" + MessageFormat.format(Messages.getString("PostVis.license.text"), "<a href=\"https://www.gnu.org/licenses/lgpl-3.0.txt\">LGPL</a>") + ".</font></html>";
 				JOptionPane.showMessageDialog(null, text,
 						Messages.getString("PostVis.about.title"),
 						JOptionPane.INFORMATION_MESSAGE);
@@ -167,7 +166,7 @@ public class PostvisualizationWindow extends JPanel implements Observer {
 						model.notifyObservers();
 					}
 
-				;
+					;
 				}, "View.btnShowPedestrian.tooltip");
 
 		addActionToToolbar(toolbar,
@@ -179,7 +178,7 @@ public class PostvisualizationWindow extends JPanel implements Observer {
 						model.notifyObservers();
 					}
 
-				;
+					;
 				}, "View.btnShowTrajectories.tooltip");
 
 		addActionToToolbar(toolbar,
@@ -191,7 +190,7 @@ public class PostvisualizationWindow extends JPanel implements Observer {
 						model.notifyObservers();
 					}
 
-				;
+					;
 				}, "View.btnShowWalkingDirection.tooltip");
 
 		addActionToToolbar(toolbar,
@@ -215,7 +214,7 @@ public class PostvisualizationWindow extends JPanel implements Observer {
 						model.notifyObservers();
 					}
 
-				;
+					;
 				}, "View.btnShowGrid.tooltip");
 
 		addActionToToolbar(
@@ -228,7 +227,7 @@ public class PostvisualizationWindow extends JPanel implements Observer {
 						model.notifyObservers();
 					}
 
-				;
+					;
 				}, "View.btnShowDensity.tooltip");
 
 
@@ -261,7 +260,7 @@ public class PostvisualizationWindow extends JPanel implements Observer {
 						DialogFactory.createSettingsDialog(model).setVisible(true);
 					}
 
-				;
+					;
 				}, "View.btnSettings.tooltip");
 
 
@@ -339,7 +338,7 @@ public class PostvisualizationWindow extends JPanel implements Observer {
 	}
 
 	private static JButton addActionToToolbar(final JToolBar toolbar, final Action action,
-			final String toolTipProperty) {
+											  final String toolTipProperty) {
 		return SwingUtils.addActionToToolbar(toolbar, action, Messages.getString(toolTipProperty));
 	}
 

@@ -17,7 +17,6 @@ import org.vadere.util.geometry.shapes.VShape;
 /**
  * A IPotentialTargetGrid, that creates for a single target the a floor field
  * based on the AttributesFloorField.
- *
  */
 public class PotentialFieldSingleTargetGrid extends AbstractPotentialFieldTarget {
 
@@ -27,9 +26,9 @@ public class PotentialFieldSingleTargetGrid extends AbstractPotentialFieldTarget
 	private final int targetId;
 
 	public PotentialFieldSingleTargetGrid(final Topography topography,
-			final AttributesAgent attributesPedestrian,
-			final AttributesFloorField attributesPotential,
-			final int targetId) {
+										  final AttributesAgent attributesPedestrian,
+										  final AttributesFloorField attributesPotential,
+										  final int targetId) {
 		super(topography);
 		this.attributesFloorField = attributesPotential;
 		this.topography = topography;
@@ -73,11 +72,12 @@ public class PotentialFieldSingleTargetGrid extends AbstractPotentialFieldTarget
 	}
 
 	@Override
-	public void postLoop(double simTimeInSec) {}
+	public void postLoop(double simTimeInSec) {
+	}
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 

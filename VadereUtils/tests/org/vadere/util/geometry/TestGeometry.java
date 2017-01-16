@@ -14,8 +14,6 @@ import org.vadere.util.geometry.shapes.VPoint;
 
 /**
  * Basic unit test for the {@link Geometry} class. NOT complete.
- * 
- * 
  */
 public class TestGeometry {
 

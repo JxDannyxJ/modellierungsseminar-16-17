@@ -12,8 +12,6 @@ import org.vadere.state.scenario.Topography;
 
 /**
  * Action: Resets the Topography. This means all ScenarioElements will be removed.
- * 
- * 
  */
 public class ActionResetTopography extends TopographyAction {
 	private static Resources resources = Resources.getInstance("topologycreator");
@@ -22,7 +20,7 @@ public class ActionResetTopography extends TopographyAction {
 	private final UndoableEditSupport undoSupport;
 
 	public ActionResetTopography(String name, ImageIcon icon, IDrawPanelModel panelModel,
-			UndoableEditSupport undoSupport) {
+								 UndoableEditSupport undoSupport) {
 		super(name, icon, panelModel);
 		this.undoSupport = undoSupport;
 	}

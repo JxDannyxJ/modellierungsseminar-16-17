@@ -12,8 +12,6 @@ import org.vadere.gui.topographycreator.model.IDrawPanelModel;
  * Action: Switch to selection mode to SelectViewportMode. In this mode
  * the user can zoom in by selecting a area of the topography.
  * Unused!
- * 
- *
  */
 public class ActionMinimizeSize extends TopographyAction {
 

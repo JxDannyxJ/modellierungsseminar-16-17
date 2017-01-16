@@ -35,31 +35,48 @@ import difflib.DiffUtils;
 
 /**
  * Receives an object of type ScenarioStore, manages a scenario and runs the simulation.
- * 
  */
 public class ScenarioRunManager implements Runnable {
 
-	/** The Logger instance.*/
+	/**
+	 * The Logger instance.
+	 */
 	private static Logger logger = LogManager.getLogger(ScenarioRunManager.class);
 
-	/** The {@link ScenarioStore} containing all data needed for simulation.*/
+	/**
+	 * The {@link ScenarioStore} containing all data needed for simulation.
+	 */
 	protected ScenarioStore scenarioStore;
-	/** The path for output files.*/
+	/**
+	 * The path for output files.
+	 */
 	protected Path outputPath;
 
-	/** List of {@link ModelTest}.*/
+	/**
+	 * List of {@link ModelTest}.
+	 */
 	private List<ModelTest> modelTests;
-	/** List of {@link PassiveCallback}.*/
+	/**
+	 * List of {@link PassiveCallback}.
+	 */
 	protected final List<PassiveCallback> passiveCallbacks;
 
-	/** {@link DataProcessingJsonManager} instance.*/
+	/**
+	 * {@link DataProcessingJsonManager} instance.
+	 */
 	private DataProcessingJsonManager dataProcessingJsonManager;
-	/** {@link ProcessorManager} to handle output.*/
+	/**
+	 * {@link ProcessorManager} to handle output.
+	 */
 	protected ProcessorManager processorManager;
 
-	/** {@link ScenarioFinishedListener}.*/
+	/**
+	 * {@link ScenarioFinishedListener}.
+	 */
 	private ScenarioFinishedListener finishedListener;
-	/** The {@link Simulation} which actually runs the simulation.*/
+	/**
+	 * The {@link Simulation} which actually runs the simulation.
+	 */
 	protected Simulation simulation;
 	/** */
 	private boolean simpleOutputProcessorName = false;
@@ -71,6 +88,7 @@ public class ScenarioRunManager implements Runnable {
 
 	/**
 	 * Create a new scenario run manager with the given name
+	 *
 	 * @param name the name of the new scenario
 	 */
 	public ScenarioRunManager(final String name) {
@@ -79,6 +97,7 @@ public class ScenarioRunManager implements Runnable {
 
 	/**
 	 * Create a new scenario run manager with the given {@link ScenarioStore}.
+	 *
 	 * @param store the scenario store.
 	 */
 	public ScenarioRunManager(final ScenarioStore store) {
@@ -87,7 +106,8 @@ public class ScenarioRunManager implements Runnable {
 
 	/**
 	 * Create a new scenario run manager with name and given {@link ScenarioStore}.
-	 * @param name the name of the new scenario.
+	 *
+	 * @param name  the name of the new scenario.
 	 * @param store the scenario store.
 	 */
 	public ScenarioRunManager(final String name, final ScenarioStore store) {
@@ -154,7 +174,7 @@ public class ScenarioRunManager implements Runnable {
 
 			final MainModel mainModel = modelBuilder.getModel();
 			final Random random = modelBuilder.getRandom();
-			
+
 			// prepare processors and simulation data writer
 			this.processorManager = this.dataProcessingJsonManager.createProcessorManager(mainModel);
 
@@ -180,15 +200,14 @@ public class ScenarioRunManager implements Runnable {
 	 * @param e
 	 */
 	public void simulationFailed(Throwable e) {
-			e.printStackTrace();
-			logger.error(e);
-			if (finishedListener != null)
-				finishedListener.scenarioRunThrewException(this, new Throwable(e));
+		e.printStackTrace();
+		logger.error(e);
+		if (finishedListener != null)
+			finishedListener.scenarioRunThrewException(this, new Throwable(e));
 	}
 
 	/**
 	 * Invokes {@link ScenarioFinishedListener#scenarioFinished(ScenarioRunManager)} if possible.
-	 *
 	 */
 	protected void doAfterSimulation() {
 		if (finishedListener != null)
@@ -234,7 +253,7 @@ public class ScenarioRunManager implements Runnable {
 	/**
 	 * Returns a copy of the used ModelTypes in a natural order.
 	 * This is useful for displaying the different Model Attributes in a good order.
-	 * 
+	 *
 	 * @return the used ModelTypes in a natural order
 	 */
 	public List<Attributes> getSortedAttributesMode() {
@@ -255,7 +274,6 @@ public class ScenarioRunManager implements Runnable {
 
 	/**
 	 * Adds {@link PassiveCallback} to {@link ScenarioRunManager#passiveCallbacks}.
-	 * @param pc
 	 */
 	public void addPassiveCallback(final PassiveCallback pc) {
 		this.passiveCallbacks.add(pc);
@@ -276,6 +294,7 @@ public class ScenarioRunManager implements Runnable {
 
 	/**
 	 * Checks if {@link ModelTest} succeed.
+	 *
 	 * @return False if some tests failed.
 	 */
 	public boolean isSuccessful() {
@@ -311,6 +330,7 @@ public class ScenarioRunManager implements Runnable {
 	/**
 	 * Pause the simulation.
 	 * Calls {@link Simulation#pause()}.
+	 *
 	 * @return False if simulation was not paused.
 	 */
 	public boolean pause() {
@@ -344,6 +364,7 @@ public class ScenarioRunManager implements Runnable {
 
 	/**
 	 * Cloning method. Creates copy of this instance.
+	 *
 	 * @return new instance of {@link ScenarioRunManager}.
 	 */
 	@Override
@@ -360,6 +381,7 @@ public class ScenarioRunManager implements Runnable {
 
 	/**
 	 * String is scenario name.
+	 *
 	 * @return the name of the scenario.
 	 */
 	@Override

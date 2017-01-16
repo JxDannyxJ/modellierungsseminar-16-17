@@ -10,7 +10,6 @@ import java.util.Collection;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class PedestrianSourceIdProcessor extends DataProcessor<PedestrianIdKey, Integer> {

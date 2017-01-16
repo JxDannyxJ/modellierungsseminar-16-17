@@ -7,8 +7,6 @@ import org.vadere.gui.topographycreator.view.SetScenarioBoundDialog;
 
 /**
  * Action: Opens the SetScenarioBoundDialog.
- * 
- *
  */
 public class ActionOpenSetSizePanel extends TopographyAction {
 

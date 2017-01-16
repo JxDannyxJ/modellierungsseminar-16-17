@@ -5,15 +5,14 @@ import org.vadere.state.attributes.processor.AttributesAreaDensityVoronoiProcess
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class AreaDensityVoronoiProcessor extends AreaDensityProcessor {
-    @Override
-    public void init(final ProcessorManager manager) {
-        super.init(manager);
+	@Override
+	public void init(final ProcessorManager manager) {
+		super.init(manager);
 
-        AttributesAreaDensityVoronoiProcessor att = (AttributesAreaDensityVoronoiProcessor) this.getAttributes();
-        this.setAlgorithm(new AreaDensityVoronoiAlgorithm(this.getMeasurementArea(), att.getVoronoiArea()));
-    }
+		AttributesAreaDensityVoronoiProcessor att = (AttributesAreaDensityVoronoiProcessor) this.getAttributes();
+		this.setAlgorithm(new AreaDensityVoronoiAlgorithm(this.getMeasurementArea(), att.getVoronoiArea()));
+	}
 }

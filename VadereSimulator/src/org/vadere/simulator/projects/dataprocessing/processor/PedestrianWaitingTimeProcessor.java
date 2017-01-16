@@ -11,41 +11,40 @@ import java.util.Map;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class PedestrianWaitingTimeProcessor extends DataProcessor<PedestrianIdKey, Double> {
-    private double lastSimTime;
-    private VRectangle waitingArea;
+	private double lastSimTime;
+	private VRectangle waitingArea;
 
-    public PedestrianWaitingTimeProcessor() {
-        super("waitingTime");
+	public PedestrianWaitingTimeProcessor() {
+		super("waitingTime");
 
-        this.lastSimTime = 0.0;
-    }
+		this.lastSimTime = 0.0;
+	}
 
-    @Override
-    protected void doUpdate(final SimulationState state) {
-        Map<Integer, VPoint> agentPosMap = state.getAgentPositionMap();
+	@Override
+	protected void doUpdate(final SimulationState state) {
+		Map<Integer, VPoint> agentPosMap = state.getAgentPositionMap();
 
-        double dt = state.getSimTimeInSec() - this.lastSimTime;
+		double dt = state.getSimTimeInSec() - this.lastSimTime;
 
-        for (Map.Entry<Integer, VPoint> entry : agentPosMap.entrySet()) {
-            int pedId = entry.getKey();
-            VPoint pos = entry.getValue();
+		for (Map.Entry<Integer, VPoint> entry : agentPosMap.entrySet()) {
+			int pedId = entry.getKey();
+			VPoint pos = entry.getValue();
 
-            if (this.waitingArea.contains(pos)) {
-                PedestrianIdKey key = new PedestrianIdKey(pedId);
-                this.setValue(key, (this.hasValue(key) ? this.getValue(key) : 0.0) + dt);
-            }
-        }
+			if (this.waitingArea.contains(pos)) {
+				PedestrianIdKey key = new PedestrianIdKey(pedId);
+				this.setValue(key, (this.hasValue(key) ? this.getValue(key) : 0.0) + dt);
+			}
+		}
 
-        this.lastSimTime = state.getSimTimeInSec();
-    }
+		this.lastSimTime = state.getSimTimeInSec();
+	}
 
-    @Override
-    public void init(final ProcessorManager manager) {
-        AttributesWaitingTimeProcessor att = (AttributesWaitingTimeProcessor) this.getAttributes();
-        this.waitingArea = att.getWaitingArea();
-    }
+	@Override
+	public void init(final ProcessorManager manager) {
+		AttributesWaitingTimeProcessor att = (AttributesWaitingTimeProcessor) this.getAttributes();
+		this.waitingArea = att.getWaitingArea();
+	}
 }

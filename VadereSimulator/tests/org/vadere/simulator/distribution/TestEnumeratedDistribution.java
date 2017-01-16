@@ -16,8 +16,8 @@ import org.vadere.util.test.StatisticalTestCase;
 
 public class TestEnumeratedDistribution {
 
-	private static final double[] TEST_FRACTIONS = { 1, 3 };
-	private static final int[] TEST_DATA = { 0, 1 };
+	private static final double[] TEST_FRACTIONS = {1, 3};
+	private static final int[] TEST_DATA = {0, 1};
 	private static final int SAMPLE_COUNT = 1000;
 
 	@StatisticalTestCase

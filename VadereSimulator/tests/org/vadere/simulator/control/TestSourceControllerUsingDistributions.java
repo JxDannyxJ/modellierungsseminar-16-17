@@ -138,17 +138,17 @@ public class TestSourceControllerUsingDistributions extends TestSourceController
 		assertEquals(spawnNumber, countPedestrians());
 
 	}
-	
+
 	@Test
 	public void testMaxSpawnNumberTotalSetTo0() {
 		SourceTestAttributesBuilder builder = new SourceTestAttributesBuilder()
 				.setMaxSpawnNumberTotal(0); // <-- max 0 -> spawn no peds at all
 		initialize(builder);
-		
+
 		sourceController.update(1);
 		sourceController.update(2);
 		sourceController.update(3);
-		
+
 		assertEquals(0, countPedestrians());
 	}
 
@@ -157,11 +157,11 @@ public class TestSourceControllerUsingDistributions extends TestSourceController
 		SourceTestAttributesBuilder builder = new SourceTestAttributesBuilder()
 				.setMaxSpawnNumberTotal(AttributesSource.NO_MAX_SPAWN_NUMBER_TOTAL); // <-- maximum not set
 		initialize(builder);
-		
+
 		sourceController.update(1);
 		sourceController.update(2);
 		sourceController.update(3);
-		
+
 		assertEquals(2, countPedestrians());
 	}
 
@@ -170,11 +170,11 @@ public class TestSourceControllerUsingDistributions extends TestSourceController
 		SourceTestAttributesBuilder builder = new SourceTestAttributesBuilder()
 				.setMaxSpawnNumberTotal(4); // <-- not exhausted
 		initialize(builder);
-		
+
 		sourceController.update(1);
 		sourceController.update(2);
 		sourceController.update(3);
-		
+
 		assertEquals(2, countPedestrians());
 	}
 
@@ -186,9 +186,9 @@ public class TestSourceControllerUsingDistributions extends TestSourceController
 				.setEndTime(endTime)
 				.setMaxSpawnNumberTotal(maxSpawnNumberTotal); // <-- exhausted!
 		initialize(builder);
-		
+
 		doUpdates(50, 0, 200);
-		
+
 		assertEquals(maxSpawnNumberTotal, countPedestrians());
 	}
 
@@ -200,9 +200,9 @@ public class TestSourceControllerUsingDistributions extends TestSourceController
 				.setSpawnNumber(5)
 				.setMaxSpawnNumberTotal(maxSpawnNumberTotal);
 		initialize(builder);
-		
+
 		doUpdates(50, 0, 200);
-		
+
 		assertEquals(maxSpawnNumberTotal, countPedestrians());
 	}
 
@@ -231,5 +231,5 @@ public class TestSourceControllerUsingDistributions extends TestSourceController
 	private void pedestrianCountEquals(int expected) {
 		assertEquals(expected, countPedestrians());
 	}
-	
+
 }

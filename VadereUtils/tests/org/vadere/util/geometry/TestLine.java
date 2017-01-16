@@ -14,8 +14,6 @@ import org.vadere.util.geometry.shapes.VPolygon;
 
 /**
  * Basic tests of the {@link Line} class.
- * 
- * 
  */
 public class TestLine {
 

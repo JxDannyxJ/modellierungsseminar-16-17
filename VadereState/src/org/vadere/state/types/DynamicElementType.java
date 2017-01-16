@@ -11,14 +11,11 @@ public enum DynamicElementType {
 	public static DynamicElementType enumFromClass(Class type) {
 		if (type == Horse.class) {
 			return HORSE;
-		}
-		else if (type == Pedestrian.class) {
+		} else if (type == Pedestrian.class) {
 			return PEDESTRIAN;
-		}
-		else if (type == Car.class) {
+		} else if (type == Car.class) {
 			return CAR;
-		}
-		else {
+		} else {
 			return null;
 		}
 	}

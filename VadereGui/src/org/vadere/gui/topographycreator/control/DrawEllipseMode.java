@@ -13,8 +13,6 @@ import javax.swing.undo.UndoableEditSupport;
 
 /**
  * In this mode VEllipse will be generated.
- *
- *
  */
 public class DrawEllipseMode extends DefaultSelectionMode {
 	private static Resources resources = Resources.getInstance("topologycreator");

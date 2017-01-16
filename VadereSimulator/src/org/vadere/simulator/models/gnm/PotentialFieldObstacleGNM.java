@@ -21,7 +21,6 @@ import org.vadere.util.potential.gradients.GradientProvider;
  * Provides gradients for obstcles in a continous manner. The gradient is
  * computed by using a point a little ahead of the given pedestrian and
  * calculating the distance to that point.
- * 
  */
 public class PotentialFieldObstacleGNM implements GradientProvider,
 		PotentialFieldObstacle {
@@ -33,14 +32,14 @@ public class PotentialFieldObstacleGNM implements GradientProvider,
 	private final AttributesPotentialGNM attributesPotential;
 
 	public PotentialFieldObstacleGNM(Collection<Obstacle> obstacles,
-			AttributesPotentialGNM attributesDynamicPotentialGNM) {
+									 AttributesPotentialGNM attributesDynamicPotentialGNM) {
 		this.obstacles = obstacles;
 		this.attributesPotential = attributesDynamicPotentialGNM;
 	}
 
 	@Override
 	public void gradient(double t, int targetID, double[] x,
-			double[] completeGrad) {
+						 double[] completeGrad) {
 		double pot = 0;
 		double[] grad = new double[2];
 
@@ -78,7 +77,7 @@ public class PotentialFieldObstacleGNM implements GradientProvider,
 			// compute the potential from ped i at x
 			pot = attributesPotential.getObstacleBodyPotential()
 					* MathUtil.cutExp(distance,
-							attributesPotential.getObstacleRepulsionStrength());// /
+					attributesPotential.getObstacleRepulsionStrength());// /
 			// Math.sin(phiB)*1.18167);
 
 			// compute and normalize the gradient length to the potential
@@ -105,10 +104,10 @@ public class PotentialFieldObstacleGNM implements GradientProvider,
 
 	@Override
 	public Vector2D getObstaclePotentialGradient(VPoint pos,
-			Agent pedestrian) {
+												 Agent pedestrian) {
 
 		double[] completeGrad = new double[2];
-		double[] x = new double[] {pos.getX(), pos.getY()};
+		double[] x = new double[]{pos.getX(), pos.getY()};
 		double t = 0;
 		gradient(t, -1, x, completeGrad);
 
@@ -122,7 +121,7 @@ public class PotentialFieldObstacleGNM implements GradientProvider,
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 }

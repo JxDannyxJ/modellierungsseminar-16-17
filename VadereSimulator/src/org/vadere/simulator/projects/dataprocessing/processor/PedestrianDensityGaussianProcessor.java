@@ -5,7 +5,6 @@ import org.vadere.state.attributes.processor.AttributesDensityGaussianProcessor;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class PedestrianDensityGaussianProcessor extends PedestrianDensityProcessor {

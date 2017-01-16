@@ -16,7 +16,6 @@ import org.vadere.util.potential.CellGrid;
  * FloorGradientProviderDiscrete is only present on a discrete grid. CAREFUL:
  * this destroys (= resets to 1) the convergence rates of many higher order
  * integrators if mollification of the gradient is done improperly!
- * 
  */
 public class FloorGradientProviderDiscrete implements GradientProvider {
 
@@ -31,13 +30,8 @@ public class FloorGradientProviderDiscrete implements GradientProvider {
 	 * Ctor of FloorGradientProviderDiscrete. Runs the fast marching algorithm
 	 * on the geometry given in the scenario and store the result in the
 	 * potential[][] array.
-	 * 
-	 * @param potentialFields
-	 *        pre-generated potential fields for every target in the
-	 *        scenario.
-	 * 
-	 * @param scenarioBounds
-	 * @param targets
+	 *
+	 * @param potentialFields pre-generated potential fields for every target in the scenario.
 	 */
 	public FloorGradientProviderDiscrete(
 			HashMap<Integer, CellGrid> potentialFields,
@@ -53,7 +47,7 @@ public class FloorGradientProviderDiscrete implements GradientProvider {
 
 	@Override
 	public void gradient(double t, int currentTargetId, double[] x,
-			double[] grad) {
+						 double[] grad) {
 
 		/*
 		 * // MATLAB code

@@ -20,7 +20,6 @@ import org.vadere.util.potential.timecost.UnitTimeCostFunction3D;
  * Tests the {@link PotentialFieldCalculatorFastMarching3D} class. Note that the
  * tests are not automatic, this class only generates files that need to be
  * checked visually with the MATLAB files in the matlab folder.
- * 
  */
 public class TestFM3D {
 
@@ -40,12 +39,12 @@ public class TestFM3D {
 	 * @throws java.lang.Exception
 	 */
 	@Before
-	public void setUp() throws Exception {}
+	public void setUp() throws Exception {
+	}
 
 	/**
-	 * Test method for
-	 * {@link org.vadere.util.potential.calculators.PotentialFieldCalculatorFastMarching3D#recalculate(double[][][], org.vadere.util.potential.CellStateFD[][][], java.util.List)}
-	 * .
+	 * Test method for {@link org.vadere.util.potential.calculators.PotentialFieldCalculatorFastMarching3D#recalculate(double[][][],
+	 * org.vadere.util.potential.CellStateFD[][][], java.util.List)} .
 	 */
 	@Test
 	public void testRecalculate() {
@@ -73,9 +72,6 @@ public class TestFM3D {
 
 	/**
 	 * Fills the given 3d array with the given state
-	 * 
-	 * @param elements
-	 * @param state
 	 */
 	private void fill(CellStateFD[][][] elements, CellStateFD state) {
 		for (int x = 0; x < elements.length; x++) {

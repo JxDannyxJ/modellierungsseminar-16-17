@@ -23,6 +23,7 @@ public abstract class AttributesScenarioElement extends Attributes {
 
 	/**
 	 * Class constructor which instantiates a new attributes scenario element with a given id
+	 *
 	 * @param id the unique identifier for the new object
 	 */
 	public AttributesScenarioElement(final int id) {
@@ -32,7 +33,8 @@ public abstract class AttributesScenarioElement extends Attributes {
 	/**
 	 * Class constructor which creates an attributes scenario element with a given id
 	 * and a specific shape
-	 * @param id the unique identifier for that object
+	 *
+	 * @param id    the unique identifier for that object
 	 * @param shape the shape of the object
 	 */
 	public AttributesScenarioElement(final int id, VShape shape) {
@@ -42,6 +44,7 @@ public abstract class AttributesScenarioElement extends Attributes {
 
 	/**
 	 * Getter for the identifier of this object
+	 *
 	 * @return id of the object
 	 */
 	public int getId() {
@@ -50,6 +53,7 @@ public abstract class AttributesScenarioElement extends Attributes {
 
 	/**
 	 * Setter for the shape of the scenario element
+	 *
 	 * @param shape shape of the scenario element
 	 */
 	public void setShape(VShape shape) {
@@ -58,6 +62,7 @@ public abstract class AttributesScenarioElement extends Attributes {
 
 	/**
 	 * Getter for the shape of the scenario element
+	 *
 	 * @return shape of the scenario element
 	 */
 	public VShape getShape() {

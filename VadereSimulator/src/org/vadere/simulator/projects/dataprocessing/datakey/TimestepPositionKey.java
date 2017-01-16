@@ -8,57 +8,57 @@ import org.vadere.util.geometry.shapes.VPoint;
  */
 
 public class TimestepPositionKey implements DataKey<TimestepPositionKey> {
-    private int timeStep;
-    private VPoint position;
+	private int timeStep;
+	private VPoint position;
 
-    public TimestepPositionKey(int timeStep, VPoint position) {
-        this.timeStep = timeStep;
-        this.position = position;
-    }
+	public TimestepPositionKey(int timeStep, VPoint position) {
+		this.timeStep = timeStep;
+		this.position = position;
+	}
 
-    public int getTimeStep() {
-        return this.timeStep;
-    }
+	public int getTimeStep() {
+		return this.timeStep;
+	}
 
-    public VPoint getPosition() {
-        return this.position;
-    }
+	public VPoint getPosition() {
+		return this.position;
+	}
 
-    @Override
-    public int compareTo(@NotNull TimestepPositionKey o) {
-        int result = Integer.compare(this.timeStep, o.timeStep);
+	@Override
+	public int compareTo(@NotNull TimestepPositionKey o) {
+		int result = Integer.compare(this.timeStep, o.timeStep);
 
-        if (result == 0) {
-            result = Double.compare(this.position.getX(), o.position.getX());
+		if (result == 0) {
+			result = Double.compare(this.position.getX(), o.position.getX());
 
-            if (result == 0) {
-                result = Double.compare(this.position.getY(), o.position.getY());
-            }
-        }
+			if (result == 0) {
+				result = Double.compare(this.position.getY(), o.position.getY());
+			}
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
 
-        TimestepPositionKey that = (TimestepPositionKey) o;
+		TimestepPositionKey that = (TimestepPositionKey) o;
 
-        if (timeStep != that.timeStep) return false;
-        return position.equals(that.position);
+		if (timeStep != that.timeStep) return false;
+		return position.equals(that.position);
 
-    }
+	}
 
-    @Override
-    public int hashCode() {
-        int result = timeStep;
-        result = 31 * result + position.hashCode();
-        return result;
-    }
+	@Override
+	public int hashCode() {
+		int result = timeStep;
+		result = 31 * result + position.hashCode();
+		return result;
+	}
 
-    public static String[] getHeaders() {
-        return new String[] { "timeStep", "x", "y" };
-    }
+	public static String[] getHeaders() {
+		return new String[]{"timeStep", "x", "y"};
+	}
 }

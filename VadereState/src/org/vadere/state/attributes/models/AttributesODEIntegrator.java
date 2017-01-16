@@ -8,8 +8,6 @@ import org.vadere.state.types.IntegratorType;
  * IntegratorType, minStepSize, maxStepSize, absoluteTolerance,
  * relativeTolerance. For methods without step size control, minStepSize and
  * maxStepSize should be equal.
- * 
- * 
  */
 public class AttributesODEIntegrator extends Attributes {
 	private IntegratorType solverType = IntegratorType.DORMAND_PRINCE_45;
@@ -21,7 +19,8 @@ public class AttributesODEIntegrator extends Attributes {
 	/**
 	 * Class default constructor for JSON
 	 */
-	public AttributesODEIntegrator() {}
+	public AttributesODEIntegrator() {
+	}
 
 	/*****************************
 	 * 			Getter			 *

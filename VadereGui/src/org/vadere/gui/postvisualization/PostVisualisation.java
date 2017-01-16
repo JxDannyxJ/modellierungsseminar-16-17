@@ -46,8 +46,6 @@ public class PostVisualisation {
 
 	/**
 	 * Set default preferences.
-	 * 
-	 * @param prefs
 	 */
 	private static void defaultPreferences(final Preferences prefs) {
 		prefs.put("View.outputDirectory.path", ".");

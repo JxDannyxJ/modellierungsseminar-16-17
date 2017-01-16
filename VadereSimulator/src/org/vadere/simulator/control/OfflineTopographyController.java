@@ -15,11 +15,14 @@ import org.vadere.util.geometry.shapes.VPolygon;
  */
 public class OfflineTopographyController {
 
-	/** The scenario topography */
+	/**
+	 * The scenario topography
+	 */
 	private final Topography topography;
 
 	/**
 	 * Constructor.
+	 *
 	 * @param topography the scenario.
 	 */
 	public OfflineTopographyController(final Topography topography) {
@@ -28,13 +31,16 @@ public class OfflineTopographyController {
 
 	/**
 	 * Update call. Calls {@link #recomputeCells()}
+	 *
 	 * @param simTimeInSec current simulation time.
 	 */
 	protected void update(double simTimeInSec) {
 		recomputeCells();
 	}
 
-	/** Getter for the {@link Topography}**/
+	/**
+	 * Getter for the {@link Topography}
+	 **/
 	public Topography getTopography() {
 		return topography;
 	}
@@ -69,8 +75,8 @@ public class OfflineTopographyController {
 	}
 
 	/**
-	 * Called by {@link #update(double)}
-	 * Recomputes the {@link org.vadere.util.geometry.LinkedCellsGrid} for fast access to Agent neighbors.
+	 * Called by {@link #update(double)} Recomputes the {@link org.vadere.util.geometry.LinkedCellsGrid}
+	 * for fast access to Agent neighbors.
 	 */
 	protected void recomputeCells() {
 		// recompute cells for pedestrians
@@ -91,6 +97,6 @@ public class OfflineTopographyController {
 			this.topography.getSpatialMap(Horse.class).addObject(horse,
 					horse.getPosition());
 		}
-		
+
 	}
 }

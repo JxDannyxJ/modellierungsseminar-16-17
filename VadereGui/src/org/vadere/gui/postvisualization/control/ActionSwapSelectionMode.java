@@ -7,6 +7,7 @@ import org.vadere.gui.components.control.DrawVoronoiDiagramMode;
 import org.vadere.gui.postvisualization.model.PostvisualizationModel;
 
 import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 
 public class ActionSwapSelectionMode extends ActionVisualization {

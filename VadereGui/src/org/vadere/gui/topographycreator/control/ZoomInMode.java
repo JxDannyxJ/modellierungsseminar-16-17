@@ -13,8 +13,6 @@ import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 /**
  * In this mode the user is able to zoom in by clicking his mouse and not only by using the mouse
  * wheel.
- * 
- * 
  */
 public class ZoomInMode extends DefaultModeAdapter {
 	private static Resources resources = Resources.getInstance("topologycreator");

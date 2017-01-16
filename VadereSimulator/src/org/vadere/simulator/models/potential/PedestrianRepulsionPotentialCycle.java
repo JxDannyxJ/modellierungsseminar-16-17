@@ -29,7 +29,7 @@ public class PedestrianRepulsionPotentialCycle implements
 
 	@Override
 	public double getAgentPotential(VPoint pos, Agent pedestrian,
-			Collection<? extends Agent> closePedestrians) {
+									Collection<? extends Agent> closePedestrians) {
 
 		double result = potentialFieldPedestrian.getAgentPotential(pos,
 				pedestrian, closePedestrians);
@@ -65,8 +65,8 @@ public class PedestrianRepulsionPotentialCycle implements
 
 	@Override
 	public Vector2D getAgentPotentialGradient(VPoint pos,
-			Vector2D velocity, Agent pedestrian,
-			Collection<? extends Agent> closePedestrians) {
+											  Vector2D velocity, Agent pedestrian,
+											  Collection<? extends Agent> closePedestrians) {
 		Vector2D result = potentialFieldPedestrian
 				.getAgentPotentialGradient(pos, velocity, pedestrian,
 						closePedestrians);
@@ -77,7 +77,7 @@ public class PedestrianRepulsionPotentialCycle implements
 			// shift forwards
 			VPoint shiftPos = new VPoint(pos.getX()
 					+ teleporter.getTeleporterShift().getX(), pos.getY()
-							+ teleporter.getTeleporterShift().getY());
+					+ teleporter.getTeleporterShift().getY());
 
 			// TODO [priority=low] [task=refactoring] find a better way to get the close pedestrians in this case
 			closePedestrians = potentialFieldPedestrian.getRelevantAgents(
@@ -105,20 +105,20 @@ public class PedestrianRepulsionPotentialCycle implements
 
 	@Override
 	public double getAgentPotential(VPoint pos, Agent pedestrian,
-			Agent otherPedestrian) {
+									Agent otherPedestrian) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Collection<? extends Agent> getRelevantAgents(VCircle relevantArea,
-			Agent pedestrian, Topography scenario) {
+														 Agent pedestrian, Topography scenario) {
 		return potentialFieldPedestrian.getRelevantAgents(relevantArea,
 				pedestrian, scenario);
 	}
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 }

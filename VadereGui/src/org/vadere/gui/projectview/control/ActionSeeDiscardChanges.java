@@ -9,6 +9,7 @@ import org.vadere.gui.projectview.view.VDialogManager;
 import org.vadere.gui.projectview.view.VTable;
 
 import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 
 public class ActionSeeDiscardChanges extends AbstractAction {

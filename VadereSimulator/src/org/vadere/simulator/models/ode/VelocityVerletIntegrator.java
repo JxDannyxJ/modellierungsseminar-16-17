@@ -12,13 +12,11 @@ import org.apache.commons.math3.ode.ExpandableStatefulODE;
 /**
  * Basic velocity verlet method from
  * http://en.wikipedia.org/wiki/Verlet_integration
- * 
+ *
  * Uses the following format to extract positions and velocities:
  * inputarray: y
  * format: y = [x1, y1, vx1, xy1, x2, y2, vx2, vy2, ...]
  * where the numbers indicate particles, x,y indicate position and vx,vy indicate velocities.
- * 
- *
  */
 public class VelocityVerletIntegrator extends AbstractIntegrator {
 

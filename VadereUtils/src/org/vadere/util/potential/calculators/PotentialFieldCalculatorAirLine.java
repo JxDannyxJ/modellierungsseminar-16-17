@@ -11,7 +11,7 @@ public class PotentialFieldCalculatorAirLine implements EikonalSolver {
 	private LinkedList<Point> targetPoints;
 
 	PotentialFieldCalculatorAirLine(CellGrid potentialField,
-			LinkedList<Point> targetPoints) {
+									LinkedList<Point> targetPoints) {
 		this.potentialField = potentialField;
 		this.targetPoints = targetPoints;
 	}
@@ -42,7 +42,8 @@ public class PotentialFieldCalculatorAirLine implements EikonalSolver {
 	}
 
 	@Override
-	public void update() {}
+	public void update() {
+	}
 
 	@Override
 	public boolean needsUpdate() {

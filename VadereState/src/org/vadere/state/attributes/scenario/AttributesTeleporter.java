@@ -15,7 +15,8 @@ public class AttributesTeleporter extends AttributesScenarioElement {
 	/**
 	 * Class default constructor for GSON
 	 */
-	public AttributesTeleporter() {}
+	public AttributesTeleporter() {
+	}
 
 	/*****************************
 	 * 			Getter			 *
@@ -23,6 +24,7 @@ public class AttributesTeleporter extends AttributesScenarioElement {
 
 	/**
 	 * Getter for the teleporter shifting target position
+	 *
 	 * @return the position after the shift
 	 */
 	public Vector2D getTeleporterShift() {
@@ -31,6 +33,7 @@ public class AttributesTeleporter extends AttributesScenarioElement {
 
 	/**
 	 * Getter for the position of the teleporter
+	 *
 	 * @return the teleporter's position
 	 */
 	public VPoint getTeleporterPosition() {

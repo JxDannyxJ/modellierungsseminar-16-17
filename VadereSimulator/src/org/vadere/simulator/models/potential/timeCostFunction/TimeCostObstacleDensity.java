@@ -11,8 +11,6 @@ import org.vadere.util.potential.timecost.ITimeCostFunction;
  * uses image processing filters. The measurement with a loading is done by the
  * ObstacleGaussianFilter that uses the javaCV library. This has to be done only
  * once, because the obstacles don't move.
- * 
- * 
  */
 public class TimeCostObstacleDensity implements ITimeCostFunction {
 	/**
@@ -21,13 +19,19 @@ public class TimeCostObstacleDensity implements ITimeCostFunction {
 	 */
 	private final IGaussianFilter obstacleImageFilter;
 
-	/** the loading of the obstacle density (= c_o). */
+	/**
+	 * the loading of the obstacle density (= c_o).
+	 */
 	private final double loading;
 
-	/** the next decorator (time cost function) of the decorator pattern. */
+	/**
+	 * the next decorator (time cost function) of the decorator pattern.
+	 */
 	private final ITimeCostFunction timeCostFunction;
 
-	/** only for logging. */
+	/**
+	 * only for logging.
+	 */
 	private static Logger logger = LogManager
 			.getLogger(TimeCostObstacleDensity.class);
 	private double highest = -1.0;
@@ -35,13 +39,9 @@ public class TimeCostObstacleDensity implements ITimeCostFunction {
 
 	/**
 	 * Construct a new TimeCostObstacleDensity-Decorator.
-	 *
-	 * @param timeCostFunction
-	 * @param obstacleLoading
-	 * @param filter
 	 */
 	public TimeCostObstacleDensity(final ITimeCostFunction timeCostFunction, final double obstacleLoading,
-			final IGaussianFilter filter) {
+								   final IGaussianFilter filter) {
 		this.timeCostFunction = timeCostFunction;
 		this.loading = obstacleLoading;
 		this.obstacleImageFilter = filter;

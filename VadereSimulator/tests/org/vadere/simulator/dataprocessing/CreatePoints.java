@@ -11,7 +11,6 @@ import org.vadere.util.geometry.shapes.VRectangle;
 /**
  * Utility class for tests. Helps to generate random positions and special position on an hexagon
  * grid.
- *
  */
 public class CreatePoints {
 
@@ -21,7 +20,7 @@ public class CreatePoints {
 	 * Generates randomly numberOfPoints points in a rectangle.
 	 * It is possible that this algorithm generate equal points.
 	 *
-	 * @param boundary the boundary the points will be contained in
+	 * @param boundary       the boundary the points will be contained in
 	 * @param numberOfPoints the number of points that will be generated
 	 * @return a array containing randomly generated points
 	 */
@@ -54,13 +53,14 @@ public class CreatePoints {
 	 * http://en.wikipedia.org/wiki/Centered_hexagonal_number).
 	 * If a point is outside the bounds than it will not be added.
 	 *
-	 * @param points the list that will be filled with new points (arranged in a hexagon pattern)
-	 * @param bounds the bounds all points contained in
+	 * @param points             the list that will be filled with new points (arranged in a hexagon
+	 *                           pattern)
+	 * @param bounds             the bounds all points contained in
 	 * @param hexagonAmbitRadius the ambit radius of the hexagon pattern
 	 * @return true, if there are at least one new point in the list, false otherwise
 	 */
 	public static boolean addHexagonPoints(final Collection<VPoint> points, final VRectangle bounds,
-			final double hexagonAmbitRadius) {
+										   final double hexagonAmbitRadius) {
 		Collection<VPoint> copy = new ArrayList<>();
 		copy.addAll(points);
 		boolean hasAddPoint = false;
@@ -87,7 +87,7 @@ public class CreatePoints {
 	}
 
 	private static boolean addHexagonPoints(final VPoint center, final Collection<VPoint> points,
-			final VRectangle bounds, final double hexagonAmbitRadius) {
+											final VRectangle bounds, final double hexagonAmbitRadius) {
 
 		double hexagonInCircleRadius = hexagonAmbitRadius * Math.sqrt(3) / 2;
 

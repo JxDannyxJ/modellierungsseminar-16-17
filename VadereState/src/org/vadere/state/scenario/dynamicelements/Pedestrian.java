@@ -39,7 +39,9 @@ public class Pedestrian extends Agent {
 	 */
 	private LinkedList<Integer> groupIds;
 
-	/** Used only for JSON serialization? */
+	/**
+	 * Used only for JSON serialization?
+	 */
 	// TODO used at all? Car does NOT have this field. remove if unused!
 	private ScenarioElementType type = ScenarioElementType.PEDESTRIAN;
 
@@ -53,7 +55,6 @@ public class Pedestrian extends Agent {
 
 	/**
 	 * Class constructor for creating a pedestrian with given attributes
-	 * @param attributesPedestrian
 	 */
 	private Pedestrian(AttributesAgent attributesPedestrian) {
 		this(attributesPedestrian, new Random());
@@ -61,8 +62,9 @@ public class Pedestrian extends Agent {
 
 	/**
 	 * Class constructor for creating a pedestrian with given attributes and a initial position
+	 *
 	 * @param attributesPed the attributes for the pedestrian
-	 * @param position the initial position of the pedestrian
+	 * @param position      the initial position of the pedestrian
 	 */
 	public Pedestrian(AttributesAgent attributesPed, VPoint position) {
 		super(attributesPed, position);
@@ -77,8 +79,9 @@ public class Pedestrian extends Agent {
 	/**
 	 * Class constructor for a new pedestrian with given attributes and a specified random
 	 * class
+	 *
 	 * @param attributesPed the attributes for the pedestrian
-	 * @param random the random class used for randomizing motion elements of the pedestrian
+	 * @param random        the random class used for randomizing motion elements of the pedestrian
 	 */
 	public Pedestrian(AttributesAgent attributesPed, Random random) {
 		super(attributesPed, random);
@@ -114,7 +117,7 @@ public class Pedestrian extends Agent {
 	@Override
 	public void copy(Agent element) {
 		super.copy(element);
-		Pedestrian ped = ((Pedestrian)element);
+		Pedestrian ped = ((Pedestrian) element);
 		this.isChild = ped.isChild();
 		this.isLikelyInjured = ped.isLikelyInjured();
 
@@ -142,6 +145,7 @@ public class Pedestrian extends Agent {
 
 	/**
 	 * Getter for the list of elements moving in a group with this pedestrian
+	 *
 	 * @return group id's of the elements in a group with this one
 	 */
 	public LinkedList<Integer> getGroupIds() {
@@ -155,6 +159,7 @@ public class Pedestrian extends Agent {
 
 	/**
 	 * Returns true if the pedestrian is a child
+	 *
 	 * @return isChild
 	 */
 	public boolean isChild() {
@@ -163,6 +168,7 @@ public class Pedestrian extends Agent {
 
 	/**
 	 * Returns the state of health for the pedestrian
+	 *
 	 * @return true if the pedestrian is injured, false otherwise
 	 */
 	public boolean isLikelyInjured() {
@@ -185,6 +191,7 @@ public class Pedestrian extends Agent {
 
 	/**
 	 * Setter for the group id's
+	 *
 	 * @param groupIds the id's of other elements moving in group with this
 	 */
 	public void setGroupIds(LinkedList<Integer> groupIds) {
@@ -193,6 +200,7 @@ public class Pedestrian extends Agent {
 
 	/**
 	 * Sets this pedestrian as a child or vise versa
+	 *
 	 * @param child true for making this pedestrian a child
 	 */
 	public void setChild(boolean child) {
@@ -201,6 +209,7 @@ public class Pedestrian extends Agent {
 
 	/**
 	 * Harms the pedestrian and makes him injured or heals him depending on the param
+	 *
 	 * @param likelyInjured true injures the pedestrian, false heals him
 	 */
 	public void setLikelyInjured(boolean likelyInjured) {

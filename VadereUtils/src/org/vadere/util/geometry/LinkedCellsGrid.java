@@ -15,14 +15,10 @@ import org.vadere.util.geometry.shapes.VPoint;
  * A grid augmenting the position of generic objects, for faster access. O(1)
  * instead of O(n) for one fixed radius check. See
  * {@link LinkedCellsGrid#getObjects(java.awt.geometry.shapes.VPoint, double)}.
- * 
- * 
  */
 public class LinkedCellsGrid<T> implements Iterable<T> {
 	/**
 	 * Key value pair holding an object with its assigned position.
-	 * 
-	 * 
 	 */
 	private class ObjectWithPosition<U> {
 		U object;
@@ -87,10 +83,8 @@ public class LinkedCellsGrid<T> implements Iterable<T> {
 	/**
 	 * One cell in the grid. It contains a mapping from points to lists of
 	 * objects. This means that one can store multiple objects in one cell.
-	 * 
-	 * 
-	 * @param <E>
-	 *        type of objects stored in this cell.
+	 *
+	 * @param <E> type of objects stored in this cell.
 	 */
 	private class GridCell<E> {
 		public Map<VPoint, List<E>> objects = new HashMap<VPoint, List<E>>();
@@ -134,11 +128,9 @@ public class LinkedCellsGrid<T> implements Iterable<T> {
 
 	/**
 	 * Generates an empty grid of GridCell&lt;T&gt; objects.
-	 * 
-	 * @param s
-	 *        grid side length
-	 * @return A two-dimensional grid of size "s^2" containing GridCell&lt;T&gt;
-	 *         objects.
+	 *
+	 * @param s grid side length
+	 * @return A two-dimensional grid of size "s^2" containing GridCell&lt;T&gt; objects.
 	 */
 	@SuppressWarnings("unchecked")
 	private GridCell<T>[][] generateGrid(int... s) {
@@ -158,21 +150,16 @@ public class LinkedCellsGrid<T> implements Iterable<T> {
 	/**
 	 * Generates a LinkedCellsGrid with given dimension, position and number of
 	 * items on one side.
-	 * 
-	 * @param left
-	 *        x-position of top left corner
-	 * @param top
-	 *        y-position of top left corner
-	 * @param width
-	 *        width of the grid, in world units (e.g. [m])
-	 * @param height
-	 *        height of the grid, in world units (e.g. [m])
-	 * @param sideLength
-	 *        number of items on one side. the total number of grid cells
-	 *        equals sideLength^2
+	 *
+	 * @param left       x-position of top left corner
+	 * @param top        y-position of top left corner
+	 * @param width      width of the grid, in world units (e.g. [m])
+	 * @param height     height of the grid, in world units (e.g. [m])
+	 * @param sideLength number of items on one side. the total number of grid cells equals
+	 *                   sideLength^2
 	 */
 	public LinkedCellsGrid(double left, double top, double width,
-			double height, double sideLength) {
+						   double height, double sideLength) {
 		this.left = left;
 		this.top = top;
 		this.width = width;
@@ -200,11 +187,9 @@ public class LinkedCellsGrid<T> implements Iterable<T> {
 	/**
 	 * Determines the discrete grid position (x,y) given a point with double
 	 * coordinates.
-	 * 
-	 * @param pos
-	 *        a given position with coordinate values of type double
-	 * @return the position in the grid, from 0 to this.gridSize-1 in both
-	 *         coordinates.
+	 *
+	 * @param pos a given position with coordinate values of type double
+	 * @return the position in the grid, from 0 to this.gridSize-1 in both coordinates.
 	 */
 	private int[] gridPos(VPoint pos) {
 		// compute position in the grid
@@ -217,17 +202,15 @@ public class LinkedCellsGrid<T> implements Iterable<T> {
 				Math.min(this.gridSize[1] - 1,
 						Math.floor((pos.getY() - top) / height * this.gridSize[1])));
 
-		return new int[] {iX, iY};
+		return new int[]{iX, iY};
 	}
 
 	/**
 	 * Adds a given object to the grid at the given position. The position is
 	 * discretized automatically to fit in the cells.
-	 * 
-	 * @param object
-	 *        object to add
-	 * @param pos
-	 *        position in the grid
+	 *
+	 * @param object object to add
+	 * @param pos    position in the grid
 	 */
 	public void addObject(final T object, final VPoint pos) {
 		int[] gridPos = gridPos(pos);
@@ -249,11 +232,9 @@ public class LinkedCellsGrid<T> implements Iterable<T> {
 
 	/**
 	 * Returns a set of objects in the ball around pos with given radius.
-	 * 
-	 * @param pos
-	 *        position of the center of the ball
-	 * @param radius
-	 *        radius of the ball
+	 *
+	 * @param pos    position of the center of the ball
+	 * @param radius radius of the ball
 	 * @return set of objects, or an empty set if no objects are present.
 	 */
 	public List<T> getObjects(final VPoint pos, final double radius) {
@@ -286,12 +267,10 @@ public class LinkedCellsGrid<T> implements Iterable<T> {
 	 * Removes the objects equal to the given object from the grid regardless of
 	 * their position. Note that this function has complexity O(N), with N =
 	 * number of objects in the grid.
-	 * 
-	 * @param object
 	 */
 	public void removeObject(T object) {
 		for (Iterator<ObjectWithPosition<T>> iter = totalObjects.iterator(); iter
-				.hasNext();) {
+				.hasNext(); ) {
 			ObjectWithPosition<T> obj = iter.next();
 			if (obj.object.equals(object)) {
 				iter.remove();
@@ -354,7 +333,7 @@ public class LinkedCellsGrid<T> implements Iterable<T> {
 
 	/**
 	 * Returns the size (number of different keys &lt;T&gt;) of List.
-	 * 
+	 *
 	 * @return the size (number of different keys &lt;T&gt;) of List
 	 */
 	public int size() {
@@ -365,12 +344,9 @@ public class LinkedCellsGrid<T> implements Iterable<T> {
 	 * Tests whether the linked cells grid contains an object that equals(the
 	 * given object). The complexity of this operation is O(N), N = number of
 	 * objects in the grid.
-	 * 
-	 * @param element
-	 * @return
 	 */
 	public boolean contains(final T element) {
-		for (Iterator<T> iter = this.iterator(); iter.hasNext();) {
+		for (Iterator<T> iter = this.iterator(); iter.hasNext(); ) {
 			if (iter.next().equals(element)) {
 				return true;
 			}

@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
@@ -22,7 +23,6 @@ import java.util.Properties;
  * plays a special role. If a property is not found in the specific file
  * e. g. postvisualization_config.properties than the global_config.properties will
  * be used as second step. Note: The global_config.properties are read only!
- *
  */
 public class Resources {
 

@@ -14,17 +14,21 @@ public class TopographyCreatorRenderer extends DefaultRenderer {
 	private final IDrawPanelModel<DefaultConfig> panelModel;
 
 
-	/** the buffer of the grid image. */
+	/**
+	 * the buffer of the grid image.
+	 */
 	private Image gridImage;
 
-	/** the times in millis the thread sleeps after each repaint. */
+	/**
+	 * the times in millis the thread sleeps after each repaint.
+	 */
 	private final static long REPAINT_SLEEP_TIME = 25; // 25 => 40 FPS
 
 	private int boundId = -1;
 
 	/**
 	 * Creates a new DrawPanel and start the repaint thread.
-	 * 
+	 *
 	 * @param panelModel the panelModel of the panel
 	 */
 	public TopographyCreatorRenderer(final IDrawPanelModel panelModel) {

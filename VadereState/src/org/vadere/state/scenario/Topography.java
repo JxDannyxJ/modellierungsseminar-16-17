@@ -35,10 +35,11 @@ import java.util.stream.Collectors;
  */
 public class Topography {
 
-	// TODO [priority=low] [task=feature] magic number, use attributes / parameter?
+
 	/**
 	 * Cell size of the internal storage of DynamicElements. Is used in the LinkedCellsGrid.
 	 */
+	// TODO [priority=low] [task=feature] magic number, use attributes / parameter?
 	private static final double CELL_SIZE = 2;
 
 	/**
@@ -91,10 +92,11 @@ public class Topography {
 	/**
 	 * Class constructor creates a new topography with given attributes for the scenario
 	 * elements and the topography itself
-	 * @param attributes the attributes for the topography
+	 *
+	 * @param attributes           the attributes for the topography
 	 * @param attributesPedestrian the attributes for the pedestrians
-	 * @param attributesCar the attributes for the cars
-	 * @param attributesHorse the attributes for the horses
+	 * @param attributesCar        the attributes for the cars
+	 * @param attributesHorse      the attributes for the horses
 	 */
 	public Topography(AttributesTopography attributes, AttributesAgent attributesPedestrian,
 					  AttributesCar attributesCar, AttributesHorse attributesHorse) {
@@ -106,7 +108,8 @@ public class Topography {
 	/**
 	 * Class constructor which instantiates a new topography with the appropriate attributes
 	 * for it and for the pedestrians
-	 * @param attributes the attributes for the topography
+	 *
+	 * @param attributes           the attributes for the topography
 	 * @param attributesPedestrian the attributes for the pedestrians
 	 */
 	public Topography(AttributesTopography attributes, AttributesAgent attributesPedestrian) {
@@ -134,7 +137,9 @@ public class Topography {
 
 	/**
 	 * Checks whether the topography contains any of the given targets in the list
-	 * @param targetPredicate the list of targets which will checked against the topography target list
+	 *
+	 * @param targetPredicate the list of targets which will checked against the topography target
+	 *                        list
 	 * @return true if one of the targets in the list is contained in the topography
 	 */
 	public boolean containsTarget(final Predicate<Target> targetPredicate) {
@@ -144,8 +149,9 @@ public class Topography {
 	/**
 	 * Overloaded method {@link #containsTarget(Predicate)}, which checks furthermore
 	 * if the targets has the same target id.
-	 * @param targetPredicate the list of targets which will checked against the topography target list
-	 * @param targetId
+	 *
+	 * @param targetPredicate the list of targets which will checked against the topography target
+	 *                        list
 	 * @return true if one of the targets in the list is contained in the topography
 	 */
 	public boolean containsTarget(final Predicate<Target> targetPredicate, final int targetId) {
@@ -154,8 +160,9 @@ public class Topography {
 
 	/**
 	 * Adds a dynamic element to the specified container
+	 *
 	 * @param element the dynamic element to add
-	 * @param <T> the type of the dynamic element
+	 * @param <T>     the type of the dynamic element
 	 */
 	public <T extends DynamicElement> void addElement(T element) {
 		((DynamicElementContainer<T>) getContainer(element.getClass())).addElement(element);
@@ -163,8 +170,9 @@ public class Topography {
 
 	/**
 	 * Removes a dynamic element from the specified container
+	 *
 	 * @param element the dynamic element to remove
-	 * @param <T> the type of the dynamic element
+	 * @param <T>     the type of the dynamic element
 	 */
 	public <T extends DynamicElement> void removeElement(T element) {
 		((DynamicElementContainer<T>) getContainer(element.getClass())).removeElement(element);
@@ -172,6 +180,7 @@ public class Topography {
 
 	/**
 	 * Adds a new source to the topography
+	 *
 	 * @param source a new source, where scenario elements spawn on
 	 */
 	public void addSource(Source source) {
@@ -180,6 +189,7 @@ public class Topography {
 
 	/**
 	 * Adds a target to the list of targets
+	 *
 	 * @param target the target which shall be added
 	 */
 	public void addTarget(Target target) {
@@ -188,6 +198,7 @@ public class Topography {
 
 	/**
 	 * Adds an obstacle to the list of obstacles
+	 *
 	 * @param obstacle the obstacle which shall be added
 	 */
 	public void addObstacle(Obstacle obstacle) {
@@ -196,6 +207,7 @@ public class Topography {
 
 	/**
 	 * Adds a stair to the list of stairs
+	 *
 	 * @param stairs the stair which shall be added
 	 */
 	public void addStairs(Stairs stairs) {
@@ -204,6 +216,7 @@ public class Topography {
 
 	/**
 	 * Setter for the teleporter
+	 *
 	 * @param teleporter teleporter which shall be replaced
 	 */
 	public void setTeleporter(Teleporter teleporter) {
@@ -212,8 +225,9 @@ public class Topography {
 
 	/**
 	 * Add an element to the container of initial elements with the specified type
+	 *
 	 * @param element the dynamic element which shall be added
-	 * @param <T> the type of the dynamic element
+	 * @param <T>     the type of the dynamic element
 	 */
 	public <T extends DynamicElement> void addInitialElement(T element) {
 		((DynamicElementContainer<T>) this.getContainer(element.getClass())).addInitialElement(element);
@@ -221,6 +235,7 @@ public class Topography {
 
 	/**
 	 * Adds an element add listener for a dynamic element.
+	 *
 	 * @param elementType the type of the element
 	 * @param addListener the listener for this element
 	 */
@@ -231,8 +246,9 @@ public class Topography {
 
 	/**
 	 * Adds an element remove listener for a dynamic element.
+	 *
 	 * @param elementType the type of the element
-	 * @param listener the listener for this element
+	 * @param listener    the listener for this element
 	 */
 	public <T extends DynamicElement> void addElementRemovedListener(Class<T> elementType,
 																	 DynamicElementRemoveListener<T> listener) {
@@ -241,6 +257,7 @@ public class Topography {
 
 	/**
 	 * Removes all listener from the element type
+	 *
 	 * @param elementType the type of the element
 	 */
 	public <T extends DynamicElement> void clearListeners(Class<T> elementType) {
@@ -348,6 +365,7 @@ public class Topography {
 
 	/**
 	 * Getter for the next target which is active due to entering agents
+	 *
 	 * @return the id of the target
 	 */
 	public int getNextFreeTargetID() {
@@ -376,6 +394,7 @@ public class Topography {
 
 	/**
 	 * Checks whether there is a boundary in the simulation
+	 *
 	 * @return true if there are boundary obstacles, false otherwise
 	 */
 	public boolean hasBoundary() {
@@ -385,6 +404,7 @@ public class Topography {
 	/**
 	 * Get target by target id. Iterates of the list of targets and returns the target
 	 * with the given target id
+	 *
 	 * @param targetId the id of the target
 	 * @return the convenient target for the given id
 	 */
@@ -399,6 +419,7 @@ public class Topography {
 
 	/**
 	 * Checks whether the simulation contains a teleporter
+	 *
 	 * @return true if there exists a teleporter, false otherwise
 	 */
 	public boolean hasTeleporter() {
@@ -407,6 +428,7 @@ public class Topography {
 
 	/**
 	 * Checks whether the topography is bounded
+	 *
 	 * @return true if it is, false otherwise
 	 */
 	public boolean isBounded() {
@@ -415,6 +437,7 @@ public class Topography {
 
 	/**
 	 * Getter for the attributes of the topography
+	 *
 	 * @return the attributes of the topography
 	 */
 	public AttributesTopography getAttributes() {
@@ -423,6 +446,7 @@ public class Topography {
 
 	/**
 	 * Getter for the attributes of a pedestrian
+	 *
 	 * @return the attributes of a pedestrian
 	 */
 	public AttributesAgent getAttributesPedestrian() {
@@ -431,6 +455,7 @@ public class Topography {
 
 	/**
 	 * Getter for the attributes of a car
+	 *
 	 * @return the attributes of a car
 	 */
 	public AttributesCar getAttributesCar() {
@@ -439,6 +464,7 @@ public class Topography {
 
 	/**
 	 * Getter for the attributes of a horse
+	 *
 	 * @return the attributes of a horse
 	 */
 	public AttributesHorse getAttributesHorse() {
@@ -447,6 +473,7 @@ public class Topography {
 
 	/**
 	 * Setter for the attributes of a pedestrian
+	 *
 	 * @param attributesPedestrian the attributes which shall be set for the pedestrian
 	 */
 	public void setAttributesPedestrian(AttributesAgent attributesPedestrian) {
@@ -455,6 +482,7 @@ public class Topography {
 
 	/**
 	 * Setter for the attributes of the car
+	 *
 	 * @param attributesCar the attributes which shall be set for the car
 	 */
 	public void setAttributesCar(AttributesCar attributesCar) {
@@ -463,6 +491,7 @@ public class Topography {
 
 	/**
 	 * Setter for the attributes of the horse
+	 *
 	 * @param attributesHorse the attributes which shall be set for the horse
 	 */
 	public void setAttributesHorse(AttributesHorse attributesHorse) {
@@ -478,6 +507,7 @@ public class Topography {
 
 	/**
 	 * Gets all target shapes mapped by id of the target
+	 *
 	 * @return map of target shapes with the id as a key
 	 */
 	public Map<Integer, List<VShape>> getTargetShapes() {
@@ -491,6 +521,7 @@ public class Topography {
 	/**
 	 * Getter for all dynamic scenario elements. It collects all lists
 	 * and merges them into one
+	 *
 	 * @return the list of agents in the simulation
 	 */
 	public Collection<Agent> getAllAgents() {
@@ -503,6 +534,7 @@ public class Topography {
 
 	/**
 	 * Getter for the sources
+	 *
 	 * @return list of sources in the simulation
 	 */
 	public List<Source> getSources() {
@@ -511,6 +543,7 @@ public class Topography {
 
 	/**
 	 * Getter for the targets
+	 *
 	 * @return list of targets in the simulation
 	 */
 	public List<Target> getTargets() {
@@ -519,6 +552,7 @@ public class Topography {
 
 	/**
 	 * Getter for the obstacles
+	 *
 	 * @return list of obstacles in the simulation
 	 */
 	public List<Obstacle> getObstacles() {
@@ -527,6 +561,7 @@ public class Topography {
 
 	/**
 	 * Getter for the stairs
+	 *
 	 * @return list of stairs in the simulation
 	 */
 	public List<Stairs> getStairs() {
@@ -535,6 +570,7 @@ public class Topography {
 
 	/**
 	 * Getter for the teleporter
+	 *
 	 * @return the teleporter of the simulation
 	 */
 	public Teleporter getTeleporter() {
@@ -543,6 +579,7 @@ public class Topography {
 
 	/**
 	 * Getter for the container which holds the pedestrians
+	 *
 	 * @return the dynamic container for pedestrians
 	 */
 	public DynamicElementContainer<Pedestrian> getPedestrianDynamicElements() {
@@ -551,6 +588,7 @@ public class Topography {
 
 	/**
 	 * Getter for the container which holds the cars
+	 *
 	 * @return the dynamic container for cars
 	 */
 	public DynamicElementContainer<Car> getCarDynamicElements() {
@@ -559,6 +597,7 @@ public class Topography {
 
 	/**
 	 * Getter for the container which holds the horses
+	 *
 	 * @return the dynamic container for horses
 	 */
 	public DynamicElementContainer<Horse> getHorseDynamicElemnets() {
@@ -568,8 +607,9 @@ public class Topography {
 	/**
 	 * Getter for the initial elements. Initial elements are scenario elements which aren't spawned
 	 * from sources and placed on the simulation map.
+	 *
 	 * @param elementType the type of elements which shall be returned
-	 * @param <T> the appropriate class for the elementType
+	 * @param <T>         the appropriate class for the elementType
 	 * @return a list of initial elements with the requested type
 	 */
 	public <T extends DynamicElement> List<T> getInitialElements(Class<T> elementType) {
@@ -577,10 +617,11 @@ public class Topography {
 	}
 
 	/**
-	 * Getter for elements of a specific type. The disparity to the {@link #getInitialElements(Class)} is
-	 * returning elements which aren't initial elements.
+	 * Getter for elements of a specific type. The disparity to the {@link
+	 * #getInitialElements(Class)} is returning elements which aren't initial elements.
+	 *
 	 * @param elementType the type of elements which shall be returned
-	 * @param <T> the appropriate class for the elementType
+	 * @param <T>         the appropriate class for the elementType
 	 * @return a list of elements with the requested type
 	 */
 	public <T extends DynamicElement> Collection<T> getElements(Class<T> elementType) {
@@ -589,10 +630,12 @@ public class Topography {
 
 	/**
 	 * Getter for a dynamic scenario element of a given type and id
+	 *
 	 * @param elementType the type of element which shall be returned
-	 * @param id the id of the element
-	 * @param <T> the appropriate class for the elementType
-	 * @return the dynamic scenario element which fits the requested information, otherwise it may return null
+	 * @param id          the id of the element
+	 * @param <T>         the appropriate class for the elementType
+	 * @return the dynamic scenario element which fits the requested information, otherwise it may
+	 * return null
 	 */
 	public <T extends DynamicElement> T getElement(Class<T> elementType, int id) {
 		return getContainer(elementType).getElement(id);
@@ -600,8 +643,9 @@ public class Topography {
 
 	/**
 	 * Getter for granting a dynamic element container for the requested elementType
+	 *
 	 * @param elementType the type of element which shall be returned in the container
-	 * @param <T> the appropriate class for the elementType
+	 * @param <T>         the appropriate class for the elementType
 	 * @return DynamicElementContainer which will hold the requested elements in a list
 	 */
 	@SuppressWarnings("unchecked")
@@ -637,6 +681,7 @@ public class Topography {
 
 	/**
 	 * Getter for the bounds of the topography
+	 *
 	 * @return the limitation of the topography map
 	 */
 	public Rectangle2D.Double getBounds() {
@@ -645,6 +690,7 @@ public class Topography {
 
 	/**
 	 * Getter for the width of the bounding box
+	 *
 	 * @return bounding box width
 	 */
 	public double getBoundingBoxWidth() {

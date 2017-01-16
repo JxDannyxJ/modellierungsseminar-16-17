@@ -11,25 +11,24 @@ import java.util.Collection;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class PedestrianOSMStrideLengthProcessor extends DataProcessor<TimestepPedestrianIdKey, Double> {
-    private OptimalStepsModel osm;
+	private OptimalStepsModel osm;
 
-    public PedestrianOSMStrideLengthProcessor() {
-        super("strideLength");
+	public PedestrianOSMStrideLengthProcessor() {
+		super("strideLength");
 
-        this.osm = null;
-    }
+		this.osm = null;
+	}
 
-    @Override
-    protected void doUpdate(final SimulationState state) {
-        Collection<Pedestrian> peds = state.getTopography().getElements(Pedestrian.class);
-        // TODO: if osm != null then compute stridelength
-        peds.forEach(ped -> this.setValue(new TimestepPedestrianIdKey(state.getStep(), ped.getId()), this.osm == null ? Double.NaN : 0.0));
+	@Override
+	protected void doUpdate(final SimulationState state) {
+		Collection<Pedestrian> peds = state.getTopography().getElements(Pedestrian.class);
+		// TODO: if osm != null then compute stridelength
+		peds.forEach(ped -> this.setValue(new TimestepPedestrianIdKey(state.getStep(), ped.getId()), this.osm == null ? Double.NaN : 0.0));
 
-        // TODO Use this comment from the old implementation for this implementation
+		// TODO Use this comment from the old implementation for this implementation
 //        @Override
 //        public Map<String, Table> getOutputTables() {
 //            outputTables.clear();
@@ -58,12 +57,12 @@ public class PedestrianOSMStrideLengthProcessor extends DataProcessor<TimestepPe
 //
 //            return outputTables;
 //        }
-    }
+	}
 
-    @Override
-    public void init(final ProcessorManager manager) {
-        Model model = manager.getMainModel();
-        if (model instanceof OptimalStepsModel)
-            this.osm = (OptimalStepsModel) model;
-    }
+	@Override
+	public void init(final ProcessorManager manager) {
+		Model model = manager.getMainModel();
+		if (model instanceof OptimalStepsModel)
+			this.osm = (OptimalStepsModel) model;
+	}
 }

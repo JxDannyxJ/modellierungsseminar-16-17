@@ -27,8 +27,6 @@ import java.util.stream.Collectors;
  * The each sweeping direction can be done in parallel. For a obstacle free topography and a
  * constant speed function F
  * and a point target, one iteration (4 sweeps) are enough to compute T.
- *
- *
  */
 public class EikonalSolverFSM implements EikonalSolver {
 	private CellGrid cellGrid;
@@ -41,9 +39,9 @@ public class EikonalSolverFSM implements EikonalSolver {
 	private static final double EPSILON = 0.001;
 
 	public EikonalSolverFSM(final CellGrid cellGrid,
-			final List<VShape> targetShapes,
-			final boolean isHighAccuracy,
-			final ITimeCostFunction timeCostFunction) {
+							final List<VShape> targetShapes,
+							final boolean isHighAccuracy,
+							final ITimeCostFunction timeCostFunction) {
 		this.timeCostFunction = timeCostFunction;
 		this.isHighAccuracy = isHighAccuracy;
 		this.targetShapes = targetShapes;

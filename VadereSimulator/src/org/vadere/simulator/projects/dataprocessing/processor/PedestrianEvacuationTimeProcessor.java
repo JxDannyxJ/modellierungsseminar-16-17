@@ -8,7 +8,6 @@ import org.vadere.state.scenario.dynamicelements.Pedestrian;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class PedestrianEvacuationTimeProcessor extends DataProcessor<PedestrianIdKey, Double> {

@@ -11,8 +11,6 @@ import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 
 /**
  * Action: Cuts the Topography so the TopographyBound will be changed.
- * 
- * 
  */
 public class ActionSelectCut extends TopographyAction {
 
@@ -20,7 +18,7 @@ public class ActionSelectCut extends TopographyAction {
 	private final IMode mode;
 
 	public ActionSelectCut(String name, ImageIcon icon, IDrawPanelModel panelModel,
-			final UndoableEditSupport undoSupport) {
+						   final UndoableEditSupport undoSupport) {
 		super(name, icon, panelModel);
 		mode = new CutScenarioMode(panelModel, undoSupport);
 	}

@@ -33,20 +33,18 @@ import java.util.regex.Pattern;
  * expression := (expression)
  *
  *
- *         Gramma:
- *         E -> T || E;
- *         E -> T;
- *         T -> F && T;
- *         T -> F;
- *         F -> (E);
- *         F -> !E
- *         F -> atom;
+ * Gramma:
+ * E -> T || E;
+ * E -> T;
+ * T -> F && T;
+ * T -> F;
+ * F -> (E);
+ * F -> !E
+ * F -> atom;
  *
- *         ( adas && ddd || aaa )
- *         F -> (E) -> (T || E) -> (F && T || E) -> (atom && F || E) -> (atom && atom || E) -> ...
- *         -> (atom && atom || atom)
- *
- *
+ * ( adas && ddd || aaa )
+ * F -> (E) -> (T || E) -> (F && T || E) -> (atom && F || E) -> (atom && atom || E) -> ...
+ * -> (atom && atom || atom)
  */
 public abstract class LogicalParser<T> {
 	protected final Scanner scanner; // ((\w)+(\.\w)*)(={2})((\w)+(\.\w)*)|((\w)+(\.\w)*)

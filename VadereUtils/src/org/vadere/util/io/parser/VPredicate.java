@@ -4,8 +4,6 @@ import java.text.ParseException;
 
 /**
  * see {@link java.util.function.Predicate} + ParseException
- *
- * @param <T>
  */
 @FunctionalInterface
 public interface VPredicate<T> {

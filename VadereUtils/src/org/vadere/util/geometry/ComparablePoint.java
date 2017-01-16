@@ -4,7 +4,6 @@ import org.vadere.util.geometry.shapes.VPoint;
 
 /**
  * VPoint with implementation of the comparable interface.
- * 
  */
 public class ComparablePoint extends VPoint implements
 		Comparable<ComparablePoint> {
@@ -22,11 +21,9 @@ public class ComparablePoint extends VPoint implements
 	 * Checks whether the given point is greater than the current point with
 	 * respect to:<br>
 	 * 1. x-coordinate -> 2. y-coordinate
-	 * 
-	 * @param p
-	 *        point to compare with
-	 * @return 1 if the current point is greater than p, -1 if smaller, 0
-	 *         otherwise.
+	 *
+	 * @param p point to compare with
+	 * @return 1 if the current point is greater than p, -1 if smaller, 0 otherwise.
 	 */
 	@Override
 	public int compareTo(ComparablePoint p) {
@@ -60,5 +57,7 @@ public class ComparablePoint extends VPoint implements
 		if (this.compareTo(objP) == 0)
 			return true;
 		return false;
-	};
+	}
+
+	;
 }

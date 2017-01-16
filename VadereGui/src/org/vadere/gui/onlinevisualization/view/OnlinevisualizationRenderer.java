@@ -72,7 +72,7 @@ public class OnlinevisualizationRenderer extends SimulationRenderer {
 				renderTrajectory(g, pedestrianPositions.get(ped.getId()), ped);
 			}
 
-			if (model.config.isShowWalkdirection() || !(shape instanceof VCircle) ) { //For performance matters no rotatin for circles
+			if (model.config.isShowWalkdirection() || !(shape instanceof VCircle)) { //For performance matters no rotatin for circles
 				int pedestrianId = ped.getId();
 				VPoint lastPosition = lastPedestrianPositions.get(pedestrianId);
 				lastPedestrianPositions.put(pedestrianId, position);
@@ -93,26 +93,26 @@ public class OnlinevisualizationRenderer extends SimulationRenderer {
 					}
 					if (direction != null) {
 						theta = Math.atan2(-direction.getY(), -direction.getX());
-						if(model.config.isShowWalkdirection())
-						DefaultRenderer.drawArrow(g, theta, position.getX() - ped.getRadius() * 2 * direction.getX(),
-								position.getY() - ped.getRadius() * 2 * direction.getY());
+						if (model.config.isShowWalkdirection())
+							DefaultRenderer.drawArrow(g, theta, position.getX() - ped.getRadius() * 2 * direction.getX(),
+									position.getY() - ped.getRadius() * 2 * direction.getY());
 					}
-					if(!(shape instanceof VCircle)) { // No rotation for circles
+					if (!(shape instanceof VCircle)) { // No rotation for circles
 						AffineTransform rotation = new AffineTransform(g.getTransform());
-						rotation.rotate(theta-Math.PI/2,ped.getPosition().getX(), ped.getPosition().getY());
+						rotation.rotate(theta - Math.PI / 2, ped.getPosition().getX(), ped.getPosition().getY());
 						g.setTransform(rotation);
 					}
 				}
 			}
 			if (ped instanceof Horse) {
 				g.setColor(model.config.getHorseColor());
-			}else {
+			} else {
 				g.setColor(model.config.getPedestrianColor());
 			}
-			
+
 			g.fill(ped.getShape());
 			g.setTransform(oldTransform);
-			
+
 		}
 	}
 }

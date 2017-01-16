@@ -31,14 +31,10 @@ public class DistributionFactory {
 	/**
 	 * Method which accepts a random class and a list of arguments which will be used to
 	 * create a real distribution
-	 * @param random a random inherited class
+	 *
+	 * @param random     a random inherited class
 	 * @param parameters a list of arguments used for instantiating a real distribution
 	 * @return a real distribution
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
-	 * @throws SecurityException
 	 */
 	public RealDistribution createDistribution(Random random, List<Double> parameters)
 			throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException,
@@ -60,14 +56,6 @@ public class DistributionFactory {
 
 	/**
 	 * Method which accepts a random class and a vaarg of arguments for the real distribution
-	 * @param random
-	 * @param parameters
-	 * @return
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
-	 * @throws SecurityException
 	 */
 	public RealDistribution createDistribution(Random random, Double... parameters)
 			throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException,

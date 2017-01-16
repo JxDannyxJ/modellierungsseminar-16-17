@@ -3,7 +3,6 @@ package org.vadere.util.potential;
 /**
  * The state of one cell. Can be EMPTY(' '), PERSON('p'), OBSTACLE('#'),
  * SOURCE('s') and TARGET('t').
- * 
  */
 public enum CellStateFD {
 	EMPTY(' '), PERSON('p'), OBSTACLE('#'), SOURCE('s'), TARGET('t');

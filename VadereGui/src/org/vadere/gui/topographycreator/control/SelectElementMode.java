@@ -21,7 +21,6 @@ import javax.swing.undo.UndoableEditSupport;
 /**
  * In this mode the user can select a ScenarioElement with his mouse (click) and he can move
  * elements around (press -> drag -> release).
- * 
  */
 public class SelectElementMode extends DefaultSelectionMode {
 	private final UndoableEditSupport undoSupport;

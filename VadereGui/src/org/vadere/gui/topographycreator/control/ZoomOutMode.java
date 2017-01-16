@@ -13,8 +13,6 @@ import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 /**
  * In this mode the user is able to zoom out by clicking his mouse and not only by using the mouse
  * wheel.
- * 
- * 
  */
 public class ZoomOutMode extends DefaultModeAdapter {
 	private static Resources resources = Resources.getInstance("topologycreator");

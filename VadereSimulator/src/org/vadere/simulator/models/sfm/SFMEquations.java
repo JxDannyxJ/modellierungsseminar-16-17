@@ -14,15 +14,14 @@ import org.vadere.util.math.MathUtil;
 /**
  * Implementation of the Social Force Model (Helbing 1995). This implementation
  * only captures very basic functionality:<br>
- * 
+ *
  * <pre>
  * dx/dt = v * normalizer(v)
  * dv/dt = (-grad_floorfield * vmax - v) * accTarget - grad_obstacles - grad_pedestrians
  * </pre>
- * 
+ *
  * The three different gradients are provided through instances of
  * IGradientProvider given in the constructor.
- * 
  */
 public class SFMEquations extends AbstractModelEquations<Pedestrian> {
 
@@ -36,9 +35,9 @@ public class SFMEquations extends AbstractModelEquations<Pedestrian> {
 
 	/**
 	 * Implement the right hand side of the Social Force Model equations.
-	 * 
+	 *
 	 * @see org.apache.commons.math3.ode.FirstOrderDifferentialEquations#computeDerivatives(double,
-	 *      double[], double[])
+	 * double[], double[])
 	 */
 	@Override
 	public void computeDerivatives(double t, double[] y, double[] yDot) {
@@ -138,11 +137,9 @@ public class SFMEquations extends AbstractModelEquations<Pedestrian> {
 
 	/**
 	 * Normalizes the given value if it is greater than vmax.
-	 * 
-	 * @param vmax
-	 *        maximum value
-	 * @param normv
-	 *        value that will be normalized
+	 *
+	 * @param vmax  maximum value
+	 * @param normv value that will be normalized
 	 * @return (normv <= vmax) ? (vmax/normv) : 1;
 	 */
 	private double normalizer(double vmax, double normv) {

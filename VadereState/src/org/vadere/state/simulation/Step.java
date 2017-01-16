@@ -4,7 +4,6 @@ import java.util.Optional;
 
 /**
  * Java Bean that store the stepNumber and the simulation time in seconds of a specific time step.
- *
  */
 public class Step implements Comparable<Step> {
 	private final Integer stepNumber;
@@ -17,7 +16,7 @@ public class Step implements Comparable<Step> {
 
 	/**
 	 * Returns an Optional<Double> since the simulation time in seconds may not stored.
-	 * 
+	 *
 	 * @return an Optional<Double>
 	 */
 	public Optional<Double> getSimTimeInSec() {
@@ -29,7 +28,7 @@ public class Step implements Comparable<Step> {
 
 	/**
 	 * The number of this step. The smallest step number is 1.
-	 * 
+	 *
 	 * @return number of this step
 	 */
 	public int getStepNumber() {

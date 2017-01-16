@@ -10,9 +10,8 @@ import junit.framework.TestSuite;
 public class TestPostVisualisation extends TestCase {
 	/**
 	 * Create the test case
-	 * 
-	 * @param testName
-	 *        name of the test case
+	 *
+	 * @param testName name of the test case
 	 */
 	public TestPostVisualisation(String testName) {
 		super(testName);

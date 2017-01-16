@@ -11,7 +11,6 @@ import org.vadere.util.geometry.shapes.VShape;
  * point x with d(x,target)=0 would give problems when calculating the
  * direction: x/norm(x-target). The mollified version (Koester et al. 2012) is
  * this: x/sqrt((x-target).^2+epsilon^2) with a small epsilon.
- * 
  */
 public class FloorGradientProviderEuclideanMollified implements
 		GradientProvider {

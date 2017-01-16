@@ -13,8 +13,6 @@ import org.vadere.state.types.ScenarioElementType;
 /**
  * Adds a new ScenarioElment to the Model and set the json content of the panelModel.
  * This is a helper class to avoid duplicated code in the DrawXXXMode-Classes!
- * 
- *
  */
 class ActionAddElement extends TopographyAction {
 

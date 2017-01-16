@@ -10,7 +10,6 @@ import java.util.Set;
  * This {@link org.vadere.util.io.parser.JsonLogicParser} is able to generate a {@linkg VPredicate}
  * based on a logical expression ({@link String})
  * that tests a Object of type {@link com.google.gson.JsonObject}.
- *
  */
 public class JsonLogicParser extends LogicalParser<JsonNode> {
 

@@ -10,7 +10,8 @@ public class AttributesQueuingGame extends Attributes {
 	private double expectedGentleTimeInSec;
 	private double expectedCompetitiveTimeInSec;
 
-	public AttributesQueuingGame() {}
+	public AttributesQueuingGame() {
+	}
 
 	public AttributesFloorField getNavigationFloorField() {
 		return navigationFloorField;

@@ -8,17 +8,17 @@ import org.junit.Test;
 import org.vadere.util.test.StatisticalTestCase;
 
 public class TruncatedNormalDistributionTest {
-	
+
 	private static final int maxIterations = 100;
 	private RandomGenerator rng = new JDKRandomGenerator();
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorMinMaxEquals() {
 		final double m = 2;
 		new TruncatedNormalDistribution(rng, 0, 1, m, m, maxIterations);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorMinGreaterThanMax() {
 		new TruncatedNormalDistribution(rng, 0, 1, 2, 1, maxIterations);
 	}
@@ -36,7 +36,7 @@ public class TruncatedNormalDistributionTest {
 	}
 
 	@StatisticalTestCase
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testBadMinMax() {
 		final double min = -10001;
 		final double max = -10000;

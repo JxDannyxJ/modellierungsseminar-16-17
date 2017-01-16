@@ -31,7 +31,7 @@ public class ActionShowAboutDialog extends AbstractAction {
 	public void actionPerformed(final ActionEvent event) {
 		String text = "<html>" +
 				"<font size =\"3\"><em>" + MessageFormat.format(Messages.getString("ProjectView.version"), HashGenerator.releaseNumber()) + "</em></font><br>" +
-				"<font size =\"3\">" + MessageFormat.format(Messages.getString("ProjectView.license.text"), "GNU Lesser General Public License (<em>LGPL</em>)")+".</font></html>";
+				"<font size =\"3\">" + MessageFormat.format(Messages.getString("ProjectView.license.text"), "GNU Lesser General Public License (<em>LGPL</em>)") + ".</font></html>";
 
 		JOptionPane.showMessageDialog(null,
 				text, Messages.getString("ProjectView.aboutDialog.label"),

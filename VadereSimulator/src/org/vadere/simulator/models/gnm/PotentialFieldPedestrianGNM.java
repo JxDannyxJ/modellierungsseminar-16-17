@@ -28,7 +28,7 @@ public class PotentialFieldPedestrianGNM implements PotentialFieldAgent {
 
 	@Override
 	public double getAgentPotential(VPoint pos, Agent pedestrian,
-			Collection<? extends Agent> otherPedestrians) {
+									Collection<? extends Agent> otherPedestrians) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -38,8 +38,8 @@ public class PotentialFieldPedestrianGNM implements PotentialFieldAgent {
 	 */
 	@Override
 	public Vector2D getAgentPotentialGradient(VPoint pos,
-			Vector2D velocity, Agent pedestrian,
-			Collection<? extends Agent> closePedestrians) {
+											  Vector2D velocity, Agent pedestrian,
+											  Collection<? extends Agent> closePedestrians) {
 
 		double[] completeGrad = new double[2];
 		double[] grad = new double[2];
@@ -48,9 +48,9 @@ public class PotentialFieldPedestrianGNM implements PotentialFieldAgent {
 		double pot;
 		double visiblePortion;
 		double phi;
-		double[] x = new double[] {pos.getX(), pos.getY()};
+		double[] x = new double[]{pos.getX(), pos.getY()};
 		double[] x2 = new double[2];
-		double[] v = new double[] {velocity.getX(), velocity.getY()};
+		double[] v = new double[]{velocity.getX(), velocity.getY()};
 
 		for (Agent otherPedestrian : closePedestrians) {
 			if (otherPedestrian == pedestrian) {
@@ -71,7 +71,7 @@ public class PotentialFieldPedestrianGNM implements PotentialFieldAgent {
 			} else {
 				pot = attributes.getPedestrianBodyPotential()
 						* MathUtil.cutExp(distance,
-								attributes.getPedestrianRecognitionDistance());
+						attributes.getPedestrianRecognitionDistance());
 			}
 
 			// compute the visible portion of ped i
@@ -93,13 +93,13 @@ public class PotentialFieldPedestrianGNM implements PotentialFieldAgent {
 
 	@Override
 	public double getAgentPotential(VPoint pos, Agent pedestrian,
-			Agent otherPedestrian) {
+									Agent otherPedestrian) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Collection<Pedestrian> getRelevantAgents(VCircle relevantArea,
-			Agent pedestrian, Topography scenario) {
+													Agent pedestrian, Topography scenario) {
 		List<Pedestrian> closePedestrians = scenario.getSpatialMap(Pedestrian.class)
 				.getObjects(relevantArea.getCenter(),
 						attributes.getPedestrianRecognitionDistance());
@@ -109,7 +109,7 @@ public class PotentialFieldPedestrianGNM implements PotentialFieldAgent {
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 }

@@ -26,7 +26,6 @@ import org.vadere.gui.onlinevisualization.model.OnlineVisualizationModel;
  * replaced by the main thread when new data is available. As the exchanged data
  * must not be shared between main and draw thread, the data exchanged is just a
  * (incomplete) copy of the original simulation data.
- * 
  */
 public class MainPanel extends ScaleablePanel implements Observer {
 	private static final long serialVersionUID = -8071914027011104638L;
@@ -35,7 +34,9 @@ public class MainPanel extends ScaleablePanel implements Observer {
 	private final OnlineVisualizationModel model;
 	private List<IRendererChangeListener> rendererChangeListeners;
 
-	/** Creates a new main panel. */
+	/**
+	 * Creates a new main panel.
+	 */
 	public MainPanel(final OnlineVisualizationModel model) {
 		super(model, null, null);
 		this.model = model;

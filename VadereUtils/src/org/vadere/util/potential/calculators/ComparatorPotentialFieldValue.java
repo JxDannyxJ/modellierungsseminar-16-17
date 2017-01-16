@@ -12,10 +12,14 @@ import org.vadere.util.potential.CellGrid;
  */
 class ComparatorPotentialFieldValue implements Comparator<Point> {
 
-	/** Grid whose potential have to be compared. */
+	/**
+	 * Grid whose potential have to be compared.
+	 */
 	private final CellGrid grid;
 
-	/** Creates a new comparator object for the given grid. */
+	/**
+	 * Creates a new comparator object for the given grid.
+	 */
 	ComparatorPotentialFieldValue(CellGrid grid) {
 		this.grid = grid;
 	}
@@ -23,13 +27,13 @@ class ComparatorPotentialFieldValue implements Comparator<Point> {
 	/**
 	 * Compares potentials of given points. Returns -1 if potential of p1 <
 	 * potential of p2. Returns 1 if potential of p1 > potential of p2.
-	 * 
+	 *
 	 * The behavior described in the following is a workaround for an
 	 * point-order-dependent behavior of 'high accuracy fast marching' which is
 	 * described below. If potential of poth points are equal: Returns -1 if
 	 * p1.x < p2.x Returns 1 if p1.x > p2.x Returns -1 if p1.y < p2.y Returns 1
 	 * if p1.y > p2.y, otherwise 0.
-	 * 
+	 *
 	 * Generally, the first mentioned comparisons should be sufficient to
 	 * retrieve reproducible results by the fast marching algorithm. One may
 	 * expect, that the fast marching algorithm is not influenced by the order
@@ -40,7 +44,7 @@ class ComparatorPotentialFieldValue implements Comparator<Point> {
 	 * more information). These asymmetric results are influenced by the order
 	 * of points with same potentials. To ensure at least a reproducible result
 	 * the position of the points is also taken into account for comparison.
-	 * 
+	 *
 	 * If one would return 0 for points with same potential, the order of these
 	 * points is determined by some pseudo-random characteristics like location
 	 * of the variable in memory. This leads to different results between two

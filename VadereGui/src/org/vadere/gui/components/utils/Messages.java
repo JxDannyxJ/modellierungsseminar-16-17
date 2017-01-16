@@ -13,8 +13,6 @@ import java.util.prefs.Preferences;
 
 /**
  * Messages class used in localization.
- * 
- * 
  */
 public abstract class Messages {
 

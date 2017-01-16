@@ -21,7 +21,6 @@ import org.vadere.util.potential.timecost.ITimeCostFunction;
  * of the fast marching algorithm. The potential field is static and therefor
  * not updated by update() (see PotentialFieldInitializerFastMarchingAdaptive).
  * Hence, the initializer may be used to realize static floor fields.
- * 
  */
 public class EikonalSolverFMM implements EikonalSolver {
 	protected final PriorityQueue<Point> narrowBand;
@@ -32,7 +31,9 @@ public class EikonalSolverFMM implements EikonalSolver {
 	protected List<VShape> targetShapes;
 	boolean isHighAccuracy = false;
 
-	/** only for logging */
+	/**
+	 * only for logging
+	 */
 	protected static Logger logger = LogManager.getLogger(EikonalSolverFMM.class);
 	protected long runtime = 0;
 
@@ -40,9 +41,9 @@ public class EikonalSolverFMM implements EikonalSolver {
 	 * Initializes the FM potential calculator with a time cost function F > 0.
 	 */
 	public EikonalSolverFMM(CellGrid potentialField,
-			List<VShape> targetShapes,
-			boolean isHighAccuracy,
-			ITimeCostFunction timeCostFunction) {
+							List<VShape> targetShapes,
+							boolean isHighAccuracy,
+							ITimeCostFunction timeCostFunction) {
 		this.cellGrid = potentialField;
 		this.targetPoints = cellGrid.pointStream().filter(p -> cellGrid.getValue(p).tag == PathFindingTag.Target)
 				.collect(Collectors.toList());
@@ -83,8 +84,6 @@ public class EikonalSolverFMM implements EikonalSolver {
 
 	/**
 	 * Method to support calculation on demand (to improve the performance).
-	 * 
-	 * @param point
 	 */
 	private void furtherRun(final Point point) {
 		Point tmpPoint;

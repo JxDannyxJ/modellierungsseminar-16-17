@@ -15,7 +15,6 @@ import org.vadere.state.attributes.models.AttributesPotentialOSM;
 
 /**
  * Singleton for model presets.
- * 
  */
 public class ModelPresets {
 
@@ -40,14 +39,13 @@ public class ModelPresets {
 		registerModelPreset(OptimalStepsModel.class, list);
 
 
-
 		// list.clear();
 		// list.add(...);
 		// registerModelPreset(MyModel.class, list);
 	}
 
 	private void registerModelPreset(Class<? extends MainModel> mainModelClass,
-			List<Class<? extends Attributes>> attributesClasses) {
+									 List<Class<? extends Attributes>> attributesClasses) {
 
 		ModelDefinition definition = new ModelDefinition(mainModelClass.getName(), null);
 		definition.createAndSetDefaultAttributes(attributesClasses);

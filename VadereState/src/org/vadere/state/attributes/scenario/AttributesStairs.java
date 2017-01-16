@@ -22,10 +22,12 @@ public class AttributesStairs extends AttributesScenarioElement {
 	 * Class default constructor used for GSON
 	 */
 	@SuppressWarnings("unused")
-	public AttributesStairs() {}
+	public AttributesStairs() {
+	}
 
 	/**
 	 * Class constructor which creates an attributes object for stairs with a given id
+	 *
 	 * @param id the unique identifier of this object
 	 */
 	@SuppressWarnings("unused")
@@ -38,9 +40,10 @@ public class AttributesStairs extends AttributesScenarioElement {
 	/**
 	 * Class constructor for an attributes stairs object with a given id, shape, step amount
 	 * and running direction
-	 * @param id the unique identifier of the attributes object
-	 * @param shape the shape
-	 * @param treadCount the amount steps for the stairs
+	 *
+	 * @param id              the unique identifier of the attributes object
+	 * @param shape           the shape
+	 * @param treadCount      the amount steps for the stairs
 	 * @param upwardDirection the direction of movement
 	 */
 	public AttributesStairs(int id, VShape shape, int treadCount, Vector2D upwardDirection) {
@@ -55,6 +58,7 @@ public class AttributesStairs extends AttributesScenarioElement {
 
 	/**
 	 * Getter for the step count
+	 *
 	 * @return tread count
 	 */
 	public int getTreadCount() {
@@ -63,6 +67,7 @@ public class AttributesStairs extends AttributesScenarioElement {
 
 	/**
 	 * Getter for the direction of movement
+	 *
 	 * @return stairs running direction
 	 */
 	public Vector2D getUpwardDirection() {

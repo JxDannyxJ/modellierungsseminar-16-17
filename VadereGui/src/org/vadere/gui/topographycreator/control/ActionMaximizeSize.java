@@ -8,8 +8,6 @@ import org.vadere.gui.topographycreator.model.IDrawPanelModel;
 
 /**
  * Action: Reset the size of the scenario to the default value.
- * 
- * 
  */
 public class ActionMaximizeSize extends TopographyAction {
 

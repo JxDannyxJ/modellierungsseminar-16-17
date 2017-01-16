@@ -7,8 +7,7 @@ import org.vadere.util.geometry.shapes.VPoint;
 import org.vadere.util.geometry.shapes.VPolygon;
 
 /**
- *
- *         Use the pseudo code from http://en.wikipedia.org/wiki/Graham_scan
+ * Use the pseudo code from http://en.wikipedia.org/wiki/Graham_scan
  */
 public class GrahamScan {
 
@@ -21,7 +20,7 @@ public class GrahamScan {
 		if (pts.size() < 2) {
 			throw new IllegalArgumentException("to few points to calculate a convex hull");
 		}
-		this.points = pts.toArray(new VPoint[] {}).clone();
+		this.points = pts.toArray(new VPoint[]{}).clone();
 		this.numberOfPoints = points.length;
 		this.calculated = false;
 	}
@@ -164,7 +163,7 @@ public class GrahamScan {
 		 * @param o1 first point
 		 * @param o2 second point
 		 * @return -1 if o1 will be scanned before o2, 1 if o1 will be scanned after o2, 0
-		 *         otherwise.
+		 * otherwise.
 		 */
 		@Override
 		public int compare(final VPoint o1, final VPoint o2) {

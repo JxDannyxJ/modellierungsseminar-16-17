@@ -4,6 +4,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +28,7 @@ public class ChooseNamesDialog extends JDialog {
 	public ChooseNamesDialog(final Frame owner, final String title, final String[] names) {
 		super(owner, true);
 		this.title = title;
-		this.selectedNames = new String[] {};
+		this.selectedNames = new String[]{};
 		this.aborted = false;
 		checkBoxList = new ArrayList<>();
 
@@ -64,7 +65,7 @@ public class ChooseNamesDialog extends JDialog {
 						gatherNamesList.add(checkBox.getText());
 					}
 				}
-				selectedNames = gatherNamesList.toArray(new String[] {});
+				selectedNames = gatherNamesList.toArray(new String[]{});
 
 				ChooseNamesDialog.this.dispose();
 			}

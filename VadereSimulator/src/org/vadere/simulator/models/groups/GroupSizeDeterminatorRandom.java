@@ -13,7 +13,7 @@ public class GroupSizeDeterminatorRandom implements GroupSizeDeterminator {
 
 	public GroupSizeDeterminatorRandom(List<Double> fractions, Random random) {
 		final RandomGenerator rng = new JDKRandomGenerator(random.nextInt());
-		
+
 		// The EnumeratedIntegerDistribution works with fractions.
 		// We don't have to normalize them to probabilities.
 		// See unit test TestEnumeratedDistribution.
@@ -25,7 +25,7 @@ public class GroupSizeDeterminatorRandom implements GroupSizeDeterminator {
 			groupSizeValues[i] = i + 1;
 			probabilities[i] = fractions.get(i);
 		}
-		
+
 		distribution = new EnumeratedIntegerDistribution(rng, groupSizeValues, probabilities);
 	}
 

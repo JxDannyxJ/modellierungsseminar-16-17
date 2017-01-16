@@ -10,31 +10,30 @@ import java.util.Map;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class PedestrianOverlapProcessor extends DataProcessor<TimestepPedestrianIdKey, Integer> {
-    private double pedRadius;
+	private double pedRadius;
 
-    public PedestrianOverlapProcessor() {
-        super("overlaps");
-    }
+	public PedestrianOverlapProcessor() {
+		super("overlaps");
+	}
 
-    @Override
-    protected void doUpdate(final SimulationState state) {
-        Map<Integer, VPoint> agentPosMap = state.getAgentPositionMap();
+	@Override
+	protected void doUpdate(final SimulationState state) {
+		Map<Integer, VPoint> agentPosMap = state.getAgentPositionMap();
 
-        agentPosMap.entrySet().forEach(entry -> this.setValue(new TimestepPedestrianIdKey(state.getStep(), entry.getKey()), this.calculateOverlaps(agentPosMap, entry.getValue())));
-    }
+		agentPosMap.entrySet().forEach(entry -> this.setValue(new TimestepPedestrianIdKey(state.getStep(), entry.getKey()), this.calculateOverlaps(agentPosMap, entry.getValue())));
+	}
 
-    @Override
-    public void init(final ProcessorManager manager) {
-        AttributesOverlapProcessor att = (AttributesOverlapProcessor) this.getAttributes();
+	@Override
+	public void init(final ProcessorManager manager) {
+		AttributesOverlapProcessor att = (AttributesOverlapProcessor) this.getAttributes();
 
-        this.pedRadius = att.getRadius();
-    }
+		this.pedRadius = att.getRadius();
+	}
 
-    private int calculateOverlaps(final Map<Integer, VPoint> pedPosMap, VPoint pos) {
-        return (int) pedPosMap.values().stream().filter(pedPos -> pedPos.distance(pos) < 2*this.pedRadius).count();
-    }
+	private int calculateOverlaps(final Map<Integer, VPoint> pedPosMap, VPoint pos) {
+		return (int) pedPosMap.values().stream().filter(pedPos -> pedPos.distance(pos) < 2 * this.pedRadius).count();
+	}
 }

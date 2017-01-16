@@ -7,24 +7,19 @@ import org.vadere.state.scenario.Topography;
 
 /**
  * Factory that creates all the different laoding strategies.
- * 
- * 
  */
 @Deprecated
 public class LoadingFactory {
 	/**
 	 * Creates and returns the laoding constant laoding strategy (that is
 	 * discribed in hartmanns paper).
-	 * 
-	 * @param floorFieldTargetId
-	 *        the target id that is the target of the generated potential
-	 *        field that uses this loading strategy
-	 * @param sameFlooLoading
-	 *        the loading for pedestrians of that have the same target = the
-	 *        target of the generated potential field (c_D in hartmann-2012)
-	 * @param otherFloorLoading
-	 *        the loading for pedestrians of that have on other target (c_D'
-	 *        in hartmann-2012)
+	 *
+	 * @param floorFieldTargetId the target id that is the target of the generated potential field
+	 *                           that uses this loading strategy
+	 * @param sameFlooLoading    the loading for pedestrians of that have the same target = the
+	 *                           target of the generated potential field (c_D in hartmann-2012)
+	 * @param otherFloorLoading  the loading for pedestrians of that have on other target (c_D' in
+	 *                           hartmann-2012)
 	 * @return the laoding constant laoding strategy
 	 */
 	public static IPedestrianLoadingStrategy createConstantPedestrianLoading(
@@ -36,17 +31,13 @@ public class LoadingFactory {
 
 	/**
 	 * Creates and returns the laoding dynamicelements laoding strategy.
-	 * 
-	 * @param floor
-	 *        the floor that contains all the pedestrian that count.
-	 * @param floorFieldTargetId
-	 *        the target id that is the target of the generated potential
-	 *        field that uses this loading strategy
-	 * @param loading
-	 *        the loading that will be multiplied to the dynamicelements loading
-	 *        (c_p in the bachelor thesis of Benedikt Zoennchen)
-	 * @param meanSpeed
-	 *        the mean speed of all pedestrians
+	 *
+	 * @param floor              the floor that contains all the pedestrian that count.
+	 * @param floorFieldTargetId the target id that is the target of the generated potential field
+	 *                           that uses this loading strategy
+	 * @param loading            the loading that will be multiplied to the dynamicelements loading
+	 *                           (c_p in the bachelor thesis of Benedikt Zoennchen)
+	 * @param meanSpeed          the mean speed of all pedestrians
 	 * @return the laoding dynamicelements laoding strategy
 	 */
 	public static IPedestrianLoadingStrategy createDynamicPedestrianLoading(
@@ -64,9 +55,8 @@ public class LoadingFactory {
 
 	/**
 	 * Creates and returns the laoding constant laoding strategy.
-	 * 
-	 * @param loading
-	 *        (c in hartmann-2012)
+	 *
+	 * @param loading (c in hartmann-2012)
 	 * @return the laoding constant laoding strategy
 	 */
 	public static IPedestrianLoadingStrategy createUnitQueueGamePedestrianLoading(
@@ -76,9 +66,8 @@ public class LoadingFactory {
 
 	/**
 	 * Creates and returns the laoding constant laoding strategy.
-	 * 
-	 * @param loading
-	 *        (c in hartmann-2012)
+	 *
+	 * @param loading (c in hartmann-2012)
 	 * @return the laoding constant laoding strategy
 	 */
 	public static IPedestrianLoadingStrategy createUnitPedestrianLoading(

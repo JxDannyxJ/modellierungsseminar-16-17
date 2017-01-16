@@ -6,6 +6,7 @@ import org.vadere.gui.projectview.model.ProjectViewModel;
 import org.vadere.gui.projectview.view.VDialogManager;
 
 import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.prefs.BackingStoreException;
@@ -35,8 +36,7 @@ public class ActionCloseApplication extends AbstractAction {
 
 		} catch (IOException | BackingStoreException e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			System.exit(0);
 		}
 	}

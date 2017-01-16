@@ -100,8 +100,8 @@ public class Player implements Runnable {
 						}
 					}
 				}
-					model.notifyObservers();
-					break;
+				model.notifyObservers();
+				break;
 
 				case PAUSED: {
 					synchronized (model) {
@@ -112,7 +112,7 @@ public class Player implements Runnable {
 						}
 					}
 				}
-					break;
+				break;
 				default:
 					break;
 			}

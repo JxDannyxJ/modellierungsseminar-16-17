@@ -3,11 +3,10 @@ package org.vadere.state.attributes.scenario;
 /**
  * Provides attributes for an agent, like body radius, ...
  *
- * An AttributesAgent object is used for dynamically moving scenario elements in the simulation.
- * For now the listed attributes are the generalized information for all subclasses and necessary
- * for the scenario element to be able to move over the simulation map. In future case this information
+ * An AttributesAgent object is used for dynamically moving scenario elements in the simulation. For
+ * now the listed attributes are the generalized information for all subclasses and necessary for
+ * the scenario element to be able to move over the simulation map. In future case this information
  * might shift to the super class to specify a dynamic element and an agent separately.
- *
  */
 public class AttributesAgent extends AttributesDynamicElement {
 
@@ -59,6 +58,7 @@ public class AttributesAgent extends AttributesDynamicElement {
 
 	/**
 	 * Getter for the radius of an agent
+	 *
 	 * @return the radius of the agent
 	 */
 	public double getRadius() {
@@ -68,6 +68,7 @@ public class AttributesAgent extends AttributesDynamicElement {
 	/**
 	 * Getter for the density dependent speed. It gives a value
 	 * for the density influenced movement
+	 *
 	 * @return the speed of the movement for this agent
 	 */
 	public boolean isDensityDependentSpeed() {
@@ -77,6 +78,7 @@ public class AttributesAgent extends AttributesDynamicElement {
 	/**
 	 * Getter for the speed distribution mean which can be used for calculating
 	 * a speed distribution for an agent
+	 *
 	 * @return the mean of the speed distribution
 	 */
 	public double getSpeedDistributionMean() {
@@ -95,6 +97,7 @@ public class AttributesAgent extends AttributesDynamicElement {
 
 	/**
 	 * Getter for the minimum speed of an agent
+	 *
 	 * @return minimum movement speed
 	 */
 	public double getMinimumSpeed() {
@@ -103,6 +106,7 @@ public class AttributesAgent extends AttributesDynamicElement {
 
 	/**
 	 * Getter for the maximum speed of an agent
+	 *
 	 * @return maximum movement speed
 	 */
 	public double getMaximumSpeed() {
@@ -111,6 +115,7 @@ public class AttributesAgent extends AttributesDynamicElement {
 
 	/**
 	 * Getter for the acceleration of an agent
+	 *
 	 * @return acceleration of the agent
 	 */
 	public double getAcceleration() {

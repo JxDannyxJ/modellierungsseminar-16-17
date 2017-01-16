@@ -69,7 +69,7 @@ public class ClassFinder {
 		try {
 			return getClasses(packageName).stream()
 					.filter(c -> !c.isInterface()
-							&& baseClassOrInterface.isAssignableFrom(c) 
+							&& baseClassOrInterface.isAssignableFrom(c)
 							&& isNotAnInnerClass(c))
 					.collect(Collectors.toList());
 		} catch (ClassNotFoundException | IOException e) {
@@ -90,8 +90,6 @@ public class ClassFinder {
 	 *
 	 * @param packageName The base package
 	 * @return The classes
-	 * @throws ClassNotFoundException
-	 * @throws IOException
 	 */
 	private static List<Class<?>> getClasses(String packageName) throws ClassNotFoundException, IOException {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -113,10 +111,9 @@ public class ClassFinder {
 	/**
 	 * Recursive method used to find all classes in a given directory and subdirs.
 	 *
-	 * @param directory The base directory
+	 * @param directory   The base directory
 	 * @param packageName The package name for classes found inside the base directory
 	 * @return The classes
-	 * @throws ClassNotFoundException
 	 */
 	private static List<Class<?>> findClasses(File directory, String packageName) throws ClassNotFoundException {
 		List<Class<?>> classes = new ArrayList<>();
@@ -140,7 +137,7 @@ public class ClassFinder {
 		Class<?> superclass = c;
 
 		while (!superclass.equals(Object.class)) {
-			if(superclass.getSuperclass().equals(DataProcessor.class))
+			if (superclass.getSuperclass().equals(DataProcessor.class))
 				return (ParameterizedType) superclass.getGenericSuperclass();
 
 			superclass = superclass.getSuperclass();

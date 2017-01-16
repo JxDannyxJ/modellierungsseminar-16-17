@@ -24,7 +24,6 @@ public class AttributesCar extends AttributesAgent {
 
 	/**
 	 * Class constructor which may create an attributes object for a car with a given id
-	 * @param id
 	 */
 	@SuppressWarnings("unused")
 	public AttributesCar(final int id) {
@@ -34,8 +33,9 @@ public class AttributesCar extends AttributesAgent {
 	/**
 	 * Class copy constructor which deep copies the attributes of another similar object
 	 * to this one. A new id shall be given to ensure an unique object.
+	 *
 	 * @param other the template from which the attributes shall be copied from
-	 * @param id the unique identifier for that object
+	 * @param id    the unique identifier for that object
 	 */
 	public AttributesCar(final AttributesAgent other, final int id) {
 		super(other, id);
@@ -56,6 +56,7 @@ public class AttributesCar extends AttributesAgent {
 
 	/**
 	 * Getter for the length of the car
+	 *
 	 * @return length of the car
 	 */
 	public double getLength() {
@@ -64,6 +65,7 @@ public class AttributesCar extends AttributesAgent {
 
 	/**
 	 * Getter for the width of the car
+	 *
 	 * @return width of the car
 	 */
 	public double getWidth() {
@@ -72,6 +74,7 @@ public class AttributesCar extends AttributesAgent {
 
 	/**
 	 * Getter for the direction in which the car is moving
+	 *
 	 * @return direction of the cars movement
 	 */
 	public Vector2D getDirection() {
@@ -82,9 +85,10 @@ public class AttributesCar extends AttributesAgent {
 	 * Getter for the radius of the car. Since it is a rectangle and needs
 	 * another interpretation of a radius, the greatest value from the axes of the car
 	 * will be taken as the radius.
-	 * //TODO: This is a workaround, since the dynamic elements are still too much fitted to the pedestrian shape
+	 *
 	 * @return the width or the length of the car, dependent which is greater
 	 */
+	//TODO: This is a workaround, since the dynamic elements are still too much fitted to the pedestrian shape
 	public double getRadius() {
 		if (width >= length) {
 			return width;
@@ -99,6 +103,7 @@ public class AttributesCar extends AttributesAgent {
 
 	/**
 	 * Setter for the direction of the cars movement
+	 *
 	 * @param direction the new direction of the car
 	 */
 	public void setDirection(Vector2D direction) {

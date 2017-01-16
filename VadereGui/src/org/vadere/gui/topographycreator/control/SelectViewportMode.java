@@ -12,8 +12,6 @@ import org.vadere.util.geometry.shapes.VRectangle;
 /**
  * In this mode the user can redefine the viewport with his mouse.
  * Unused action!
- * 
- *
  */
 public class SelectViewportMode extends RectangleSelectionMode {
 

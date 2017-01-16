@@ -1,6 +1,7 @@
 package org.vadere.gui.topographycreator.control;
 
 import java.awt.event.MouseEvent;
+
 import javax.swing.*;
 import javax.swing.undo.UndoableEditSupport;
 
@@ -12,8 +13,6 @@ import org.vadere.util.geometry.shapes.VCircle;
 
 /**
  * In this mode VCircles will be generated.
- * 
- * 
  */
 public class DrawDotMode extends DefaultSelectionMode {
 	private static Resources resources = Resources.getInstance("topologycreator");

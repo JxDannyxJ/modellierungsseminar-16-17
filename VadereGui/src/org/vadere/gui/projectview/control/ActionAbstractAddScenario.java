@@ -63,8 +63,6 @@ public abstract class ActionAbstractAddScenario extends AbstractAction {
 
 	/**
 	 * Adds a scenario to the scenario view and writes it to a file in the scenario directory
-	 * @param scenarioRM
-	 * @throws IOException
 	 */
 	protected void addScenario(final ScenarioRunManager scenarioRM) throws IOException {
 		ProjectWriter.writeScenarioFileJson(model.getCurrentProjectPath(), scenarioRM);

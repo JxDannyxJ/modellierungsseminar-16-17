@@ -2,7 +2,6 @@ package org.vadere.simulator.projects.dataprocessing.datakey;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class TimestepPedestrianIdKey implements DataKey<TimestepPedestrianIdKey> {
@@ -32,7 +31,7 @@ public class TimestepPedestrianIdKey implements DataKey<TimestepPedestrianIdKey>
 	}
 
 	public static String[] getHeaders() {
-		return new String[] { TimestepKey.getHeader(), PedestrianIdKey.getHeader() };
+		return new String[]{TimestepKey.getHeader(), PedestrianIdKey.getHeader()};
 	}
 
 	@Override

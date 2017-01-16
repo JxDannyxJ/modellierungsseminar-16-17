@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.vadere.gui.projectview.model.ProjectViewModel;
 
 import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 
 public class ActionInterruptScenarios extends AbstractAction {

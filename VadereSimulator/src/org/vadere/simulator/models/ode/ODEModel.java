@@ -35,7 +35,7 @@ public abstract class ODEModel<T extends DynamicElement, TAttributes extends Att
 
 	@Deprecated
 	public ODEModel(Class<T> type, Topography scenario, FirstOrderIntegrator integrator,
-			AbstractModelEquations<T> equations, TAttributes elementAttributes, Random random) {
+					AbstractModelEquations<T> equations, TAttributes elementAttributes, Random random) {
 		super();
 		this.type = type;
 		this.random = random;
@@ -45,11 +45,12 @@ public abstract class ODEModel<T extends DynamicElement, TAttributes extends Att
 		this.elementAttributes = elementAttributes;
 	}
 
-	public ODEModel() {}
+	public ODEModel() {
+	}
 
 	public void initializeODEModel(Class<T> type, FirstOrderIntegrator integrator,
-			AbstractModelEquations<T> equations, TAttributes elementAttributes,
-			Topography topography, Random random) {
+								   AbstractModelEquations<T> equations, TAttributes elementAttributes,
+								   Topography topography, Random random) {
 		this.type = type;
 		this.random = random;
 		this.topography = topography;
@@ -64,7 +65,8 @@ public abstract class ODEModel<T extends DynamicElement, TAttributes extends Att
 	}
 
 	@Override
-	public void postLoop(final double state) {}
+	public void postLoop(final double state) {
+	}
 
 	@Override
 	public void update(final double simTimeInSec) {
@@ -129,7 +131,7 @@ public abstract class ODEModel<T extends DynamicElement, TAttributes extends Att
 	 * The {@link AbstractModelEquations} are used to get the correct positions from the vector.
 	 */
 	public static <T extends DynamicElement> void updateElementPositions(Class<T> type, double simTimeInSec,
-			Topography topography, AbstractModelEquations equations, double[] y) {
+																		 Topography topography, AbstractModelEquations equations, double[] y) {
 
 		Collection<T> dynamicElements = topography.getElements(type);
 

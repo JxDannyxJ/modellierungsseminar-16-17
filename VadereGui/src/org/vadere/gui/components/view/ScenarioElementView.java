@@ -139,7 +139,6 @@ public class ScenarioElementView extends JPanel implements ISelectScenarioElemen
 
 				// If dynamic element, then deserialize both, attributes and scenario element
 				if (element instanceof DynamicElement) {
-					//TODO: Copy is placed in Agent class to provide subclasses the option to copy variables from another Agent class
 					((Agent) element).copy(JsonConverter.deserializeDynamicElement(json, type));
 				} else {
 					AttributesScenarioElement attributes = JsonConverter.deserializeScenarioElementAttributes(json, type);

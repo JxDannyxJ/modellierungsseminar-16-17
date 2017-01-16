@@ -13,7 +13,6 @@ import org.vadere.gui.components.utils.Messages;
 
 /**
  * The About-Dialog of the topographycreator.
- * 
  */
 public class InfoPanel extends JPanel implements Observer {
 

@@ -49,7 +49,7 @@ public class PotentialFieldCalculatorDijkstra implements EikonalSolver {
 				if (neighborTag == PathFindingTag.Reachable) {
 					value = potentialField.getValue(currentPoint).potential
 							+ potentialField.pointDistance(currentPoint,
-									neighbor);
+							neighbor);
 
 					if (value < potentialField.getValue(neighbor).potential) {
 						priorityQueue.remove(neighbor);
@@ -59,7 +59,7 @@ public class PotentialFieldCalculatorDijkstra implements EikonalSolver {
 				} else if (neighborTag == PathFindingTag.Undefined) {
 					value = potentialField.getValue(currentPoint).potential
 							+ potentialField.pointDistance(currentPoint,
-									neighbor);
+							neighbor);
 					priorityQueue.add(neighbor);
 
 					potentialField.setValue(neighbor, new CellState(value,
@@ -72,7 +72,8 @@ public class PotentialFieldCalculatorDijkstra implements EikonalSolver {
 	}
 
 	@Override
-	public void update() {}
+	public void update() {
+	}
 
 	@Override
 	public boolean needsUpdate() {

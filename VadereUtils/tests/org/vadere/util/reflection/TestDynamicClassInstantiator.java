@@ -77,13 +77,15 @@ public class TestDynamicClassInstantiator {
 		private static final long serialVersionUID = 1L;
 
 		@SuppressWarnings("unused")
-		public ListWithoutDefaultConstructor(String dummy) {}
+		public ListWithoutDefaultConstructor(String dummy) {
+		}
 	}
 
 	private static class ListWithPrivateConstructor extends ArrayList<Object> {
 		private static final long serialVersionUID = 1L;
 
-		private ListWithPrivateConstructor() {}
+		private ListWithPrivateConstructor() {
+		}
 	}
 
 }

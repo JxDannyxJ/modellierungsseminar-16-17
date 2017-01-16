@@ -21,38 +21,60 @@ import java.util.stream.Collectors;
 
 /**
  * A VadereProject holds a list of {@link ScenarioRunManager}s and functionality to manage them.
- * 
  */
 public class VadereProject implements ScenarioFinishedListener {
 
-	/** The Logger instance.*/
+	/**
+	 * The Logger instance.
+	 */
 	private static Logger logger = LogManager.getLogger(VadereProject.class);
 
-	/** The project name.*/
+	/**
+	 * The project name.
+	 */
 	private String name;
-	/** The current scenario thread.*/
+	/**
+	 * The current scenario thread.
+	 */
 	private Thread currentScenarioThread;
-	/** The {@link ScenarioRunManager}.*/
+	/**
+	 * The {@link ScenarioRunManager}.
+	 */
 	private ScenarioRunManager currentScenario;
-	/** List of {@link PassiveCallback}.*/
+	/**
+	 * List of {@link PassiveCallback}.
+	 */
 	private final List<PassiveCallback> visualization = new LinkedList<>();
-	/** Concurrent map to run scenarios.*/
+	/**
+	 * Concurrent map to run scenarios.
+	 */
 	private final ConcurrentMap<String, ScenarioRunManager> scenarios = new ConcurrentHashMap<>();
-	/** Blocking queue with {@link ProjectFinishedListener}.*/
+	/**
+	 * Blocking queue with {@link ProjectFinishedListener}.
+	 */
 	private final BlockingQueue<ProjectFinishedListener> projectFinishedListener = new LinkedBlockingQueue<>();
-	/** Blocking queue with {@link SingleScenarioFinishedListener}.*/
+	/**
+	 * Blocking queue with {@link SingleScenarioFinishedListener}.
+	 */
 	private final BlockingQueue<SingleScenarioFinishedListener> singleScenarioFinishedListener =
 			new LinkedBlockingQueue<>();
-	/** LinkedBlockingDeque with {@link ScenarioRunManager}.*/
+	/**
+	 * LinkedBlockingDeque with {@link ScenarioRunManager}.
+	 */
 	private LinkedBlockingDeque<ScenarioRunManager> scenariosLeft;
-	/** The output directory.*/
+	/**
+	 * The output directory.
+	 */
 	private Path outputDirectory;
-	/** scenarios: [0] total, [1] legacy'ed, [2] nonmigratable*/
+	/**
+	 * scenarios: [0] total, [1] legacy'ed, [2] nonmigratable
+	 */
 	private int[] migrationStats;
 
 	/**
 	 * Constructor for a vadere project.
-	 * @param name the project name.
+	 *
+	 * @param name      the project name.
 	 * @param scenarios iteration over {@link ScenarioRunManager}.
 	 */
 	public VadereProject(final String name, final Iterable<ScenarioRunManager> scenarios) {
@@ -72,6 +94,7 @@ public class VadereProject implements ScenarioFinishedListener {
 
 	/**
 	 * Check if any scenario run manager has unsaved changes.
+	 *
 	 * @return True if some changes where not saved.
 	 */
 	public boolean hasUnsavedChanges() {
@@ -86,6 +109,7 @@ public class VadereProject implements ScenarioFinishedListener {
 
 	/**
 	 * Get diffs.
+	 *
 	 * @return String diffs.
 	 */
 	public String getDiffs() {
@@ -123,7 +147,8 @@ public class VadereProject implements ScenarioFinishedListener {
 	}
 
 	/**
-	 * Prepares {@link VadereProject#currentScenario} and starts {@link VadereProject#currentScenarioThread}.
+	 * Prepares {@link VadereProject#currentScenario} and starts {@link
+	 * VadereProject#currentScenarioThread}.
 	 */
 	private void prepareAndStartScenarioRunThread() {
 		currentScenario = prepareNextScenario();
@@ -138,6 +163,7 @@ public class VadereProject implements ScenarioFinishedListener {
 
 	/**
 	 * Calls {@link VadereProject#runScenario(ScenarioRunManager)}.
+	 *
 	 * @param scenario the scenario to run.
 	 */
 	public void runScenario(final ScenarioRunManager scenario) {
@@ -171,6 +197,7 @@ public class VadereProject implements ScenarioFinishedListener {
 
 	/**
 	 * Calls {@link SingleScenarioFinishedListener#postScenarioRun(ScenarioRunManager, int)}.
+	 *
 	 * @param scenario the scenario to use.
 	 */
 	private void notifyScenarioRMListenerAboutPostRun(final ScenarioRunManager scenario) {
@@ -181,8 +208,9 @@ public class VadereProject implements ScenarioFinishedListener {
 
 	/**
 	 * Calls {@link SingleScenarioFinishedListener#error(ScenarioRunManager, int, Throwable)}.
+	 *
 	 * @param scenario the scenario.
-	 * @param ex the error.
+	 * @param ex       the error.
 	 */
 	@Override
 	public void scenarioRunThrewException(final ScenarioRunManager scenario, final Throwable ex) {
@@ -193,7 +221,6 @@ public class VadereProject implements ScenarioFinishedListener {
 
 	/**
 	 * Calls {@link SingleScenarioFinishedListener#scenarioStarted(ScenarioRunManager, int)}.
-	 * @param scenario
 	 */
 	@Override
 	public void scenarioStarted(final ScenarioRunManager scenario) {
@@ -206,6 +233,7 @@ public class VadereProject implements ScenarioFinishedListener {
 	 * Prepares the next scenario run manager
 	 * by calling {@link SingleScenarioFinishedListener#preScenarioRun(ScenarioRunManager, int)}.
 	 * The list of {@link PassiveCallback} will be added to the run manager.
+	 *
 	 * @return the next scenario run manager.
 	 */
 	private ScenarioRunManager prepareNextScenario() {
@@ -242,6 +270,7 @@ public class VadereProject implements ScenarioFinishedListener {
 
 	/**
 	 * Check if current scenario is paused.
+	 *
 	 * @return True if paused.
 	 */
 	public boolean isScenarioPaused() {
@@ -280,6 +309,7 @@ public class VadereProject implements ScenarioFinishedListener {
 
 	/**
 	 * Adds {@link ProjectFinishedListener} to this project.
+	 *
 	 * @param listener the listener to add.
 	 */
 	public void addProjectFinishedListener(ProjectFinishedListener listener) {
@@ -288,6 +318,7 @@ public class VadereProject implements ScenarioFinishedListener {
 
 	/**
 	 * Adds {@link SingleScenarioFinishedListener} to this project.
+	 *
 	 * @param listener the listener to add.
 	 */
 	public void addSingleScenarioFinishedListener(SingleScenarioFinishedListener listener) {
@@ -296,6 +327,7 @@ public class VadereProject implements ScenarioFinishedListener {
 
 	/**
 	 * Adds {@link PassiveCallback} to this project.
+	 *
 	 * @param pc the callback to add.
 	 */
 	public void addVisualization(PassiveCallback pc) {
@@ -322,8 +354,8 @@ public class VadereProject implements ScenarioFinishedListener {
 	public int getScenarioIndexByName(final ScenarioRunManager srm) {
 		int index = -1;
 		int currentIndex = 0;
-		for(ScenarioRunManager csrm : getScenarios()) {
-			if(csrm.getName().equals(srm.getName())) {
+		for (ScenarioRunManager csrm : getScenarios()) {
+			if (csrm.getName().equals(srm.getName())) {
 				return currentIndex;
 			} else {
 				currentIndex++;
@@ -337,7 +369,7 @@ public class VadereProject implements ScenarioFinishedListener {
 	}
 
 	public ScenarioRunManager getScenario(int index) {
-		return getScenarios().toArray(new ScenarioRunManager[] {})[index];
+		return getScenarios().toArray(new ScenarioRunManager[]{})[index];
 	}
 
 	public void removeScenario(final ScenarioRunManager scenario) {

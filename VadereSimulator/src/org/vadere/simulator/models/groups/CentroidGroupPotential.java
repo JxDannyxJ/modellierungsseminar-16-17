@@ -22,8 +22,8 @@ public class CentroidGroupPotential implements PotentialFieldAgent {
 	private final PotentialFieldAgent potentialFieldPedestrian;
 
 	public CentroidGroupPotential(CentroidGroupModel groupCollection,
-			PotentialFieldAgent pedestrianRepulsionPotential,
-			AttributesCGM attributesCGM) {
+								  PotentialFieldAgent pedestrianRepulsionPotential,
+								  AttributesCGM attributesCGM) {
 
 		this.attributesCGM = attributesCGM;
 		this.groupCollection = groupCollection;
@@ -32,7 +32,7 @@ public class CentroidGroupPotential implements PotentialFieldAgent {
 
 	@Override
 	public double getAgentPotential(VPoint pos, Agent pedestrian,
-			Collection<? extends Agent> closePedestrians) {
+									Collection<? extends Agent> closePedestrians) {
 		double result = 0;
 
 		if (!(pedestrian instanceof Pedestrian))
@@ -65,16 +65,16 @@ public class CentroidGroupPotential implements PotentialFieldAgent {
 
 			result = attributesCGM.getLeaderAttractionFactor()
 					* Math.pow(
-							Math.pow(distanceToCentroid[0], 2)
-									+ Math.pow(distanceToCentroid[1], 2),
-							2);
+					Math.pow(distanceToCentroid[0], 2)
+							+ Math.pow(distanceToCentroid[1], 2),
+					2);
 		}
 
 		return result;
 	}
 
 	private double getPedestrianRepulsionPotential(Pedestrian ped, VPoint pos,
-			Collection<? extends Agent> closePedestrians) {
+												   Collection<? extends Agent> closePedestrians) {
 		double potential = 0;
 
 		for (Agent neighborBody : closePedestrians) {
@@ -88,8 +88,8 @@ public class CentroidGroupPotential implements PotentialFieldAgent {
 
 	@Override
 	public Vector2D getAgentPotentialGradient(VPoint pos,
-			Vector2D velocity, Agent pedestrian,
-			Collection<? extends Agent> closePedestrians) {
+											  Vector2D velocity, Agent pedestrian,
+											  Collection<? extends Agent> closePedestrians) {
 		// TODO [priority=low] [task=refactoring] not implemented
 		throw new UnsupportedOperationException("this method is not jet implemented.");
 		// return new Vector2D(0, 0);
@@ -97,7 +97,7 @@ public class CentroidGroupPotential implements PotentialFieldAgent {
 
 	@Override
 	public double getAgentPotential(VPoint pos, Agent pedestrian,
-			Agent otherPedestrian) {
+									Agent otherPedestrian) {
 
 		CentroidGroup group = groupCollection.getGroup(pedestrian);
 		CentroidGroup groupOther = groupCollection.getGroup(otherPedestrian);
@@ -113,14 +113,14 @@ public class CentroidGroupPotential implements PotentialFieldAgent {
 
 	@Override
 	public Collection<? extends Agent> getRelevantAgents(VCircle relevantArea,
-			Agent pedestrian, Topography scenario) {
+														 Agent pedestrian, Topography scenario) {
 		return potentialFieldPedestrian.getRelevantAgents(relevantArea,
 				pedestrian, scenario);
 	}
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO [priority=medium] [task=refactoring] should be used to initialize the Model
 	}
 }

@@ -32,6 +32,7 @@ public class TopographyController extends OfflineTopographyController {
 	/**
 	 * Prepares the {@link Topography} and its {@link Agent} Objects for
 	 * simulation.
+	 *
 	 * @param simTimeInSec the simulation time.
 	 */
 	public void preLoop(double simTimeInSec) {
@@ -42,13 +43,11 @@ public class TopographyController extends OfflineTopographyController {
 		Collection<Pedestrian> pedestrians = topography.getInitialElements(Pedestrian.class);
 		Collection<Car> cars = topography.getInitialElements(Car.class);
 		Collection<Horse> horses = topography.getInitialElements(Horse.class);
-		
+
 		// do preLoop stuff for each collection
 		this.preLoopForAgentType(pedestrians);
 		this.preLoopForAgentType(cars);
 		this.preLoopForAgentType(horses);
-		
-		// TODO [priority=medium] [task=feature] create initial cars
 
 		// create initial pedestrians
 		//for (Pedestrian initialValues : topography
@@ -60,7 +59,7 @@ public class TopographyController extends OfflineTopographyController {
 		//		topography.addTarget(new TargetPedestrian(realPed));
 		//	}
 
-			// set the closest target as default, which can be a problem if no target should be used
+		// set the closest target as default, which can be a problem if no target should be used
 			/*
 			 * if (pedStore.getTargets().size() == 0){
 			 * LinkedList<Integer> tmp = new LinkedList<Integer>();
@@ -85,39 +84,37 @@ public class TopographyController extends OfflineTopographyController {
 		//	}
 		//	topography.addElement(realPed);
 		//}
-		
+
 	}
 
-	
+
 	/**
 	 * Called by {@link #preLoop(double)}.
 	 * For each element in argument a new instance of same type is created.
 	 * Then setting general and specific fields of that Object.
+	 *
 	 * @param agents collection of agents.
 	 */
 	@SuppressWarnings("unchecked")
 	private <T extends Agent> void preLoopForAgentType(Collection<T> agents) {
 		for (T initialAgent : agents) {
-			T realAgent = (T) dynamicElementFactory.createElement(initialAgent.getPosition(), 
+			T realAgent = (T) dynamicElementFactory.createElement(initialAgent.getPosition(),
 					initialAgent.getId(), initialAgent.getClass());
-			
+
 			// specific settings for agents
 			Class<?> type = initialAgent.getClass();
-			if(type == Pedestrian.class) {
+			if (type == Pedestrian.class) {
 				this.preLoopPedestrian((Pedestrian) initialAgent, (Pedestrian) realAgent);
-			}
-			else if (type == Car.class) {
+			} else if (type == Car.class) {
 				this.preLoopCar((Car) initialAgent, (Car) realAgent);
-			}
-			else if (type == Horse.class) {
+			} else if (type == Horse.class) {
 				this.preLoopHorse((Horse) initialAgent, (Horse) realAgent);
-			}
-			else {
+			} else {
 				continue;
 			}
-			
+
 			// general settings for agents
-			
+
 			if (initialAgent.getFreeFlowSpeed() > 0) {
 				realAgent.setFreeFlowSpeed(initialAgent.getFreeFlowSpeed());
 			}
@@ -127,12 +124,13 @@ public class TopographyController extends OfflineTopographyController {
 			topography.addElement(realAgent);
 		}
 	}
-	
+
 	/**
 	 * Called by {@link #preLoopForAgentType(Collection)}.
 	 * Sets {@link Pedestrian} specific fields.
+	 *
 	 * @param initialAgent the initial {@link Pedestrian}
-	 * @param realAgent the new generated {@link Pedestrian}
+	 * @param realAgent    the new generated {@link Pedestrian}
 	 */
 	private void preLoopPedestrian(Pedestrian initialAgent, Pedestrian realAgent) {
 		realAgent.setIdAsTarget(initialAgent.getIdAsTarget());
@@ -144,22 +142,24 @@ public class TopographyController extends OfflineTopographyController {
 		realAgent.setChild(initialAgent.isChild());
 		realAgent.setLikelyInjured(initialAgent.isLikelyInjured());
 	}
-	
+
 	/**
 	 * Called by {@link #preLoopForAgentType(Collection)}.
 	 * Sets {@link Car} specific fields.
+	 *
 	 * @param initialAgent the initial {@link Car}
-	 * @param realAgent the new generated {@link Car}
+	 * @param realAgent    the new generated {@link Car}
 	 */
 	private void preLoopCar(Car initialAgent, Car realAgent) {
 		return;
 	}
-	
+
 	/**
 	 * Called by {@link #preLoopForAgentType(Collection)}.
 	 * Sets {@link Horse} specific fields.
+	 *
 	 * @param initialAgent the initial {@link Horse}
-	 * @param realAgent the new generated {@link Horse}
+	 * @param realAgent    the new generated {@link Horse}
 	 */
 	private void preLoopHorse(Horse initialAgent, Horse realAgent) {
 		realAgent.setIdAsTarget(initialAgent.getIdAsTarget());
@@ -169,7 +169,7 @@ public class TopographyController extends OfflineTopographyController {
 //		}
 		realAgent.setTargets(new LinkedList<>(initialAgent.getTargets()));
 	}
-	
+
 
 	/**
 	 * @see OfflineTopographyController#update(double) already exists. No override, same logic...

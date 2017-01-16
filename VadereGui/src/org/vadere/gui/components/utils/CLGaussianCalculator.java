@@ -19,11 +19,11 @@ public class CLGaussianCalculator {
 	private IGaussianFilter filterObstacles;
 
 	public CLGaussianCalculator(final SimulationModel model,
-			final double scale,
-			final double measurementRadius,
-			final Color color,
-			final boolean visualisation,
-			final boolean scenarioBound) {
+								final double scale,
+								final double measurementRadius,
+								final Color color,
+								final boolean visualisation,
+								final boolean scenarioBound) {
 
 		this.scenarioWidth = (int) model.getTopographyBound().getWidth();
 		this.scenarioHeight = (int) model.getTopographyBound().getHeight();
@@ -49,7 +49,7 @@ public class CLGaussianCalculator {
 	}
 
 	private BufferedImage convertFilterToImage(final IGaussianFilter filterPedestrians,
-			final IGaussianFilter filterObstacles) {
+											   final IGaussianFilter filterObstacles) {
 		int width = Math.max(filterObstacles.getMatrixWidth(), filterPedestrians.getMatrixWidth());
 		int height = Math.max(filterObstacles.getMatrixHeight(), filterPedestrians.getMatrixHeight());
 		BufferedImage image = createImage(width, height);

@@ -13,39 +13,41 @@ import java.util.Map;
  * So it is possible to assign movement behavior to specific agent types.
  * Created by alex on 16.11.16.
  */
-public class AttributesTPM extends Attributes{
+public class AttributesTPM extends Attributes {
 
 
-    /**
-     * Type - Model map.
-     */
-    private Map<String, String> typePairs = new HashMap<>();
+	/**
+	 * Type - Model map.
+	 */
+	private Map<String, String> typePairs = new HashMap<>();
 
-    /**
-     * Model attributes.
-     */
-    private List<String> modelAttributes = new LinkedList<>();
+	/**
+	 * Model attributes.
+	 */
+	private List<String> modelAttributes = new LinkedList<>();
 
-    /**
-     *  Class default constructor for JSON
-     */
-    public AttributesTPM() {
+	/**
+	 * Class default constructor for JSON
+	 */
+	public AttributesTPM() {
 
-    }
+	}
 
-    /**
-     * Getter Method.
-     * @return map of type model pairs.
-     */
-    public Map<String, String> getTypePairs() {
-        return typePairs;
-    }
+	/**
+	 * Getter Method.
+	 *
+	 * @return map of type model pairs.
+	 */
+	public Map<String, String> getTypePairs() {
+		return typePairs;
+	}
 
-    /**
-     * Getter Method.
-     * @return list of model attributes.
-     */
-    public List<String> getModelAttributes() {
-        return modelAttributes;
-    }
+	/**
+	 * Getter Method.
+	 *
+	 * @return list of model attributes.
+	 */
+	public List<String> getModelAttributes() {
+		return modelAttributes;
+	}
 }

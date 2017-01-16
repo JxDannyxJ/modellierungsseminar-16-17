@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Agent is the abstract interface of all dynamicelements scenario elements. Thus a new scenario element
- * has to derive from this class to be a dynamicelements element in a scenario.
+ * Agent is the abstract interface of all dynamicelements scenario elements. Thus a new scenario
+ * element has to derive from this class to be a dynamicelements element in a scenario.
  */
 @SuppressWarnings("JavadocReference")
 public abstract class Agent implements DynamicElement {
@@ -46,12 +46,10 @@ public abstract class Agent implements DynamicElement {
 	private Vector2D velocity;
 	private double freeFlowSpeed;
 
-	//TODO: ASK FOR PERMISSION
 	/**
 	 * Target ID if the pedestrian represents a target, -1 otherwise.
 	 */
 	private int idAsTarget = -1;
-	//TODO: ASK FOR PERMISSION
 
 	/**
 	 * Constructor for a new Agent, which sets the initial position, speed and target id's.
@@ -68,8 +66,9 @@ public abstract class Agent implements DynamicElement {
 
 	/**
 	 * Class constructor for a new agent with given attributes and position
+	 *
 	 * @param attributes the attributes for the new agent
-	 * @param position the position of the agent on the map
+	 * @param position   the position of the agent on the map
 	 */
 	public Agent(AttributesAgent attributes, VPoint position) {
 		this(attributes, new Random());
@@ -295,10 +294,10 @@ public abstract class Agent implements DynamicElement {
 	}
 
 	/**
-	 * Abstract Getter for the attributes object, which has to be implemented by the subclass
-	 * to provide the attributes information for the other classes. An attributes object shouldn't be
-	 * set in this class, since all the subclasses will be serialized and duplicate attributes objects
-	 * would appear in json nodes.
+	 * Abstract Getter for the attributes object, which has to be implemented by the subclass to
+	 * provide the attributes information for the other classes. An attributes object shouldn't be
+	 * set in this class, since all the subclasses will be serialized and duplicate attributes
+	 * objects would appear in json nodes.
 	 */
 	@Override
 	public abstract AttributesAgent getAttributes();
@@ -308,10 +307,10 @@ public abstract class Agent implements DynamicElement {
 	 *****************************/
 
 	/**
-	 * Abstract Setter for the attributes object, which has to be implemented by the subclass
-	 * to provide the attributes information for the other classes. An attributes object shouldn't be
-	 * set in this class, since all the subclasses will be serialized and duplicate attributes objects
-	 * would appear in json nodes.
+	 * Abstract Setter for the attributes object, which has to be implemented by the subclass to
+	 * provide the attributes information for the other classes. An attributes object shouldn't be
+	 * set in this class, since all the subclasses will be serialized and duplicate attributes
+	 * objects would appear in json nodes.
 	 */
 	@Override
 	public abstract void setAttributes(AttributesScenarioElement attributes);
@@ -342,6 +341,7 @@ public abstract class Agent implements DynamicElement {
 
 	/**
 	 * Setter for the source of the agent, which is responsible for the spawn location
+	 *
 	 * @param source object for spawning dynamicelements elements
 	 */
 	public void setSource(Source source) {
@@ -350,6 +350,7 @@ public abstract class Agent implements DynamicElement {
 
 	/**
 	 * Setter for the position of this object
+	 *
 	 * @param position VPoint object which holds the (x, y) position of a point
 	 */
 	public void setPosition(VPoint position) {
@@ -358,6 +359,7 @@ public abstract class Agent implements DynamicElement {
 
 	/**
 	 * Setter for the velocity of the agent
+	 *
 	 * @param velocity Vector2D object which holds the (x, y) velocity as a vector
 	 */
 	public void setVelocity(final Vector2D velocity) {
@@ -366,6 +368,7 @@ public abstract class Agent implements DynamicElement {
 
 	/**
 	 * Setter with the list of targets for the agent
+	 *
 	 * @param targetIds LinkedList of Integer with the ids of the targets
 	 */
 	public void setTargets(LinkedList<Integer> targetIds) {

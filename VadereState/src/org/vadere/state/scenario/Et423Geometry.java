@@ -2,12 +2,10 @@ package org.vadere.state.scenario;
 
 /**
  * This is the S-Bahn train known from Munich and other (German) cities.
- * 
+ *
  * @see https://de.wikipedia.org/wiki/DB-Baureihe_423
  * @see http://www.nahverkehr-franken.de/sbahn/img_techdat/423_zeichnung.jpg
  * @see http://de.bombardier.com/content/dam/Websites/bombardiercom/Projects/technical-drawings/et-423-electric%20multiple%20unit-techdraw.gif
- * 
- *
  */
 public class Et423Geometry extends TrainGeometry {
 

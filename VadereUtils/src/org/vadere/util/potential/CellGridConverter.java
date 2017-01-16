@@ -22,7 +22,7 @@ public class CellGridConverter {
 	}
 
 	public static List<CellGrid> fromOutputProcessorFile(final File file, final double width, final double height,
-			final String seperator) throws IOException {
+														 final String seperator) throws IOException {
 		List<CellGrid> gridPerStep = new ArrayList<>();
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line = null;
@@ -72,7 +72,7 @@ public class CellGridConverter {
 	}
 
 	public Table toTable() {
-		return toTable(new String[] {}, new String[] {});
+		return toTable(new String[]{}, new String[]{});
 	}
 
 	public Table toTable(final String[] additionalColumns, final Object[] additionalValues) {

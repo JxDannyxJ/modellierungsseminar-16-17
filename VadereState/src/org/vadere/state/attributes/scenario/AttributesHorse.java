@@ -5,23 +5,23 @@ import org.vadere.util.geometry.Vector2D;
 /**
  * This class defines properties of a horse. These are the height,
  * width, direction, form and further shape properties.
- * TODO: Define the appropriate attributes for the horse, e.g. shape
  *
  * It inherits from the AttributesAgent class and is thus a dynamic moving
  * scenario element for the simulation which contains all necessary properties
  * to move over the simulation map.
  */
+//TODO: Define the appropriate attributes for the horse, e.g. shape
 public class AttributesHorse extends AttributesAgent {
 
 	private double height = 0.7;
-	private double width = 1.2;
+	private double width = 0.3;
 	private Vector2D direction = new Vector2D(1, 0);
 
 	/**
 	 * Angle reduction of an eyepatched Horse.
 	 */
-	public final static double EYEPATCHED = Math.PI/0.125;
-	
+	public final static double EYEPATCHED = Math.PI / 0.125;
+
 
 	/**
 	 * Class copy constructor for horse attributes. Despite being able to copy a horse,
@@ -58,6 +58,7 @@ public class AttributesHorse extends AttributesAgent {
 
 	/**
 	 * Getter for the height of the horse
+	 *
 	 * @return height of the horse
 	 */
 	public double getHeight() {
@@ -66,6 +67,7 @@ public class AttributesHorse extends AttributesAgent {
 
 	/**
 	 * Getter for the width of the horse
+	 *
 	 * @return width of the horse
 	 */
 	public double getWidth() {
@@ -74,6 +76,7 @@ public class AttributesHorse extends AttributesAgent {
 
 	/**
 	 * Getter for the moving direction of the horse
+	 *
 	 * @return moving direction
 	 */
 	public Vector2D getDirection() {
@@ -81,10 +84,11 @@ public class AttributesHorse extends AttributesAgent {
 	}
 
 	/**
-	 * Getter for the radius of the horse. Since it is an ellipse and needs
-	 * another interpretation of a radius, the greatest value from the axes of the horse
-	 * will be taken as the radius.
-	 * //TODO: This is a workaround, since the dynamic elements are still too much fitted to the pedestrian shape
+	 * Getter for the radius of the horse. Since it is an ellipse and needs another interpretation
+	 * of a radius, the greatest value from the axes of the horse will be taken as the radius.
+	 * //TODO: This is a workaround, since the dynamic elements are still too much fitted to the
+	 * pedestrian shape
+	 *
 	 * @return the width or the length of the horse, dependent which is greater
 	 */
 	public double getRadius() {

@@ -10,8 +10,6 @@ import org.vadere.gui.topographycreator.view.SetScenarioScaleDialog;
 /**
  * Action: Opens the SetScenarioScaleDialog. In this dialog helps the user to scale the whole
  * topography.
- * 
- *
  */
 public class ActionOpenSetTopographyScale extends TopographyAction {
 
@@ -19,7 +17,7 @@ public class ActionOpenSetTopographyScale extends TopographyAction {
 	private final UndoableEditSupport undoableEditSupport;
 
 	public ActionOpenSetTopographyScale(final String name, final IDrawPanelModel panelModel,
-			final UndoableEditSupport undoableEditSupport) {
+										final UndoableEditSupport undoableEditSupport) {
 		super(name, panelModel);
 		this.undoableEditSupport = undoableEditSupport;
 	}

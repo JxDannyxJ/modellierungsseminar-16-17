@@ -33,7 +33,7 @@ public class PotentialFieldPedestrianCompactSoftshell implements PotentialFieldA
 
 	@Override
 	public Collection<Pedestrian> getRelevantAgents(VCircle relevantArea,
-			Agent pedestrian, Topography scenario) {
+													Agent pedestrian, Topography scenario) {
 		List<Pedestrian> result = new LinkedList<>();
 
 		List<Pedestrian> closePedestrians = scenario.getSpatialMap(Pedestrian.class)
@@ -46,7 +46,7 @@ public class PotentialFieldPedestrianCompactSoftshell implements PotentialFieldA
 
 	@Override
 	public double getAgentPotential(VPoint pos, Agent pedestrian,
-			Agent otherPedestrian) {
+									Agent otherPedestrian) {
 		double distance = otherPedestrian.getPosition().distance(pos);
 
 		int intPower = this.attributes.getIntimateSpacePower();
@@ -73,7 +73,7 @@ public class PotentialFieldPedestrianCompactSoftshell implements PotentialFieldA
 
 	@Override
 	public double getAgentPotential(VPoint pos, Agent pedestrian,
-			Collection<? extends Agent> otherPedestrians) {
+									Collection<? extends Agent> otherPedestrians) {
 		double potential = 0;
 
 		for (Agent neighbor : otherPedestrians) {
@@ -87,14 +87,14 @@ public class PotentialFieldPedestrianCompactSoftshell implements PotentialFieldA
 
 	@Override
 	public Vector2D getAgentPotentialGradient(VPoint pos,
-			Vector2D velocity, Agent pedestrian,
-			Collection<? extends Agent> otherPedestrians) {
+											  Vector2D velocity, Agent pedestrian,
+											  Collection<? extends Agent> otherPedestrians) {
 		throw new UnsupportedOperationException("this method is not jet implemented.");
 	}
 
 	@Override
 	public void initialize(List<Attributes> attributesList, Topography topography,
-			AttributesAgent attributesPedestrian, Random random) {
+						   AttributesAgent attributesPedestrian, Random random) {
 		// TODO should be used to initialize the Model
 	}
 

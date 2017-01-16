@@ -31,27 +31,34 @@ import java.util.Random;
 /**
  * Can be used to start Vadere in [lock] mode.
  * It will search for a lock file and starts running after it is removed.
- * 
- *
  */
 public class ScenarioRunLocked extends ScenarioRunManager {
 
-	/** The logger instance.*/
+	/**
+	 * The logger instance.
+	 */
 	private static Logger logger = LogManager.getLogger(ScenarioRunLocked.class);
 
-	/** The {@link LockFileHandler} instance.*/
+	/**
+	 * The {@link LockFileHandler} instance.
+	 */
 	private LockFileHandler lockFileHandler = null;
 
-	/** The name of the time step file.*/
+	/**
+	 * The name of the time step file.
+	 */
 	private String timeStepFile;
 
-	/** The name of the lock directory.*/
+	/**
+	 * The name of the lock directory.
+	 */
 	private String lockDirectory;
 
 	/**
 	 * Constructor for locked scenario run.
 	 * Calls constructor of super class {@link ScenarioRunManager}.
-	 * @param name name of the scenario.
+	 *
+	 * @param name  name of the scenario.
 	 * @param store the {@link ScenarioStore} containing all information for the simulation.
 	 */
 	public ScenarioRunLocked(String name, ScenarioStore store) {
@@ -75,8 +82,6 @@ public class ScenarioRunLocked extends ScenarioRunManager {
 	 * Checks the given directory on lock files.
 	 * If a lock file is present, the simulation pauses after reaching the specified finish time.
 	 * When the lock gets released, the simulation is resumed with a new finish time.
-	 * 
-	 * @param lockDirectory
 	 */
 	private void handleLock(Path lockDirectory) {
 		logger.info("Lock file monitoring started.");
@@ -157,9 +162,10 @@ public class ScenarioRunLocked extends ScenarioRunManager {
 
 	/**
 	 * Creates new {@link LockFileHandler}.
+	 *
 	 * @param lockDirectory the lock directory.
-	 * @param timeStepFile the time stemp file name.
-	 * @param outputAll not used.
+	 * @param timeStepFile  the time stemp file name.
+	 * @param outputAll     not used.
 	 */
 	public void setWaitOnLockData(String lockDirectory, String timeStepFile, Boolean outputAll) {
 		this.lockDirectory = lockDirectory;
@@ -174,6 +180,7 @@ public class ScenarioRunLocked extends ScenarioRunManager {
 
 	/**
 	 * Prepares {@link Topography} so it can be used for simulation.
+	 *
 	 * @param topography the {@link Topography} to prepare.
 	 * @return prepared {@link Topography}.
 	 * @throws IOException if files not found.
@@ -269,9 +276,6 @@ public class ScenarioRunLocked extends ScenarioRunManager {
 	/**
 	 * This adds the writers of the output and time-step-file to the simulation.
 	 * Needed when in [lock] mode.
-	 * 
-	 * @param simulation
-	 * @throws FileNotFoundException
 	 */
 	private void prepareLockOutput(Simulation simulation) throws FileNotFoundException {
 	}

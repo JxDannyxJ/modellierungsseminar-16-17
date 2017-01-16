@@ -12,7 +12,6 @@ import java.util.stream.Stream;
 
 /**
  * @author Mario Teixeira Parente
- *
  */
 
 public class PedestrianVelocityProcessor extends DataProcessor<TimestepPedestrianIdKey, Double> {

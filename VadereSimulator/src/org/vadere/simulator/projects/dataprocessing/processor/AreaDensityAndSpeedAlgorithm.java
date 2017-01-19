@@ -43,7 +43,7 @@ public class AreaDensityAndSpeedAlgorithm extends AreaDensityAlgorithm implement
 		}
 		double density = 0;
 		if (counter != 0) {
-			density = measurementArea.getArea() / counter;
+			density = counter / measurementArea.getArea();
 		}
 		return density;
 	}

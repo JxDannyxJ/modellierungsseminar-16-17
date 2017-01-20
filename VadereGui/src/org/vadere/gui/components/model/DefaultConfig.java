@@ -2,6 +2,12 @@ package org.vadere.gui.components.model;
 
 import java.awt.*;
 
+
+/**
+ * This class contains the DefaultConfig for Colors of all Topography Elements.
+ * Further it contains getter and setter Methods for all Elementcolors.
+ *
+ */
 public class DefaultConfig {
 	private Color obstacleColor = Color.BLACK;
 	private Color sourceColor = Color.GREEN;
@@ -9,9 +15,11 @@ public class DefaultConfig {
 	private Color densityColor = Color.RED;
 	private Color stairColor = Color.PINK;
 	private Color pedestrianColor = Color.BLUE;
+	private Color horseColor = Color.MAGENTA;
 	private boolean changed = false;
 
-	public DefaultConfig() {}
+	public DefaultConfig() {
+	}
 
 	public DefaultConfig(final DefaultConfig config) {
 		this.sourceColor = config.sourceColor;
@@ -73,6 +81,14 @@ public class DefaultConfig {
 
 	public void setPedestrianColor(Color pedestrianColor) {
 		this.pedestrianColor = pedestrianColor;
+	}
+
+	public Color getHorseColor() { 
+		return horseColor;
+	}
+
+	public void setHorseColor(Color horseColor) { 
+		this.horseColor = horseColor;
 	}
 
 	public Color getDensityColor() {
